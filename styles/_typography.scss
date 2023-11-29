@@ -1,0 +1,94 @@
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('../public/fonts/NotoSansKR-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('../public/fonts/NotoSansKR-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('../public/fonts/NotoSansKR-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+// Title text styles - minxin
+@mixin typography($font-size, $line-height, $letter-spacing) {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: $font-size;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
+}
+
+// Title text styles
+@mixin h1-style {
+  @include typography(24px, 29px, 0%);
+}
+
+@mixin h2-style {
+  @include typography(20px, 25px, 0.15%);
+}
+
+@mixin h3-style {
+  @include typography(20px, 25px, 0.15%);
+}
+
+@mixin title-style {
+  @include typography(18px, 21px, 0.15%);
+}
+
+@mixin subtitle1-style {
+  @include typography(16px, 21px, 0.15%);
+}
+
+@mixin subtitle2-style {
+  @include typography(16px, 21px, 0.15%);
+}
+
+@mixin subtitle3-style {
+  @include typography(14px, 19px, 0.25%);
+}
+
+// Body text styles
+@mixin body1 {
+  @include typography(16px, 21px, 0.15%);
+}
+
+@mixin body2 {
+  @include typography(14px, 19px, 0.25%);
+}
+
+@mixin body3 {
+  @include typography(14px, 19px, 0.25%);
+}
+
+// Caption styles
+@mixin caption-medium {
+  @include typography(12px, 12px, -1.25%);
+}
+
+@mixin caption-regular {
+  @include typography(12px, 12px, -1.25%);
+}
+
+// Button styles
+@mixin button-medium {
+  @include typography(14px, 14px, 1.25%);
+}
+
+@mixin button-underline {
+  @include typography(14px, 14px, 1.25%);
+  text-decoration: underline;
+}
+
+// Tag style
+@mixin tag {
+  @include typography(10px, 12px, -1.25%);
+}

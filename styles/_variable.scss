@@ -1,0 +1,44 @@
+// Define CSS variables for colors
+
+// Brand colors
+:root {
+  --color-brand-blue: #4e80ff;
+  --color-brand-lightBlue: #eeeff7;
+  --color-brand-blue-10: rgba(78, 128, 255, 0.1); // Assuming 'blue-10%' means 10% opacity
+
+  // Tag colors
+  --color-tag-purple: #db4eff;
+  --color-tag-purple-10: rgba(219, 78, 255, 0.1); // Assuming 'purple-10%' means 10% opacity
+  --color-tag-pink: #ff2d55;
+  --color-tag-pink-10: rgba(255, 45, 85, 0.1); // Assuming 'pink-10%' means 10% opacity
+  --color-tag-red: #eb3939;
+  --color-tag-red-10: rgba(235, 57, 57, 0.1); // Assuming 'red-10%' means 10% opacity
+
+  // State colors
+  --color-state-info: #2f80ed;
+  --color-state-success: #27ae60;
+  --color-state-warning: #e2b93b;
+  --color-state-error: #eb5757;
+
+  // Basic colors
+  --color-basic-black: #080808;
+  --color-basic-white: #ffffff;
+  --color-basic-black-60: rgba(8, 8, 8, 0.6);
+  --color-basic-black-80: rgba(8, 8, 8, 0.8);
+  --color-basic-white-80: rgba(255, 255, 255, 0.8);
+
+  // Graybase colors
+  --color-gray-0: #f7f8fb;
+  --color-gray-1: #eef0f3;
+  --color-gray-2: #c5c8cb;
+  --color-gray-3: #75787b;
+  --color-gray-4: #9da0a3;
+  --color-gray-5: #4d5053;
+  --color-gray-6: #25282b;
+
+  // Font colors
+  --color-font-headline: #1a1a1a;
+  --color-font-subheadline: #5d5d5d;
+  --color-font-body: #858585;
+  --color-font-disabled: #aaaaaa;
+}
