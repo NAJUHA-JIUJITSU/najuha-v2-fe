@@ -4,10 +4,30 @@
 
 .first {
   @include h1-style;
-  color: var(--color-basic-blue);
+  color: $--color-state-error;
 }
 
-h1 {
-  @include h1-style;
-  color: var(--color-basic-blue);
+.second {
+  @include h2-style;
+  color: $--color-state-error;
+}
+
+.third {
+  @include h3-style;
+  color: $--color-font-subheadline;
+}
+
+.fourth {
+  @include title-style;
+  color: $--color-state-success;
+}
+
+.fifth {
+  @include subtitle1-style;
+  color: $--color-gray-5;
+}
+
+.sixth {
+  @include subtitle2-style;
+  color: $--color-tag-pink-10;
 }
