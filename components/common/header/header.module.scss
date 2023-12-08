@@ -1,0 +1,22 @@
+.wrapper {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: red;
+  height: 48px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.right {
+  display: flex;
+  margin-left: auto;
+  gap: 10px;
+}
