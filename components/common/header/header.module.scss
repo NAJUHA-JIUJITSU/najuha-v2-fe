@@ -6,7 +6,7 @@
 .wrapper {
   width: 100%;
   box-sizing: border-box;
-  background-color: red;
+  background-color: $--color-basic-white;
   height: 48px;
   padding: 0 16px;
   display: flex;
@@ -22,7 +22,6 @@
 .right {
   display: flex;
   margin-left: auto;
-  gap: 10px;
 }
 
 // 각 컴포넌트 스타일
@@ -35,4 +34,12 @@
 .subtitle {
   @include font-title-medium;
   color: $--color-font-headline;
+}
+
+.leftIcon {
+  margin-right: 10px;
+}
+
+.rightIcon2 {
+  margin-left: 10px;
 }

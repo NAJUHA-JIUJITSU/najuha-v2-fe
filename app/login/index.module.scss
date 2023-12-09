@@ -1,0 +1,82 @@
+@import '../../styles/_typography.scss';
+@import '../../styles/_variable.scss';
+@import '../../styles/_zindex.scss';
+
+//전체 레이아웃
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 0 16px;
+  background-color: $--color-basic-white;
+}
+
+//top
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+//info
+.info {
+  padding: 32px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: auto;
+}
+
+.info h1 {
+  word-break: keep-all;
+  @include font-h1-medium;
+}
+.info span {
+  color: $--color-brand-blue;
+}
+
+//login
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.login button {
+  display: flex;
+  height: 52px;
+  width: 100%;
+  padding: 0px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  border-radius: 100px;
+  @include font-subtitle2-medium;
+}
+
+.kakaoLoginButton {
+  background: #fee500;
+  color: #392020;
+}
+
+.NaverLoginButton {
+  background: #03c75a;
+  color: #ffffff;
+}
+
+.AppleLoginButton {
+  background: #080808;
+  color: #ffffff;
+}
+
+//bottom
+.bottom {
+  display: flex;
+  padding: 16px 0px;
+  justify-content: center;
+  align-items: center;
+}
