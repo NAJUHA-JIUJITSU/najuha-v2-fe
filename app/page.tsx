@@ -1,20 +1,17 @@
 import styles from './main.module.scss';
-import iconAlarm from '../public/svgs/alarm.svg';
-import Header from '@/components/common/header/Header';
-import IconLogo from '../public/svgs/logo.svg';
+import Header from '../components/common/header/Header';
 import IconNavigateBefore from '../public/svgs/navigate_before.svg';
-import IconSearch from '../public/svgs/search.svg';
-import IconAlarm from '../public/svgs/alarm.svg';
+import { LinkIconSearch, LinkIconAlarm, LinkIconLogo } from '../components/common/linkIcon';
 
 export default function Home() {
   return (
     <>
       <Header
         leftIcon={<IconNavigateBefore />}
-        title={<IconLogo />}
-        subtitle={'페이지명'}
-        rightIcon2={<IconAlarm />}
-        rightIcon1={<IconSearch />}
+        title={<LinkIconLogo />}
+        subtitle={'서브 타이틀'}
+        rightIcon2={<LinkIconAlarm />}
+        rightIcon1={<LinkIconSearch />}
       />
     </>
   );

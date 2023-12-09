@@ -14,8 +14,8 @@ export default function Header({ leftIcon, subtitle, title, rightIcon1, rightIco
     <div className={styles.wrapper}>
       <div className={styles.left}>
         <div>{leftIcon}</div>
-        <div>{title}</div>
-        <div>{subtitle}</div>
+        <div className={styles.title}>{title}</div>
+        <div className={styles.subtitle}>{subtitle}</div>
       </div>
       <div className={styles.right}>
         <div>{rightIcon1}</div>
