@@ -1,7 +1,7 @@
-import FullLogo from '../../public/svgs/fullLogo.svg';
-import KakaoLogo from '../../public/svgs/kakaoLogo.svg';
-import NaverLogo from '../../public/svgs/naverLogo.svg';
-import AppleLogo from '../../public/svgs/appleLogo.svg';
+import FullLogo from '@/public/svgs/fullLogo.svg';
+import KakaoLogo from '@/public/svgs/kakaoLogo.svg';
+import NaverLogo from '@/public/svgs/naverLogo.svg';
+import AppleLogo from '@/public/svgs/appleLogo.svg';
 import styles from './index.module.scss';
 
 // backgroundImage

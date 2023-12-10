@@ -1,8 +1,8 @@
 import styles from './index.module.scss';
 import Link from 'next/link';
-import IconAlarm from '../../../public/svgs/alarm.svg';
-import IconLogo from '../../../public/svgs/logo.svg';
-import IconSearch from '../../../public/svgs/search.svg';
+import IconAlarm from '@/public/svgs/alarm.svg';
+import IconLogo from '@/public/svgs/logo.svg';
+import IconSearch from '@/public/svgs/search.svg';
 
 interface Props {
   icon: React.ReactNode;
