@@ -85,7 +85,7 @@
 }
 
 @mixin font-button-medium-underline {
-  @include typography(14px, 14px, 1.25% 500);
+  @include typography(14px, 14px, 1.25%, 500);
   text-decoration: underline;
 }
 

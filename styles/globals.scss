@@ -107,7 +107,7 @@ section {
   display: block;
 }
 body {
-  line-height: 1;
+  line-height: 0;
 }
 ol,
 ul {
@@ -132,6 +132,8 @@ table {
 /* Add more global styles if needed */
 a {
   display: block;
+  text-decoration: none;
+  color: inherit;
 }
 
 button {
@@ -142,4 +144,5 @@ button {
   padding: 0;
   overflow: visible;
   cursor: pointer;
+  line-height: 0;
 }

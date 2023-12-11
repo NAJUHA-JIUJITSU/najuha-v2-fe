@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import IconNavigateBefore from '@/public/svgs/navigate_before.svg';
+import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import useGoBack from '@/hook/useGoBack';
 
 interface Props {

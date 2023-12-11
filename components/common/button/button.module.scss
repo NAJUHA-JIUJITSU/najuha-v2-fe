@@ -1,0 +1,115 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+// 버튼 공통 스타일
+.wrapper {
+  padding: 7px 8px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  gap: 2px;
+  @include font-button-medium;
+}
+
+//----size----
+.small {
+  height: 32px;
+}
+
+.medium {
+  height: 36px;
+}
+
+.large {
+  height: 48px;
+}
+
+.xLarge {
+  height: 56px;
+}
+
+//----typeColor----
+
+// filled 버튼
+.filled {
+  &-blue {
+    background-color: $--color-brand-blue;
+    color: $--color-basic-white;
+  }
+  &-lightblue {
+    background-color: $--color-brand-lightBlue;
+    color: $--color-brand-blue;
+  }
+  &-gray {
+    background-color: $--color-gray-0;
+    color: $--color-font-subheadline;
+  }
+  &-disabled {
+    background-color: $--color-gray-1;
+    color: $--color-font-disabled;
+    cursor: not-allowed;
+  }
+}
+
+// outlined, text, underlined, caption 버튼 공통 스타일
+.outlined,
+.text,
+.underlined,
+.caption {
+  &-blue {
+    background-color: $--color-basic-white;
+    color: $--color-brand-blue;
+  }
+  &-black {
+    background-color: $--color-basic-white;
+    color: $--color-font-headline;
+  }
+  &-gray {
+    background-color: $--color-basic-white;
+    color: $--color-font-subheadline;
+  }
+  &-disabled {
+    background-color: $--color-basic-white;
+    color: $--color-font-disabled;
+    cursor: not-allowed;
+  }
+}
+
+// outlined 버튼
+.outlined {
+  &-blue {
+    border: 1px solid $--color-brand-blue;
+  }
+  &-black {
+    border: 1px solid $--color-basic-black;
+  }
+  &-gray {
+    border: 1px solid $--color-gray-1;
+  }
+  &-disabled {
+    border: 1px solid $--color-gray-1;
+  }
+}
+
+// underlined 버튼
+.underlined {
+  &-blue,
+  &-black,
+  &-gray,
+  &-disabled {
+    @include font-button-medium-underline;
+  }
+}
+
+// caption 버튼
+.caption {
+  &-blue,
+  &-black,
+  &-gray,
+  &-disabled {
+    @include font-caption-regular;
+  }
+}

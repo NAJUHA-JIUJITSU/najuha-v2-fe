@@ -36,9 +36,8 @@ export default function Login() {
           </button>
         </div>
         <div className={styles.bottom}>
-          {/* //TODO : bottom 마무리 해야함 */}
-          <button>둘러보기</button>
           <button>문의하기</button>
+          <button>둘러보기</button>
         </div>
       </div>
     </div>

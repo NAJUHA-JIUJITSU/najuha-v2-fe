@@ -32,6 +32,7 @@
 
 .info h1 {
   word-break: keep-all;
+  color: $--color-font-headline;
   @include font-h1-medium;
 }
 .info span {
@@ -79,4 +80,25 @@
   padding: 16px 0px;
   justify-content: center;
   align-items: center;
+}
+
+.bottom button {
+  @include font-caption-regular;
+  color: $--color-font-body;
+  display: flex;
+  padding: 7px 8px;
+  justify-content: center;
+  align-items: center;
+  line-height: 12px;
+  position: relative;
+}
+
+.bottom button:first-child::after {
+  position: absolute;
+  left: 60px;
+  top: 7px;
+  content: '';
+  width: 1px;
+  height: 12px;
+  background-color: $--color-gray-1;
 }
