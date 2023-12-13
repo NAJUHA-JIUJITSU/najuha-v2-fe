@@ -12,7 +12,7 @@ interface BaseButtonProps {
   iconLeft?: React.ReactNode;
   text: string;
   iconRight?: React.ReactNode;
-  onClick?: () => void;
+  onClick: () => void;
 }
 
 export default function ButtonOnClick({

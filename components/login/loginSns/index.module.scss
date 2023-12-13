@@ -2,12 +2,10 @@
 @import '@/styles/_variable.scss';
 @import '@/styles/_zindex.scss';
 
-//전체 레이아웃
-.wrapper {
+//login
+.login {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  box-sizing: border-box;
-  padding: 0 16px;
-  background-color: $--color-basic-white;
+  align-items: center;
+  gap: 8px;
 }

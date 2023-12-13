@@ -1,0 +1,22 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+//info
+.info {
+  padding: 32px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: auto;
+}
+
+.info h1 {
+  word-break: keep-all;
+  color: $--color-font-headline;
+  @include font-h1-medium;
+}
+.info span {
+  color: $--color-brand-blue;
+}

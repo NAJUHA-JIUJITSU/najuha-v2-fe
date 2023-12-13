@@ -1,0 +1,30 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.button {
+  display: flex;
+  height: 52px;
+  width: 100%;
+  padding: 0px 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  border-radius: 100px;
+  @include font-subtitle2-medium;
+}
+
+.kakao {
+  background: #fee500;
+  color: #392020;
+}
+
+.naver {
+  background: #03c75a;
+  color: #ffffff;
+}
+
+.apple {
+  background: #080808;
+  color: #ffffff;
+}

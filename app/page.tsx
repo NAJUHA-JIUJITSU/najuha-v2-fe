@@ -49,6 +49,7 @@ export default function Home() {
         color="disabled"
         href="/gi"
       />
+
       <ButtonOnClick
         iconLeft={<IconMapSmall />}
         text="small"
@@ -56,6 +57,7 @@ export default function Home() {
         size="large"
         type="filled"
         color="blue"
+        onClick={() => {}}
       />
       <ButtonOnClick
         iconLeft={<IconMapSmall />}
@@ -64,6 +66,7 @@ export default function Home() {
         size="small"
         type="outlined"
         color="blue"
+        onClick={() => {}}
       />
       <ButtonOnClick
         iconLeft={<IconMapSmall />}
@@ -72,6 +75,7 @@ export default function Home() {
         size="medium"
         type="text"
         color="lightblue"
+        onClick={() => {}}
       />
       <ButtonOnClick
         iconLeft={<IconMapSmall />}
@@ -80,6 +84,7 @@ export default function Home() {
         size="large"
         type="underlined"
         color="black"
+        onClick={() => {}}
       />
       <ButtonOnClick
         iconLeft={<IconMapSmall />}
@@ -88,6 +93,7 @@ export default function Home() {
         size="xLarge"
         type="caption"
         color="disabled"
+        onClick={() => {}}
       />
 
       {/* Filled Type Buttons */}
@@ -98,35 +104,138 @@ export default function Home() {
         size="small"
         type="filled"
         color="blue"
+        onClick={() => {}}
       />
-      <ButtonOnClick text="Filled Light Blue" size="small" type="filled" color="lightblue" />
-      <ButtonOnClick text="Filled Black" size="small" type="filled" color="black" />
-      <ButtonOnClick text="Filled Gray" size="small" type="filled" color="gray" />
-      <ButtonOnClick text="Filled Disabled" size="small" type="filled" color="disabled" />
+      <ButtonOnClick
+        onClick={() => {}}
+        text="Filled Light Blue"
+        size="small"
+        type="filled"
+        color="lightblue"
+      />
+      <ButtonOnClick
+        onClick={() => {}}
+        text="Filled Black"
+        size="small"
+        type="filled"
+        color="black"
+      />
+      <ButtonOnClick
+        onClick={() => {}}
+        text="Filled Gray"
+        size="small"
+        type="filled"
+        color="gray"
+      />
+      <ButtonOnClick
+        onClick={() => {}}
+        text="Filled Disabled"
+        size="small"
+        type="filled"
+        color="disabled"
+      />
 
       {/* Outlined Type Buttons */}
-      <ButtonOnClick text="Outlined Blue" size="small" type="outlined" color="blue" />
-      <ButtonOnClick text="Outlined Black" size="small" type="outlined" color="black" />
-      <ButtonOnClick text="Outlined Gray" size="small" type="outlined" color="gray" />
-      <ButtonOnClick text="Outlined Disabled" size="small" type="outlined" color="disabled" />
+      <ButtonOnClick
+        onClick={() => {}}
+        text="Outlined Blue"
+        size="small"
+        type="outlined"
+        color="blue"
+      />
+      <ButtonOnClick
+        onClick={() => {}}
+        text="Outlined Black"
+        size="small"
+        type="outlined"
+        color="black"
+      />
+      <ButtonOnClick
+        onClick={() => {}}
+        text="Outlined Gray"
+        size="small"
+        type="outlined"
+        color="gray"
+      />
+      <ButtonOnClick
+        onClick={() => {}}
+        text="Outlined Disabled"
+        size="small"
+        type="outlined"
+        color="disabled"
+      />
 
       {/* Text Type Buttons */}
-      <ButtonOnClick text="Text Blue" size="small" type="text" color="blue" />
-      <ButtonOnClick text="Text Black" size="small" type="text" color="black" />
-      <ButtonOnClick text="Text Gray" size="small" type="text" color="gray" />
-      <ButtonOnClick text="Text Disabled" size="small" type="text" color="disabled" />
+      <ButtonOnClick onClick={() => {}} text="Text Blue" size="small" type="text" color="blue" />
+      <ButtonOnClick onClick={() => {}} text="Text Black" size="small" type="text" color="black" />
+      <ButtonOnClick onClick={() => {}} text="Text Gray" size="small" type="text" color="gray" />
+      <ButtonOnClick
+        onClick={() => {}}
+        text="Text Disabled"
+        size="small"
+        type="text"
+        color="disabled"
+      />
 
       {/* Underline Type Buttons */}
-      <ButtonOnClick text="Underline Blue" size="small" type="underlined" color="blue" />
-      <ButtonOnClick text="Underline Black" size="small" type="underlined" color="black" />
-      <ButtonOnClick text="Underline Gray" size="small" type="underlined" color="gray" />
-      <ButtonOnClick text="Underline Disabled" size="small" type="underlined" color="disabled" />
+      <ButtonOnClick
+        onClick={() => {}}
+        text="Underline Blue"
+        size="small"
+        type="underlined"
+        color="blue"
+      />
+      <ButtonOnClick
+        onClick={() => {}}
+        text="Underline Black"
+        size="small"
+        type="underlined"
+        color="black"
+      />
+      <ButtonOnClick
+        onClick={() => {}}
+        text="Underline Gray"
+        size="small"
+        type="underlined"
+        color="gray"
+      />
+      <ButtonOnClick
+        onClick={() => {}}
+        text="Underline Disabled"
+        size="small"
+        type="underlined"
+        color="disabled"
+      />
 
       {/* Caption Type Buttons */}
-      <ButtonOnClick text="Caption Blue" size="small" type="caption" color="blue" />
-      <ButtonOnClick text="Caption Black" size="small" type="caption" color="black" />
-      <ButtonOnClick text="Caption Gray" size="small" type="caption" color="gray" />
-      <ButtonOnClick text="Caption Disabled" size="small" type="caption" color="disabled" />
+      <ButtonOnClick
+        onClick={() => {}}
+        text="Caption Blue"
+        size="small"
+        type="caption"
+        color="blue"
+      />
+      <ButtonOnClick
+        onClick={() => {}}
+        text="Caption Black"
+        size="small"
+        type="caption"
+        color="black"
+      />
+      <ButtonOnClick
+        onClick={() => {}}
+        text="Caption Gray"
+        size="small"
+        type="caption"
+        color="gray"
+      />
+      <ButtonOnClick
+        onClick={() => {}}
+        text="Caption Disabled"
+        size="small"
+        type="caption"
+        color="disabled"
+      />
     </>
   );
 }
