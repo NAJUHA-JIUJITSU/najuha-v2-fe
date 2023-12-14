@@ -1,0 +1,15 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  @include font-body1-regular;
+  color: $--color-font-headline;
+}
+
+.checkbox input[type='checkbox'] {
+  display: none;
+}

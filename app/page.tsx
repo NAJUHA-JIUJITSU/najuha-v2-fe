@@ -101,7 +101,7 @@ export default function Home() {
         iconLeft={<IconMapSmall />}
         text="Filled Blue"
         iconRight={<IconNavigateBeforeSmall />}
-        size="small"
+        size="large"
         type="filled"
         color="blue"
         onClick={() => {}}
