@@ -3,7 +3,7 @@ import styles from './main.module.scss';
 import Header from '@/components/common/header/Header';
 import IconNavigateBeforeSmall from '@/public/svgs/navigateBeforeSmall.svg';
 import IconMapSmall from '@/public/svgs/mapSmall.svg';
-import { LinkIconSearch, LinkIconAlarm, LinkIconLogo } from '@/components/common/icon/iconLink';
+import { IconLinkSearch, IconLinkAlarm, IconLinkLogo } from '@/components/common/icon/iconLink';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import ButtonLink from '@/components/common/button/buttonLink';
@@ -14,8 +14,8 @@ export default function Home() {
       <Header
         leftIcon={<ButtonIconNavigateBefore />}
         title={'타이틀'}
-        rightIcon1={<LinkIconAlarm />}
-        rightIcon2={<LinkIconSearch />}
+        rightIcon1={<IconLinkAlarm />}
+        rightIcon2={<IconLinkSearch />}
       />
 
       <ButtonLink
@@ -53,6 +53,7 @@ export default function Home() {
       <ButtonOnClick
         iconLeft={<IconMapSmall />}
         text="small"
+        width="normal"
         iconRight={<IconNavigateBeforeSmall />}
         size="large"
         type="filled"
@@ -62,6 +63,7 @@ export default function Home() {
       <ButtonOnClick
         iconLeft={<IconMapSmall />}
         text="아도겐"
+        width="normal"
         iconRight={<IconNavigateBeforeSmall />}
         size="small"
         type="outlined"
@@ -71,6 +73,7 @@ export default function Home() {
       <ButtonOnClick
         iconLeft={<IconMapSmall />}
         text="medium"
+        width="normal"
         iconRight={<IconNavigateBeforeSmall />}
         size="medium"
         type="text"
@@ -80,6 +83,7 @@ export default function Home() {
       <ButtonOnClick
         iconLeft={<IconMapSmall />}
         text="large"
+        width="normal"
         iconRight={<IconNavigateBeforeSmall />}
         size="large"
         type="underlined"
@@ -89,6 +93,7 @@ export default function Home() {
       <ButtonOnClick
         iconLeft={<IconMapSmall />}
         text="xLarge"
+        width="normal"
         iconRight={<IconNavigateBeforeSmall />}
         size="xLarge"
         type="caption"
@@ -100,6 +105,7 @@ export default function Home() {
       <ButtonOnClick
         iconLeft={<IconMapSmall />}
         text="Filled Blue"
+        width="normal"
         iconRight={<IconNavigateBeforeSmall />}
         size="large"
         type="filled"
@@ -109,6 +115,7 @@ export default function Home() {
       <ButtonOnClick
         onClick={() => {}}
         text="Filled Light Blue"
+        width="normal"
         size="small"
         type="filled"
         color="lightblue"
@@ -116,6 +123,7 @@ export default function Home() {
       <ButtonOnClick
         onClick={() => {}}
         text="Filled Black"
+        width="normal"
         size="small"
         type="filled"
         color="black"
@@ -123,6 +131,7 @@ export default function Home() {
       <ButtonOnClick
         onClick={() => {}}
         text="Filled Gray"
+        width="normal"
         size="small"
         type="filled"
         color="gray"
@@ -130,6 +139,7 @@ export default function Home() {
       <ButtonOnClick
         onClick={() => {}}
         text="Filled Disabled"
+        width="normal"
         size="small"
         type="filled"
         color="disabled"
@@ -139,6 +149,7 @@ export default function Home() {
       <ButtonOnClick
         onClick={() => {}}
         text="Outlined Blue"
+        width="normal"
         size="small"
         type="outlined"
         color="blue"
@@ -147,12 +158,14 @@ export default function Home() {
         onClick={() => {}}
         text="Outlined Black"
         size="small"
+        width="normal"
         type="outlined"
         color="black"
       />
       <ButtonOnClick
         onClick={() => {}}
         text="Outlined Gray"
+        width="normal"
         size="small"
         type="outlined"
         color="gray"
@@ -160,18 +173,41 @@ export default function Home() {
       <ButtonOnClick
         onClick={() => {}}
         text="Outlined Disabled"
+        width="normal"
         size="small"
         type="outlined"
         color="disabled"
       />
 
       {/* Text Type Buttons */}
-      <ButtonOnClick onClick={() => {}} text="Text Blue" size="small" type="text" color="blue" />
-      <ButtonOnClick onClick={() => {}} text="Text Black" size="small" type="text" color="black" />
-      <ButtonOnClick onClick={() => {}} text="Text Gray" size="small" type="text" color="gray" />
+      <ButtonOnClick
+        onClick={() => {}}
+        width="normal"
+        text="Text Blue"
+        size="small"
+        type="text"
+        color="blue"
+      />
+      <ButtonOnClick
+        onClick={() => {}}
+        width="normal"
+        text="Text Black"
+        size="small"
+        type="text"
+        color="black"
+      />
+      <ButtonOnClick
+        onClick={() => {}}
+        width="normal"
+        text="Text Gray"
+        size="small"
+        type="text"
+        color="gray"
+      />
       <ButtonOnClick
         onClick={() => {}}
         text="Text Disabled"
+        width="normal"
         size="small"
         type="text"
         color="disabled"
@@ -181,6 +217,7 @@ export default function Home() {
       <ButtonOnClick
         onClick={() => {}}
         text="Underline Blue"
+        width="normal"
         size="small"
         type="underlined"
         color="blue"
@@ -188,6 +225,7 @@ export default function Home() {
       <ButtonOnClick
         onClick={() => {}}
         text="Underline Black"
+        width="normal"
         size="small"
         type="underlined"
         color="black"
@@ -195,6 +233,7 @@ export default function Home() {
       <ButtonOnClick
         onClick={() => {}}
         text="Underline Gray"
+        width="normal"
         size="small"
         type="underlined"
         color="gray"
@@ -202,6 +241,7 @@ export default function Home() {
       <ButtonOnClick
         onClick={() => {}}
         text="Underline Disabled"
+        width="normal"
         size="small"
         type="underlined"
         color="disabled"
@@ -211,6 +251,7 @@ export default function Home() {
       <ButtonOnClick
         onClick={() => {}}
         text="Caption Blue"
+        width="normal"
         size="small"
         type="caption"
         color="blue"
@@ -218,6 +259,7 @@ export default function Home() {
       <ButtonOnClick
         onClick={() => {}}
         text="Caption Black"
+        width="normal"
         size="small"
         type="caption"
         color="black"
@@ -225,6 +267,7 @@ export default function Home() {
       <ButtonOnClick
         onClick={() => {}}
         text="Caption Gray"
+        width="normal"
         size="small"
         type="caption"
         color="gray"
@@ -232,6 +275,7 @@ export default function Home() {
       <ButtonOnClick
         onClick={() => {}}
         text="Caption Disabled"
+        width="normal"
         size="small"
         type="caption"
         color="disabled"

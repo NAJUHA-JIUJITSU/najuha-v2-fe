@@ -9,20 +9,20 @@ interface Props {
   redirectUrl: string;
 }
 // 링크아이콘 베이스 컴포넌트 (재사용성을 위해)
-function LinkIcon({ icon, redirectUrl }: Props) {
+function IconLink({ icon, redirectUrl }: Props) {
   return <Link href={redirectUrl}>{icon}</Link>;
 }
 
-function LinkIconAlarm() {
-  return <LinkIcon icon={<IconAlarm />} redirectUrl={'/alarm'} />;
+function IconLinkAlarm() {
+  return <IconLink icon={<IconAlarm />} redirectUrl={'/alarm'} />;
 }
 
-function LinkIconLogo() {
-  return <LinkIcon icon={<IconLogo />} redirectUrl={'/home'} />;
+function IconLinkLogo() {
+  return <IconLink icon={<IconLogo />} redirectUrl={'/home'} />;
 }
 
-function LinkIconSearch() {
-  return <LinkIcon icon={<IconSearch />} redirectUrl={'/search'} />;
+function IconLinkSearch() {
+  return <IconLink icon={<IconSearch />} redirectUrl={'/search'} />;
 }
 
-export { LinkIconAlarm, LinkIconLogo, LinkIconSearch };
+export { IconLink, IconLinkAlarm, IconLinkLogo, IconLinkSearch };

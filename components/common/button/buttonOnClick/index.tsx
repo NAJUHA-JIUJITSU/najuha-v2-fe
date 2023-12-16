@@ -8,7 +8,7 @@ type Width = 'full' | 'normal';
 
 interface BaseButtonProps {
   type: ButtonType;
-  width: Width;
+  width?: Width;
   size: ButtonSize;
   color: ButtonColor;
   iconLeft?: React.ReactNode;
