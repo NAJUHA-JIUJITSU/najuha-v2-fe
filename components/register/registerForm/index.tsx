@@ -48,10 +48,9 @@ export default function registerForm() {
       {checkList.map((item) => (
         <CheckBoxLabel
           key={item.id}
-          id={item.id}
           msg={item.msg}
           rightIcon={item.link}
-          changeCheck={toggleState}
+          changeCheck={toggleState(item.id)}
           isChecked={checkedStates[item.id]}
         />
       ))}
