@@ -33,6 +33,18 @@ function useCheckboxState(initialState: CheckboxState) {
     );
   };
 
+  // 함수형업데이트를 안쓰고 그냥 업데이트를 하면
+
+  // const toggleState = (key: string) => {
+  //   return useCallback(() => {
+  //     const newValue = !state[key];
+  //     setState({
+  //       ...state,
+  //       [key]: newValue,
+  //     });
+  //   }, [state]);
+  // };
+
   return [state, toggleState] as const;
 }
 

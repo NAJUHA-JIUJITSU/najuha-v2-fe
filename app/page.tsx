@@ -1,9 +1,8 @@
 'use client';
-import styles from './main.module.scss';
 import Header from '@/components/common/header/Header';
 import IconNavigateBeforeSmall from '@/public/svgs/navigateBeforeSmall.svg';
 import IconMapSmall from '@/public/svgs/mapSmall.svg';
-import { IconLinkSearch, IconLinkAlarm, IconLinkLogo } from '@/components/common/icon/iconLink';
+import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import ButtonLink from '@/components/common/button/buttonLink';
