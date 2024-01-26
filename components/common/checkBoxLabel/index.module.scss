@@ -7,6 +7,8 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
+  background-color: $--color-basic-white;
+  height: 56px;
 }
 
 .isUnderlined {
@@ -24,10 +26,8 @@
 .checkbox {
   display: flex;
   align-items: center;
-  height: 56px;
   cursor: pointer;
   gap: 8px;
-  cursor: pointer;
   flex: 1;
   div {
     @include font-body1-regular;

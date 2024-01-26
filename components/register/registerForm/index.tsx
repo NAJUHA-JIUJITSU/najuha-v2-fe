@@ -49,7 +49,8 @@ export default function registerForm() {
         <CheckBoxLabel
           key={item.id}
           msg={item.msg}
-          rightIcon={item.link}
+          isUnderlined={item.id === 'all'}
+          rightIcon={item.id !== 'all' ? item.link : null}
           changeCheck={toggleState(item.id)}
           isChecked={checkedStates[item.id]}
         />
