@@ -1,0 +1,17 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+//wrapper
+.wrapper {
+  margin: 16px 0px 12px 0px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
+  background-color: $--color-basic-white;
+}
+
+.submit {
+  margin-top: auto;
+}

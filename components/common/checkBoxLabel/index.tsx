@@ -4,6 +4,7 @@ import styles from './index.module.scss';
 import IconCheckboxOff from '@/public/svgs/checkboxOff.svg';
 import IconCheckboxOn from '@/public/svgs/checkboxOn.svg';
 
+//todo: label이라는 이름이 적절한지 확인 (inputLabel과 겹침)
 interface Props {
   msg?: string;
   // changeCheck: (value: string) => void;

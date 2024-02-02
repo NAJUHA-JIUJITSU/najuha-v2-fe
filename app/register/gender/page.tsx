@@ -8,7 +8,6 @@ import useCheckboxState from '@/hook/useCheckbox';
 import { useEffect, useState } from 'react';
 import Input from '@/components/common/input';
 
-
 export default function Gender() {
   const [gender, setGender] = useState<string | null>('male');
 

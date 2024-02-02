@@ -12,12 +12,6 @@
   border-radius: 6px;
   gap: 2px;
   @include font-button-medium;
-
-  //클릭시 효과
-  &:active {
-    transform: scale(0.94);
-    transition: 0.2s ease-in-out;
-  }
 }
 
 .full {

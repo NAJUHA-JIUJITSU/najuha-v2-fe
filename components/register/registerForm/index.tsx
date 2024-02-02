@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import styles from './index.module.scss';
-import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import CheckBoxLabel from '@/components/common/checkBoxLabel';
 import { IconLink } from '@/components/common/icon/iconLink';
 import IconNavigateNext from '@/public/svgs/navigateNext.svg';
@@ -55,16 +54,6 @@ export default function registerForm() {
           isChecked={checkedStates[item.id]}
         />
       ))}
-      <div className={styles.submit}>
-        <ButtonOnClick
-          type="filled"
-          text="약관전체 동의"
-          color="blue"
-          width="full"
-          size="large"
-          onClick={() => {}}
-        />
-      </div>
     </div>
   );
 }

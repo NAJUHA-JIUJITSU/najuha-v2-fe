@@ -1,4 +1,3 @@
-import { ReactHTMLElement } from 'react';
 import styles from './header.module.scss';
 
 interface Props {
