@@ -15,6 +15,7 @@
 }
 
 .input {
+  outline: none;
   background-color: $--color-basic-white;
   height: 54px;
   padding: 0px 16px;
@@ -24,7 +25,7 @@
   color: $--color-font-headline;
 
   &:focus {
-    border: 1px solid $--color-brand-blue;
+    border: 1px solid $--color-gray-4;
   }
 
   &::placeholder {
@@ -33,6 +34,13 @@
 
   &:disabled {
     background-color: $--color-gray-0;
+  }
+}
+
+.errInput {
+  border: 1px solid $--color-state-error;
+  &:focus {
+    border: 1px solid $--color-state-error;
   }
 }
 

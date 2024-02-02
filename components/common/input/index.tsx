@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './index.module.scss';
+import clsx from 'clsx';
 
 interface Props {
   label?: string;
@@ -22,7 +23,7 @@ const Input: React.FC<Props> = ({
     <div className={styles.wrapper}>
       <label className={styles.label}>{label}</label>
       <input
-        className={styles.input}
+        className={clsx(styles.input, { [styles.errInput]: errMsg })}
         type="text"
         placeholder={placeholder}
         value={value}
