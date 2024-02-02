@@ -7,10 +7,11 @@ import InfoMessage from '../common/infoMessage';
 
 interface NicknamePageProps {
   onNext: (data: any) => void;
+  data: string;
 }
 
-export default function nicknamePage({ onNext }: NicknamePageProps) {
-  const [nickname, setNickname] = useState<string>('');
+export default function nicknamePage({ onNext, data }: NicknamePageProps) {
+  const [nickname, setNickname] = useState<string>(data);
   const [nicknameErrMsg, setNicknameErrMsg] = useState<string | null>('');
 
   //validateNickname 함수

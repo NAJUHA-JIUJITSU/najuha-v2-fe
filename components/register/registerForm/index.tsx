@@ -4,6 +4,11 @@ import CheckBoxLabel from '@/components/common/checkBoxLabel';
 import { IconLink } from '@/components/common/icon/iconLink';
 import IconNavigateNext from '@/public/svgs/navigateNext.svg';
 import useCheckboxState from '@/hook/useCheckbox';
+import ButtonOnClick from '@/components/common/button/buttonOnClick';
+
+interface RegisterFormProps {
+  onNext: (data: any) => void;
+}
 
 const checkList = [
   {
@@ -33,7 +38,7 @@ const checkList = [
   },
 ];
 
-export default function registerForm() {
+export default function registerForm({ onNext }: RegisterFormProps) {
   const [checkedStates, toggleState] = useCheckboxState({
     all: false,
     use: false,
@@ -54,6 +59,16 @@ export default function registerForm() {
           isChecked={checkedStates[item.id]}
         />
       ))}
+      <div className={styles.submit}>
+        <ButtonOnClick
+          type="filled"
+          text="약관전체 동의"
+          color="blue"
+          width="full"
+          size="large"
+          onClick={() => onNext(checkedStates)}
+        />
+      </div>
     </div>
   );
 }

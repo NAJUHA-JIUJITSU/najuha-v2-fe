@@ -60,6 +60,7 @@ export default function funnel() {
       )}
       {currentStep === '생년월일' && (
         <BirthPage
+          data={registerData.생년월일}
           onNext={(data) => {
             setRegisterData((prev) => ({ ...prev, 생년월일: data }));
             setCurrentStepIndex((prevIndex) => prevIndex + 1);
@@ -68,8 +69,9 @@ export default function funnel() {
       )}
       {currentStep === '닉네임' && (
         <NicknamePage
+          data={registerData.닉네임}
           onNext={(data) => {
-            setRegisterData((prev) => ({ ...prev, 생년월일: data }));
+            setRegisterData((prev) => ({ ...prev, 닉네임: data }));
             setCurrentStepIndex((prevIndex) => prevIndex + 1);
           }}
         />

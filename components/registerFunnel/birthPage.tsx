@@ -6,10 +6,11 @@ import ButtonOnClick from '@/components/common/button/buttonOnClick';
 
 interface BirthPageProps {
   onNext: (data: any) => void;
+  data: string;
 }
 
-export default function birthPage({ onNext }: BirthPageProps) {
-  const [birth, setBirth] = useState<string>('');
+export default function birthPage({ onNext, data }: BirthPageProps) {
+  const [birth, setBirth] = useState<string>(data);
   const [birthErrMsg, setBirthErrMsg] = useState<string | null>('에러 메시지');
 
   //validateBirth 함수
