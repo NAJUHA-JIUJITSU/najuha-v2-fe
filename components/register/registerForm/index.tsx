@@ -13,6 +13,10 @@ interface RegisterFormProps {
 
 const checkList = [
   {
+    id: 'all',
+    msg: '전체 약관 동의',
+  },
+  {
     id: 'use',
     msg: '이용약관 동의(필수)',
     link: <IconLink icon={<IconNavigateNext />} redirectUrl={'/use'} />,
@@ -40,6 +44,10 @@ export default function registerForm({ onNext, data }: RegisterFormProps) {
   //약관동의를 하나라도 체크했는지 확인
   const isAtLeastOneTrue = Object.values(checkedStates).some((value) => value);
 
+  // 필수로 동의해야하는 약관 목록
+  const mandatoryAgreements = ['use', 'privacy', 'refund'];
+  const isAllMandatoryAgreed = mandatoryAgreements.every((agreement) => checkedStates[agreement]);
+
   const handleAllAgreements = () => {
     // '약관전체동의' 버튼 클릭 시 모든 약관을 true로 설정
     setAllTrue(true);
@@ -50,23 +58,8 @@ export default function registerForm({ onNext, data }: RegisterFormProps) {
     setAllTrue(!checkedStates.all);
   };
 
-  // 필수로 동의해야하는 약관 목록
-  const mandatoryAgreements = ['use', 'privacy', 'refund'];
-  const isAllMandatoryAgreed = mandatoryAgreements.every((agreement) => checkedStates[agreement]);
-
-  console.log('필수동의 다함?' + isAllMandatoryAgreed);
-
   return (
     <div className={styles.form}>
-      {/* 약관전체동의 체크박스 */}
-      <CheckBoxLabel
-        key="all"
-        msg="약관 전체동의"
-        isUnderlined={true}
-        changeCheck={handleToggleAllAgreements}
-        isChecked={checkedStates['all']}
-      />
-
       {/* 각 약관 체크박스들 */}
       {checkList.map((item) => (
         <CheckBoxLabel
@@ -74,12 +67,12 @@ export default function registerForm({ onNext, data }: RegisterFormProps) {
           msg={item.msg}
           isUnderlined={item.id === 'all'}
           rightIcon={item.id !== 'all' ? item.link : null}
-          changeCheck={toggleState(item.id)}
+          changeCheck={item.id !== 'all' ? toggleState(item.id) : handleToggleAllAgreements}
           isChecked={checkedStates[item.id]}
         />
       ))}
 
-      {/* '약관전체동의' 버튼 */}
+      {/* '약관전체동의' or '다음' 버튼 */}
       <div className={styles.submit}>
         <ButtonOnClick
           type="filled"

@@ -11,7 +11,8 @@ interface BirthPageProps {
 
 export default function birthPage({ onNext, data }: BirthPageProps) {
   const [birth, setBirth] = useState<string>(data);
-  const [birthErrMsg, setBirthErrMsg] = useState<string | null>('에러 메시지');
+  const [birthErrMsg, setBirthErrMsg] = useState<string | null>('');
+  const [isValidDate, setIsValidDate] = useState<boolean>(false);
 
   //validateBirth 함수
   const validateBirth = (inputBirth: string) => {
@@ -39,10 +40,14 @@ export default function birthPage({ onNext, data }: BirthPageProps) {
       if (!isValidDate) {
         setBirthErrMsg('유효한 날짜를 입력해주세요.');
         return false;
+      } else {
+        setIsValidDate(true);
+        return true;
       }
     }
 
     setBirthErrMsg(null);
+    setIsValidDate(false);
     return true;
   };
 
@@ -62,11 +67,12 @@ export default function birthPage({ onNext, data }: BirthPageProps) {
       <div className={styles.submit}>
         <ButtonOnClick
           type="filled"
-          text="약관전체 동의"
-          color="blue"
+          text="다음"
+          color={isValidDate ? 'blue' : 'disabled'}
           width="full"
           size="large"
           onClick={() => onNext(birth)}
+          errorMessage="유효한 날짜를 입력해주세요."
         />
       </div>
     </div>

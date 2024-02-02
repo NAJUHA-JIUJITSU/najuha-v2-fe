@@ -7,7 +7,7 @@ interface InfoMessageProps {
   listItems: string[];
 }
 
-const InfoMessage: FC<InfoMessageProps> = ({ title, listItems }) => {
+const InfoMessage: FC<InfoMessageProps> = React.memo(({ title, listItems }) => {
   return (
     <div className={styles.infoMsg}>
       <div className={styles.infoTitle}>
@@ -21,6 +21,6 @@ const InfoMessage: FC<InfoMessageProps> = ({ title, listItems }) => {
       </ul>
     </div>
   );
-};
+});
 
 export default InfoMessage;

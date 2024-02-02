@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import ButtonOnClick from '../common/button/buttonOnClick';
 import InfoMessage from '../common/infoMessage';
+import React from 'react';
 
 interface NicknamePageProps {
   onNext: (data: any) => void;
@@ -42,6 +43,8 @@ export default function nicknamePage({ onNext, data }: NicknamePageProps) {
     validateNickname(nickname);
   }, [nickname]);
 
+  const MemoizedInfoMessage = React.memo(InfoMessage); //todo: InfoMessage 컴포넌트에 직접 React.memo를 적용하면 왜 안도는지 모르겠음
+
   return (
     <div className={styles.wrapper}>
       <Input
@@ -51,7 +54,7 @@ export default function nicknamePage({ onNext, data }: NicknamePageProps) {
         onChange={(e) => setNickname(e.target.value)}
         errMsg={nicknameErrMsg}
       />
-      <InfoMessage title={title} listItems={listItems} />
+      <MemoizedInfoMessage title={title} listItems={listItems} />
       <div className={styles.submit}>
         <ButtonOnClick
           type="filled"
