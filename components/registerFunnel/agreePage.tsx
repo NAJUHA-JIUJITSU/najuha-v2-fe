@@ -5,13 +5,14 @@ import RegisterForm from '@/components/register/registerForm';
 
 interface AgreePageProps {
   onNext: (data: any) => void;
+  data: { all: boolean; use: boolean; privacy: boolean; refund: boolean; ad: boolean };
 }
 
-export default function agreePage({ onNext }: AgreePageProps) {
+export default function agreePage({ onNext, data }: AgreePageProps) {
   return (
     <div className={styles.wrapper}>
       <RegisterInfo />
-      <RegisterForm onNext={onNext} />
+      <RegisterForm data={data} onNext={onNext} />
     </div>
   );
 }

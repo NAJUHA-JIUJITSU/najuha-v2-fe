@@ -52,6 +52,7 @@ export default function funnel() {
       />
       {currentStep === '약관동의' && (
         <AgreePage
+          data={registerData.약관동의}
           onNext={(data) => {
             setRegisterData((prev) => ({ ...prev, 약관동의: data }));
             setCurrentStepIndex((prevIndex) => prevIndex + 1);
