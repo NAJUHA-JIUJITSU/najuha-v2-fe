@@ -48,12 +48,12 @@ export default function nicknamePage({ onNext, data }: NicknamePageProps) {
 
   //닉네임 중복확인
   const checkNickname = () => {
-    const isNicknameValidApi = false; //todo: api 연결 후 수정
+    const isNicknameValidApi = true; //todo: api 연결 후 수정
     if (isNicknameValidApi) {
       setIsNicknameChecked(true);
       setIsValidDate(false);
     } else {
-      alert('이미 사용중인 닉네임입니다.');
+      setNicknameErrMsg('이미 사용중인 닉네임입니다.');
     }
   };
 

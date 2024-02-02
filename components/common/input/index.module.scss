@@ -6,7 +6,6 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-bottom: 12px; //todo: remove this?
 }
 
 .label {
@@ -47,4 +46,5 @@
 .errorMsg {
   @include font-body3-regular;
   color: $--color-state-error;
+  height: 19px;
 }
