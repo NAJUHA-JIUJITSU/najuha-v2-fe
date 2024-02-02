@@ -15,8 +15,6 @@ export default function Register() {
         rightIcon1={<IconLinkAlarm />}
         rightIcon2={<IconLinkSearch />}
       />
-      <RegisterInfo />
-      <RegisterForm />
     </div>
   );
 }

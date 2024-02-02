@@ -72,7 +72,6 @@ export default function birthPage({ onNext, data }: BirthPageProps) {
           width="full"
           size="large"
           onClick={() => onNext(birth)}
-          errorMessage="유효한 날짜를 입력해주세요."
         />
       </div>
     </div>

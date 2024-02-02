@@ -81,7 +81,6 @@ export default function registerForm({ onNext, data }: RegisterFormProps) {
           width="full"
           size="large"
           onClick={() => (isAtLeastOneTrue ? onNext(checkedStates) : handleAllAgreements())}
-          errorMessage="필수 약관에 모두 동의해주세요."
         />
       </div>
     </div>
