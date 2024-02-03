@@ -42,9 +42,22 @@
     border: 1px solid $--color-state-error;
   }
 }
+.successInput {
+  border: 1px solid $--color-state-success;
+  &:focus {
+    border: 1px solid $--color-state-success;
+  }
+}
 
+.msg {
+  height: 19px;
+}
 .errorMsg {
   @include font-body3-regular;
   color: $--color-state-error;
-  height: 19px;
+}
+
+.successMsg {
+  @include font-body3-regular;
+  color: $--color-state-success;
 }

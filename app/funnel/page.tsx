@@ -22,7 +22,7 @@ export default function funnel() {
   });
 
   // 현재 스텝의 인덱스
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [currentStepIndex, setCurrentStepIndex] = useState(2);
 
   // 스텝 배열
   const steps: ('약관동의' | '생년월일' | '닉네임' | '가입성공')[] = [
@@ -33,6 +33,7 @@ export default function funnel() {
   ];
 
   // 뒤로가기 버튼 클릭 시 실행되는 함수
+  //todo: 컴포넌트로 분리
   const handleGoBack = () => {
     // 현재 스텝의 인덱스를 이전으로 조정
     setCurrentStepIndex((prevIndex) => Math.max(prevIndex - 1, 0));

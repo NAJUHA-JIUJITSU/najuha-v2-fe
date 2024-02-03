@@ -8,6 +8,7 @@ interface Props {
   value?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errMsg?: string | null;
+  successMsg?: string | null;
   disabled?: boolean;
 }
 
@@ -17,20 +18,34 @@ const Input: React.FC<Props> = ({
   value,
   onChange,
   errMsg,
+  successMsg,
   disabled = false,
 }) => {
   return (
     <div className={styles.wrapper}>
       <label className={styles.label}>{label}</label>
       <input
-        className={clsx(styles.input, { [styles.errInput]: errMsg })}
+        className={clsx(
+          styles.input,
+          { [styles.errInput]: errMsg },
+          { [styles.successInput]: successMsg },
+        )}
         type="text"
         placeholder={placeholder}
         value={value}
         onChange={onChange}
         disabled={disabled} //todo: isLoading중일때도 비활성화 되게 하기
       />
-      <span className={styles.errorMsg}>{errMsg}</span>
+      <span
+        className={clsx(
+          styles.msg,
+          { [styles.errorMsg]: errMsg },
+          { [styles.successMsg]: successMsg },
+        )}
+      >
+        {errMsg}
+        {successMsg}
+      </span>
     </div>
   );
 };

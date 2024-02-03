@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import styles from './index.module.scss';
 import CheckBoxLabel from '@/components/common/checkBoxLabel';
 import { IconLink } from '@/components/common/icon/iconLink';

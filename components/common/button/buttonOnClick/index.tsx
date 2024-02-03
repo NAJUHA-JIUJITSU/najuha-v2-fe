@@ -31,12 +31,10 @@ export default function ButtonOnClick({
   const typeColor = `${type}-${color}`;
 
   const handleClick = () => {
-    // color가 'disabled'이면 에러 메시지를 호출하고 onClick 실행하지 않음
+    // color가 'disabled'이면 onClick 실행하지 않음
     if (color === 'disabled') {
-      // alert(errorMessage); //todo: alert 대신 단순히 동작하지 않게 하는 방법은 어떤지 확인
       return;
     }
-
     onClick();
   };
 
