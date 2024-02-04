@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 
 interface BirthPageProps {
-  onNext: (data: any) => void;
+  onNext: (data: string) => void;
   data: string;
 }
 

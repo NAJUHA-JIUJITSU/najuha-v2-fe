@@ -7,7 +7,7 @@ import InfoMessage from '../common/infoMessage';
 import React from 'react';
 
 interface NicknamePageProps {
-  onNext: (data: any) => void;
+  onNext: (data: string) => void;
   data: string;
 }
 
@@ -77,6 +77,7 @@ export default function nicknamePage({ onNext, data }: NicknamePageProps) {
         onChange={(e) => setNickname(e.target.value)}
         errMsg={nicknameErrMsg}
         successMsg={nicknameSuccessMsg}
+        // disabled={isLoading} todo: isLoading중일때 비활성화 되게 하기
       />
       <div className={styles.validateButton}>
         <ButtonOnClick

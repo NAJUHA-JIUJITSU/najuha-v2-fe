@@ -7,7 +7,7 @@ import useCheckboxState from '@/hook/useCheckbox';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 
 interface RegisterFormProps {
-  onNext: (data: any) => void;
+  onNext: (data: object) => void;
   data: { all: boolean; use: boolean; privacy: boolean; refund: boolean; ad: boolean };
 }
 
@@ -48,13 +48,8 @@ export default function registerForm({ onNext, data }: RegisterFormProps) {
   const mandatoryAgreements = ['use', 'privacy', 'refund'];
   const isAllMandatoryAgreed = mandatoryAgreements.every((agreement) => checkedStates[agreement]);
 
-  const handleAllAgreements = () => {
-    // '약관전체동의' 버튼 클릭 시 모든 약관을 true로 설정
-    setAllTrue(true);
-  };
-
+  // 약관전체동의 체크박스 토글 시 모든 약관을 true 또는 false로 설정
   const handleToggleAllAgreements = () => {
-    // 약관전체동의 체크박스 토글 시 모든 약관을 true 또는 false로 설정
     setAllTrue(!checkedStates.all);
   };
 
@@ -80,7 +75,7 @@ export default function registerForm({ onNext, data }: RegisterFormProps) {
           color={isAllMandatoryAgreed || !isAtLeastOneTrue ? 'blue' : 'disabled'}
           width="full"
           size="large"
-          onClick={() => (isAtLeastOneTrue ? onNext(checkedStates) : handleAllAgreements())}
+          onClick={() => (isAtLeastOneTrue ? onNext(checkedStates) : handleToggleAllAgreements())}
         />
       </div>
     </div>

@@ -34,7 +34,7 @@ const Input: React.FC<Props> = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        disabled={disabled} //todo: isLoading중일때도 비활성화 되게 하기
+        disabled={disabled}
       />
       <span
         className={clsx(

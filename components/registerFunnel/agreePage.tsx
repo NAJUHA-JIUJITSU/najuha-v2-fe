@@ -4,7 +4,7 @@ import RegisterInfo from '@/components/register/registerInfo';
 import RegisterForm from '@/components/register/registerForm';
 
 interface AgreePageProps {
-  onNext: (data: any) => void;
+  onNext: (data: any) => void; //todo: 두번 건네주는데 맞나?
   data: { all: boolean; use: boolean; privacy: boolean; refund: boolean; ad: boolean };
 }
 
