@@ -9,6 +9,8 @@ import NicknamePage from '@/components/registerFunnel/nicknamePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import useFunnel from '@/hook/useFunnel';
 
+const steps = ['약관동의', '생년월일', '닉네임', '가입성공'];
+
 const initialFunnelData = {
   약관동의: {
     all: false,
@@ -21,14 +23,12 @@ const initialFunnelData = {
   닉네임: '',
 };
 
-const steps = ['약관동의', '생년월일', '닉네임', '가입성공'];
-
 export default function funnel() {
   const { currentStep, gotoSaveNextStep, gotoPreviousStep, funnelData, setCurrentStepIndex } =
     useFunnel(steps, initialFunnelData);
 
   useEffect(() => {
-    setCurrentStepIndex(0); // 원하는 단계로 바로 이동하고 싶을 때 사용
+    setCurrentStepIndex(2); // 원하는 단계로 바로 이동하고 싶을 때 사용
   }, []);
 
   return (
@@ -50,6 +50,7 @@ export default function funnel() {
     </div>
   );
 
+  // useFunnel을 사용하지 않고 구현한 코드
   // const [registerData, setRegisterData] = useState({
   //   약관동의: {
   //     all: false,
