@@ -28,7 +28,7 @@ export default function funnel() {
     useFunnel(steps, initialFunnelData);
 
   useEffect(() => {
-    setCurrentStepIndex(2); // 원하는 단계로 바로 이동하고 싶을 때 사용
+    setCurrentStepIndex(1); // 원하는 단계로 바로 이동하고 싶을 때 사용
   }, []);
 
   return (
