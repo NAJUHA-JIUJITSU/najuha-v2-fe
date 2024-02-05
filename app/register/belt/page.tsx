@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import Select from '@/components/common/select/index';
+import Verify from '@/components/register/verify';
 
 const options = [
   '옵션 1',
@@ -24,8 +25,11 @@ export default function Belt() {
   }, [state]);
 
   return (
-    <div className={styles.wrapper}>
-      <Select options={options} setState={setState} />
-    </div>
+    <>
+      <Verify />
+      <div className={styles.wrapper}>
+        <Select options={options} setState={setState} />
+      </div>
+    </>
   );
 }

@@ -18,4 +18,8 @@ function ButtonIconNavigateBefore() {
   return <ButtonIcon icon={<IconNavigateBefore />} onClick={goBack}></ButtonIcon>;
 }
 
-export { ButtonIconNavigateBefore };
+function ButtonIconFunnelBefore({ onClick }: any) {
+  return <ButtonIcon icon={<IconNavigateBefore />} onClick={onClick}></ButtonIcon>;
+}
+
+export { ButtonIconNavigateBefore, ButtonIconFunnelBefore };

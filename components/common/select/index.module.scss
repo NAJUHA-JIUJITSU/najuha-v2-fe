@@ -2,6 +2,18 @@
 @import '@/styles/_variable.scss';
 
 /* CSS 스타일링 */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px; //todo: remove this?
+}
+
+.label {
+  @include font-subtitle1-bold;
+  color: $--color-font-headline;
+}
+
 .dropdown {
   position: relative;
   background-color: $--color-basic-white;
@@ -10,6 +22,7 @@
 .trigger {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   width: 100%;
   height: 54px;

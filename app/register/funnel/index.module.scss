@@ -1,0 +1,63 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.wrapper {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
+  background-color: $--color-basic-white;
+}
+
+// .step1 {
+//   width: 100%;
+//   height: 300px;
+//   background-color: aliceblue;
+//   line-height: 1;
+//   font-size: 100px;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+// .step1 button {
+//   height: 100px;
+//   width: 100%;
+// }
+
+// .step2 {
+//   width: 100%;
+//   height: 300px;
+//   background-color: aqua;
+//   line-height: 1;
+//   font-size: 100px;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+// .step2 button {
+//   width: 100%;
+//   height: 100px;
+// }
+
+// .step3 {
+//   width: 100%;
+//   height: 300px;
+//   background-color: antiquewhite;
+//   line-height: 1;
+//   font-size: 100px;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+// .step3 button {
+//   width: 100%;
+//   height: 100px;
+// }

@@ -1,0 +1,17 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+
+.wrapper {
+  flex: 1;
+  margin-top: 16px;
+}
+
+.info {
+  @include font-subtitle1-bold;
+  color: $--color-font-headline;
+}
+
+.submit {
+  display: flex;
+  padding: 12px 0px;
+}

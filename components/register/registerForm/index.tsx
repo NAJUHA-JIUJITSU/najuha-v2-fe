@@ -55,16 +55,6 @@ export default function registerForm() {
           isChecked={checkedStates[item.id]}
         />
       ))}
-      <div className={styles.submit}>
-        <ButtonOnClick
-          type="filled"
-          text="약관전체 동의"
-          color="blue"
-          width="full"
-          size="large"
-          onClick={() => {}}
-        />
-      </div>
     </div>
   );
 }

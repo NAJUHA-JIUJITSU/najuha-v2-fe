@@ -30,7 +30,7 @@ const Input: React.FC<Props> = ({
         onChange={onChange}
         disabled={disabled} //todo: isLoading중일때도 비활성화 되게 하기
       />
-      {errMsg && <span className={styles.errorMsg}>{errMsg}</span>}
+      <div className={styles.errorMsg}>{errMsg}</div>
     </div>
   );
 };
