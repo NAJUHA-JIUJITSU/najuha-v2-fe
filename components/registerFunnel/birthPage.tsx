@@ -14,13 +14,17 @@ export default function birthPage({ onNext, data }: BirthPageProps) {
 
   return (
     <div className={styles.wrapper}>
+      {/* 생년월일 입력 */}
       <Input
         label="생년월일을 입력해주세요"
         placeholder="YYYY/MM/DD"
         value={birth}
         onChange={(e) => setBirth(e.target.value)}
         errMsg={errorMessage}
+        // disabled={isLoading} //todo: isLoading true일때 비활성화 되게 하기
       />
+
+      {/* 다음 버튼 */}
       <div className={styles.submit}>
         <ButtonOnClick
           type="filled"

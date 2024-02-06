@@ -34,6 +34,7 @@ export default function nicknamePage({ onNext, data }: NicknamePageProps) {
 
   return (
     <div className={styles.wrapper}>
+      {/* 닉네임 입력 */}
       <Input
         label="원하시는 닉네임을 설정해주세요"
         placeholder="닉네임을 입력해주세요"
@@ -41,8 +42,10 @@ export default function nicknamePage({ onNext, data }: NicknamePageProps) {
         onChange={(e) => setNickname(e.target.value)}
         errMsg={errorMessage}
         successMsg={successMessage}
-        // disabled={isLoading} todo: isLoading중일때 비활성화 되게 하기
+        // disabled={isLoading} todo: isLoading true일때 비활성화 되게 하기
       />
+
+      {/* 중복확인 버튼 */}
       <div className={styles.validateButton}>
         <ButtonOnClick
           type="filled"
@@ -54,7 +57,10 @@ export default function nicknamePage({ onNext, data }: NicknamePageProps) {
         />
       </div>
 
+      {/* 닉네임관련 정보 메시지 */}
       <MemoizedInfoMessage title={title} listItems={listItems} />
+
+      {/* 다음 버튼 */}
       <div className={styles.submit}>
         <ButtonOnClick
           type="filled"

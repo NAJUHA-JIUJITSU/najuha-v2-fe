@@ -4,6 +4,7 @@ import Link from 'next/link';
 type ButtonType = 'filled' | 'outlined' | 'text' | 'underlined' | 'caption';
 type ButtonSize = 'small' | 'medium' | 'large' | 'xLarge';
 type ButtonColor = 'blue' | 'lightblue' | 'black' | 'gray' | 'disabled';
+//todo: disabled 처리하기
 
 interface BaseButtonProps {
   type: ButtonType;

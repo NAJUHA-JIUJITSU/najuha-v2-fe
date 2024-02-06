@@ -28,8 +28,18 @@ export default function funnel() {
     useFunnel(steps, initialFunnelData);
 
   useEffect(() => {
-    setCurrentStepIndex(1); // 원하는 단계로 바로 이동하고 싶을 때 사용
+    setCurrentStepIndex(0); // 원하는 단계로 바로 이동하고 싶을 때 사용
+
+    // //1. 파라미터로 받은 authCode와 snsProvider를 사용하여 사용자 정보 가져오는 함수
+    // const getUserInfo = async (authCode: string, snsProvider: string) => {
+    //   //2. 사용자 정보를 기반으로 funnelData 업데이트
+    //   // const userInfo = await fetchUserInfo(authCode, snsProvider);
+    //   // console.log('userInfo: ', userInfo);
+    //   //1번과 2번하는 동안 로딩중 표시
+    // };
   }, []);
+
+  console.log('funnelData: ', funnelData);
 
   return (
     <div className={styles.wrapper}>
@@ -37,6 +47,7 @@ export default function funnel() {
         leftIcon={<ButtonIcon icon={<IconNavigateBefore />} onClick={gotoPreviousStep} />}
         title={currentStep}
       />
+
       {currentStep === '약관동의' && (
         <AgreePage data={funnelData[currentStep]} onNext={gotoSaveNextStep} />
       )}

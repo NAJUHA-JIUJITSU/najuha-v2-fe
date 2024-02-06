@@ -2,21 +2,13 @@
 @import '@/styles/_variable.scss';
 @import '@/styles/_zindex.scss';
 
-//wrapper
+//전체 레이아웃
 .wrapper {
-  margin-top: 16px;
   display: flex;
   flex-direction: column;
   height: 100vh;
   box-sizing: border-box;
+  padding: 0 16px;
+  @include font-subtitle2-medium;
   background-color: $--color-basic-white;
-}
-
-.submit {
-  margin-top: auto;
-}
-
-.validateButton {
-  margin-left: auto;
-  width: 70px;
 }
