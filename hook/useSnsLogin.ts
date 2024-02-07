@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { decodeToken } from '@/util/decodeToken';
+import { postSnsLogin } from '@/api/auth';
 
 interface MyTokenPayload {
   userId: number;
@@ -24,15 +25,14 @@ const useSnsLogin = () => {
   const handleSnsLogin = async (snsAuthProvider: string, snsAuthCode: string) => {
     setLoginState((prev) => ({ ...prev, isLoading: true }));
     try {
-      const response = await fetch(`http://localhost:3001/auth/snsLogin`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ snsAuthProvider, snsAuthCode }),
-      });
+      const data = await postSnsLogin(snsAuthProvider, snsAuthCode);
 
-      if (!response.ok) throw new Error('SNS 로그인 실패');
+      // const response = await fetch(`http://localhost:3001/auth/snsLogin`, {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ snsAuthProvider, snsAuthCode }),
+      // });
 
-      const data = await response.json();
       const decodedToken = decodeToken(data.data.accessToken);
 
       setLoginState({

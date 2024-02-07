@@ -8,6 +8,7 @@ import BirthPage from '@/components/registerFunnel/birthPage';
 import NicknamePage from '@/components/registerFunnel/nicknamePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import useFunnel from '@/hook/useFunnel';
+import { useSearchParams } from 'next/navigation';
 
 const steps = ['약관동의', '생년월일', '닉네임', '가입성공'];
 
@@ -26,14 +27,20 @@ const initialFunnelData = {
 export default function funnel() {
   const { currentStep, gotoSaveNextStep, gotoPreviousStep, funnelData, setCurrentStepIndex } =
     useFunnel(steps, initialFunnelData);
+  const params = useSearchParams();
 
   useEffect(() => {
     setCurrentStepIndex(0); // 원하는 단계로 바로 이동하고 싶을 때 사용
+    //1. 파라미터로 받은 userId를 사용하여 사용자 정보 가져오는 함수
+    const userId = params.get('userId');
 
-    // //1. 파라미터로 받은 authCode와 snsProvider를 사용하여 사용자 정보 가져오는 함수
-    // const getUserInfo = async (authCode: string, snsProvider: string) => {
-    //   //2. 사용자 정보를 기반으로 funnelData 업데이트
+    if (userId) {
+      console.log('Received userId:', userId);
+      // 여기에서 userId를 사용하여 추가 작업 수행
+    }
+    // const getUserInfo = async (userId를: number) => {
     //   // const userInfo = await fetchUserInfo(authCode, snsProvider);
+    //   //2. 사용자 정보를 기반으로 funnelData 업데이트하는 함수
     //   // console.log('userInfo: ', userInfo);
     //   //1번과 2번하는 동안 로딩중 표시
     // };
