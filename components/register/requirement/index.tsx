@@ -7,7 +7,7 @@ interface Props {
   onNext: () => void;
 }
 
-export default function requirement({ onNext }: Props) {
+const requirement = ({ onNext }: Props) => {
   return (
     <>
       <RegisterInfo />
@@ -24,4 +24,6 @@ export default function requirement({ onNext }: Props) {
       </div>
     </>
   );
-}
+};
+
+export default requirement;

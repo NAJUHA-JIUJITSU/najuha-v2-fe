@@ -6,6 +6,7 @@ export default function LoginSns() {
     <div className={styles.login}>
       <ButtonSns snsProvider="kakao" />
       <ButtonSns snsProvider="naver" />
+      <ButtonSns snsProvider="google" />
       <ButtonSns snsProvider="apple" />
     </div>
   );

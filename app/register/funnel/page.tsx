@@ -1,5 +1,4 @@
 'use client';
-import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { useFunnel } from '@/hook/useFunnel';
 import Header from '@/components/common/header/Header';
@@ -13,6 +12,8 @@ import Nickname from '@/components/register/nickname';
 import Belt from '@/components/register/belt';
 import Phonenumber from '@/components/register/phonenumber';
 import Verify from '@/components/register/verify';
+import { useRecoilState } from 'recoil';
+import { UserRegisterDataAtom } from '@/recoil/userRegisterDataAtom';
 
 const steps = [
   '약관동의',
@@ -23,9 +24,11 @@ const steps = [
   '닉네임 설정',
   '주짓수 벨트 설정',
 ];
+
 export default function Funnel() {
   const goBack = useGoBack();
   const { Funnel, setStep, Step, step } = useFunnel(steps[0]);
+  const [userRegisterData, setUserRegisterData] = useRecoilState(UserRegisterDataAtom);
 
   const prevClickHandler = () => {
     const currentStepIndex = steps.indexOf(step);
@@ -36,6 +39,8 @@ export default function Funnel() {
       goBack();
     }
   };
+
+  // todo: user data를 받아와야함
 
   return (
     <div className={styles.wrapper}>
