@@ -12,7 +12,7 @@ interface Props {
   snsProvider: snsProvider;
 }
 
-const NAJUHA_FE_ENDPOINT = process.env.NEXT_PUBLIC_NAJUHA_FE_ENDPOINT;
+const NAJUHA_FE_ENDPOINT = process.env.NEXT_PUBLIC_NAJUHA_FE_URL;
 const KAKAO_REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
 const NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_CLIENT_ID;
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;

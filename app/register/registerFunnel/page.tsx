@@ -12,8 +12,6 @@ import Nickname from '@/components/register/nickname';
 import Belt from '@/components/register/belt';
 import Phonenumber from '@/components/register/phonenumber';
 import Verify from '@/components/register/verify';
-import { useRecoilState } from 'recoil';
-import { UserRegisterDataAtom } from '@/recoil/userRegisterDataAtom';
 
 const steps = [
   '약관동의',
@@ -25,10 +23,9 @@ const steps = [
   '주짓수 벨트 설정',
 ];
 
-export default function Funnel() {
+const RegisterFunnel = () => {
   const goBack = useGoBack();
-  const { Funnel, setStep, Step, step } = useFunnel(steps[0]);
-  const [userRegisterData, setUserRegisterData] = useRecoilState(UserRegisterDataAtom);
+  const { Funnel, setStep, step } = useFunnel(steps);
 
   const prevClickHandler = () => {
     const currentStepIndex = steps.indexOf(step);
@@ -40,39 +37,39 @@ export default function Funnel() {
     }
   };
 
-  // todo: user data를 받아와야함
-
   return (
     <div className={styles.wrapper}>
       <Header
         leftIcon={<ButtonIconFunnelBefore onClick={prevClickHandler} />}
-        title={step[0] === '약관동의' ? '회원가입' : step}
+        title={step}
         rightIcon1={<IconLinkAlarm />}
         rightIcon2={<IconLinkSearch />}
       />
       <Funnel>
-        <Step name="약관동의">
+        <Funnel.Step name="약관동의">
           <Requirement onNext={() => setStep(steps[1])} />
-        </Step>
-        <Step name="성별 선택">
+        </Funnel.Step>
+        <Funnel.Step name="성별 선택">
           <Gender onNext={() => setStep(steps[2])} />
-        </Step>
-        <Step name="생년월일 설정">
+        </Funnel.Step>
+        <Funnel.Step name="생년월일 설정">
           <Birthday onNext={() => setStep(steps[3])} />
-        </Step>
-        <Step name="휴대폰 번호">
+        </Funnel.Step>
+        <Funnel.Step name="휴대폰 번호">
           <Phonenumber onNext={() => setStep(steps[4])} />
-        </Step>
-        <Step name="번호 인증">
+        </Funnel.Step>
+        <Funnel.Step name="번호 인증">
           <Verify onNext={() => setStep(steps[5])} />
-        </Step>
-        <Step name="닉네임 설정">
+        </Funnel.Step>
+        <Funnel.Step name="닉네임 설정">
           <Nickname onNext={() => setStep(steps[6])} />
-        </Step>
-        <Step name="주짓수 벨트 설정">
+        </Funnel.Step>
+        <Funnel.Step name="주짓수 벨트 설정">
           <Belt onNext={() => {}} />
-        </Step>
+        </Funnel.Step>
       </Funnel>
     </div>
   );
-}
+};
+
+export default RegisterFunnel;

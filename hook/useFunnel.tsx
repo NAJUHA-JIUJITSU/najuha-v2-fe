@@ -1,5 +1,3 @@
-// useFunnel.tsx
-
 import React, { ReactElement, ReactNode, useState } from 'react';
 
 export interface StepProps {
@@ -11,10 +9,12 @@ export interface FunnelProps {
   children: Array<ReactElement<StepProps>>;
 }
 
-export const useFunnel = (defaultStep: string) => {
+// export const useFunnel = (steps: string[] as
+export const useFunnel = <T extends readonly string[]>(steps: T) => {
   // state를 통해 현재 스텝을 관리한다.
   // setStep 함수를 통해 현재 스텝을 변경할 수 있다.
-  const [step, setStep] = useState(defaultStep);
+  const initialStep = steps[0];
+  const [step, setStep] = useState(initialStep);
 
   // 각 단계를 나타내는 Step 컴포넌트
   // children을 통해 각 스텝의 컨텐츠를 렌더링 한다.
@@ -30,5 +30,7 @@ export const useFunnel = (defaultStep: string) => {
     return <>{targetStep}</>;
   };
 
-  return { Funnel, setStep, Step, step };
+  Funnel.Step = Step;
+
+  return { Funnel, setStep, step };
 };

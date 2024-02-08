@@ -1,12 +1,13 @@
 'use client';
-import { useState, useEffect } from 'react';
+
+import { useState } from 'react';
 import Select from '@/components/common/select';
 import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 
 const options = ['화이트', '블루', '퍼플', '브라운', '블랙'];
 
-export default function Belt({ onNext }: any) {
+export default function Belt({ onNext }: { onNext: () => void }) {
   const [belts, setBelts] = useState('');
   return (
     <>

@@ -3,7 +3,9 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import Cookies from 'js-cookie';
-import snsLogin from '@/api/auth/snsLogin';
+import { useSetRecoilState } from 'recoil';
+import { accessTokenAtom } from '@/recoil/accessTokenAtom';
+import { postSnsLogin } from '@/api/auth';
 
 type snsAuthProvider = 'kakao' | 'naver' | 'google' | 'apple';
 
@@ -20,15 +22,16 @@ export default function OauthCallbackPage({
   params: { snsAuthProvider: snsAuthProvider };
 }) {
   const router = useRouter();
+  const setAccessToken = useSetRecoilState(accessTokenAtom);
 
   const handleSnsLogin = async (snsAuthCode: string, snsAuthProvider: string) => {
     try {
-      const data = await snsLogin(snsAuthCode, snsAuthProvider);
-      Cookies.set('accessTokens', data.accessToken);
-      Cookies.set('refreshToken', data.refreshToken);
+      const data = await postSnsLogin(snsAuthCode, snsAuthProvider);
+      setAccessToken(data.accessToken);
+      Cookies.set('refreshToken', data.refreshToken); // TODO: HttpOnly, Secure 설정
 
       const decodedToken = JSON.parse(atob(data.accessToken.split('.')[1]));
-      if (decodedToken.userRole === 'TEMPORARY_USER') router.push('/register');
+      if (decodedToken.userRole === 'TEMPORARY_USER') router.push('/register/registerFunnel');
       else router.push('/home');
     } catch (error) {
       alert('로그인에 실패했습니다.');

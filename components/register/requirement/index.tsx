@@ -1,29 +1,47 @@
 import RegisterInfo from '../registerInfo';
 import RegisterForm from '../registerForm';
-import styles from './index.module.scss';
-import ButtonOnClick from '@/components/common/button/buttonOnClick';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { registerUserAtom } from '@/recoil/registerUserAtom';
+import { useEffect } from 'react';
+import { getUsersMe } from '@/api/users';
+import { accessTokenAtom } from '@/recoil/accessTokenAtom';
 
 interface Props {
   onNext: () => void;
 }
 
-const requirement = ({ onNext }: Props) => {
+const Requirement = ({ onNext }: Props) => {
+  const [user, setUser] = useRecoilState(registerUserAtom);
+  const accessToken = useRecoilValue(accessTokenAtom);
+  useEffect(() => {
+    const getUsersMeHandler = async () => {
+      try {
+        const data = await getUsersMe(accessToken);
+        setUser((user) => ({
+          ...user,
+          id: data.id,
+          role: data.role,
+          name: data.name,
+          birth: data.birth,
+          gender: data.gender,
+          nickname: data.nickname,
+          phoneNumber: data.phoneNumber,
+          belt: data.belt,
+        }));
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getUsersMeHandler();
+  }, [setUser, accessToken]);
+
   return (
     <>
-      <RegisterInfo />
-      <RegisterForm />
-      <div className={styles.submit}>
-        <ButtonOnClick
-          type="filled"
-          text="약관전체 동의"
-          color="blue"
-          width="full"
-          size="large"
-          onClick={onNext}
-        />
-      </div>
+      <RegisterInfo name={user.name} />
+      <RegisterForm onNext={onNext} />
     </>
   );
 };
 
-export default requirement;
+export default Requirement;
