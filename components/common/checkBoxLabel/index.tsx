@@ -6,7 +6,7 @@ import IconCheckboxOn from '@/public/svgs/checkboxOn.svg';
 
 interface Props {
   msg?: string;
-  // changeCheck: (value: string) => void;
+  // changeCheck: (key: string) => void;
   changeCheck: () => void;
   // changeCheck: any;
   isChecked?: boolean;
@@ -14,18 +14,25 @@ interface Props {
   isUnderlined?: boolean;
 }
 
-const CheckBoxLabel = React.memo(
-  ({ msg, changeCheck, isChecked = false, rightIcon = null, isUnderlined = false }: Props) => {
-    return (
-      <div className={clsx(styles.wrapper, { [styles.isUnderlined]: isUnderlined })}>
-        <div className={styles.checkbox} onClick={changeCheck}>
-          {isChecked ? <IconCheckboxOn /> : <IconCheckboxOff />}
-          <div>{msg}</div>
-        </div>
-        {rightIcon && <div className={styles.rightIcon}>{rightIcon}</div>}
+const CheckBoxLabelComponent = ({
+  msg,
+  changeCheck,
+  isChecked = false,
+  rightIcon = null,
+  isUnderlined = false,
+}: Props) => {
+  return (
+    <div className={clsx(styles.wrapper, { [styles.isUnderlined]: isUnderlined })}>
+      <div className={styles.checkbox} onClick={changeCheck}>
+        {isChecked ? <IconCheckboxOn /> : <IconCheckboxOff />}
+        <div>{msg}</div>
       </div>
-    );
-  },
-);
+      {rightIcon && <div className={styles.rightIcon}>{rightIcon}</div>}
+    </div>
+  );
+};
+
+const CheckBoxLabel = React.memo(CheckBoxLabelComponent);
+CheckBoxLabel.displayName = 'CheckBoxLabel';
 
 export default CheckBoxLabel;

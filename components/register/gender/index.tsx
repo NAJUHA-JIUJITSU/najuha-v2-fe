@@ -2,10 +2,16 @@
 import styles from './index.module.scss';
 import RadioButtonLabel from '@/components/common/radioButtonLabel';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { userAtom } from '@/recoil/userAtom';
 
-export default function Gender({ onNext }: any) {
-  const [gender, setGender] = useState<string | null>('male');
+interface Props {
+  onNext: () => void;
+}
+
+export default function Gender({ onNext }: Props) {
+  const [user, setUser] = useRecoilState(userAtom);
+  console.log(user);
 
   return (
     <>
@@ -13,19 +19,29 @@ export default function Gender({ onNext }: any) {
         <div className={styles.info}>성별을 선택해 주세요</div>
         <RadioButtonLabel
           msg={'남성'}
-          isChecked={gender === 'male'}
-          changeCheck={() => setGender('male')}
+          isChecked={user.gender === 'MALE'}
+          changeCheck={() =>
+            setUser((user) => ({
+              ...user,
+              gender: 'MALE',
+            }))
+          }
         />
         <RadioButtonLabel
           msg={'여성'}
-          isChecked={gender === 'female'}
-          changeCheck={() => setGender('female')}
+          isChecked={user.gender === 'FEAMLE'}
+          changeCheck={() =>
+            setUser((user) => ({
+              ...user,
+              gender: 'FEAMLE',
+            }))
+          }
         />
       </div>
       <div className={styles.submit}>
         <ButtonOnClick
           type="filled"
-          text="약관전체 동의"
+          text="다음"
           color="blue"
           width="full"
           size="large"

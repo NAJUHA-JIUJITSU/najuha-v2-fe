@@ -1,7 +1,7 @@
 import RegisterInfo from '../registerInfo';
 import RegisterForm from '../registerForm';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { registerUserAtom } from '@/recoil/registerUserAtom';
+import { userAtom } from '@/recoil/userAtom';
 import { useEffect } from 'react';
 import { getUsersMe } from '@/api/users';
 import { accessTokenAtom } from '@/recoil/accessTokenAtom';
@@ -11,22 +11,16 @@ interface Props {
 }
 
 const Requirement = ({ onNext }: Props) => {
-  const [user, setUser] = useRecoilState(registerUserAtom);
+  const [user, setUser] = useRecoilState(userAtom);
   const accessToken = useRecoilValue(accessTokenAtom);
   useEffect(() => {
     const getUsersMeHandler = async () => {
       try {
         const data = await getUsersMe(accessToken);
+        console.log(data);
         setUser((user) => ({
           ...user,
-          id: data.id,
-          role: data.role,
-          name: data.name,
-          birth: data.birth,
-          gender: data.gender,
-          nickname: data.nickname,
-          phoneNumber: data.phoneNumber,
-          belt: data.belt,
+          ...data,
         }));
       } catch (error) {
         console.error(error);
@@ -35,6 +29,10 @@ const Requirement = ({ onNext }: Props) => {
 
     getUsersMeHandler();
   }, [setUser, accessToken]);
+
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
   return (
     <>

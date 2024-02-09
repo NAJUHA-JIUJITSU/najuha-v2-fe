@@ -18,7 +18,7 @@ export function useCheckList(initialCheckList: CheckList) {
     if (!checkList.items.length) {
       setCheckList(initialCheckList);
     }
-  }, [initialCheckList, checkList, setCheckList]);
+  });
 
   const updateIsAllMandatoryChecked = (items: CheckItem[]): boolean => {
     return items.filter((item) => item.mandatory).every((item) => item.checked);
@@ -38,7 +38,7 @@ export function useCheckList(initialCheckList: CheckList) {
     });
   };
 
-  const toggelAllCheckItems = (checked: boolean) => {
+  const toggleAllCheckItems = (checked: boolean) => {
     setCheckList((prevCheckList) => {
       const updatedItems = prevCheckList.items.map((item) => ({ ...item, checked }));
       const isAllMandatoryChecked = updateIsAllMandatoryChecked(updatedItems);
@@ -54,5 +54,5 @@ export function useCheckList(initialCheckList: CheckList) {
     return checkList.items.find((item) => item.name === itemName);
   };
 
-  return { checkList, toggleCheckItem, toggelAllCheckItems, findCheckItem };
+  return { checkList, toggleCheckItem, toggleAllCheckItems, findCheckItem };
 }

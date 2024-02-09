@@ -31,7 +31,7 @@ export default function OauthCallbackPage({
       Cookies.set('refreshToken', data.refreshToken); // TODO: HttpOnly, Secure 설정
 
       const decodedToken = JSON.parse(atob(data.accessToken.split('.')[1]));
-      if (decodedToken.userRole === 'TEMPORARY_USER') router.push('/register/registerFunnel');
+      if (decodedToken.userRole === 'TEMPORARY_USER') router.push('/register');
       else router.push('/home');
     } catch (error) {
       alert('로그인에 실패했습니다.');

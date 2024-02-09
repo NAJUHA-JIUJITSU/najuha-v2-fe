@@ -52,60 +52,73 @@ const initialCheckList: CheckList = {
 };
 
 export default function RegisterForm({ onNext }: Props) {
-  const { checkList, toggleCheckItem, toggelAllCheckItems, findCheckItem } =
+  const { checkList, toggleCheckItem, toggleAllCheckItems, findCheckItem } =
     useCheckList(initialCheckList);
 
   const toggleHandler = (key: string) => {
     const allState = findCheckItem('all')?.checked;
     if (key === 'all') {
-      toggelAllCheckItems(!allState);
+      return toggleAllCheckItems(!allState);
     } else {
-      toggleCheckItem(key);
       if (allState) toggleCheckItem('all');
+      toggleCheckItem(key);
     }
   };
 
+  // CheckBoxLabel 재랜더링 방지
+  // const toggleHandler = (key: string) => {
+  //   const allState = findCheckItem('all')?.checked;
+  //   let runner = () => {};
+  //   if (key === 'all') {
+  //     runner = () => toggleAllCheckItems(!allState);
+  //   } else {
+  //     runner = () => {
+  //       if (allState) toggleCheckItem('all');
+  //       toggleCheckItem(key);
+  //     };
+  //   }
+  //   return useCallback(runner, [allState]);
+  // };
+
   return (
-    <>
-      <div className={styles.form}>
-        {checkListConfig.map((configItem) => (
-          <CheckBoxLabel
-            key={configItem.name}
-            msg={configItem.msg}
-            isUnderlined={configItem.name === 'all'}
-            rightIcon={configItem.name !== 'all' ? configItem.link : null}
-            changeCheck={() => {
-              toggleHandler(configItem.name);
-            }}
-            isChecked={findCheckItem(configItem.name)?.checked}
+    <div className={styles.form}>
+      {checkListConfig.map((configItem) => (
+        <CheckBoxLabel
+          key={configItem.name}
+          msg={configItem.msg}
+          isUnderlined={configItem.name === 'all'}
+          rightIcon={configItem.name !== 'all' ? configItem.link : null}
+          changeCheck={() => {
+            toggleHandler(configItem.name);
+          }}
+          isChecked={findCheckItem(configItem.name)?.checked}
+        />
+      ))}
+      {!checkList.isAllMandatoryChecked && (
+        <div className={styles.submit}>
+          <ButtonOnClick
+            type="filled"
+            text="약관전체 동의"
+            color="blue"
+            width="full"
+            size="large"
+            onClick={() => toggleAllCheckItems(true)}
           />
-        ))}
-        {!checkList.isAllMandatoryChecked && (
-          <div className={styles.submit}>
-            <ButtonOnClick
-              type="filled"
-              text="약관전체 동의"
-              color="blue"
-              width="full"
-              size="large"
-              onClick={() => toggleHandler('all')}
-            />
-          </div>
-        )}
-        {checkList.isAllMandatoryChecked && (
-          <div className={styles.submit}>
-            <ButtonOnClick
-              type="filled"
-              text="다음"
-              color="blue"
-              width="full"
-              size="large"
-              onClick={onNext}
-            />
-          </div>
-        )}
-      </div>
-    </>
+        </div>
+      )}
+      {checkList.isAllMandatoryChecked && (
+        <div className={styles.submit}>
+          <ButtonOnClick
+            type="filled"
+            text="다음"
+            color="blue"
+            width="full"
+            size="large"
+            onClick={onNext}
+          />
+        </div>
+      )}
+    </div>
   );
 }
 
