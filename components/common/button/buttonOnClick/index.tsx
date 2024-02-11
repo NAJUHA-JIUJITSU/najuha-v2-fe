@@ -28,10 +28,17 @@ export default function ButtonOnClick({
   width = 'normal',
 }: BaseButtonProps) {
   const typeColor = `${type}-${color}`;
+
+  const handleClick = () => {
+    if (color !== 'disabled') {
+      onClick();
+    }
+  };
+
   return (
     <button
       className={`${styles.wrapper} ${styles[typeColor]} ${styles[size]} ${styles[width]}`}
-      onClick={onClick}
+      onClick={handleClick}
     >
       {iconLeft && <div className={styles.svg}>{iconLeft}</div>}
       <div>{text}</div>
