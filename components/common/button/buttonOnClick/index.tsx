@@ -14,6 +14,7 @@ interface BaseButtonProps {
   iconLeft?: React.ReactNode;
   text: string;
   iconRight?: React.ReactNode;
+  disabled?: boolean;
   onClick: () => void;
 }
 
@@ -24,15 +25,16 @@ export default function ButtonOnClick({
   size,
   type,
   color,
+  disabled,
   onClick,
   width = 'normal',
 }: BaseButtonProps) {
+  color = disabled ? 'disabled' : color;
   const typeColor = `${type}-${color}`;
 
   const handleClick = () => {
-    if (color !== 'disabled') {
-      onClick();
-    }
+    if (disabled) return;
+    onClick();
   };
 
   return (

@@ -45,9 +45,10 @@ const Gender = ({ onNext }: Props) => {
         <ButtonOnClick
           type="filled"
           text="다음"
-          color={user.gender ? 'blue' : 'disabled'}
+          color="blue"
           width="full"
           size="large"
+          disabled={user.gender === '' ? true : false}
           onClick={onNext}
         />
       </div>

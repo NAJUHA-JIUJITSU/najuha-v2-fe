@@ -76,9 +76,10 @@ export default function Birthday({ onNext }: Props) {
         <ButtonOnClick
           type="filled"
           text="다음"
-          color={birthValidationState === BirthValidationState.VALID ? 'blue' : 'disabled'}
+          color="blue"
           width="full"
           size="large"
+          disabled={birthValidationState !== BirthValidationState.VALID}
           onClick={onNext}
         />
       </div>
