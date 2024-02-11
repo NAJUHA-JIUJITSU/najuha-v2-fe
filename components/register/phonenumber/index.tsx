@@ -23,11 +23,12 @@ const ErrorMsgMap = {
 
 const formatPhoneNumber = (inputPhone: string) => {
   const numericValue = inputPhone.replace(/[^0-9]/g, '');
-  return (
+  const formatted =
     numericValue.slice(0, 3) +
     (numericValue.length > 3 ? '-' + numericValue.slice(3, 7) : '') +
-    (numericValue.length > 7 ? '-' + numericValue.slice(7) : '')
-  );
+    (numericValue.length > 7 ? '-' + numericValue.slice(7) : '');
+
+  return formatted.slice(0, 13);
 };
 
 const validatePhoneNumber = (phone: string): PhoneValidationState => {
@@ -52,7 +53,7 @@ const PhoneNumber = ({ onNext }: Props) => {
     setPhoneValidationState(validationState);
     setUser((prevUser) => ({
       ...prevUser,
-      phone: formattedPhone.replace(/-/g, ''),
+      phoneNumber: formattedPhone.replace(/-/g, ''),
     }));
   };
 
@@ -75,9 +76,10 @@ const PhoneNumber = ({ onNext }: Props) => {
         <ButtonOnClick
           type="filled"
           text="전화번호 인증"
-          color={phoneValidationState === PhoneValidationState.VALID ? 'blue' : 'disabled'}
+          color="blue"
           width="full"
           size="large"
+          disabled={phoneValidationState !== PhoneValidationState.VALID}
           onClick={onNext}
         />
       </div>
