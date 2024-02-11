@@ -10,8 +10,9 @@ import useGoBack from '@/hook/useGoBack';
 import Birthday from '@/components/register/birthday';
 import Nickname from '@/components/register/nickname';
 import Belt from '@/components/register/belt';
-import Phonenumber from '@/components/register/phonenumber';
+import PhoneNumber from '@/components/register/phoneNumber';
 import Verify from '@/components/register/verify';
+import { useEffect } from 'react';
 
 const steps = [
   '약관동의',
@@ -33,6 +34,10 @@ const Register = () => {
     if (currentStepIndex === 0) goBack();
   };
 
+  useEffect(() => {
+    setStep(steps[0]);
+  }, []);
+
   return (
     <div className={styles.wrapper}>
       <Header
@@ -52,7 +57,7 @@ const Register = () => {
           <Birthday onNext={() => setStep(steps[3])} />
         </Funnel.Step>
         <Funnel.Step name="휴대폰 번호">
-          <Phonenumber onNext={() => setStep(steps[4])} />
+          <PhoneNumber onNext={() => setStep(steps[4])} />
         </Funnel.Step>
         <Funnel.Step name="번호 인증">
           <Verify onNext={() => setStep(steps[5])} />
