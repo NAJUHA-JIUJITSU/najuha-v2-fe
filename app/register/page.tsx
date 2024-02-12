@@ -35,7 +35,7 @@ const Register = () => {
   };
 
   useEffect(() => {
-    setStep(steps[3]);
+    setStep(steps[6]);
   }, []);
 
   return (

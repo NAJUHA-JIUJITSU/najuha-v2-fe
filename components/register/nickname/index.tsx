@@ -43,7 +43,7 @@ const validateNickname = (nickname: string): ValidState => {
 
 // TODO: 닉네임 중복확인 로직 추가
 // TODO: 부적절한 닉네임일 확인
-export default function Nickname({ onNext }: Props) {
+const Nickname = ({ onNext }: Props) => {
   const [user, setUser] = useRecoilState(userAtom);
   const [nickname, setNickname] = useState<string>(user.nickname || '');
   const [validState, setValidState] = useState(ValidState.EMPTY);
@@ -83,7 +83,7 @@ export default function Nickname({ onNext }: Props) {
       <div className={styles.submit}>
         <ButtonOnClick
           type="filled"
-          text="약관전체 동의"
+          text="다음"
           color="blue"
           width="full"
           size="large"
@@ -93,4 +93,6 @@ export default function Nickname({ onNext }: Props) {
       </div>
     </>
   );
-}
+};
+
+export default Nickname;

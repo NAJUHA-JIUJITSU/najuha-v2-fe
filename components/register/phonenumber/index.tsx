@@ -54,10 +54,12 @@ const PhoneNumber = ({ onNext }: Props) => {
     const validState = validatePhoneNumber(formattedPhone.replace(/-/g, ''));
     setPhoneNumber(formattedPhone);
     setValidState(validState);
-    setUser((prevUser) => ({
-      ...prevUser,
-      phoneNumber: formattedPhone.replace(/-/g, ''),
-    }));
+    if (validState === ValidState.VALID) {
+      setUser((prevUser) => ({
+        ...prevUser,
+        phoneNumber: formattedPhone.replace(/-/g, ''),
+      }));
+    }
   };
 
   useEffect(() => {
