@@ -9,7 +9,7 @@ interface Props {
   onNext: () => void;
 }
 
-const genderRadioConfig = [
+const radioContents = [
   {
     msg: '남성',
     value: 'MALE',
@@ -27,15 +27,15 @@ const Gender = ({ onNext }: Props) => {
     <>
       <div className={styles.wrapper}>
         <div className={styles.info}>성별을 선택해 주세요</div>
-        {genderRadioConfig.map((config) => (
+        {radioContents.map((content) => (
           <RadioButtonLabel
-            key={config.value}
-            msg={config.msg}
-            isChecked={user.gender === config.value}
+            key={content.value}
+            msg={content.msg}
+            isChecked={user.gender === content.value}
             changeCheck={() =>
               setUser((user) => ({
                 ...user,
-                gender: config.value,
+                gender: content.value,
               }))
             }
           />

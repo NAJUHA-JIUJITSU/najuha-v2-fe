@@ -9,18 +9,24 @@ interface Props {
   onNext: () => void;
 }
 
-enum BirthValidationState {
+enum ValidState {
   EMPTY,
   TOO_SHORT,
   INVALID_DATE,
   VALID,
 }
 
-const ErrorMsgMap = {
-  [BirthValidationState.EMPTY]: null,
-  [BirthValidationState.TOO_SHORT]: 'YYYY-MM-DD 형식으로 입력해주세요.',
-  [BirthValidationState.INVALID_DATE]: '유효한 날짜를 입력해주세요.',
-  [BirthValidationState.VALID]: null,
+const errorMsgMap = {
+  [ValidState.EMPTY]: null,
+  [ValidState.TOO_SHORT]: 'YYYY-MM-DD 형식으로 입력해주세요.',
+  [ValidState.INVALID_DATE]: '유효한 날짜를 입력해주세요.',
+  [ValidState.VALID]: null,
+};
+
+const rules = {
+  isEmpty: (birth: string) => birth.length === 0,
+  isTooShort: (birth: string) => birth.length < 10,
+  hasInvalidDate: (birth: string) => isNaN(Date.parse(birth)),
 };
 
 const formatBirthInput = (inputBirth: string) => {
@@ -32,25 +38,23 @@ const formatBirthInput = (inputBirth: string) => {
   return formattedBirth;
 };
 
-const validBirthDate = (birthDate: string): BirthValidationState => {
-  if (birthDate === '') return BirthValidationState.EMPTY;
-  if (birthDate.length < 10) return BirthValidationState.TOO_SHORT;
-  if (isNaN(Date.parse(birthDate))) return BirthValidationState.INVALID_DATE;
-  return BirthValidationState.VALID;
+const validateBirth = (birthDate: string): ValidState => {
+  if (rules.isEmpty(birthDate)) return ValidState.EMPTY;
+  if (rules.isTooShort(birthDate)) return ValidState.TOO_SHORT;
+  if (rules.hasInvalidDate(birthDate)) return ValidState.INVALID_DATE;
+  return ValidState.VALID;
 };
 
 export default function Birthday({ onNext }: Props) {
   const [user, setUser] = useRecoilState(userAtom);
   const [birth, setBirth] = useState<string>(user.birth || '');
-  const [birthValidationState, setBirthValidationState] = useState<BirthValidationState>(
-    BirthValidationState.EMPTY,
-  );
+  const [birthValidationState, setValidState] = useState<ValidState>(ValidState.EMPTY);
 
   const birthInputHandler = (inputBirth: string) => {
     const formattedBirth = formatBirthInput(inputBirth);
-    const birthBirthValidationState = validBirthDate(formattedBirth);
+    const birthValidState = validateBirth(formattedBirth);
     setBirth(formattedBirth);
-    setBirthValidationState(birthBirthValidationState);
+    setValidState(birthValidState);
     setUser((user) => ({
       ...user,
       birth: formattedBirth.replace(/-/g, ''),
@@ -69,7 +73,7 @@ export default function Birthday({ onNext }: Props) {
           placeholder="YYYY-MM-DD"
           value={birth}
           onChange={(e) => setBirth(e.target.value)}
-          errMsg={ErrorMsgMap[birthValidationState]}
+          errMsg={errorMsgMap[birthValidationState]}
         />
       </div>
       <div className={styles.submit}>
@@ -79,7 +83,7 @@ export default function Birthday({ onNext }: Props) {
           color="blue"
           width="full"
           size="large"
-          disabled={birthValidationState !== BirthValidationState.VALID}
+          disabled={birthValidationState !== ValidState.VALID}
           onClick={onNext}
         />
       </div>
