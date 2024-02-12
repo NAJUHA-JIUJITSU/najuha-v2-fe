@@ -1,58 +1,75 @@
-import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import { CheckItem, CheckList, checkListAtomFamily } from '@/recoil/checkListAtomFamily';
+import { useEffect, useState } from 'react';
 
-/**
- * checkListAtomFamily를 사용하여 checkList를 생성하고 관리하는 커스텀 훅.
- * 범용적으로 사용할 수 있는 메서드들을 제공한다.
- * TODO: 리렌더링 최적화
- *
- * @param initialCheckList 초기 checkList
- * @returns checkList와 관련된 메서드들
- */
+export interface CheckItem {
+  checked: boolean;
+  mandatory: boolean;
+}
+
+export interface CheckList {
+  [key: string]: CheckItem;
+}
+
 export function useCheckList(initialCheckList: CheckList) {
-  const [checkList, setCheckList] = useRecoilState(checkListAtomFamily(initialCheckList.id));
+  const [checkList, setCheckList] = useState<CheckList>(initialCheckList);
+  const [isAllMandatoryChecked, setIsAllisAllMandatoryChecked] = useState(false);
 
-  // 기존에 저장된 checkList가 없다면 초기 checkList를 설정한다.
   useEffect(() => {
-    if (!checkList.items.length) {
-      setCheckList(initialCheckList);
-    }
-  });
-
-  const updateIsAllMandatoryChecked = (items: CheckItem[]): boolean => {
-    return items.filter((item) => item.mandatory).every((item) => item.checked);
-  };
+    const updateIsAllMandatoryChecked = () => {
+      const items = Object.values(checkList);
+      setIsAllisAllMandatoryChecked(
+        items.filter((item) => item.mandatory).every((item) => item.checked),
+      );
+    };
+    updateIsAllMandatoryChecked();
+  }, [checkList]);
 
   const toggleCheckItem = (itemName: string) => {
     setCheckList((prevCheckList) => {
-      const updatedItems = prevCheckList.items.map((item) =>
-        item.name === itemName ? { ...item, checked: !item.checked } : item,
-      );
-      const isAllMandatoryChecked = updateIsAllMandatoryChecked(updatedItems);
-      return {
+      const item = prevCheckList[itemName];
+      if (!item) return prevCheckList;
+
+      const updatedCheckList = {
         ...prevCheckList,
-        items: updatedItems,
-        isAllMandatoryChecked,
+        [itemName]: { ...item, checked: !item.checked },
       };
+      return updatedCheckList;
     });
   };
 
   const toggleAllCheckItems = (checked: boolean) => {
     setCheckList((prevCheckList) => {
-      const updatedItems = prevCheckList.items.map((item) => ({ ...item, checked }));
-      const isAllMandatoryChecked = updateIsAllMandatoryChecked(updatedItems);
-      return {
-        ...prevCheckList,
-        items: updatedItems,
-        isAllMandatoryChecked,
-      };
+      const updatedCheckList = Object.keys(prevCheckList).reduce((acc, key) => {
+        acc[key] = { ...prevCheckList[key], checked };
+        return acc;
+      }, {} as CheckList);
+      return updatedCheckList;
     });
   };
 
-  const findCheckItem = (itemName: string) => {
-    return checkList.items.find((item) => item.name === itemName);
+  const toggleHandler = (key: string) => {
+    const allState = checkList['all']?.checked;
+    if (key === 'all') {
+      toggleAllCheckItems(!allState);
+    } else {
+      if (allState) toggleCheckItem('all');
+      toggleCheckItem(key);
+    }
   };
 
-  return { checkList, toggleCheckItem, toggleAllCheckItems, findCheckItem };
+  return { checkList, isAllMandatoryChecked, toggleHandler };
 }
+
+// CheckBoxLabel 재랜더링 방지
+// const toggleHandler = (key: string) => {
+//   const allState = findCheckItem('all')?.checked;
+//   let runner = () => {};
+//   if (key === 'all') {
+//     runner = () => toggleAllCheckItems(!allState);
+//   } else {
+//     runner = () => {
+//       if (allState) toggleCheckItem('all');
+//       toggleCheckItem(key);
+//     };
+//   }
+//   return useCallback(runner, [allState]);
+// };
