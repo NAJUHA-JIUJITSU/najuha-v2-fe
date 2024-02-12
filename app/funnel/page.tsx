@@ -4,16 +4,17 @@ import { useEffect, useState } from 'react';
 import Header from '@/components/common/header/Header';
 import { ButtonIcon } from '@/components/common/icon/iconOnClick';
 import AgreePage from '@/components/registerFunnel/agreePage';
+import GenderPage from '@/components/registerFunnel/genderPage';
+import PhoneNumberPage from '@/components/registerFunnel/phoneNumberPage';
+import BeltPage from '@/components/registerFunnel/beltPage';
 import BirthPage from '@/components/registerFunnel/birthPage';
 import NicknamePage from '@/components/registerFunnel/nicknamePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import useFunnel from '@/hook/useFunnel';
 import Cookies from 'js-cookie';
 import { getUser } from '@/api/users';
-import GenderPage from '@/components/registerFunnel/genderPage';
-import PhoneNumberPage from '@/components/registerFunnel/phoneNumberPage';
 
-const steps = ['약관동의', '성별', '전화번호', '생년월일', '닉네임', '가입성공'];
+const steps = ['약관동의', '성별', '전화번호', '생년월일', '닉네임', '벨트', '가입성공'];
 
 interface UserResponseData {
   belt: null | string;
@@ -46,6 +47,7 @@ const initialFunnelData = {
   전화번호: '',
   생년월일: '',
   닉네임: '',
+  벨트: '',
 };
 
 export default function funnel() {
@@ -117,6 +119,10 @@ export default function funnel() {
       {currentStep === '닉네임' && (
         <NicknamePage data={funnelData[currentStep]} onNext={gotoSaveNextStep} />
       )}
+      {currentStep === '벨트' && (
+        <BeltPage data={funnelData[currentStep]} onNext={gotoSaveNextStep} />
+      )}
+
       {currentStep === '가입성공' && <div>가입성공 페이지</div>}
     </div>
   );

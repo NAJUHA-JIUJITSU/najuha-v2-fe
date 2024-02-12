@@ -18,7 +18,7 @@ export default function phoneNumberPage({ onNext, data }: PhoneNumberPageProps) 
 
   return (
     <div className={styles.wrapper}>
-      {/* 닉네임 입력 */}
+      {/* 휴대폰 번호 입력 */}
       <Input
         label="휴대폰 번호를 입력해주세요"
         placeholder="010-1234-5678"

@@ -22,7 +22,7 @@ const Select = ({ options, setState }: Props) => {
     <div className={styles.dropdown}>
       <div className={styles.trigger} onClick={toggleDropdown}>
         {selectedOption === null ? (
-          <div className={styles.example}>벨트선택</div>
+          <div className={styles.example}>벨트 선택</div>
         ) : (
           <div className={styles.selectedOption}>{selectedOption}</div>
         )}
