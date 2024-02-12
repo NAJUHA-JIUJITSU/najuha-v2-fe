@@ -28,6 +28,7 @@ export default function OauthCallbackPage({
     try {
       const data = await postSnsLogin(snsAuthCode, snsAuthProvider);
       setAccessToken(data.accessToken);
+      console.log(data.accessToken);
       Cookies.set('refreshToken', data.refreshToken); // TODO: HttpOnly, Secure 설정
 
       const decodedToken = JSON.parse(atob(data.accessToken.split('.')[1]));
