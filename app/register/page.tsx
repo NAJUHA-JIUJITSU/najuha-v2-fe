@@ -13,6 +13,10 @@ import Belt from '@/components/register/belt';
 import PhoneNumber from '@/components/register/phoneNumber';
 import Verify from '@/components/register/verify';
 import { useEffect } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { userAtom } from '@/recoil/userAtom';
+import { accessTokenAtom } from '@/recoil/accessTokenAtom';
+import { getUsersMe } from '@/api/users';
 
 const steps = [
   '약관동의',
@@ -27,6 +31,8 @@ const steps = [
 const Register = () => {
   const goBack = useGoBack();
   const { Funnel, setStep, step } = useFunnel(steps);
+  const setUser = useSetRecoilState(userAtom);
+  const accessToken = useRecoilValue(accessTokenAtom);
 
   const prevClickHandler = () => {
     const currentStepIndex = steps.indexOf(step);
@@ -34,9 +40,20 @@ const Register = () => {
     if (currentStepIndex === 0) goBack();
   };
 
+  // useEffect(() => {
+  //   setStep(steps[6]);
+  // }, []);
+
   useEffect(() => {
-    setStep(steps[6]);
-  }, []);
+    (async () => {
+      const data = await getUsersMe(accessToken);
+      setUser((user) => ({
+        ...user,
+        ...data,
+      }));
+      console.log(data);
+    })();
+  }, [setUser, accessToken]);
 
   return (
     <div className={styles.wrapper}>
