@@ -1,39 +1,27 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Select from '@/components/common/select';
 import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import { useRecoilState } from 'recoil';
 import { userAtom } from '@/recoil/userAtom';
+import { ValidState, useBeltSelection } from '@/hook/useBeltSelection';
 
 const options = ['화이트', '블루', '퍼플', '브라운', '블랙'];
 
-enum ValidState {
-  EMPTY,
-  VALID,
-}
-
-const validateBelts = (belts: string | null): ValidState => {
-  if (!belts) return ValidState.EMPTY;
-  return ValidState.VALID;
-};
-
 export default function Belt({ onNext }: { onNext: () => void }) {
   const [user, setUser] = useRecoilState(userAtom);
-  const [belt, setBelt] = useState(user.belt || null);
-  const [validState, setValidState] = useState<ValidState>(ValidState.EMPTY);
+  const { belt, setBelt, validState } = useBeltSelection(user.belt || null);
 
   useEffect(() => {
-    const validState = validateBelts(belt);
-    setValidState(validState);
     if (validState === ValidState.VALID && belt) {
       setUser((prev) => ({
         ...prev,
         belt,
       }));
     }
-  }, [belt]);
+  }, [belt, validState, setUser]);
 
   return (
     <>
