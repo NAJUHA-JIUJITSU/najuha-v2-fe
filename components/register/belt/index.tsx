@@ -14,22 +14,20 @@ enum ValidState {
   VALID,
 }
 
-const validateBelts = (belts: string): ValidState => {
+const validateBelts = (belts: string | null): ValidState => {
   if (!belts) return ValidState.EMPTY;
   return ValidState.VALID;
 };
 
 export default function Belt({ onNext }: { onNext: () => void }) {
   const [user, setUser] = useRecoilState(userAtom);
-  const [belt, setBelt] = useState(user.belt || '');
+  const [belt, setBelt] = useState(user.belt || null);
   const [validState, setValidState] = useState<ValidState>(ValidState.EMPTY);
 
   useEffect(() => {
     const validState = validateBelts(belt);
     setValidState(validState);
-    if (validState === ValidState.VALID) {
-      console.log('belt', belt);
-      console.log('user', user);
+    if (validState === ValidState.VALID && belt) {
       setUser((prev) => ({
         ...prev,
         belt,
