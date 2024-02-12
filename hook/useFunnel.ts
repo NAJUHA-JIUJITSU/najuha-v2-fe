@@ -28,6 +28,7 @@ function useFunnel<StepType extends string, DataType>(steps: StepType[], initial
     gotoSaveNextStep,
     gotoPreviousStep,
     funnelData,
+    setFunnelData,
     setCurrentStepIndex, // 이 함수를 제공하여 특정 단계로 직접 이동할 수 있도록 함
   };
 }

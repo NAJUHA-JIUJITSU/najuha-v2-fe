@@ -1,6 +1,6 @@
 'use client';
 import styles from './index.module.scss';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '@/components/common/header/Header';
 import { ButtonIcon } from '@/components/common/icon/iconOnClick';
 import AgreePage from '@/components/registerFunnel/agreePage';
@@ -8,9 +8,31 @@ import BirthPage from '@/components/registerFunnel/birthPage';
 import NicknamePage from '@/components/registerFunnel/nicknamePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import useFunnel from '@/hook/useFunnel';
-import { useSearchParams } from 'next/navigation';
+import Cookies from 'js-cookie';
+import { getUser } from '@/api/users';
+import GenderPage from '@/components/registerFunnel/genderPage';
+import PhoneNumberPage from '@/components/registerFunnel/phoneNumberPage';
 
-const steps = ['약관동의', '생년월일', '닉네임', '가입성공'];
+const steps = ['약관동의', '성별', '전화번호', '생년월일', '닉네임', '가입성공'];
+
+interface UserResponseData {
+  belt: null | string;
+  createdAt: string;
+  email: string;
+  gender: 'MALE' | 'FEMALE';
+  id: number;
+  name: string;
+  nickname: null | string;
+  phoneNumber: string;
+  birth: string;
+  profileImageUrlKey: null | string;
+  role: string;
+  snsAuthProvider: string;
+  snsId: string;
+  status: string;
+  updatedAt: string;
+  weight: null | number;
+}
 
 const initialFunnelData = {
   약관동의: {
@@ -20,31 +42,56 @@ const initialFunnelData = {
     refund: false,
     ad: false,
   },
+  성별: '',
+  전화번호: '',
   생년월일: '',
   닉네임: '',
 };
 
 export default function funnel() {
-  const { currentStep, gotoSaveNextStep, gotoPreviousStep, funnelData, setCurrentStepIndex } =
-    useFunnel(steps, initialFunnelData);
-  const params = useSearchParams();
+  const {
+    currentStep,
+    gotoSaveNextStep,
+    gotoPreviousStep,
+    funnelData,
+    setFunnelData,
+    setCurrentStepIndex,
+  } = useFunnel(steps, initialFunnelData);
+  const [userData, setUserData] = useState({} as UserResponseData);
+
+  //쿠키에 저장되어있는 토큰을 사용하여 사용자 정보 가져와서 user상태변경하는 함수
+  async function getUserInfo() {
+    //1. 쿠키에 저장되어있는 엑세스 토큰 찾기
+    const accessToken = Cookies.get('accessToken');
+    if (accessToken) {
+      //2. 엑세스 토큰으로 유저정보 가져오기
+      const userInfo = await getUser(accessToken);
+      if (userInfo.data) {
+        //3. 유저정보로 초기 userData업데이트
+        setUserData(userInfo.data);
+      }
+    } else {
+      console.log('엑세스 토큰이 없습니다.');
+    }
+  }
 
   useEffect(() => {
     setCurrentStepIndex(0); // 원하는 단계로 바로 이동하고 싶을 때 사용
-    //1. 파라미터로 받은 userId를 사용하여 사용자 정보 가져오는 함수
-    const userId = params.get('userId');
-
-    if (userId) {
-      console.log('Received userId:', userId);
-      // 여기에서 userId를 사용하여 추가 작업 수행
-    }
-    // const getUserInfo = async (userId를: number) => {
-    //   // const userInfo = await fetchUserInfo(authCode, snsProvider);
-    //   //2. 사용자 정보를 기반으로 funnelData 업데이트하는 함수
-    //   // console.log('userInfo: ', userInfo);
-    //   //1번과 2번하는 동안 로딩중 표시
-    // };
+    getUserInfo();
   }, []);
+
+  //userData업데이트 되면 setFunnelData 사용
+  useEffect(() => {
+    if (userData.id) {
+      setFunnelData((prev) => ({
+        ...prev,
+        닉네임: userData.name,
+        성별: userData.gender,
+        // 전화번호: userData.phoneNumber,
+        // 여기에 더 많은 매핑을 추가할 수 있음
+      }));
+    }
+  }, [userData]);
 
   console.log('funnelData: ', funnelData);
 
@@ -58,8 +105,14 @@ export default function funnel() {
       {currentStep === '약관동의' && (
         <AgreePage data={funnelData[currentStep]} onNext={gotoSaveNextStep} />
       )}
+      {currentStep === '성별' && (
+        <GenderPage data={funnelData[currentStep]} onNext={gotoSaveNextStep} />
+      )}
       {currentStep === '생년월일' && (
         <BirthPage data={funnelData[currentStep]} onNext={gotoSaveNextStep} />
+      )}
+      {currentStep === '전화번호' && (
+        <PhoneNumberPage data={funnelData[currentStep]} onNext={gotoSaveNextStep} />
       )}
       {currentStep === '닉네임' && (
         <NicknamePage data={funnelData[currentStep]} onNext={gotoSaveNextStep} />

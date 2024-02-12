@@ -14,9 +14,16 @@
 
 .submit {
   margin-top: auto;
+  margin-bottom: 12px;
 }
 
 .validateButton {
   margin-left: auto;
   width: 70px;
+}
+
+.label {
+  @include font-subtitle1-bold;
+  color: $--color-font-headline;
+  margin-bottom: 8px;
 }

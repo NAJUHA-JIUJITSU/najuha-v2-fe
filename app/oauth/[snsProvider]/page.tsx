@@ -16,29 +16,26 @@ export default function SnsRedirectPage({ params, searchParams }: SnsRedirectPag
   const snsAuthProvider = params.snsProvider;
   const snsAuthCode = searchParams.code;
 
-  // 중복 요청을 방지하기 위한 상태
-  const [loginAttempted, setLoginAttempted] = useState(false);
-
   useEffect(() => {
-    if (!isLoading && !loginAttempted && snsAuthProvider && snsAuthCode) {
-      setLoginAttempted(true); // 로그인 시도 상태 업데이트
+    if (!isLoading && snsAuthProvider && snsAuthCode) {
       handleSnsLogin(snsAuthProvider, snsAuthCode);
     }
   }, []);
 
   useEffect(() => {
-    if (!isLoading && payload && loginAttempted) {
-      const { userRole, userId } = payload;
+    if (!isLoading && payload) {
+      const { userRole } = payload;
       if (userRole === 'TEMPORARY_USER') {
-        router.push(`/funnel?userId=${userId}`);
+        router.push(`/funnel`);
       } else {
+        //로그인 완료
         router.push('/');
       }
     } else if (!isLoading && error) {
       console.log('로그인 실패:', error);
       router.push('/login');
     }
-  }, [isLoading, payload, error, loginAttempted]);
+  }, [isLoading, payload, error]);
 
   if (isLoading) {
     return <div className={styles.wrapper}>Loading...</div>;
