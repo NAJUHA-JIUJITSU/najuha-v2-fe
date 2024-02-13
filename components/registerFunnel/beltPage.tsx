@@ -23,7 +23,7 @@ export default function beltPage({ onNext, data }: BirthPageProps) {
       <div className={styles.submit}>
         <ButtonOnClick
           type="filled"
-          text="다음"
+          text="회원가입 완료"
           color={belts ? 'blue' : 'disabled'}
           width="full"
           size="large"

@@ -50,6 +50,13 @@ const initialFunnelData = {
   벨트: '',
 };
 
+function convertPhoneNumber(phoneNumber: string): string {
+  // 국가 코드("+82")를 "0"으로 변환하고, 문자열의 모든 공백과 하이픈을 제거
+  const formattedNumber = phoneNumber.replace('+82', '0').replace(/\s|-/g, '');
+
+  return formattedNumber;
+}
+
 export default function funnel() {
   const {
     currentStep,
@@ -69,6 +76,9 @@ export default function funnel() {
       //2. 엑세스 토큰으로 유저정보 가져오기
       const userInfo = await getUser(accessToken);
       if (userInfo.data) {
+        //전화번호 형식 변환
+        userInfo.data.phoneNumber = convertPhoneNumber(userInfo.data.phoneNumber);
+
         //3. 유저정보로 초기 userData업데이트
         setUserData(userInfo.data);
       }
@@ -89,7 +99,7 @@ export default function funnel() {
         ...prev,
         닉네임: userData.name,
         성별: userData.gender,
-        // 전화번호: userData.phoneNumber,
+        전화번호: userData.phoneNumber,
         // 여기에 더 많은 매핑을 추가할 수 있음
       }));
     }
