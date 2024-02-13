@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Input from '@/components/common/input';
 import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
@@ -12,17 +12,18 @@ interface Props {
 
 const Nickname: React.FC<Props> = ({ onNext }) => {
   const [user, setUser] = useRecoilState(userAtom);
-  const { nickname, setNickname, validState, errorMsg, checkDuplicatedNickname } =
+  const { nickname, updateNickname, validState, errorMsg, checkDuplicatedNickname } =
     useNicknameValidation(user.nickname || '');
 
-  useEffect(() => {
+  const handleNext = () => {
     if (validState === ValidState.VALID) {
       setUser((prevUser) => ({
         ...prevUser,
         nickname,
       }));
+      onNext();
     }
-  }, [nickname, validState, setUser]);
+  };
 
   return (
     <>
@@ -31,7 +32,7 @@ const Nickname: React.FC<Props> = ({ onNext }) => {
           label="원하시는 닉네임을 입력해주세요"
           placeholder="닉네임을 입력해주세요"
           value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
+          onChange={(e) => updateNickname(e.target.value)}
           errMsg={errorMsg}
         />
         <div className={styles.check}>
@@ -54,7 +55,7 @@ const Nickname: React.FC<Props> = ({ onNext }) => {
           width="full"
           size="large"
           disabled={validState !== ValidState.VALID}
-          onClick={onNext}
+          onClick={handleNext}
         />
       </div>
     </>

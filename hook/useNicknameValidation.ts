@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { getUserByNickname } from '@/api/users';
 import { accessTokenAtom } from '@/recoil/accessTokenAtom';
@@ -35,19 +35,20 @@ export const useNicknameValidation = (initialNickname = '') => {
   const [validState, setValidState] = useState<ValidState>(ValidState.EMPTY);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  useEffect(() => {
-    const validateNickname = (nickname: string): ValidState => {
-      if (nickname.length === 0) return ValidState.EMPTY;
-      if (nickname.length < NICKNAME_MIN || nickname.length > NICKNAME_MAX)
-        return ValidState.TOO_SHORT_OR_LONG;
-      if (!NICKNAME_REGEX.test(nickname)) return ValidState.INVALID_CHARS;
-      return ValidState.BEFORE_DUPLICATED_CHECK;
-    };
-
-    const newState = validateNickname(nickname);
+  const updateNickname = (inputNickname: string) => {
+    const newState = validateNickname(inputNickname);
+    setNickname(inputNickname);
     setValidState(newState);
     setErrorMsg(errorMsgMap[newState]);
-  }, [nickname]);
+  };
+
+  const validateNickname = (nickname: string): ValidState => {
+    if (nickname.length === 0) return ValidState.EMPTY;
+    if (nickname.length < NICKNAME_MIN || nickname.length > NICKNAME_MAX)
+      return ValidState.TOO_SHORT_OR_LONG;
+    if (!NICKNAME_REGEX.test(nickname)) return ValidState.INVALID_CHARS;
+    return ValidState.BEFORE_DUPLICATED_CHECK;
+  };
 
   const checkDuplicatedNickname = async (nickname: string) => {
     const data = await getUserByNickname(nickname, accessToken);
@@ -60,5 +61,5 @@ export const useNicknameValidation = (initialNickname = '') => {
     }
   };
 
-  return { nickname, setNickname, validState, errorMsg, checkDuplicatedNickname };
+  return { nickname, updateNickname, validState, errorMsg, checkDuplicatedNickname };
 };

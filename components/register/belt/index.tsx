@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect } from 'react';
 import Select from '@/components/common/select';
 import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
@@ -8,20 +7,25 @@ import { useRecoilState } from 'recoil';
 import { userAtom } from '@/recoil/userAtom';
 import { ValidState, useBeltSelection } from '@/hook/useBeltSelection';
 
+interface Props {
+  onNext: () => void;
+}
+
 const options = ['화이트', '블루', '퍼플', '브라운', '블랙'];
 
-export default function Belt({ onNext }: { onNext: () => void }) {
+const Belt: React.FC<Props> = ({ onNext }) => {
   const [user, setUser] = useRecoilState(userAtom);
-  const { belt, setBelt, validState } = useBeltSelection(user.belt || null);
+  const { belt, updateBelt, validState } = useBeltSelection(user.belt || null);
 
-  useEffect(() => {
+  const handleNext = () => {
     if (validState === ValidState.VALID && belt) {
       setUser((prev) => ({
         ...prev,
         belt,
       }));
+      onNext();
     }
-  }, [belt, validState, setUser]);
+  };
 
   return (
     <>
@@ -30,7 +34,7 @@ export default function Belt({ onNext }: { onNext: () => void }) {
           label="주짓수 벨트를 설정해주세요"
           options={options}
           value={belt}
-          setState={setBelt}
+          setState={updateBelt}
         />
       </div>
       <div className={stlyes.submit}>
@@ -41,9 +45,11 @@ export default function Belt({ onNext }: { onNext: () => void }) {
           width="full"
           size="large"
           disabled={validState !== ValidState.VALID}
-          onClick={onNext}
+          onClick={handleNext}
         />
       </div>
     </>
   );
-}
+};
+
+export default Belt;

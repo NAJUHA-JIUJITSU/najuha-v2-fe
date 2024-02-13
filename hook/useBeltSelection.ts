@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export enum ValidState {
   EMPTY,
@@ -14,10 +14,9 @@ export const useBeltSelection = (initialBelt: string | null) => {
     return ValidState.VALID;
   };
 
-  useEffect(() => {
-    const validState = validateBelts(belt);
-    setValidState(validState);
-  }, [belt]);
-
-  return { belt, setBelt, validState };
+  const updateBelt = (belt: string | null) => {
+    setValidState(validateBelts(belt));
+    setBelt(belt);
+  };
+  return { belt, updateBelt, validState };
 };
