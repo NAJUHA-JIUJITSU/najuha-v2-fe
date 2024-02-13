@@ -174,6 +174,10 @@ export default function Oauth() {
   }, [code]); // code 변경 시 fetchAccessToken 실행
 
   useEffect(() => {
+    if (accesstoken) console.log(jwtDecode(accesstoken));
+  }, [accesstoken]);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       if (accesstoken) {
         const timeLeft = calculateTimeLeft(decodeToken(accesstoken));
