@@ -57,6 +57,13 @@ function convertPhoneNumber(phoneNumber: string): string {
   return formattedNumber;
 }
 
+//모바일 화면 높이를 1vh 단위로 설정하는 함수
+function setScreenSize() {
+  let vh = window.innerHeight * 0.01;
+
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
 export default function funnel() {
   const {
     currentStep,
@@ -90,6 +97,7 @@ export default function funnel() {
   useEffect(() => {
     setCurrentStepIndex(0); // 원하는 단계로 바로 이동하고 싶을 때 사용
     getUserInfo();
+    setScreenSize();
   }, []);
 
   //userData업데이트 되면 setFunnelData 사용
