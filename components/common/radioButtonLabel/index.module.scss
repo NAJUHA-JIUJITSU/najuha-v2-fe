@@ -12,6 +12,10 @@
   gap: 8px;
 }
 
+.isUnderlined {
+  border-bottom: 1px solid $--color-gray-1;
+}
+
 .message {
   @include font-body1-regular;
   color: $--color-font-headline;

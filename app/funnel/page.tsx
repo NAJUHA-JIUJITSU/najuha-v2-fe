@@ -50,8 +50,8 @@ const initialFunnelData = {
   벨트: '',
 };
 
+// 국가 코드("+82")를 "0"으로 변환하고, 문자열의 모든 공백과 하이픈을 제거하는 함수
 function convertPhoneNumber(phoneNumber: string): string {
-  // 국가 코드("+82")를 "0"으로 변환하고, 문자열의 모든 공백과 하이픈을 제거
   const formattedNumber = phoneNumber.replace('+82', '0').replace(/\s|-/g, '');
 
   return formattedNumber;
@@ -97,10 +97,10 @@ export default function funnel() {
     if (userData.id) {
       setFunnelData((prev) => ({
         ...prev,
-        닉네임: userData.name,
-        성별: userData.gender,
-        전화번호: userData.phoneNumber,
-        // 여기에 더 많은 매핑을 추가할 수 있음
+        ...(userData.gender ? { 성별: userData.gender } : {}),
+        ...(userData.phoneNumber ? { 전화번호: convertPhoneNumber(userData.phoneNumber) } : {}),
+        ...(userData.nickname ? { 닉네임: userData.nickname } : {}),
+        ...(userData.birth ? { 생년월일: userData.birth } : {}),
       }));
     }
   }, [userData]);

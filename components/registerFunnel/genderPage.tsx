@@ -12,8 +12,6 @@ interface GenderPageProps {
 export default function genderPage({ onNext, data }: GenderPageProps) {
   const [gender, setGender] = useState<string>(data);
 
-  console.log('gender: ' + gender);
-
   return (
     <div className={styles.wrapper}>
       {/* 성별 선택 */}
@@ -22,11 +20,13 @@ export default function genderPage({ onNext, data }: GenderPageProps) {
         msg={'남성'}
         isChecked={gender === 'MALE'}
         changeCheck={() => setGender('MALE')}
+        isUnderlined={true}
       />
       <RadioButtonLabel
         msg={'여성'}
         isChecked={gender === 'FEMALE'}
         changeCheck={() => setGender('FEMALE')}
+        isUnderlined={true}
       />
 
       {/* 다음 버튼 */}
