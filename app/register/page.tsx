@@ -13,6 +13,7 @@ import Nickname from '@/components/register/nickname';
 import Belt from '@/components/register/belt';
 import Phonenumber from '@/components/register/phonenumber';
 import Verify from '@/components/register/verify';
+import { useAccessToken } from '@/hook/useAccesstoken';
 
 const steps = [
   '약관동의',
@@ -26,6 +27,8 @@ const steps = [
 export default function Funnel() {
   const goBack = useGoBack();
   const { Funnel, setStep, Step, step } = useFunnel(steps[0]);
+  const { accessToken, updateAccessToken } = useAccessToken();
+  console.log(`안녕나는 전역상태야, ${accessToken}`);
 
   const prevClickHandler = () => {
     const currentStepIndex = steps.indexOf(step);
