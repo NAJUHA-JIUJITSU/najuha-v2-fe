@@ -13,7 +13,7 @@ interface Props {
 
 const PhoneNumber: React.FC<Props> = ({ onNext }) => {
   const [user, setUser] = useRecoilState(userAtom);
-  const { phoneNumber, updatePhoneNumber, validState, errorMessage } = usePhoneNumberValidation(
+  const { phoneNumber, setPhoneNumber, validState, errorMessage } = usePhoneNumberValidation(
     user.phoneNumber || '',
   );
 
@@ -34,7 +34,7 @@ const PhoneNumber: React.FC<Props> = ({ onNext }) => {
           label="휴대폰 번호를 입력해주세요"
           placeholder="010-1234-5678"
           value={phoneNumber}
-          onChange={(e) => updatePhoneNumber(e.target.value)}
+          onChange={(e) => setPhoneNumber(e.target.value)}
           errMsg={errorMessage}
         />
       </div>

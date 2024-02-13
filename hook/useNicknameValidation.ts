@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { getUserByNickname } from '@/api/users';
 import { accessTokenAtom } from '@/recoil/accessTokenAtom';
@@ -29,25 +29,29 @@ const errorMsgMap: ErrorMessageMap = {
   [ValidState.VALID]: null,
 };
 
+const validateNickname = (nickname: string): ValidState => {
+  if (nickname.length === 0) return ValidState.EMPTY;
+  if (nickname.length < NICKNAME_MIN || nickname.length > NICKNAME_MAX)
+    return ValidState.TOO_SHORT_OR_LONG;
+  if (!NICKNAME_REGEX.test(nickname)) return ValidState.INVALID_CHARS;
+  return ValidState.BEFORE_DUPLICATED_CHECK;
+};
+
 export const useNicknameValidation = (initialNickname = '') => {
   const accessToken = useRecoilValue(accessTokenAtom);
   const [nickname, setNickname] = useState<string>(initialNickname);
   const [validState, setValidState] = useState<ValidState>(ValidState.EMPTY);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  const updateNickname = (inputNickname: string) => {
-    const newState = validateNickname(inputNickname);
-    setNickname(inputNickname);
-    setValidState(newState);
-    setErrorMsg(errorMsgMap[newState]);
-  };
+  useEffect(() => {
+    handleUpdateNickname(nickname);
+  }, [nickname]);
 
-  const validateNickname = (nickname: string): ValidState => {
-    if (nickname.length === 0) return ValidState.EMPTY;
-    if (nickname.length < NICKNAME_MIN || nickname.length > NICKNAME_MAX)
-      return ValidState.TOO_SHORT_OR_LONG;
-    if (!NICKNAME_REGEX.test(nickname)) return ValidState.INVALID_CHARS;
-    return ValidState.BEFORE_DUPLICATED_CHECK;
+  const handleUpdateNickname = (inputNickname: string) => {
+    const newValidState = validateNickname(inputNickname);
+    setNickname(inputNickname);
+    setValidState(newValidState);
+    setErrorMsg(errorMsgMap[newValidState]);
   };
 
   const checkDuplicatedNickname = async (nickname: string) => {
@@ -61,5 +65,5 @@ export const useNicknameValidation = (initialNickname = '') => {
     }
   };
 
-  return { nickname, updateNickname, validState, errorMsg, checkDuplicatedNickname };
+  return { nickname, setNickname, validState, errorMsg, checkDuplicatedNickname };
 };

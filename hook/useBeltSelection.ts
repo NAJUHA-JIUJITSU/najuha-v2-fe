@@ -1,22 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export enum ValidState {
   EMPTY,
   VALID,
 }
 
+const validateBelts = (belt: string | null): ValidState => {
+  if (!belt) return ValidState.EMPTY;
+  return ValidState.VALID;
+};
+
 export const useBeltSelection = (initialBelt: string | null) => {
   const [belt, setBelt] = useState<string | null>(initialBelt);
   const [validState, setValidState] = useState<ValidState>(ValidState.EMPTY);
 
-  const validateBelts = (belt: string | null): ValidState => {
-    if (!belt) return ValidState.EMPTY;
-    return ValidState.VALID;
-  };
+  useEffect(() => {
+    handelUpdateBelt(belt);
+  }, [belt]);
 
-  const updateBelt = (belt: string | null) => {
-    setValidState(validateBelts(belt));
+  const handelUpdateBelt = (belt: string | null) => {
+    const newValidState = validateBelts(belt);
+    setValidState(newValidState);
     setBelt(belt);
   };
-  return { belt, updateBelt, validState };
+
+  return { belt, setBelt, validState };
 };

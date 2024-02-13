@@ -15,7 +15,7 @@ const options = ['화이트', '블루', '퍼플', '브라운', '블랙'];
 
 const Belt: React.FC<Props> = ({ onNext }) => {
   const [user, setUser] = useRecoilState(userAtom);
-  const { belt, updateBelt, validState } = useBeltSelection(user.belt || null);
+  const { belt, setBelt, validState } = useBeltSelection(user.belt || null);
 
   const handleNext = () => {
     if (validState === ValidState.VALID && belt) {
@@ -34,7 +34,7 @@ const Belt: React.FC<Props> = ({ onNext }) => {
           label="주짓수 벨트를 설정해주세요"
           options={options}
           value={belt}
-          setState={updateBelt}
+          setState={setBelt}
         />
       </div>
       <div className={stlyes.submit}>

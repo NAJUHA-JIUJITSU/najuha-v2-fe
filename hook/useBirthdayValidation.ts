@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export enum ValidState {
   EMPTY,
@@ -29,12 +29,23 @@ const formatBirthInput = (inputBirth: string): string => {
   return formattedBirth;
 };
 
+const validateBirth = (birthDate: string): ValidState => {
+  if (rules.isEmpty(birthDate)) return ValidState.EMPTY;
+  if (rules.isTooShort(birthDate)) return ValidState.TOO_SHORT;
+  if (rules.hasInvalidDate(birthDate)) return ValidState.INVALID_DATE;
+  return ValidState.VALID;
+};
+
 export const useBirthdayValidation = (initialBirth: string) => {
   const [birth, setBirth] = useState<string>(formatBirthInput(initialBirth));
   const [validationState, setValidationState] = useState<ValidState>(ValidState.EMPTY);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const updateBirth = (inputBirth: string) => {
+  useEffect(() => {
+    hadleUpdateBirth(birth);
+  }, [birth]);
+
+  const hadleUpdateBirth = (inputBirth: string) => {
     const formattedBirth = formatBirthInput(inputBirth);
     const validState = validateBirth(formattedBirth);
     setBirth(formattedBirth);
@@ -42,12 +53,5 @@ export const useBirthdayValidation = (initialBirth: string) => {
     setErrorMessage(errorMsgMap[validState]);
   };
 
-  const validateBirth = (birthDate: string): ValidState => {
-    if (rules.isEmpty(birthDate)) return ValidState.EMPTY;
-    if (rules.isTooShort(birthDate)) return ValidState.TOO_SHORT;
-    if (rules.hasInvalidDate(birthDate)) return ValidState.INVALID_DATE;
-    return ValidState.VALID;
-  };
-
-  return { birth, updateBirth, validationState, errorMessage };
+  return { birth, setBirth, validationState, errorMessage };
 };

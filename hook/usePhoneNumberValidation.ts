@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export enum ValidState {
   EMPTY,
@@ -39,7 +39,11 @@ export const usePhoneNumberValidation = (initialPhoneNumber: string) => {
   const [validState, setValidState] = useState<ValidState>(ValidState.EMPTY);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const updatePhoneNumber = (inputPhone: string) => {
+  useEffect(() => {
+    handleUpdatePhoneNumber(phoneNumber);
+  }, [phoneNumber]);
+
+  const handleUpdatePhoneNumber = (inputPhone: string) => {
     const formattedPhone = formatPhoneNumber(inputPhone);
     const validState = validatePhoneNumber(formattedPhone);
     setPhoneNumber(formattedPhone);
@@ -47,5 +51,5 @@ export const usePhoneNumberValidation = (initialPhoneNumber: string) => {
     setErrorMessage(errorMsgMap[validState]);
   };
 
-  return { phoneNumber, updatePhoneNumber, validState, errorMessage };
+  return { phoneNumber, setPhoneNumber, validState, errorMessage };
 };

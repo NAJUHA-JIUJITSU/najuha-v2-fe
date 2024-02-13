@@ -40,9 +40,9 @@ const Register = () => {
     if (currentStepIndex === 0) goBack();
   };
 
-  useEffect(() => {
-    setStep(steps[3]);
-  }, []);
+  // useEffect(() => {
+  //   setStep(steps[3]);
+  // }, []);
 
   useEffect(() => {
     (async () => {

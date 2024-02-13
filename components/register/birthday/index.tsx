@@ -12,7 +12,7 @@ interface Props {
 
 const Birthday: React.FC<Props> = ({ onNext }) => {
   const [user, setUser] = useRecoilState(userAtom);
-  const { birth, updateBirth, validationState, errorMessage } = useBirthdayValidation(
+  const { birth, setBirth, validationState, errorMessage } = useBirthdayValidation(
     user.birth || '',
   );
 
@@ -33,7 +33,7 @@ const Birthday: React.FC<Props> = ({ onNext }) => {
           label="생년월일을 입력해주세요"
           placeholder="YYYY-MM-DD"
           value={birth}
-          onChange={(e) => updateBirth(e.target.value)}
+          onChange={(e) => setBirth(e.target.value)}
           errMsg={errorMessage}
         />
       </div>

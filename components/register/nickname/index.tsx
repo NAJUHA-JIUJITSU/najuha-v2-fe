@@ -12,7 +12,7 @@ interface Props {
 
 const Nickname: React.FC<Props> = ({ onNext }) => {
   const [user, setUser] = useRecoilState(userAtom);
-  const { nickname, updateNickname, validState, errorMsg, checkDuplicatedNickname } =
+  const { nickname, setNickname, validState, errorMsg, checkDuplicatedNickname } =
     useNicknameValidation(user.nickname || '');
 
   const handleNext = () => {
@@ -32,7 +32,7 @@ const Nickname: React.FC<Props> = ({ onNext }) => {
           label="원하시는 닉네임을 입력해주세요"
           placeholder="닉네임을 입력해주세요"
           value={nickname}
-          onChange={(e) => updateNickname(e.target.value)}
+          onChange={(e) => setNickname(e.target.value)}
           errMsg={errorMsg}
         />
         <div className={styles.check}>
