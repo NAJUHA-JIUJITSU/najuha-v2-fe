@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { jwtDecode } from 'jwt-decode';
 import { useAccessToken } from '@/hook/useAccesstoken';
-import { useAuthCode } from '@/hook/useAuthCode';
 import Cookies from 'js-cookie';
 
 interface DecodedToken {
@@ -13,13 +12,19 @@ interface DecodedToken {
   userRole: 'TEMPORARY_USER' | 'USER' | 'ADMIN';
 }
 
-export default function Oauth() {
-  const { code, state } = useAuthCode(); // useAuthCode 훅으로 code 가져오기
+interface SnsRedirectPageProps {
+  params: { snsProvider: string };
+  searchParams: { code: string };
+}
+
+export default function Oauth({ params, searchParams }: SnsRedirectPageProps) {
   const { updateAccessToken } = useAccessToken();
   const router = useRouter();
+  const snsAuthProvider = params.snsProvider;
+  const snsAuthCode = searchParams.code;
 
   async function fetchAccessToken() {
-    if (!code) return; // code가 없으면 함수 실행 중지
+    if (!snsAuthCode) return; // code가 없으면 함수 실행 중지
 
     try {
       let response = await fetch('http://localhost:3001/auth/snsLogin', {
@@ -27,7 +32,7 @@ export default function Oauth() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ snsAuthCode: code, snsAuthProvider: state }),
+        body: JSON.stringify({ snsAuthCode: snsAuthCode, snsAuthProvider: snsAuthProvider }),
       });
       let ret = await response.json();
       updateAccessToken(ret.data.accessToken);
@@ -60,7 +65,7 @@ export default function Oauth() {
 
   useEffect(() => {
     fetchAccessToken();
-  }, [code]);
+  }, []);
 
   return (
     <div style={{ lineHeight: 1 }}>
