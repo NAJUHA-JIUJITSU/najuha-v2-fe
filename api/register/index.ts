@@ -52,18 +52,18 @@ const getUserByNickname = async (nickname: string, accessToken: string) => {
 };
 
 interface UpdateTemporaryUserDto {
-  nickname: string;
-  belt: string;
-  gender: null | 'MALE' | 'FEMALE';
-  birth: string;
+  nickname?: null | string;
+  belt?: null | string;
+  gender?: null | string;
+  birth?: null | string;
 }
 /**
  * 2-3 update temporary user info.
  * - GuardLevel: TEMPORARY_USER
  */
-const petchTemporaryUser = async (accessToken: string, body: UpdateTemporaryUserDto) => {
+const patchTemporaryUser = async (accessToken: string, body: UpdateTemporaryUserDto) => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_NAJUHA_BE_URL}/register/users/me`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_NAJUHA_BE_URL}/register/users`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -79,4 +79,4 @@ const petchTemporaryUser = async (accessToken: string, body: UpdateTemporaryUser
   }
 };
 
-export { getUsersMe, getUserByNickname, petchTemporaryUser };
+export { getUsersMe, getUserByNickname, patchTemporaryUser };

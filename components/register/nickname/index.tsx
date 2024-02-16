@@ -2,15 +2,18 @@ import React from 'react';
 import Input from '@/components/common/input';
 import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { userAtom } from '@/recoil/userAtom';
 import { useNicknameValidation, ValidState } from '@/hook/useNicknameValidation'; // Adjust the import path as needed
+import { accessTokenAtom } from '@/recoil/accessTokenAtom';
+import { patchTemporaryUser } from '@/api/register';
 
 interface Props {
   onNext: () => void;
 }
 
 const Nickname: React.FC<Props> = ({ onNext }) => {
+  const accessToken = useRecoilValue(accessTokenAtom);
   const [user, setUser] = useRecoilState(userAtom);
   const { nickname, setNickname, validState, errorMsg, checkDuplicatedNickname } =
     useNicknameValidation(user.nickname || '');
@@ -21,6 +24,7 @@ const Nickname: React.FC<Props> = ({ onNext }) => {
         ...prevUser,
         nickname,
       }));
+      patchTemporaryUser(accessToken, { nickname });
       onNext();
     }
   };

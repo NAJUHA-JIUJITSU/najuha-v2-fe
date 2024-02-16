@@ -1,16 +1,19 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { userAtom } from '@/recoil/userAtom';
 import { useBirthValidation, ValidState } from '@/hook/useBirthValidation';
 import Input from '@/components/common/input';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import styles from './index.module.scss';
+import { accessTokenAtom } from '@/recoil/accessTokenAtom';
+import { patchTemporaryUser } from '@/api/register';
 
 interface Props {
   onNext: () => void;
 }
 
 const Birthday: React.FC<Props> = ({ onNext }) => {
+  const accessToken = useRecoilValue(accessTokenAtom);
   const [user, setUser] = useRecoilState(userAtom);
   const { birth, setBirth, validationState, errorMessage } = useBirthValidation(user.birth || '');
 
@@ -20,6 +23,7 @@ const Birthday: React.FC<Props> = ({ onNext }) => {
         ...prevUser,
         birth: birth.replace(/-/g, ''),
       }));
+      patchTemporaryUser(accessToken, { birth: birth.replace(/-/g, '') });
       onNext();
     }
   };

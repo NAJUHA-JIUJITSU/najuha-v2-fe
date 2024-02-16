@@ -2,8 +2,10 @@
 import styles from './index.module.scss';
 import RadioButtonLabel from '@/components/common/radioButtonLabel';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { userAtom } from '@/recoil/userAtom';
+import { patchTemporaryUser } from '@/api/register';
+import { accessTokenAtom } from '@/recoil/accessTokenAtom';
 
 interface Props {
   onNext: () => void;
@@ -16,12 +18,20 @@ const radioContents = [
   },
   {
     msg: '여성',
-    value: 'FEAMLE',
+    value: 'FEMALE',
   },
 ];
 
 const Gender = ({ onNext }: Props) => {
+  const accessToken = useRecoilValue(accessTokenAtom);
   const [user, setUser] = useRecoilState(userAtom);
+
+  const handleNext = () => {
+    if (user.gender) {
+      onNext();
+      patchTemporaryUser(accessToken, { gender: user.gender });
+    }
+  };
 
   return (
     <>
@@ -49,7 +59,7 @@ const Gender = ({ onNext }: Props) => {
           width="full"
           size="large"
           disabled={user.gender === '' ? true : false}
-          onClick={onNext}
+          onClick={handleNext}
         />
       </div>
     </>

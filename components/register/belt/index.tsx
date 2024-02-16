@@ -3,9 +3,11 @@
 import Select from '@/components/common/select';
 import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { userAtom } from '@/recoil/userAtom';
 import { ValidState, useBeltValidation } from '@/hook/useBeltValidation';
+import { patchTemporaryUser } from '@/api/register';
+import { accessTokenAtom } from '@/recoil/accessTokenAtom';
 
 interface Props {
   onNext: () => void;
@@ -14,6 +16,7 @@ interface Props {
 const options = ['화이트', '블루', '퍼플', '브라운', '블랙'];
 
 const Belt: React.FC<Props> = ({ onNext }) => {
+  const accessToken = useRecoilValue(accessTokenAtom);
   const [user, setUser] = useRecoilState(userAtom);
   const { belt, setBelt, validState } = useBeltValidation(user.belt || null);
 
@@ -23,6 +26,7 @@ const Belt: React.FC<Props> = ({ onNext }) => {
         ...prev,
         belt,
       }));
+      patchTemporaryUser(accessToken, { belt });
       onNext();
     }
   };
