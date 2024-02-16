@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { getUserByNickname } from '@/api/users';
+import { getUserByNickname } from '@/api/register';
 import { accessTokenAtom } from '@/recoil/accessTokenAtom';
 
 const NICKNAME_MIN = 2;

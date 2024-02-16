@@ -16,7 +16,7 @@ import { useEffect } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userAtom } from '@/recoil/userAtom';
 import { accessTokenAtom } from '@/recoil/accessTokenAtom';
-import { getUsersMe } from '@/api/users';
+import { getUsersMe } from '@/api/register';
 
 const steps = [
   '약관동의',

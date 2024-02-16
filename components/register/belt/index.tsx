@@ -5,7 +5,7 @@ import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import { useRecoilState } from 'recoil';
 import { userAtom } from '@/recoil/userAtom';
-import { ValidState, useBeltSelection } from '@/hook/useBeltSelection';
+import { ValidState, useBeltValidation } from '@/hook/useBeltValidation';
 
 interface Props {
   onNext: () => void;
@@ -15,7 +15,7 @@ const options = ['화이트', '블루', '퍼플', '브라운', '블랙'];
 
 const Belt: React.FC<Props> = ({ onNext }) => {
   const [user, setUser] = useRecoilState(userAtom);
-  const { belt, setBelt, validState } = useBeltSelection(user.belt || null);
+  const { belt, setBelt, validState } = useBeltValidation(user.belt || null);
 
   const handleNext = () => {
     if (validState === ValidState.VALID && belt) {

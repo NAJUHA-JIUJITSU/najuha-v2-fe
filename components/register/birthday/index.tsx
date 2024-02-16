@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilState } from 'recoil';
 import { userAtom } from '@/recoil/userAtom';
-import { useBirthdayValidation, ValidState } from '@/hook/useBirthdayValidation'; // Adjust the import path as needed
+import { useBirthValidation, ValidState } from '@/hook/useBirthValidation';
 import Input from '@/components/common/input';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import styles from './index.module.scss';
@@ -12,9 +12,7 @@ interface Props {
 
 const Birthday: React.FC<Props> = ({ onNext }) => {
   const [user, setUser] = useRecoilState(userAtom);
-  const { birth, setBirth, validationState, errorMessage } = useBirthdayValidation(
-    user.birth || '',
-  );
+  const { birth, setBirth, validationState, errorMessage } = useBirthValidation(user.birth || '');
 
   const handleNext = () => {
     if (validationState === ValidState.VALID) {

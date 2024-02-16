@@ -2,8 +2,8 @@ import { TokenResponse } from '@/api/utils/types';
 
 // const refreshTokens = async (): Promise<TokenResponse> => {
 //   try {
-//     // const refreshToken = cookies().get('refreshToken');
-//     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/refresh`, {
+//     // const refreshToken = cookies().get('refresh-token');
+//     const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/token`, {
 //       method: 'POST',
 //       headers: {
 //         'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ const postSnsLogin = async (
   snsAuthProvider: string,
 ): Promise<TokenResponse> => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_NAJUHA_BE_URL}/auth/snsLogin`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_NAJUHA_BE_URL}/auth/sns-login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

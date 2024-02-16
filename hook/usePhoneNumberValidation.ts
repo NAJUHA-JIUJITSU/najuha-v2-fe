@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
+const PHONE_NUMBER_MAX = 11;
+
 export enum ValidState {
   EMPTY,
   TOO_SHORT,
   VALID,
 }
-
-const PHONE_NUMBER_MAX = 11;
 
 const errorMsgMap = {
   [ValidState.EMPTY]: null,
@@ -45,10 +45,10 @@ export const usePhoneNumberValidation = (initialPhoneNumber: string) => {
 
   const handleUpdatePhoneNumber = (inputPhone: string) => {
     const formattedPhone = formatPhoneNumber(inputPhone);
-    const validState = validatePhoneNumber(formattedPhone);
+    const newValidState = validatePhoneNumber(formattedPhone);
     setPhoneNumber(formattedPhone);
-    setValidState(validState);
-    setErrorMessage(errorMsgMap[validState]);
+    setValidState(newValidState);
+    setErrorMessage(errorMsgMap[newValidState]);
   };
 
   return { phoneNumber, setPhoneNumber, validState, errorMessage };
