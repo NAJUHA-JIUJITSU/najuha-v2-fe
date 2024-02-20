@@ -5,32 +5,13 @@ import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import { useRecoilState } from 'recoil';
 import { nicknameState } from '@/recoil/atoms/registerState';
+import { useInput } from '@/hook/useInput';
+import { validateNickname } from '@/utils/validations/userValidations';
+import { on } from 'events';
 
 export default function Nickname({ onNext }: any) {
   const [nickname, setNickname] = useRecoilState(nicknameState);
-  const [localNickname, setLocalNickname] = useState(nickname);
-  const [nicknameErrMsg, setNicknameErrMsg] = useState<string | null>('에러 메시지');
-
-  //validateNickname 함수
-  const validateNickname = (nickname: string) => {
-    if (nickname.length === 0) {
-      setNicknameErrMsg(null);
-      return true;
-    } else if (nickname.length < 2 || nickname.length > 8) {
-      setNicknameErrMsg('닉네임은 2자 이상 8자 이하로 입력해주세요.');
-      return false;
-    } else if (!/^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|\*]+$/.test(nickname)) {
-      setNicknameErrMsg('닉네임은 한글, 영문, 숫자만 입력 가능합니다.');
-      return false;
-    } else {
-      setNicknameErrMsg(null);
-      return true;
-    }
-  };
-
-  useEffect(() => {
-    validateNickname(localNickname);
-  }, [localNickname]);
+  const { value, setValue, errMsg } = useInput(nickname, validateNickname);
 
   return (
     <>
@@ -38,9 +19,9 @@ export default function Nickname({ onNext }: any) {
         <Input
           label="원하시는 닉네임을 입력해주세요"
           placeholder="닉네임을 입력해주세요"
-          value={localNickname}
-          onChange={(e) => setLocalNickname(e.target.value)}
-          errMsg={nicknameErrMsg}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          errMsg={errMsg}
         />
         <div className={stlyes.check}>
           <ButtonOnClick
@@ -62,7 +43,7 @@ export default function Nickname({ onNext }: any) {
           width="full"
           size="large"
           onClick={() => {
-            setNickname(localNickname);
+            setNickname(value);
             onNext();
           }}
         />

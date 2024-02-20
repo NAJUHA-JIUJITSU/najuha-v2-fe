@@ -5,24 +5,12 @@ import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import { useRecoilState } from 'recoil';
 import { verificationState } from '@/recoil/atoms/registerState';
+import { useInput } from '@/hook/useInput';
+import { validateVerificationNumber } from '@/utils/validations/userValidations';
 
 export default function Verify({ onNext }: any) {
   const [verify, setVerify] = useRecoilState(verificationState);
-  const [verifyNumber, setVerifyNumber] = useState<string>('');
-  const [numberErrMsg, setNumberErrMsg] = useState<string | null>(null);
-
-  //validateNumber함수
-  const validateNumber = (inputPhonenumber: string) => {
-    // 입력된 값에서 숫자만 추출
-    const numericValue = inputPhonenumber.replace(/[^0-4]/g, '');
-
-    // 실시간으로 형식에 맞게 업데이트
-    setVerifyNumber(numericValue);
-  };
-
-  useEffect(() => {
-    validateNumber(verifyNumber);
-  }, [verifyNumber]);
+  const { value, setValue, errMsg } = useInput('', validateVerificationNumber);
 
   return (
     <>
@@ -30,9 +18,9 @@ export default function Verify({ onNext }: any) {
         <Input
           label="인증번호를 입력해주세요"
           placeholder="4자리 인증번호"
-          value={verifyNumber}
-          onChange={(e) => setVerifyNumber(e.target.value)}
-          errMsg={numberErrMsg}
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          errMsg={errMsg}
         />
         <div className={stlyes.check}>
           <ButtonOnClick
