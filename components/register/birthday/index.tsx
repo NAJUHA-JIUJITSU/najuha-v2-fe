@@ -3,9 +3,12 @@ import { useState, useEffect, useCallback } from 'react';
 import Input from '@/components/common/input';
 import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
+import { useRecoilState } from 'recoil';
+import { birthDateState } from '@/recoil/atoms/registerState';
 
 export default function Birthday({ onNext }: any) {
-  const [birth, setBirth] = useState('');
+  const [birth, setBirth] = useRecoilState(birthDateState);
+  const [localBirth, setLocalBirth] = useState(birth);
   const [birthErrMsg, setBirthErrMsg] = useState<string | null>(null);
 
   const validateBirth = useCallback((inputBirth: string) => {
@@ -18,7 +21,7 @@ export default function Birthday({ onNext }: any) {
     }${numericValue.length > 6 ? '/' + numericValue.slice(6, 8) : ''}`;
 
     // 실시간으로 형식에 맞게 업데이트
-    setBirth(formattedBirth);
+    setLocalBirth(formattedBirth);
 
     // 8자리를 모두 입력한 경우에만 검증
     if (formattedBirth.length === 10) {
@@ -29,8 +32,8 @@ export default function Birthday({ onNext }: any) {
   }, []);
 
   useEffect(() => {
-    validateBirth(birth);
-  }, [birth]);
+    validateBirth(localBirth);
+  }, [localBirth]);
 
   return (
     <>
@@ -38,8 +41,8 @@ export default function Birthday({ onNext }: any) {
         <Input
           label="생년월일을 입력해주세요"
           placeholder="YYYY/MM/DD"
-          value={birth}
-          onChange={(e) => setBirth(e.target.value)}
+          value={localBirth}
+          onChange={(e) => setLocalBirth(e.target.value)}
           errMsg={birthErrMsg}
         />
       </div>
@@ -50,7 +53,10 @@ export default function Birthday({ onNext }: any) {
           color="blue"
           width="full"
           size="large"
-          onClick={onNext}
+          onClick={() => {
+            setBirth(localBirth);
+            onNext();
+          }}
         />
       </div>
     </>

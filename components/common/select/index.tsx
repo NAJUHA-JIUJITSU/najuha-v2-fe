@@ -8,11 +8,13 @@ interface Props {
   label?: string;
   options: string[];
   setState: any;
+  value: string;
+  placeholder: string;
 }
 
-const Select = ({ label, options, setState }: Props) => {
+const Select = ({ label, options, setState, value, placeholder }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(value);
   const toggleDropdown = () => setIsOpen(!isOpen);
   const selectOption = (option: any) => {
     setState(option);
@@ -25,8 +27,8 @@ const Select = ({ label, options, setState }: Props) => {
       <label className={styles.label}>{label}</label>
       <div className={styles.dropdown}>
         <div className={styles.trigger} onClick={toggleDropdown}>
-          {selectedOption === null ? (
-            <div className={styles.example}>벨트선택</div>
+          {selectedOption === '' ? (
+            <div className={styles.example}>{placeholder}</div>
           ) : (
             <div className={styles.selectedOption}>{selectedOption}</div>
           )}

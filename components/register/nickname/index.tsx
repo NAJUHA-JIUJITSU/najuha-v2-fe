@@ -3,9 +3,12 @@ import { useState, useEffect } from 'react';
 import Input from '@/components/common/input';
 import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
+import { useRecoilState } from 'recoil';
+import { nicknameState } from '@/recoil/atoms/registerState';
 
 export default function Nickname({ onNext }: any) {
-  const [nickname, setNickname] = useState('');
+  const [nickname, setNickname] = useRecoilState(nicknameState);
+  const [localNickname, setLocalNickname] = useState(nickname);
   const [nicknameErrMsg, setNicknameErrMsg] = useState<string | null>('에러 메시지');
 
   //validateNickname 함수
@@ -26,8 +29,8 @@ export default function Nickname({ onNext }: any) {
   };
 
   useEffect(() => {
-    validateNickname(nickname);
-  }, [nickname]);
+    validateNickname(localNickname);
+  }, [localNickname]);
 
   return (
     <>
@@ -35,8 +38,8 @@ export default function Nickname({ onNext }: any) {
         <Input
           label="원하시는 닉네임을 입력해주세요"
           placeholder="닉네임을 입력해주세요"
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
+          value={localNickname}
+          onChange={(e) => setLocalNickname(e.target.value)}
           errMsg={nicknameErrMsg}
         />
         <div className={stlyes.check}>
@@ -58,7 +61,10 @@ export default function Nickname({ onNext }: any) {
           color="blue"
           width="full"
           size="large"
-          onClick={onNext}
+          onClick={() => {
+            setNickname(localNickname);
+            onNext();
+          }}
         />
       </div>
     </>

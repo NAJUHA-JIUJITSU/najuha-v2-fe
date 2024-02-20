@@ -3,9 +3,12 @@ import styles from './index.module.scss';
 import RadioButtonLabel from '@/components/common/radioButtonLabel';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { genderState, GenderType } from '@/recoil/atoms/registerState';
 
 export default function Gender({ onNext }: any) {
-  const [gender, setGender] = useState('male');
+  const [gender, setGender] = useRecoilState(genderState);
+  const [localGender, setLocalGender] = useState<GenderType>(gender);
 
   return (
     <>
@@ -13,13 +16,13 @@ export default function Gender({ onNext }: any) {
         <div className={styles.info}>성별을 선택해 주세요</div>
         <RadioButtonLabel
           msg={'남성'}
-          isChecked={gender === 'male'}
-          changeCheck={() => setGender('male')}
+          isChecked={localGender === 'male'}
+          changeCheck={() => setLocalGender('male')}
         />
         <RadioButtonLabel
           msg={'여성'}
-          isChecked={gender === 'female'}
-          changeCheck={() => setGender('female')}
+          isChecked={localGender === 'female'}
+          changeCheck={() => setLocalGender('female')}
         />
       </div>
       <div className={styles.submit}>
@@ -29,7 +32,10 @@ export default function Gender({ onNext }: any) {
           color="blue"
           width="full"
           size="large"
-          onClick={onNext}
+          onClick={() => {
+            setGender(localGender);
+            onNext();
+          }}
         />
       </div>
     </>
