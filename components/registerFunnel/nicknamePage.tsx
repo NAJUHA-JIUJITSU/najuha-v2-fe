@@ -24,6 +24,7 @@ export default function nicknamePage({ onNext, data }: NicknamePageProps) {
     nickname,
     setNickname,
     isValid,
+    isLoading,
     errorMessage,
     successMessage,
     checkNicknameDuplication,
@@ -42,7 +43,7 @@ export default function nicknamePage({ onNext, data }: NicknamePageProps) {
         onChange={(e) => setNickname(e.target.value)}
         errMsg={errorMessage}
         successMsg={successMessage}
-        // disabled={isLoading} todo: isLoading true일때 비활성화 되게 하기
+        disabled={isLoading} //todo: isLoading true일때 비활성화 되게 하기
       />
 
       {/* 중복확인 버튼 */}

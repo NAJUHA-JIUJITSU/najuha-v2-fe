@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
+import { getCheckNicknameDuplication } from '@/api/register';
 
 function useNicknameValidation(initialNickname: string) {
   const [nickname, setNickname] = useState(initialNickname);
@@ -6,6 +8,7 @@ function useNicknameValidation(initialNickname: string) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isNicknameChecked, setIsNicknameChecked] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // 닉네임 유효성 검사
   const validateNickname = (nickname: string) => {
@@ -28,11 +31,16 @@ function useNicknameValidation(initialNickname: string) {
 
   // 중복 체크 API 호출
   const checkNicknameDuplication = async () => {
-    //todo: 여기에 실제 서버 API 호출 로직 추가
-    setIsNicknameChecked(false); // 중복 검사 시작 시 기존 검사 상태 초기화
+    setIsLoading(true);
 
-    // 예시: 임시 중복 체크 로직
-    if (nickname === '중복') {
+    //todo: 여기에 실제 서버 API 호출 로직 추가
+    const accessToken = Cookies.get('accessToken');
+    if (!accessToken) {
+      throw new Error('accessToken이 없습니다.');
+    }
+    const isDuplication = await getCheckNicknameDuplication(nickname, accessToken);
+    setIsLoading(false);
+    if (!isDuplication) {
       setErrorMessage('이미 사용중인 닉네임입니다.');
     } else {
       setSuccessMessage('사용 가능한 닉네임입니다.');
@@ -51,6 +59,7 @@ function useNicknameValidation(initialNickname: string) {
     nickname,
     setNickname,
     isValid,
+    isLoading,
     errorMessage,
     successMessage,
     checkNicknameDuplication,

@@ -24,7 +24,7 @@ const setTokenCookie = (tokenName: string, tokenValue: string) => {
     throw new Error('Token decoding failed.');
   } else {
     const expires = new Date(decoded.exp * 1000); // 토큰의 만료 시간을 쿠키의 만료 시간으로 설정
-    Cookies.set(tokenName, tokenValue, { expires });
+    Cookies.set(tokenName, tokenValue, { expires }); //todo: 쿠키 보안설정 추가
   }
 };
 

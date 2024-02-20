@@ -12,9 +12,20 @@ import NicknamePage from '@/components/registerFunnel/nicknamePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import useFunnel from '@/hook/useFunnel';
 import Cookies from 'js-cookie';
-import { getUser } from '@/api/users';
+import { getUser } from '@/api/register';
+import useRegister from '@/hook/useResgiter';
 
-const steps = ['약관동의', '성별', '전화번호', '생년월일', '닉네임', '벨트', '가입성공'];
+const steps = ['약관동의', '성별', '생년월일', '전화번호', '닉네임', '벨트', '가입성공'];
+
+const titleName = {
+  약관동의: '회원가입',
+  성별: '',
+  생년월일: '',
+  전화번호: '',
+  닉네임: '',
+  벨트: '',
+  가입성공: '가입성공',
+};
 
 interface UserResponseData {
   belt: null | string;
@@ -75,6 +86,8 @@ export default function funnel() {
   } = useFunnel(steps, initialFunnelData);
   const [userData, setUserData] = useState({} as UserResponseData);
 
+  const { isLoading, error, handleRegister } = useRegister();
+
   //쿠키에 저장되어있는 토큰을 사용하여 사용자 정보 가져와서 user상태변경하는 함수
   async function getUserInfo() {
     //1. 쿠키에 저장되어있는 엑세스 토큰 찾기
@@ -83,6 +96,11 @@ export default function funnel() {
       //2. 엑세스 토큰으로 유저정보 가져오기
       const userInfo = await getUser(accessToken);
       if (userInfo.data) {
+        if (userInfo.data.userRole === 'USER') {
+          console.log('이미 회원입니다.');
+          console.log('userInfo: ', userInfo.data);
+          return;
+        }
         //전화번호 형식 변환
         userInfo.data.phoneNumber = convertPhoneNumber(userInfo.data.phoneNumber);
 
@@ -113,13 +131,29 @@ export default function funnel() {
     }
   }, [userData]);
 
+  //currentStep이 '가입성공'일 때, userLogin api 호출 후, 쿠키에 저장된 토큰 삭제하고, 회원가입 완료 로직 후 메인페이지로 이동
+  useEffect(() => {
+    if (currentStep === '가입성공') {
+      console.log('최종 funnelData: ', funnelData);
+      handleRegister({
+        nickname: funnelData.닉네임,
+        gender: funnelData.성별,
+        belt: funnelData.벨트,
+        birth: '19981127',
+      });
+
+      console.log('회원가입 완료');
+      getUserInfo();
+    }
+  }, [currentStep]);
+
   console.log('funnelData: ', funnelData);
 
   return (
     <div className={styles.wrapper}>
       <Header
         leftIcon={<ButtonIcon icon={<IconNavigateBefore />} onClick={gotoPreviousStep} />}
-        title={currentStep}
+        title={titleName[currentStep as keyof typeof titleName]}
       />
 
       {currentStep === '약관동의' && (
@@ -141,7 +175,7 @@ export default function funnel() {
         <BeltPage data={funnelData[currentStep]} onNext={gotoSaveNextStep} />
       )}
 
-      {currentStep === '가입성공' && <div>가입성공 페이지</div>}
+      {currentStep === '가입성공' && <div style={{ lineHeight: 1 }}>가입 중...</div>}
     </div>
   );
 

@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import useSnsLogin from '@/hook/useSnsLogin';
 import styles from './index.module.scss';
