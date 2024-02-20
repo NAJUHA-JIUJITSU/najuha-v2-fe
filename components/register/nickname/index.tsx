@@ -5,7 +5,7 @@ import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 
 export default function Nickname({ onNext }: any) {
-  const [nickname, setNickname] = useState<string>('');
+  const [nickname, setNickname] = useState('');
   const [nicknameErrMsg, setNicknameErrMsg] = useState<string | null>('에러 메시지');
 
   //validateNickname 함수

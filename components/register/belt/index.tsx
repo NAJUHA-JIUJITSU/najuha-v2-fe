@@ -1,13 +1,16 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Select from '@/components/common/select';
 import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
+import { useAccessToken } from '@/hook/useAccesstoken';
 
 const options = ['화이트', '블루', '퍼플', '브라운', '블랙'];
 
 export default function Belt({ onNext }: any) {
   const [belts, setBelts] = useState('');
+  const { accessToken, updateAccessToken } = useAccessToken();
+
   return (
     <>
       <div className={stlyes.wrapper}>
@@ -20,7 +23,7 @@ export default function Belt({ onNext }: any) {
           color="blue"
           width="full"
           size="large"
-          onClick={onNext}
+          onClick={() => {}}
         />
       </div>
     </>

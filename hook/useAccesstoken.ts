@@ -1,6 +1,6 @@
 // hooks/useAccessToken.js
 import { useRecoilState } from 'recoil';
-import { accessTokenState } from '@/states/authState';
+import { accessTokenState } from '@/recoil/atoms/authState';
 
 // Hook의 반환 타입을 명시적으로 정의
 interface UseAccessToken {

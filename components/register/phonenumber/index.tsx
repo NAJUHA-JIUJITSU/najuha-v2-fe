@@ -5,7 +5,7 @@ import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 
 export default function Phonenumber({ onNext }: any) {
-  const [phonenumber, setPhonenumber] = useState<string>('');
+  const [phonenumber, setPhonenumber] = useState('');
   const [phonenumberErrMsg, setPhonenumberErrMsg] = useState<string | null>(null);
 
   //validateBirth 함수

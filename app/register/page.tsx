@@ -1,5 +1,6 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useState } from 'react';
 import styles from './index.module.scss';
 import { useFunnel } from '@/hook/useFunnel';
 import Header from '@/components/common/header/Header';
@@ -13,7 +14,6 @@ import Nickname from '@/components/register/nickname';
 import Belt from '@/components/register/belt';
 import Phonenumber from '@/components/register/phonenumber';
 import Verify from '@/components/register/verify';
-import { useAccessToken } from '@/hook/useAccesstoken';
 
 const steps = [
   '약관동의',
@@ -27,8 +27,21 @@ const steps = [
 export default function Funnel() {
   const goBack = useGoBack();
   const { Funnel, setStep, Step, step } = useFunnel(steps[0]);
-  const { accessToken, updateAccessToken } = useAccessToken();
-  console.log(`안녕나는 전역상태야, ${accessToken}`);
+  const [registrationInfo, setRegistrationInfo] = useState({
+    agreement: {
+      all: false,
+      use: false,
+      privacy: false,
+      refund: false,
+      ad: false,
+    },
+    gender: 'male',
+    birthDate: '',
+    phoneNumber: '',
+    verification: false,
+    nickname: '',
+    belt: '',
+  });
 
   const prevClickHandler = () => {
     const currentStepIndex = steps.indexOf(step);
@@ -44,7 +57,7 @@ export default function Funnel() {
     <div className={styles.wrapper}>
       <Header
         leftIcon={<ButtonIconFunnelBefore onClick={prevClickHandler} />}
-        title={step[0] === '약관동의' ? '회원가입' : step}
+        title={step === '약관동의' ? '회원가입' : step}
         rightIcon1={<IconLinkAlarm />}
         rightIcon2={<IconLinkSearch />}
       />

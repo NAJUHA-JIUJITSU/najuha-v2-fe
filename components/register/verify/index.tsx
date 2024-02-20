@@ -3,8 +3,11 @@ import { useState, useEffect } from 'react';
 import Input from '@/components/common/input';
 import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
+import { useRecoilState } from 'recoil';
+import { verificationState } from '@/recoil/atoms/registerState';
 
 export default function Verify({ onNext }: any) {
+  const [verify, setVerify] = useRecoilState(verificationState);
   const [verifyNumber, setVerifyNumber] = useState<string>('');
   const [numberErrMsg, setNumberErrMsg] = useState<string | null>(null);
 

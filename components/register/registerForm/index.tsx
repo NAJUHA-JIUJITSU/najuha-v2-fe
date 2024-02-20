@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import styles from './index.module.scss';
-import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import CheckBoxLabel from '@/components/common/checkBoxLabel';
 import { IconLink } from '@/components/common/icon/iconLink';
 import IconNavigateNext from '@/public/svgs/navigateNext.svg';

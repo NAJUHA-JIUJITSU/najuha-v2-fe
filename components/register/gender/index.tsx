@@ -5,7 +5,7 @@ import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import { useState } from 'react';
 
 export default function Gender({ onNext }: any) {
-  const [gender, setGender] = useState<string | null>('male');
+  const [gender, setGender] = useState('male');
 
   return (
     <>
