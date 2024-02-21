@@ -4,31 +4,27 @@ interface CheckboxState {
   [key: string]: boolean;
 }
 
-function useCheckboxState(initialState: CheckboxState) {
-  const [state, setState] = useState<CheckboxState>(initialState);
+function useCheckboxState(initialState: CheckboxState): [CheckboxState, (key: string) => void] {
+  const [state, setState] = useState(initialState);
 
-  const toggleState = (key: string) => {
-    return useCallback(() => {
-      setState((prevState) => {
-        // "전체 동의" 체크박스의 상태를 변경하는 경우
-        if (key === 'all') {
-          const newState = Object.keys(prevState).reduce<CheckboxState>((acc, cur) => {
-            acc[cur] = !prevState.all; // 모든 상태를 "전체 동의" 체크박스와 동일하게 설정
-            return acc;
-          }, {} as CheckboxState);
-          return newState;
-        } else {
-          // 개별 동의 항목의 상태를 변경하는 경우
-          return {
-            ...prevState,
-            [key]: !prevState[key],
-          };
-        }
-      });
-    }, []);
-  };
+  // 체크박스 상태를 토글하는 함수
+  const toggleCheckbox = useCallback((key: string) => {
+    setState((prevState) => {
+      const newState = { ...prevState, [key]: !prevState[key] };
+      // "all" 체크박스 로직 처리
+      if (key === 'all') {
+        Object.keys(newState).forEach((k) => (newState[k] = newState.all));
+      } else {
+        // 필수 항목이 모두 체크되었는지 검사하여 "all" 상태 업데이트
+        const allChecked = Object.keys(newState)
+          .filter((k) => k !== 'all')
+          .every((k) => newState[k]);
+        newState.all = allChecked;
+      }
+      return newState;
+    });
+  }, []);
 
-  return [state, toggleState] as const;
+  return [state, toggleCheckbox];
 }
-
 export default useCheckboxState;

@@ -7,8 +7,8 @@ import IconCheckboxOn from '@/public/svgs/checkboxOn.svg';
 interface Props {
   msg?: string;
   // changeCheck: (value: string) => void;
-  changeCheck: () => void;
-  // changeCheck: any;
+  // changeCheck: () => void;
+  changeCheck: any;
   isChecked?: boolean;
   rightIcon?: React.ReactNode;
   isUnderlined?: boolean;

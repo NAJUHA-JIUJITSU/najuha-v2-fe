@@ -39,9 +39,23 @@ const checkList = [
   },
 ];
 
-export default function requirement({ onNext }: Props) {
+export default function Requirement({ onNext }: Props) {
   const [agreement, setAgreement] = useRecoilState(agreementState);
   const [checkedStates, toggleState] = useCheckboxState(agreement);
+
+  const allRequiredAgreed = [checkedStates.use, checkedStates.privacy, checkedStates.refund].every(
+    (v) => v,
+  );
+  const buttontext = allRequiredAgreed ? '계속' : '약관전체 동의';
+
+  const handleButtonClick = () => {
+    if (allRequiredAgreed) {
+      setAgreement(checkedStates);
+      onNext();
+    } else {
+      toggleState('all'); // 모든 체크박스를 true로 설정
+    }
+  };
 
   return (
     <>
@@ -53,7 +67,9 @@ export default function requirement({ onNext }: Props) {
             msg={item.msg}
             isUnderlined={item.id === 'all'}
             rightIcon={item.id !== 'all' ? item.link : null}
-            changeCheck={toggleState(item.id)}
+            changeCheck={() => {
+              toggleState(item.id);
+            }}
             isChecked={checkedStates[item.id]}
           />
         ))}
@@ -61,14 +77,11 @@ export default function requirement({ onNext }: Props) {
       <div className={styles.submit}>
         <ButtonOnClick
           type="filled"
-          text="약관전체 동의"
+          text={buttontext}
           color="blue"
           width="full"
           size="large"
-          onClick={() => {
-            setAgreement(checkedStates);
-            onNext();
-          }}
+          onClick={handleButtonClick}
         />
       </div>
     </>
