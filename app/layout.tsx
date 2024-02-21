@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import '../styles/globals.scss';
+import RecoilRootWrapper from '@/components/RecoilRootWrapper';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -10,7 +11,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html>
-      <body>{children}</body>
+      <body>
+        <RecoilRootWrapper>{children}</RecoilRootWrapper>
+      </body>
     </html>
   );
 }

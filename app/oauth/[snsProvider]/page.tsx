@@ -29,6 +29,7 @@ export default function SnsRedirectPage({ params, searchParams }: SnsRedirectPag
         router.push(`/funnel`);
       } else {
         //로그인 완료
+        alert('로그인된 회원입니다. 메인 페이지로 이동합니다.');
         router.push('/');
       }
     } else if (!isLoading && error) {

@@ -11,9 +11,10 @@ import BirthPage from '@/components/registerFunnel/birthPage';
 import NicknamePage from '@/components/registerFunnel/nicknamePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import useFunnel from '@/hook/useFunnel';
-import Cookies from 'js-cookie';
 import { getUser } from '@/api/register';
 import useRegister from '@/hook/useResgiter';
+import { useRecoilState } from 'recoil';
+import { accessTokenState } from '@/atom/accessTokenState';
 
 const steps = ['약관동의', '성별', '생년월일', '전화번호', '닉네임', '벨트', '가입성공'];
 
@@ -84,14 +85,14 @@ export default function funnel() {
     setFunnelData,
     setCurrentStepIndex,
   } = useFunnel(steps, initialFunnelData);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [userData, setUserData] = useState({} as UserResponseData);
 
   const { isLoading, error, handleRegister } = useRegister();
 
-  //쿠키에 저장되어있는 토큰을 사용하여 사용자 정보 가져와서 user상태변경하는 함수
+  //전역변수에 저장되어있는 토큰을 사용하여 사용자 정보 가져와서 user상태변경하는 함수
   async function getUserInfo() {
-    //1. 쿠키에 저장되어있는 엑세스 토큰 찾기
-    const accessToken = Cookies.get('accessToken');
+    //1. 전역변수에 저장되어있는 엑세스 토큰 찾기
     if (accessToken) {
       //2. 엑세스 토큰으로 유저정보 가져오기
       const userInfo = await getUser(accessToken);
@@ -143,7 +144,6 @@ export default function funnel() {
       });
 
       console.log('회원가입 완료');
-      getUserInfo();
     }
   }, [currentStep]);
 
@@ -175,7 +175,7 @@ export default function funnel() {
         <BeltPage data={funnelData[currentStep]} onNext={gotoSaveNextStep} />
       )}
 
-      {currentStep === '가입성공' && <div style={{ lineHeight: 1 }}>가입 중...</div>}
+      {currentStep === '가입성공' && <div style={{ lineHeight: 1 }}>가입 성공 안내</div>}
     </div>
   );
 

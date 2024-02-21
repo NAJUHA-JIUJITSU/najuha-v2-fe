@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { decodeToken } from '@/util/decodeToken';
 import { postSnsLogin } from '@/api/auth';
 import Cookies from 'js-cookie';
+import { useRecoilState } from 'recoil';
+import { accessTokenState } from '@/atom/accessTokenState';
 
 interface MyTokenPayload {
   userId: number;
@@ -35,14 +37,16 @@ const useSnsLogin = () => {
     payload: null,
   });
 
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+
   const handleSnsLogin = async (snsAuthProvider: string, snsAuthCode: string) => {
     setLoginState((prev) => ({ ...prev, isLoading: true }));
     try {
       //백엔드에 snsLogin Post 요청
       const data = await postSnsLogin(snsAuthProvider, snsAuthCode);
 
-      // accessToken과 refreshToken을 쿠키에 저장
-      setTokenCookie('accessToken', data.data.accessToken);
+      // accessToken는 전역변수에, refreshToken은 쿠키에 저장
+      setAccessToken(data.data.accessToken);
       setTokenCookie('refreshToken', data.data.refreshToken);
 
       const decodedToken = decodeToken(data.data.accessToken);
