@@ -3,6 +3,9 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import useSnsLogin from '@/hook/useSnsLogin';
 import styles from './index.module.scss';
+import { getUser } from '@/api/register';
+import { useRecoilState } from 'recoil';
+import { accessTokenState } from '@/atom/accessTokenState';
 
 interface SnsRedirectPageProps {
   params: { snsProvider: string };
@@ -11,6 +14,8 @@ interface SnsRedirectPageProps {
 
 export default function SnsRedirectPage({ params, searchParams }: SnsRedirectPageProps) {
   const { handleSnsLogin, isLoading, payload, error } = useSnsLogin();
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+
   const router = useRouter();
 
   const snsAuthProvider = params.snsProvider;
@@ -29,8 +34,7 @@ export default function SnsRedirectPage({ params, searchParams }: SnsRedirectPag
         router.push(`/funnel`);
       } else {
         //로그인 완료
-        alert('로그인된 회원입니다. 메인 페이지로 이동합니다.');
-        router.push('/');
+        console.log('로그인된 회원입니다');
       }
     } else if (!isLoading && error) {
       console.log('로그인 실패:', error);

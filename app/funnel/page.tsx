@@ -97,11 +97,6 @@ export default function funnel() {
       //2. 엑세스 토큰으로 유저정보 가져오기
       const userInfo = await getUser(accessToken);
       if (userInfo.data) {
-        if (userInfo.data.userRole === 'USER') {
-          console.log('이미 회원입니다.');
-          console.log('userInfo: ', userInfo.data);
-          return;
-        }
         //전화번호 형식 변환
         userInfo.data.phoneNumber = convertPhoneNumber(userInfo.data.phoneNumber);
 
