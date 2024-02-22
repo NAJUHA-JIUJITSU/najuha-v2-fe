@@ -8,21 +8,33 @@ interface MyTokenPayload {
   exp: number;
 }
 
-// 토큰의 만료 시간을 검사하는 함수입니다.
+// 토큰의 만료 시간을 검사 (만료되었으면 true 반환)
 export const isTokenExpired = (token: string) => {
   const now = Date.now().valueOf() / 1000;
   const { exp } = jwtDecode<MyTokenPayload>(token);
   return now >= exp;
 };
 
-// refreshToken을 쿠키에 저장하는 함수입니다.
+// refreshToken을 쿠키에 저장
 export const saveRefreshToken = (refreshToken: string) => {
-  const decoded: MyTokenPayload = jwtDecode(refreshToken);
-  if (decoded === null) {
-    // 오류 처리 로직, 예를 들어 상태 업데이트 또는 예외 발생
-    throw new Error('Token decoding failed.');
+  const decoded = decodeToken(refreshToken);
+  if (!decoded) {
+    console.error('토큰 디코드 실패');
+    return;
   }
 
   const expires = new Date(decoded.exp * 1000);
   Cookies.set('refreshToken', refreshToken, { expires, secure: true, sameSite: 'strict' });
+};
+
+// 토큰을 디코드한 객체를 반환
+export const decodeToken = (token: string): MyTokenPayload | null => {
+  try {
+    const decoded: MyTokenPayload = jwtDecode(token);
+
+    return decoded;
+  } catch (error) {
+    console.error('토큰 디코드 실패:', error);
+    return null;
+  }
 };

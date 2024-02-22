@@ -1,9 +1,6 @@
 import { useState } from 'react';
-import { decodeToken } from '@/util/decodeToken';
 import { postSnsLogin } from '@/api/auth';
-import { useRecoilState } from 'recoil';
-import { accessTokenState } from '@/atom/accessTokenState';
-import { saveRefreshToken } from '@/util/tokenManagement';
+import { saveRefreshToken, decodeToken } from '@/util/tokenManagement';
 import { useAccessToken } from '@/hook/useAccessToken';
 
 interface MyTokenPayload {
