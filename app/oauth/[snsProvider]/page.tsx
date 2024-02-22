@@ -3,9 +3,6 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import useSnsLogin from '@/hook/useSnsLogin';
 import styles from './index.module.scss';
-import { getUser } from '@/api/register';
-import { useRecoilState } from 'recoil';
-import { accessTokenState } from '@/atom/accessTokenState';
 
 interface SnsRedirectPageProps {
   params: { snsProvider: string };
@@ -14,7 +11,6 @@ interface SnsRedirectPageProps {
 
 export default function SnsRedirectPage({ params, searchParams }: SnsRedirectPageProps) {
   const { handleSnsLogin, isLoading, payload, error } = useSnsLogin();
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
 
   const router = useRouter();
 

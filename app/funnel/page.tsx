@@ -13,8 +13,7 @@ import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import useFunnel from '@/hook/useFunnel';
 import { getUser } from '@/api/register';
 import useRegister from '@/hook/useResgiter';
-import { useRecoilState } from 'recoil';
-import { accessTokenState } from '@/atom/accessTokenState';
+import { useAccessToken } from '@/hook/useAccessToken';
 
 const steps = ['약관동의', '성별', '생년월일', '전화번호', '닉네임', '벨트', '가입성공'];
 
@@ -85,7 +84,8 @@ export default function funnel() {
     setFunnelData,
     setCurrentStepIndex,
   } = useFunnel(steps, initialFunnelData);
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  // const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
+  const { accessToken } = useAccessToken();
   const [userData, setUserData] = useState({} as UserResponseData);
 
   const { isLoading, error, handleRegister } = useRegister();
@@ -113,6 +113,10 @@ export default function funnel() {
     getUserInfo();
     setScreenSize();
   }, []);
+
+  useEffect(() => {
+    getUserInfo();
+  }, [accessToken]);
 
   //userData업데이트 되면 setFunnelData 사용
   useEffect(() => {
