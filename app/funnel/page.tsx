@@ -84,24 +84,21 @@ export default function funnel() {
     setFunnelData,
     setCurrentStepIndex,
   } = useFunnel(steps, initialFunnelData);
-  // const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const { accessToken } = useAccessToken();
   const [userData, setUserData] = useState({} as UserResponseData);
-
   const { isLoading, error, handleRegister } = useRegister();
+
+  console.log('funnelData: ', funnelData);
 
   //전역변수에 저장되어있는 토큰을 사용하여 사용자 정보 가져와서 user상태변경하는 함수
   async function getUserInfo() {
-    //1. 전역변수에 저장되어있는 엑세스 토큰 찾기
     if (accessToken) {
-      //2. 엑세스 토큰으로 유저정보 가져오기
       const userInfo = await getUser(accessToken);
       if (userInfo.data) {
-        //전화번호 형식 변환
-        userInfo.data.phoneNumber = convertPhoneNumber(userInfo.data.phoneNumber);
-
-        //3. 유저정보로 초기 userData업데이트
-        setUserData(userInfo.data);
+        setUserData({
+          ...userInfo.data,
+          phoneNumber: convertPhoneNumber(userInfo.data.phoneNumber),
+        });
       }
     } else {
       console.log('엑세스 토큰이 없습니다.');
@@ -110,11 +107,8 @@ export default function funnel() {
 
   useEffect(() => {
     setCurrentStepIndex(0); // 원하는 단계로 바로 이동하고 싶을 때 사용
-    getUserInfo();
-    setScreenSize();
-  }, []);
-
-  useEffect(() => {
+    setScreenSize(); // 화면 크기 설정
+    if (!accessToken) return; // 액세스 토큰이 없으면 중단
     getUserInfo();
   }, [accessToken]);
 
@@ -145,8 +139,6 @@ export default function funnel() {
       console.log('회원가입 완료');
     }
   }, [currentStep]);
-
-  console.log('funnelData: ', funnelData);
 
   return (
     <div className={styles.wrapper}>
