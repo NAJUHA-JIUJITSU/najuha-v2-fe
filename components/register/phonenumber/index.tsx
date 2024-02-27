@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use, useCallback } from 'react';
 import Input from '@/components/common/input';
 import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
@@ -10,7 +10,12 @@ import { validatePhonenumber } from '@/utils/validations/userValidations';
 
 export default function Phonenumber({ onNext }: any) {
   const [phoneNumber, setPhoneNumber] = useRecoilState(phoneNumberState);
-  const { value, setValue, errMsg } = useInput(phoneNumber, validatePhonenumber);
+  const { value, setValue, errMsg, validate } = useInput(phoneNumber, validatePhonenumber);
+
+  const handleButtonClick = useCallback(() => {
+    setPhoneNumber(value);
+    onNext();
+  }, [value, setPhoneNumber, onNext]);
 
   return (
     <>
@@ -26,14 +31,12 @@ export default function Phonenumber({ onNext }: any) {
       <div className={stlyes.submit}>
         <ButtonOnClick
           type="filled"
-          text="약관전체 동의"
-          color="blue"
+          text="다음"
+          color={validate ? 'blue' : 'disabled'}
           width="full"
           size="large"
-          onClick={() => {
-            setPhoneNumber(value);
-            onNext();
-          }}
+          disabled={!validate}
+          onClick={handleButtonClick}
         />
       </div>
     </>

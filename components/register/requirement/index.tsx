@@ -46,7 +46,7 @@ export default function Requirement({ onNext }: Props) {
   const allRequiredAgreed = [checkedStates.use, checkedStates.privacy, checkedStates.refund].every(
     (v) => v,
   );
-  const buttontext = allRequiredAgreed ? '계속' : '약관전체 동의';
+  const buttontext = allRequiredAgreed ? '다음' : '약관전체 동의';
 
   const handleButtonClick = () => {
     if (allRequiredAgreed) {

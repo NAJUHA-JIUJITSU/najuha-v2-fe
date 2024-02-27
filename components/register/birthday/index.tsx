@@ -10,7 +10,12 @@ import { validateBirthdate } from '@/utils/validations/userValidations';
 
 export default function Birthday({ onNext }: any) {
   const [birth, setBirth] = useRecoilState(birthDateState);
-  const { value, setValue, errMsg } = useInput(birth, validateBirthdate);
+  const { value, setValue, errMsg, validate } = useInput(birth, validateBirthdate);
+
+  const handleButtonClick = useCallback(() => {
+    setBirth(value);
+    onNext();
+  }, [value, setBirth, onNext]);
 
   return (
     <>
@@ -26,14 +31,12 @@ export default function Birthday({ onNext }: any) {
       <div className={stlyes.submit}>
         <ButtonOnClick
           type="filled"
-          text="약관전체 동의"
-          color="blue"
+          text="다음"
+          color={validate ? 'blue' : 'disabled'}
           width="full"
           size="large"
-          onClick={() => {
-            setBirth(value);
-            onNext();
-          }}
+          disabled={!validate}
+          onClick={handleButtonClick}
         />
       </div>
     </>

@@ -15,6 +15,7 @@ interface BaseButtonProps {
   text: string;
   iconRight?: React.ReactNode;
   onClick: () => void;
+  disabled?: boolean;
 }
 
 export default function ButtonOnClick({
@@ -26,12 +27,14 @@ export default function ButtonOnClick({
   color,
   onClick,
   width = 'normal',
+  disabled = false,
 }: BaseButtonProps) {
   const typeColor = `${type}-${color}`;
   return (
     <button
       className={`${styles.wrapper} ${styles[typeColor]} ${styles[size]} ${styles[width]}`}
       onClick={onClick}
+      disabled={disabled}
     >
       {iconLeft && <div className={styles.svg}>{iconLeft}</div>}
       <div>{text}</div>

@@ -12,7 +12,7 @@ export const validateBirthdate: ValidateFunction = (inputBirth, setErrMsg, setVa
   if (inputBirth !== formattedBirth) {
     if (setValue) setValue(formattedBirth); // 형식화된 값을 입력 값으로 업데이트
   }
-
+  // 정확하게 날짜인지 체크할 수 있도록
   const isValidDate = !isNaN(Date.parse(formattedBirth.replace(/\//g, '-')));
   if (isValidDate && formattedBirth.length === 10) {
     setErrMsg('');

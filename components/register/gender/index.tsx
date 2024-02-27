@@ -28,7 +28,7 @@ export default function Gender({ onNext }: any) {
       <div className={styles.submit}>
         <ButtonOnClick
           type="filled"
-          text="약관전체 동의"
+          text="다음"
           color="blue"
           width="full"
           size="large"

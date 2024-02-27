@@ -27,7 +27,7 @@ export default function Belt({ onNext }: any) {
       <div className={stlyes.submit}>
         <ButtonOnClick
           type="filled"
-          text="약관전체 동의"
+          text="회원가입 완료"
           color="blue"
           width="full"
           size="large"

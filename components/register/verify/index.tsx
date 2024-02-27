@@ -10,7 +10,8 @@ import { validateVerificationNumber } from '@/utils/validations/userValidations'
 
 export default function Verify({ onNext }: any) {
   const [verify, setVerify] = useRecoilState(verificationState);
-  const { value, setValue, errMsg } = useInput('', validateVerificationNumber);
+  const { value, setValue, errMsg, validate, setErrMsg } = useInput('', validateVerificationNumber);
+  const [localVerify, setLocalVerify] = useState(verify);
 
   return (
     <>
@@ -26,20 +27,24 @@ export default function Verify({ onNext }: any) {
           <ButtonOnClick
             type="filled"
             text="인증확인"
-            color="disabled"
+            color={validate ? 'blue' : 'disabled'}
             width="normal"
             size="small"
-            onClick={() => {}}
+            disabled={!validate}
+            onClick={() => {
+              setLocalVerify(true);
+            }}
           />
         </div>
       </div>
       <div className={stlyes.submit}>
         <ButtonOnClick
           type="filled"
-          text="약관전체 동의"
-          color="blue"
+          text="다음"
+          color={localVerify ? 'blue' : 'disabled'}
           width="full"
           size="large"
+          disabled={!localVerify}
           onClick={onNext}
         />
       </div>
