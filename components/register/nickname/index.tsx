@@ -7,16 +7,21 @@ import { nicknameState } from '@/recoil/atoms/registerState';
 import { useInput } from '@/hook/useInput';
 import { validateNickname } from '@/utils/validations/userValidations';
 import { useState, useCallback } from 'react';
+import { useCheckNickname } from '@/hook/useCheckNickname';
 
 export default function Nickname({ onNext }: any) {
   const [nickname, setNickname] = useRecoilState(nicknameState);
-  const { value, setValue, errMsg, validate } = useInput(nickname, validateNickname);
-  const [localVerify, setLocalVerify] = useState(false);
+  const { value, setValue, errMsg, setErrMsg, validate } = useInput(nickname, validateNickname);
+  const { checkNickname, isDuplicated, isPending, isSuccess } = useCheckNickname(setErrMsg);
 
   const handleButtonClick = useCallback(() => {
     setNickname(value);
     onNext();
   }, [value, setNickname, onNext]);
+
+  const handleCheckNickname = useCallback(() => {
+    checkNickname(value);
+  }, [value]);
 
   return (
     <>
@@ -32,25 +37,22 @@ export default function Nickname({ onNext }: any) {
           <ButtonOnClick
             type="filled"
             text="중복확인"
-            color={validate ? 'blue' : 'disabled'}
+            color={validate && !isPending ? 'blue' : 'disabled'}
             width="normal"
             size="small"
-            disabled={!validate}
-            onClick={() => {
-              setLocalVerify(true);
-            }}
+            disabled={!validate && !isPending}
+            onClick={handleCheckNickname}
           />
         </div>
       </div>
-
       <div className={stlyes.submit}>
         <ButtonOnClick
           type="filled"
           text="약관전체 동의"
-          color={localVerify ? 'blue' : 'disabled'}
+          color={!isDuplicated ? 'blue' : 'disabled'}
           width="full"
           size="large"
-          disabled={!localVerify}
+          disabled={!isDuplicated}
           onClick={handleButtonClick}
         />
       </div>

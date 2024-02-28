@@ -27,7 +27,7 @@ export default function Oauth({ params, searchParams }: SnsRedirectPageProps) {
     if (!snsAuthCode) return; // code가 없으면 함수 실행 중지
 
     try {
-      let response = await fetch('http://localhost:3001/auth/snsLogin', {
+      let response = await fetch('http://localhost:3001/user/auth/sns-login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,7 +35,8 @@ export default function Oauth({ params, searchParams }: SnsRedirectPageProps) {
         body: JSON.stringify({ snsAuthCode: snsAuthCode, snsAuthProvider: snsAuthProvider }),
       });
       let ret = await response.json();
-      updateAccessToken(ret.data.accessToken);
+      console.log(ret);
+      Cookies.set('accessToken', ret.data.accessToken, { expires: 1, path: '/' });
       Cookies.set('refreshToken', ret.data.refreshToken, { expires: 7, path: '/' });
       handleRedirect(ret.data.accessToken);
     } catch (error) {
