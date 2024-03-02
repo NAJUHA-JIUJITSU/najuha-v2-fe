@@ -1,6 +1,5 @@
 'use client';
 import Input from '../common/input';
-import { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import ButtonOnClick from '../common/button/buttonOnClick';
 import InfoMessage from '../common/infoMessage';
