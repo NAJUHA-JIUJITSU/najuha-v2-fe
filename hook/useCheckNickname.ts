@@ -2,14 +2,21 @@ import { useMutation } from '@tanstack/react-query';
 import { withToken } from '@/utils/axios/axiosInstances';
 import { useState } from 'react';
 
-export function useCheckNickname(setErrMsg: (msg: string) => void) {
+export function useCheckNickname(
+  setErrMsg: (msg: string) => void,
+  setSuccessMsg: (msg: string) => void,
+) {
   const [isDuplicated, setIsDuplicated] = useState<boolean>(true);
 
   const mutation = useMutation({
     mutationFn: (nickname) => withToken.get(`/user/register/users/${nickname}/is-duplicated`),
     onSuccess: (res) => {
       setIsDuplicated(res.data.data);
-      setErrMsg(res.data.data ? '사용 불가능한 닉네임입니다.' : '사용 가능한 닉네임입니다.');
+      if (res.data.data) {
+        setErrMsg('이미 사용중인 닉네임입니다.');
+      } else {
+        setSuccessMsg('사용 가능한 닉네임입니다.');
+      }
     },
     onError: (err) => {
       console.log(err);
@@ -21,6 +28,5 @@ export function useCheckNickname(setErrMsg: (msg: string) => void) {
     checkNickname: mutation.mutate,
     isDuplicated,
     isPending: mutation.isPending,
-    isSuccess: mutation.isSuccess,
   };
 }

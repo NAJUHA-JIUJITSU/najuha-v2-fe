@@ -14,6 +14,7 @@
 }
 
 .input {
+  outline: none;
   background-color: $--color-basic-white;
   min-height: 54px;
   padding: 0px 16px;
@@ -24,7 +25,7 @@
   flex-shrink: 0;
 
   &:focus {
-    border: 1px solid $--color-brand-blue;
+    border: 1px solid $--color-gray-4;
   }
 
   &::placeholder {
@@ -36,8 +37,28 @@
   }
 }
 
+.error {
+  border: 1px solid $--color-state-error; // 에러 상태의 포커스 색
+  &:focus {
+    border: 1px solid $--color-state-error; // 에러 상태의 포커스 색
+  }
+}
+
+.success {
+  border: 1px solid $--color-state-success; // 성공 상태의 포커스 색
+  &:focus {
+    border: 1px solid $--color-state-success; // 성공 상태의 포커스 색
+  }
+}
+
 .errorMsg {
   @include font-body3-regular;
   color: $--color-state-error;
+  height: 19px;
+}
+
+.successMsg {
+  @include font-body3-regular;
+  color: $--color-state-success;
   height: 19px;
 }

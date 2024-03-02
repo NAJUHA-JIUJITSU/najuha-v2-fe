@@ -1,5 +1,10 @@
 interface ValidateFunction {
-  (value: string, setErrMsg: (errMsg: string) => void, setValue?: (value: string) => void): boolean;
+  (
+    value: string,
+    setErrMsg: (errMsg: string) => void,
+    setSuccessMsg?: (successMsg: string) => void,
+    setValue?: (value: string) => void,
+  ): boolean;
 }
 
 export const validateBirthdate: ValidateFunction = (inputBirth, setErrMsg, setValue) => {
@@ -23,7 +28,15 @@ export const validateBirthdate: ValidateFunction = (inputBirth, setErrMsg, setVa
   }
 };
 
-export const validateNickname: ValidateFunction = (nickname, setErrMsg, setValue) => {
+export const validateNickname: ValidateFunction = (
+  nickname,
+  setErrMsg,
+  setValue,
+  setSuccessMsg,
+) => {
+  // 벨류가 바뀌면 성공 메시지 초기화
+  if (setSuccessMsg) setSuccessMsg('');
+
   // 자음, 모음, 영문, 숫자만 허용
   const formattedNickname = nickname.replace(/[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]/g, '');
   if (nickname !== formattedNickname) {
