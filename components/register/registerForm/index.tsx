@@ -45,6 +45,7 @@ export default function registerForm({ onNext, data }: RegisterFormProps) {
   const isAtLeastOneTrue = Object.values(checkedStates).some((value) => value);
 
   // 필수로 동의해야하는 약관 목록
+  // Todo: 이 부분은 checkList의 값 안에 넣어줘서 useCheckboxState에서 처리하는게 더 좋을 것 같음
   const mandatoryAgreements = ['use', 'privacy', 'refund'];
   const isAllMandatoryAgreed = mandatoryAgreements.every((agreement) => checkedStates[agreement]);
 

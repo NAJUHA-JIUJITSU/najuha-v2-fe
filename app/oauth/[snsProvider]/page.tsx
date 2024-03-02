@@ -18,22 +18,21 @@ export default function SnsRedirectPage({ params, searchParams }: SnsRedirectPag
   const snsAuthCode = searchParams.code;
 
   useEffect(() => {
-    if (!isLoading && snsAuthProvider && snsAuthCode) {
+    if (!isLoading && !payload && snsAuthProvider && snsAuthCode) {
       handleSnsLogin(snsAuthProvider, snsAuthCode);
     }
   }, []);
 
   useEffect(() => {
-    if (!isLoading && payload) {
+    if (!isLoading && !error && payload) {
       const { userRole } = payload;
       if (userRole === 'TEMPORARY_USER') {
         router.push(`/funnel`);
       } else {
-        //로그인 완료
         console.log('로그인된 회원입니다');
       }
     } else if (!isLoading && error) {
-      console.log('로그인 실패:', error);
+      console.error('로그인 에러:', error);
       router.push('/login');
     }
   }, [isLoading, payload, error]);

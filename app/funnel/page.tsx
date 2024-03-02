@@ -1,6 +1,6 @@
 'use client';
 import styles from './index.module.scss';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import Header from '@/components/common/header/Header';
 import { ButtonIcon } from '@/components/common/icon/iconOnClick';
 import AgreePage from '@/components/registerFunnel/agreePage';
@@ -11,9 +11,8 @@ import BirthPage from '@/components/registerFunnel/birthPage';
 import NicknamePage from '@/components/registerFunnel/nicknamePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import useFunnel from '@/hook/useFunnel';
-import { getUser } from '@/api/register';
 import useRegister from '@/hook/useResgiter';
-import { useAccessToken } from '@/hook/useAccessToken';
+import { useUserData } from '@/hook/useUserData';
 
 const steps = ['약관동의', '성별', '생년월일', '전화번호', '닉네임', '벨트', '가입성공'];
 
@@ -84,57 +83,44 @@ export default function funnel() {
     setFunnelData,
     setCurrentStepIndex,
   } = useFunnel(steps, initialFunnelData);
-  const { accessToken } = useAccessToken();
-  const [userData, setUserData] = useState({} as UserResponseData);
-  const { isLoading, error, handleRegister } = useRegister();
+  const { data: user } = useUserData();
 
   console.log('funnelData: ', funnelData);
 
-  //전역변수에 저장되어있는 토큰을 사용하여 사용자 정보 가져와서 user상태변경하는 함수
+  //사용자 정보 가져와서 user상태변경하는 함수
   async function getUserInfo() {
-    if (accessToken) {
-      const userInfo = await getUser(accessToken);
-      if (userInfo.data) {
-        setUserData({
-          ...userInfo.data,
-          phoneNumber: convertPhoneNumber(userInfo.data.phoneNumber),
-        });
-      }
-    } else {
-      console.log('엑세스 토큰이 없습니다.');
+    if (user) {
+      setFunnelData((prev) => ({
+        ...prev,
+        ...(user.gender ? { 성별: user.gender } : {}),
+        ...(user.phoneNumber ? { 전화번호: convertPhoneNumber(user.phoneNumber) } : {}),
+        ...(user.nickname ? { 닉네임: user.nickname } : {}),
+        ...(user.birth ? { 생년월일: user.birth } : {}),
+      }));
+      console.log('funnelData: ', funnelData);
     }
   }
 
   useEffect(() => {
     setCurrentStepIndex(0); // 원하는 단계로 바로 이동하고 싶을 때 사용
     setScreenSize(); // 화면 크기 설정
-    if (!accessToken) return; // 액세스 토큰이 없으면 중단
-    getUserInfo();
-  }, [accessToken]);
+  }, []);
 
-  //userData업데이트 되면 setFunnelData 사용
   useEffect(() => {
-    if (userData.id) {
-      setFunnelData((prev) => ({
-        ...prev,
-        ...(userData.gender ? { 성별: userData.gender } : {}),
-        ...(userData.phoneNumber ? { 전화번호: convertPhoneNumber(userData.phoneNumber) } : {}),
-        ...(userData.nickname ? { 닉네임: userData.nickname } : {}),
-        ...(userData.birth ? { 생년월일: userData.birth } : {}),
-      }));
-    }
-  }, [userData]);
+    console.log('user: ', user);
+    getUserInfo(); //사용자 정보 가져오기
+  }, [user]);
 
   //currentStep이 '가입성공'일 때, userLogin api 호출 후, 쿠키에 저장된 토큰 삭제하고, 회원가입 완료 로직 후 메인페이지로 이동
   useEffect(() => {
     if (currentStep === '가입성공') {
       console.log('최종 funnelData: ', funnelData);
-      handleRegister({
-        nickname: funnelData.닉네임,
-        gender: funnelData.성별,
-        belt: funnelData.벨트,
-        birth: '19981127',
-      });
+      // handleRegister({
+      //   nickname: funnelData.닉네임,
+      //   gender: funnelData.성별,
+      //   belt: funnelData.벨트,
+      //   birth: '19981127',
+      // });
 
       console.log('회원가입 완료');
     }

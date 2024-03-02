@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { saveRefreshToken, decodeToken } from '@/util/tokenManagement';
-import { patchRegister } from '@/api/register';
+// import { patchRegister } from '@/api/register';
 import { useAccessToken } from '@/hook/useAccessToken';
 
 interface MyTokenPayload {
@@ -30,11 +30,11 @@ const useRegister = () => {
       if (accessToken) {
         //2. 백엔드에 Register 요청
         console.log('accessToken: ', accessToken);
-        const data = await patchRegister(funnelData, accessToken);
+        // const data = await patchRegister(funnelData, accessToken);
 
-        // 받은 accessToken과 refreshToken을 쿠키에 저장
-        setAccessToken(data.data.accessToken);
-        saveRefreshToken(data.data.refreshToken);
+        // // 받은 accessToken과 refreshToken을 쿠키에 저장
+        // setAccessToken(data.data.accessToken);
+        // saveRefreshToken(data.data.refreshToken);
       } else {
         throw new Error('No access token found in cookies.');
       }

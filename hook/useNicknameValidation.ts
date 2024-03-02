@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getCheckNicknameDuplication } from '@/api/register';
-import { useRecoilState } from 'recoil';
-import { accessTokenState } from '@/atom/accessTokenState';
+import { getCheckDuplicatedNickname } from '@/api/registerService';
 
 function useNicknameValidation(initialNickname: string) {
   const [nickname, setNickname] = useState(initialNickname);
@@ -10,8 +8,6 @@ function useNicknameValidation(initialNickname: string) {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isNicknameChecked, setIsNicknameChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
 
   // 닉네임 유효성 검사
   const validateNickname = (nickname: string) => {
@@ -36,13 +32,10 @@ function useNicknameValidation(initialNickname: string) {
   const checkNicknameDuplication = async () => {
     setIsLoading(true);
 
-    //todo: 여기에 실제 서버 API 호출 로직 추가
-    if (!accessToken) {
-      throw new Error('accessToken이 없습니다.');
-    }
-    const isDuplication = await getCheckNicknameDuplication(nickname, accessToken);
+    //닉네임이 중복되면 true, 중복되지 않으면 false를 반환
+    const isDuplication = await getCheckDuplicatedNickname(nickname);
     setIsLoading(false);
-    if (isDuplication.data) {
+    if (isDuplication) {
       setErrorMessage('이미 사용중인 닉네임입니다.');
     } else {
       setSuccessMessage('사용 가능한 닉네임입니다.');

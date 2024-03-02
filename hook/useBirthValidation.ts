@@ -11,6 +11,7 @@ function formatBirth(inputBirth: string) {
 }
 
 // 실제로 존재하는 날짜인지 검증
+// Todo: 윤달, 30일, 31일 등의 유효성 검증 로직 추가
 function isValidDate(formattedBirth: string) {
   const year = formattedBirth.substring(0, 4);
   const month = formattedBirth.substring(5, 7);

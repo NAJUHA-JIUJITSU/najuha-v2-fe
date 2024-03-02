@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './index.module.scss';
 import LoginSns from '@/components/login/loginSns';
 import LoginInfo from '@/components/login/loginInfo';
