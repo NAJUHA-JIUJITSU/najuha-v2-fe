@@ -15,27 +15,10 @@ export default function Phonenumber({ onNext }: any) {
     phoneNumber,
     validatePhonenumber,
   );
-  const mutation = useReqNum();
-
-  // mutation.mutate();
-  // i want to use mutation.mutate() when button is clicked
-  // i want set onError and onSuccess in mutation.mutate()
-  // i want to use setPhoneNumber and onNext in onSuccess
-  // i want to use setErrMsg in onError
-  // make
-  // const handleButtonClick = useCallback(() => {
-  //   mutation.mutate();
-  //   mutation.onError((error) => {
-  //     setErrMsg(error);
-  //   });
-  //   mutation.onSuccess(() => {
-  //     setPhoneNumber(value);
-  //     onNext();
-  //   });
-  // }, [value]);
+  const { mutate, isPending } = useReqNum();
 
   const handleButtonClick = useCallback(() => {
-    mutation.mutate(value, {
+    mutate(value, {
       onSuccess: (res) => {
         console.log(res);
         setPhoneNumber(value);
@@ -46,7 +29,7 @@ export default function Phonenumber({ onNext }: any) {
         setErrMsg('전화번호 인증 중 오류가 발생했습니다.');
       },
     });
-  }, [phoneNumber, mutation, onNext]);
+  }, [value]);
 
   return (
     <>
@@ -63,10 +46,10 @@ export default function Phonenumber({ onNext }: any) {
         <ButtonOnClick
           type="filled"
           text="다음"
-          color={validate ? 'blue' : 'disabled'}
+          color={validate && !isPending ? 'blue' : 'disabled'}
           width="full"
           size="large"
-          disabled={!validate}
+          disabled={!validate || isPending}
           onClick={handleButtonClick}
         />
       </div>

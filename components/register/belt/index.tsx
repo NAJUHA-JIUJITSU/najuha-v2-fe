@@ -9,9 +9,8 @@ import { beltState } from '@/recoil/atoms/registerState';
 
 const options = ['화이트', '블루', '퍼플', '브라운', '블랙'];
 
-export default function Belt({ onNext }: any) {
+export default function Belt() {
   const [belt, setBelt] = useRecoilState(beltState);
-  const { accessToken, updateAccessToken } = useAccessToken();
 
   return (
     <>

@@ -18,7 +18,7 @@ const Input: React.FC<Props> = ({
   value,
   onChange,
   errMsg,
-  successMsg,
+  successMsg = '',
   disabled = false,
 }) => {
   const inputClassName = clsx(styles.input, {

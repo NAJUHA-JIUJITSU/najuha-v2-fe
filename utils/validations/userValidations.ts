@@ -79,15 +79,15 @@ export const validateVerificationNumber: ValidateFunction = (
   setErrMsg,
   setValue,
 ) => {
-  // 4자리까지만 입력되도록 숫자만 추출
+  // 6자리까지만 입력되도록 숫자만 추출
 
-  const numericValue = verificationNumber.replace(/[^0-9]/g, '').slice(0, 4);
+  const numericValue = verificationNumber.replace(/[^0-9]/g, '').slice(0, 6);
 
   if (numericValue !== verificationNumber) {
     if (setValue) setValue(numericValue);
   }
 
-  if (numericValue.length !== 4) {
+  if (numericValue.length !== 6) {
     setErrMsg('인증번호 4자리를 입력해주세요.');
     return false;
   }

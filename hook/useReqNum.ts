@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { withToken } from '@/utils/axios/axiosInstances';
 
 export function useReqNum() {
-  const mutation = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (phoneNumber: string) => {
       console.log(phoneNumber);
       const parsedPhoneNumber = phoneNumber.replace(/-/g, '');
@@ -13,5 +13,5 @@ export function useReqNum() {
     },
   });
 
-  return mutation;
+  return { mutate, isPending };
 }

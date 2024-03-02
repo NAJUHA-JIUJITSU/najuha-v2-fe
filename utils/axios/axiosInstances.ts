@@ -28,6 +28,7 @@ const refreshTokenLogic = async () => {
     return accessToken;
   } catch (error) {
     console.error('Error refreshing tokens:', error);
+    window.location.href = 'http://localhost:3000/login';
     return null;
   }
 };
