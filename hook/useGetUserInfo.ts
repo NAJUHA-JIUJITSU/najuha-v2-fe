@@ -27,11 +27,11 @@ export function useGetUserInfo() {
   // useEffect 내에서 query.data가 있을 경우 Recoil 상태 업데이트
   useEffect(() => {
     if (query.data) {
-      console.log(query.data.data);
-      setGender(query.data.data.gender);
-      setBirthDate(query.data.data.birth);
-      setPhoneNumber(query.data.data.phoneNumber);
-      setNickname(query.data.data.nickname);
+      console.log(query.data.result);
+      setGender(query.data.result.gender);
+      setBirthDate(query.data.result.birth);
+      setPhoneNumber(query.data.result.phoneNumber);
+      setNickname(query.data.result.nickname);
     }
   }, [query.data]);
 }

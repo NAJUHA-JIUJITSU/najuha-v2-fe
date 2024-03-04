@@ -1,3 +1,7 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
 .wrapper {
   margin-top: 16px;
   flex: 1;
@@ -11,4 +15,17 @@
 .check {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+}
+
+.timer {
+  display: flex;
+  justify-content: center; /* 타이머 내용을 중앙에 정렬합니다. */
+  align-items: center;
+  line-height: 1;
+  margin-top: 2px;
+  margin-right: 8px;
+  width: 32px; /* 타이머의 너비를 32px로 고정합니다. */
+  text-align: center; /* 타이머 텍스트를 중앙에 정렬합니다. */
+  color: $--color-state-error; /* 타이머 텍스트의 색상을 에러 상태 색상으로 지정합니다. */
 }

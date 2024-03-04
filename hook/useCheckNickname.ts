@@ -11,8 +11,8 @@ export function useCheckNickname(
   const mutation = useMutation({
     mutationFn: (nickname) => withToken.get(`/user/register/users/${nickname}/is-duplicated`),
     onSuccess: (res) => {
-      setIsDuplicated(res.data.data);
-      if (res.data.data) {
+      setIsDuplicated(res.data.result);
+      if (res.data.result) {
         setErrMsg('이미 사용중인 닉네임입니다.');
       } else {
         setSuccessMsg('사용 가능한 닉네임입니다.');

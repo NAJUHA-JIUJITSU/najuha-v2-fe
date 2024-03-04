@@ -17,8 +17,8 @@ export function useRegister() {
     onSuccess: (res) => {
       console.log(res);
       if (res.status === 200) {
-        Cookies.set('najuha-accessToken', res.data.data.accessToken, { expires: 1, path: '/' });
-        Cookies.set('najuha-refreshToken', res.data.data.refreshToken, { expires: 7, path: '/' });
+        Cookies.set('najuha-accessToken', res.data.result.accessToken, { expires: 1, path: '/' });
+        Cookies.set('najuha-refreshToken', res.data.result.refreshToken, { expires: 7, path: '/' });
         alert('회원가입이 완료되었습니다.');
       }
     },

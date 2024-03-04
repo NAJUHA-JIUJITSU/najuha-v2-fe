@@ -1,29 +1,45 @@
 'use client';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import Input from '@/components/common/input';
 import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import { useInput } from '@/hook/useInput';
 import { validateVerificationNumber } from '@/utils/validations/userValidations';
 import { useVerify } from '@/hook/useVerify';
+import { useReqNum } from '@/hook/useReqNum';
+import { useRecoilValue } from 'recoil';
+import { phoneNumberState } from '@/recoil/atoms/registerState';
+import { useTimer } from '@/hook/useTimer';
 
 export default function Verify({ onNext }: any) {
   const { value, setValue, errMsg, validate, setErrMsg, setSuccessMsg, successMsg } = useInput(
     '',
     validateVerificationNumber,
   );
-  const [localVerify, setLocalVerify] = useState(false);
   const { mutate, isPending } = useVerify();
+  const { mutate: getAuthCode, isPending: isLoading } = useReqNum();
+  const { isTimeOver, resetTimer, formatTime } = useTimer();
+  const phoneNumber = useRecoilValue(phoneNumberState);
+
+  const handleGetAuthCode = useCallback(() => {
+    getAuthCode(phoneNumber, {
+      onSuccess: (res) => {
+        console.log(res);
+        resetTimer();
+      },
+      onError: () => {
+        setErrMsg('인증번호 발송중 오류가 발생했습니다.');
+      },
+    });
+  }, []);
 
   const handleButtonClick = () => {
     mutate(value, {
       onSuccess: (res) => {
-        if (res.data.data) {
-          setSuccessMsg('인증되었습니다.');
-          setLocalVerify(true);
+        if (res.data.result) {
+          onNext();
         } else {
           setErrMsg('인증번호가 올바르지 않습니다.');
-          setLocalVerify(false);
         }
       },
       onError: (error: any) => {
@@ -45,14 +61,15 @@ export default function Verify({ onNext }: any) {
           successMsg={successMsg}
         />
         <div className={stlyes.check}>
+          {!isTimeOver && <div className={stlyes.timer}>{formatTime()}</div>}
           <ButtonOnClick
             type="filled"
-            text="인증확인"
-            color={validate && !isPending ? 'blue' : 'disabled'}
+            text="다시 받기"
+            color={isLoading || !isTimeOver ? 'disabled' : 'blue'} // 시간개념들어가야함
             width="normal"
             size="small"
-            disabled={!validate || isPending}
-            onClick={handleButtonClick}
+            disabled={isLoading || !isTimeOver} // 시간개념들어가야함
+            onClick={handleGetAuthCode}
           />
         </div>
       </div>
@@ -60,11 +77,11 @@ export default function Verify({ onNext }: any) {
         <ButtonOnClick
           type="filled"
           text="다음"
-          color={localVerify ? 'blue' : 'disabled'}
+          color={validate ? 'blue' : 'disabled'}
           width="full"
           size="large"
-          disabled={!localVerify}
-          onClick={onNext}
+          disabled={!validate || isPending}
+          onClick={handleButtonClick}
         />
       </div>
     </>

@@ -21,7 +21,7 @@ const refreshTokenLogic = async () => {
   try {
     const refreshToken = Cookies.get('najuha-refreshToken');
     const response = await withoutToken.post('user/auth/token', { refreshToken });
-    const { accessToken, refreshToken: newRefreshToken } = response.data.data;
+    const { accessToken, refreshToken: newRefreshToken } = response.data.result;
     Cookies.set('najuha-accessToken', accessToken, { expires: 1, path: '/' });
     Cookies.set('najuha-refreshToken', newRefreshToken, { expires: 7, path: '/' });
 

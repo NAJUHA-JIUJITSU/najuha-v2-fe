@@ -35,9 +35,10 @@ export default function Oauth({ params, searchParams }: SnsRedirectPageProps) {
         body: JSON.stringify({ snsAuthCode: snsAuthCode, snsAuthProvider: snsAuthProvider }),
       });
       let ret = await response.json();
-      Cookies.set('najuha-accessToken', ret.data.accessToken, { expires: 1, path: '/' });
-      Cookies.set('najuha-refreshToken', ret.data.refreshToken, { expires: 7, path: '/' });
-      handleRedirect(ret.data.accessToken);
+      console.log(ret);
+      Cookies.set('najuha-accessToken', ret.result.accessToken, { expires: 1, path: '/' });
+      Cookies.set('najuha-refreshToken', ret.result.refreshToken, { expires: 7, path: '/' });
+      handleRedirect(ret.result.accessToken);
     } catch (error) {
       console.log(error);
     }
