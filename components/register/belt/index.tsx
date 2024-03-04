@@ -1,16 +1,16 @@
 'use client';
-import { useState } from 'react';
 import Select from '@/components/common/select';
 import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
-import { useAccessToken } from '@/hook/useAccesstoken';
 import { useRecoilState } from 'recoil';
 import { beltState } from '@/recoil/atoms/registerState';
+import { useRegister } from '@/hook/useRegister';
 
 const options = ['화이트', '블루', '퍼플', '브라운', '블랙'];
 
 export default function Belt() {
   const [belt, setBelt] = useRecoilState(beltState);
+  const { mutate, isPending } = useRegister();
 
   return (
     <>
@@ -27,10 +27,14 @@ export default function Belt() {
         <ButtonOnClick
           type="filled"
           text="회원가입 완료"
-          color="blue"
+          color={isPending ? 'disabled' : 'blue'}
           width="full"
           size="large"
-          onClick={() => {}}
+          disabled={isPending}
+          onClick={() => {
+            console.log('hi');
+            mutate();
+          }}
         />
       </div>
     </>

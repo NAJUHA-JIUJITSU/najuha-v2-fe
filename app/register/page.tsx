@@ -81,7 +81,7 @@ export default function Funnel() {
           <Nickname onNext={() => setStep(steps[6])} />
         </Step>
         <Step name="주짓수 벨트 설정">
-          <Belt onNext={() => {}} />
+          <Belt />
         </Step>
       </Funnel>
     </div>
