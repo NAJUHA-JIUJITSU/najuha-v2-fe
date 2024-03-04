@@ -16,13 +16,13 @@ export default function Gender({ onNext }: any) {
         <div className={styles.info}>성별을 선택해 주세요</div>
         <RadioButtonLabel
           msg={'남성'}
-          isChecked={localGender === 'male'}
-          changeCheck={() => setLocalGender('male')}
+          isChecked={localGender === 'MALE'}
+          changeCheck={() => setLocalGender('MALE')}
         />
         <RadioButtonLabel
           msg={'여성'}
-          isChecked={localGender === 'female'}
-          changeCheck={() => setLocalGender('female')}
+          isChecked={localGender === 'FEMALE'}
+          changeCheck={() => setLocalGender('FEMALE')}
         />
       </div>
       <div className={styles.submit}>

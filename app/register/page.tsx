@@ -14,6 +14,7 @@ import Nickname from '@/components/register/nickname';
 import Belt from '@/components/register/belt';
 import Phonenumber from '@/components/register/phonenumber';
 import Verify from '@/components/register/verify';
+import { useGetUserInfo } from '@/hook/useGetUserInfo';
 
 const steps = [
   '약관동의',
@@ -27,21 +28,7 @@ const steps = [
 export default function Funnel() {
   const goBack = useGoBack();
   const { Funnel, setStep, Step, step } = useFunnel(steps[0]);
-  const [registrationInfo, setRegistrationInfo] = useState({
-    agreement: {
-      all: false,
-      use: false,
-      privacy: false,
-      refund: false,
-      ad: false,
-    },
-    gender: 'male',
-    birthDate: '',
-    phoneNumber: '',
-    verification: false,
-    nickname: '',
-    belt: '',
-  });
+  useGetUserInfo();
 
   const prevClickHandler = () => {
     const currentStepIndex = steps.indexOf(step);

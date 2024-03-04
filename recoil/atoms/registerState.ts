@@ -15,12 +15,12 @@ export const agreementState = atom<AgreementState>({
   },
 });
 
-export type GenderType = 'male' | 'female';
+export type GenderType = 'MALE' | 'FEMALE' | null;
 
 // 성별 선택 상태
 export const genderState = atom<GenderType>({
   key: 'genderState',
-  default: 'male',
+  default: 'MALE',
 });
 
 // 생년월일 입력 상태
