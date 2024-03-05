@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { queries } from '@/app/queries/index';
+import { queries } from '@/queries/index';
 
 export const useTemporaryUserInfo = () => {
   return useQuery(queries.register.me());
