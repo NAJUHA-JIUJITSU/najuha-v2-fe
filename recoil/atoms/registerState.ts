@@ -1,17 +1,22 @@
 import { atom } from 'recoil';
 
+export interface CheckboxItem {
+  checked: boolean;
+  required: boolean;
+}
+
 export interface AgreementState {
-  [key: string]: boolean;
+  [key: string]: CheckboxItem;
 }
 
 export const agreementState = atom<AgreementState>({
   key: 'agreementState',
   default: {
-    all: false,
-    use: false,
-    privacy: false,
-    refund: false,
-    ad: false,
+    all: { checked: false, required: false }, // 'all'은 전체 동의를 위한 것이므로 필수 여부는 false로 설정
+    TERMS_OF_SERVICE: { checked: false, required: true },
+    PRIVACY: { checked: false, required: true },
+    REFUND: { checked: false, required: true },
+    ADVERTISEMENT: { checked: false, required: false },
   },
 });
 

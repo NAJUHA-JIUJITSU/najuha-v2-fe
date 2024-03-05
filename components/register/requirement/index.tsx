@@ -18,22 +18,22 @@ const checkList = [
     link: <IconLink icon={<IconNavigateNext />} redirectUrl={'/all'} />,
   },
   {
-    id: 'use',
+    id: 'TERMS_OF_SERVICE',
     msg: '이용약관 동의(필수)',
     link: <IconLink icon={<IconNavigateNext />} redirectUrl={'/use'} />,
   },
   {
-    id: 'privacy',
+    id: 'PRIVACY',
     msg: '개인정보 수집 및 이용동의(필수)',
     link: <IconLink icon={<IconNavigateNext />} redirectUrl={'/privacy'} />,
   },
   {
-    id: 'refund',
+    id: 'REFUND',
     msg: '환불규정 동의(필수)',
     link: <IconLink icon={<IconNavigateNext />} redirectUrl={'/refund'} />,
   },
   {
-    id: 'ad',
+    id: 'ADVERTISEMENT',
     msg: '광고 및 마케팅 알림 수신 동의(선택)',
     link: <IconLink icon={<IconNavigateNext />} redirectUrl={'/ad'} />,
   },
@@ -41,11 +41,12 @@ const checkList = [
 
 export default function Requirement({ onNext }: Props) {
   const [agreement, setAgreement] = useRecoilState(agreementState);
-  const [checkedStates, toggleState] = useCheckboxState(agreement);
+  const {
+    state: checkedStates,
+    toggleCheckbox: toggleState,
+    allRequiredAgreed,
+  } = useCheckboxState(agreement);
 
-  const allRequiredAgreed = [checkedStates.use, checkedStates.privacy, checkedStates.refund].every(
-    (v) => v,
-  );
   const buttontext = allRequiredAgreed ? '다음' : '약관전체 동의';
 
   const handleButtonClick = () => {
@@ -70,7 +71,7 @@ export default function Requirement({ onNext }: Props) {
             changeCheck={() => {
               toggleState(item.id);
             }}
-            isChecked={checkedStates[item.id]}
+            isChecked={checkedStates[item.id]?.checked || false}
           />
         ))}
       </div>

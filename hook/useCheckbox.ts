@@ -1,30 +1,51 @@
 import { useState, useCallback } from 'react';
+import { useMemo } from 'react';
 
-interface CheckboxState {
-  [key: string]: boolean;
+interface CheckboxItem {
+  checked: boolean;
+  required: boolean;
 }
 
-function useCheckboxState(initialState: CheckboxState): [CheckboxState, (key: string) => void] {
+interface CheckboxState {
+  [key: string]: CheckboxItem;
+}
+
+// initialState를 CheckboxState 타입으로 받도록 수정합니다.
+function useCheckboxState(initialState: CheckboxState) {
   const [state, setState] = useState(initialState);
 
-  // 체크박스 상태를 토글하는 함수
+  // 모든 필수 항목이 동의되었는지 계산
+  const allRequiredAgreed = useMemo(() => {
+    return Object.entries(state).every(([key, value]) => {
+      // 'all' 키는 무시하고, 나머지 항목의 checked와 required를 검사
+      if (key === 'all') return true;
+      return !value.required || value.checked;
+    });
+  }, [state]);
+
   const toggleCheckbox = useCallback((key: string) => {
     setState((prevState) => {
-      const newState = { ...prevState, [key]: !prevState[key] };
-      // "all" 체크박스 로직 처리
+      const newState = {
+        ...prevState,
+        [key]: { ...prevState[key], checked: !prevState[key].checked },
+      };
+
+      // 'all' 토글 로직 처리
       if (key === 'all') {
-        Object.keys(newState).forEach((k) => (newState[k] = newState.all));
+        Object.keys(newState).forEach((k) => {
+          newState[k] = { ...newState[k], checked: newState.all.checked };
+        });
       } else {
-        // 필수 항목이 모두 체크되었는지 검사하여 "all" 상태 업데이트
-        const allChecked = Object.keys(newState)
-          .filter((k) => k !== 'all')
-          .every((k) => newState[k]);
-        newState.all = allChecked;
+        // 나머지 항목 토글 후 'all' 상태 업데이트
+        const allChecked = Object.values(newState).every((item) => item.checked);
+        newState.all.checked = allChecked;
       }
+
       return newState;
     });
   }, []);
 
-  return [state, toggleCheckbox];
+  return { state, toggleCheckbox, allRequiredAgreed };
 }
+
 export default useCheckboxState;
