@@ -25,23 +25,27 @@ function useCheckboxState(initialState: CheckboxState) {
 
   const toggleCheckbox = useCallback((key: string) => {
     setState((prevState) => {
-      const newState = {
-        ...prevState,
-        [key]: { ...prevState[key], checked: !prevState[key].checked },
-      };
+      const newState = { ...prevState }; // 불변성 유지를 위한 새 객체 생성
 
-      // 'all' 토글 로직 처리
       if (key === 'all') {
+        // 'all' 키 토글 시 모든 체크박스 상태를 토글
+        const allChecked = !prevState.all.checked;
         Object.keys(newState).forEach((k) => {
-          newState[k] = { ...newState[k], checked: newState.all.checked };
+          newState[k] = { ...newState[k], checked: allChecked }; // 개별 체크박스 상태 업데이트
         });
       } else {
-        // 나머지 항목 토글 후 'all' 상태 업데이트
-        const allChecked = Object.values(newState).every((item) => item.checked);
-        newState.all.checked = allChecked;
+        // 개별 체크박스 토글
+        newState[key] = { ...prevState[key], checked: !prevState[key].checked };
+
+        // 'all' 상태 업데이트: 모든 체크박스가 체크되었는지 확인
+        const allChecked = Object.keys(newState)
+          .filter((k) => k !== 'all') // 'all' 제외
+          .every((k) => newState[k].checked);
+
+        newState.all = { ...newState.all, checked: allChecked }; // 'all' 상태 업데이트
       }
 
-      return newState;
+      return newState; // 업데이트된 새 상태 반환
     });
   }, []);
 
