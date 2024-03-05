@@ -87,7 +87,7 @@ export default function funnel() {
   console.log('funnelData: ', funnelData);
 
   //사용자 정보 가져와서 user상태변경하는 함수
-  async function getUserInfo() {
+  async function setUserInfo() {
     if (user) {
       setFunnelData((prev) => ({
         ...prev,
@@ -96,7 +96,6 @@ export default function funnel() {
         ...(user.nickname ? { 닉네임: user.nickname } : {}),
         ...(user.birth ? { 생년월일: user.birth } : {}),
       }));
-      console.log('funnelData: ', funnelData);
     }
   }
 
@@ -107,7 +106,7 @@ export default function funnel() {
 
   useEffect(() => {
     console.log('user: ', user);
-    getUserInfo(); //사용자 정보 가져오기
+    setUserInfo(); //사용자 정보 채우기
   }, [user]);
 
   //currentStep이 '가입성공'일 때, userLogin api 호출 후, 쿠키에 저장된 토큰 삭제하고, 회원가입 완료 로직 후 메인페이지로 이동

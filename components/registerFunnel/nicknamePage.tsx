@@ -50,7 +50,7 @@ export default function nicknamePage({ onNext, data }: NicknamePageProps) {
         <ButtonOnClick
           type="filled"
           text="중복확인"
-          color={isValid ? 'lightblue' : 'disabled'}
+          color={isValid && !successMessage ? 'lightblue' : 'disabled'}
           width="full"
           size="small"
           onClick={checkNicknameDuplication}

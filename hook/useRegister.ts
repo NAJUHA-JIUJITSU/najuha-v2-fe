@@ -5,6 +5,7 @@ export const useTemporaryUserInfo = () => {
   return useQuery(queries.register.me());
 };
 
+//일단 사용안함
 export const useCheckDuplicatedNickname = (nickname: string) => {
   return useQuery(queries.register.nickname(nickname));
 };
