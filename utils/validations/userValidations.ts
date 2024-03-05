@@ -13,19 +13,31 @@ export const validateBirthdate: ValidateFunction = (inputBirth, setErrMsg, setVa
     numericValue.length > 4 ? '/' + numericValue.slice(4, 6) : ''
   }${numericValue.length > 6 ? '/' + numericValue.slice(6, 8) : ''}`;
 
-  // 입력된 값과 포맷된 값이 동일하지 않은 경우에만 업데이트
-  if (inputBirth !== formattedBirth) {
-    if (setValue) setValue(formattedBirth); // 형식화된 값을 입력 값으로 업데이트
+  if (inputBirth !== formattedBirth && setValue) {
+    setValue(formattedBirth); // 형식화된 값을 입력 값으로 업데이트
   }
-  // 정확하게 날짜인지 체크할 수 있도록
-  const isValidDate = !isNaN(Date.parse(formattedBirth.replace(/\//g, '-')));
-  if (isValidDate && formattedBirth.length === 10) {
-    setErrMsg('');
-    return true;
-  } else {
-    setErrMsg('유효한 날짜를 입력해주세요.');
-    return false;
+
+  if (formattedBirth.length === 10) {
+    const parts = formattedBirth.split('/');
+    const year = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1; // 월은 0부터 시작하는 JavaScript의 Date 객체에 맞게 조정
+    const day = parseInt(parts[2], 10);
+
+    const birthDate = new Date(year, month, day);
+    const isValidDate =
+      birthDate.getFullYear() === year &&
+      birthDate.getMonth() === month &&
+      birthDate.getDate() === day;
+
+    // 정확하게 날짜인지 체크
+    if (isValidDate) {
+      setErrMsg('');
+      return true;
+    }
   }
+
+  setErrMsg('유효한 날짜를 입력해주세요.');
+  return false;
 };
 
 export const validateNickname: ValidateFunction = (
