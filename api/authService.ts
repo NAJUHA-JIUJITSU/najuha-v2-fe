@@ -1,6 +1,7 @@
 import { axiosPublic } from '@/api/axios/axiosInstances.ts';
 import { saveTokens } from '@/util/tokenManagement';
 import Cookies from 'js-cookie';
+import { decodeToken } from '@/util/tokenManagement';
 
 // 소셜 로그인
 export const postSnsLogin = async (snsAuthProvider: string, snsAuthCode: string) => {
@@ -9,10 +10,11 @@ export const postSnsLogin = async (snsAuthProvider: string, snsAuthCode: string)
       snsAuthProvider,
       snsAuthCode,
     });
-    const { accessToken, refreshToken } = response.data.data;
+    const { accessToken, refreshToken } = response.data.result;
     saveTokens(accessToken, refreshToken);
 
-    return response.data.data;
+    let payload = decodeToken(accessToken);
+    return payload;
   } catch (error) {
     console.error('Failed to login with sns:', error);
     throw new Error('Failed to login with sns');
@@ -26,7 +28,7 @@ export const postRefreshToken = async (): Promise<string | null> => {
     const response = await axiosPublic.post('/user/auth/token', {
       refreshToken: Cookies.get('refreshToken'),
     });
-    const { accessToken, refreshToken } = response.data.data;
+    const { accessToken, refreshToken } = response.data.result;
     saveTokens(accessToken, refreshToken);
     return accessToken;
   } catch (error) {

@@ -1,8 +1,8 @@
 'use client';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import useSnsLogin from '@/hook/useSnsLogin';
 import styles from './index.module.scss';
+import { useSnsLogin } from '@/hook/useAuth';
 
 interface SnsRedirectPageProps {
   params: { snsProvider: string };
@@ -10,18 +10,9 @@ interface SnsRedirectPageProps {
 }
 
 export default function SnsRedirectPage({ params, searchParams }: SnsRedirectPageProps) {
-  const { handleSnsLogin, isLoading, payload, error } = useSnsLogin();
+  const { data: payload, error, isLoading } = useSnsLogin(params.snsProvider, searchParams.code);
 
   const router = useRouter();
-
-  const snsAuthProvider = params.snsProvider;
-  const snsAuthCode = searchParams.code;
-
-  useEffect(() => {
-    if (!isLoading && !payload && snsAuthProvider && snsAuthCode) {
-      handleSnsLogin(snsAuthProvider, snsAuthCode);
-    }
-  }, []);
 
   useEffect(() => {
     if (!isLoading && !error && payload) {

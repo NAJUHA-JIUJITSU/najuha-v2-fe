@@ -11,8 +11,7 @@ import BirthPage from '@/components/registerFunnel/birthPage';
 import NicknamePage from '@/components/registerFunnel/nicknamePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import useFunnel from '@/hook/useFunnel';
-import useRegister from '@/hook/useResgiter';
-import { useUserData } from '@/hook/useUserData';
+import { useTemporaryUserInfo } from '@/hook/useRegister';
 
 const steps = ['약관동의', '성별', '생년월일', '전화번호', '닉네임', '벨트', '가입성공'];
 
@@ -83,7 +82,7 @@ export default function funnel() {
     setFunnelData,
     setCurrentStepIndex,
   } = useFunnel(steps, initialFunnelData);
-  const { data: user } = useUserData();
+  const { data: user } = useTemporaryUserInfo();
 
   console.log('funnelData: ', funnelData);
 

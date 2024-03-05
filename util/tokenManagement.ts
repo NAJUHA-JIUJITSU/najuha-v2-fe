@@ -24,11 +24,12 @@ export const saveAccessToken = (accessToken: string) => {
   }
 
   const expires = new Date(decoded.exp * 1000);
+  console.log('accessToken?:', accessToken);
+
   Cookies.set('accessToken', accessToken, {
     expires,
     secure: true,
     sameSite: 'strict',
-    httpOnly: true,
   });
 };
 
@@ -45,7 +46,6 @@ export const saveRefreshToken = (refreshToken: string) => {
     expires,
     secure: true,
     sameSite: 'strict',
-    httpOnly: true,
   });
 };
 
@@ -53,6 +53,10 @@ export const saveRefreshToken = (refreshToken: string) => {
 export const saveTokens = (accessToken: string, refreshToken: string) => {
   saveAccessToken(accessToken);
   saveRefreshToken(refreshToken);
+
+  //cookie에 저장된 토큰 출력
+  console.log('accessToken!!:', Cookies.get('accessToken'));
+  console.log('refreshToken!!:', Cookies.get('refreshToken'));
 };
 
 // 토큰을 디코드한 객체를 반환

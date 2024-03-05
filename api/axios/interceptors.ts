@@ -15,6 +15,7 @@ axiosPrivate.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+    //todo: status가 아니라 code 조건으로 바꿔야함
     if (error.response?.status === 400 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {

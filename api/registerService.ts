@@ -4,7 +4,7 @@ import { axiosPrivate } from '@/api/axios/interceptors';
 export const getTemporaryUserInfo = async () => {
   try {
     const response = await axiosPrivate.get('/user/register/users/me');
-    return response.data.data;
+    return response.data.result;
   } catch (error) {
     console.error('Failed to get temporary user info:', error);
     throw new Error('Failed to get temporary user info');
@@ -15,7 +15,7 @@ export const getTemporaryUserInfo = async () => {
 export const getCheckDuplicatedNickname = async (nickname: string) => {
   try {
     const response = await axiosPrivate.get(`/user/register/users/${nickname}/is-duplicated`);
-    return response.data.data;
+    return response.data.result;
   } catch (error) {
     console.error('Failed to check nickname:', error);
     throw new Error('Failed to check nickname');
