@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getCheckDuplicatedNickname } from '@/api/registerService';
+import { useCheckDuplicatedNickname } from '@/hook/useRegister';
 
 function useNicknameValidation(initialNickname: string) {
   const [nickname, setNickname] = useState(initialNickname);
@@ -7,7 +7,8 @@ function useNicknameValidation(initialNickname: string) {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isNicknameChecked, setIsNicknameChecked] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+
+  const { mutate: checkDuplicatedNickname, isPending } = useCheckDuplicatedNickname();
 
   // 닉네임 유효성 검사
   const validateNickname = (nickname: string) => {
@@ -30,17 +31,19 @@ function useNicknameValidation(initialNickname: string) {
 
   // 중복 체크 API 호출
   const checkNicknameDuplication = async () => {
-    setIsLoading(true);
-
-    //닉네임이 중복되면 true, 중복되지 않으면 false를 반환
-    const isDuplication = await getCheckDuplicatedNickname(nickname);
-    setIsLoading(false);
-    if (isDuplication) {
-      setErrorMessage('이미 사용중인 닉네임입니다.');
-    } else {
-      setSuccessMessage('사용 가능한 닉네임입니다.');
-      setIsNicknameChecked(true);
-    }
+    checkDuplicatedNickname(nickname, {
+      onSuccess: (data) => {
+        if (data) {
+          setErrorMessage('이미 사용중인 닉네임입니다.');
+        } else {
+          setSuccessMessage('사용 가능한 닉네임입니다.');
+          setIsNicknameChecked(true);
+        }
+      },
+      onError: (error) => {
+        console.log('error', error);
+      },
+    });
   };
 
   // 닉네임 입력값이 변경될 때마다 유효성 검사
@@ -54,7 +57,7 @@ function useNicknameValidation(initialNickname: string) {
     nickname,
     setNickname,
     isValid,
-    isLoading,
+    isPending,
     errorMessage,
     successMessage,
     checkNicknameDuplication,

@@ -21,3 +21,29 @@ export const getCheckDuplicatedNickname = async (nickname: string) => {
     throw new Error('Failed to check nickname');
   }
 };
+
+//전화번호로 인증코드 전송
+export const postSendAuthCode = async (phoneNumber: string) => {
+  try {
+    const response = await axiosPrivate.post('/user/register/phone-number/auth-code', {
+      phoneNumber: phoneNumber,
+    });
+    return response.data.result;
+  } catch (error) {
+    console.error('Failed to send auth code:', error);
+    throw new Error('Failed to send auth code');
+  }
+};
+
+//전화번호 인증코드 확인
+export const postConfirmAuthCode = async (authCode: string) => {
+  try {
+    const response = await axiosPrivate.post('/user/register/phone-number/auth-code/confirm', {
+      authCode: authCode,
+    });
+    return response.data.result;
+  } catch (error) {
+    console.error('Failed to check auth code:', error);
+    throw new Error('Failed to check auth code');
+  }
+};

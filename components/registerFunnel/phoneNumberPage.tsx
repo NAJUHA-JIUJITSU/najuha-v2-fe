@@ -1,12 +1,10 @@
 'use client';
 import Input from '../common/input';
-import { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import ButtonOnClick from '../common/button/buttonOnClick';
-import InfoMessage from '../common/infoMessage';
 import React from 'react';
-import useNicknameValidation from '@/hook/useNicknameValidation';
 import usePhoneNumberValidation from '@/hook/usePhoneNumberValidation';
+import { useSendAuthCode } from '@/hook/useRegister';
 
 interface PhoneNumberPageProps {
   onNext: (data: string) => void;
@@ -15,6 +13,19 @@ interface PhoneNumberPageProps {
 
 export default function phoneNumberPage({ onNext, data }: PhoneNumberPageProps) {
   const { number, setNumber, isValid, errorMessage } = usePhoneNumberValidation(data);
+  const { mutate: sendAuthCode, isPending } = useSendAuthCode();
+
+  const handleButtonClick = () => {
+    sendAuthCode(number, {
+      onSuccess: (code) => {
+        console.log('인증코드 전송 성공: ', code);
+        onNext(number);
+      },
+      onError: (error) => {
+        console.log('인증코드 전송 실패: ', error);
+      },
+    });
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -25,18 +36,18 @@ export default function phoneNumberPage({ onNext, data }: PhoneNumberPageProps) 
         value={number}
         onChange={(e) => setNumber(e.target.value)}
         errMsg={errorMessage}
-        // disabled={isLoading} todo: isLoading true일때 비활성화 되게 하기
+        disabled={isPending}
       />
 
       {/* 다음 버튼 */}
       <div className={styles.submit}>
         <ButtonOnClick
           type="filled"
-          text="다음"
+          text="인증번호 받기"
           color={isValid ? 'blue' : 'disabled'}
           width="full"
           size="large"
-          onClick={() => onNext(number)}
+          onClick={() => handleButtonClick()}
         />
       </div>
     </div>

@@ -19,7 +19,16 @@
 
 .validateButton {
   margin-left: auto;
-  width: 70px;
+  display: flex;
+}
+
+.timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 8px;
+  color: $--color-state-error;
+  @include font-body3-regular;
 }
 
 .label {

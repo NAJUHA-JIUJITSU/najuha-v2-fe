@@ -1,11 +1,12 @@
 'use client';
 import styles from './index.module.scss';
-import { use, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Header from '@/components/common/header/Header';
 import { ButtonIcon } from '@/components/common/icon/iconOnClick';
 import AgreePage from '@/components/registerFunnel/agreePage';
 import GenderPage from '@/components/registerFunnel/genderPage';
 import PhoneNumberPage from '@/components/registerFunnel/phoneNumberPage';
+import PhoneNumberCheckPage from '@/components/registerFunnel/phoneNumberCheckPage';
 import BeltPage from '@/components/registerFunnel/beltPage';
 import BirthPage from '@/components/registerFunnel/birthPage';
 import NicknamePage from '@/components/registerFunnel/nicknamePage';
@@ -13,7 +14,16 @@ import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import useFunnel from '@/hook/useFunnel';
 import { useTemporaryUserInfo } from '@/hook/useRegister';
 
-const steps = ['약관동의', '성별', '생년월일', '전화번호', '닉네임', '벨트', '가입성공'];
+const steps = [
+  '약관동의',
+  '성별',
+  '생년월일',
+  '전화번호',
+  '전화번호인증',
+  '닉네임',
+  '벨트',
+  '가입성공',
+];
 
 const titleName = {
   약관동의: '회원가입',
@@ -54,6 +64,7 @@ const initialFunnelData = {
   },
   성별: '',
   전화번호: '',
+  전화번호인증: false,
   생년월일: '',
   닉네임: '',
   벨트: '',
@@ -100,7 +111,7 @@ export default function funnel() {
   }
 
   useEffect(() => {
-    setCurrentStepIndex(0); // 원하는 단계로 바로 이동하고 싶을 때 사용
+    setCurrentStepIndex(4); // 원하는 단계로 바로 이동하고 싶을 때 사용
     setScreenSize(); // 화면 크기 설정
   }, []);
 
@@ -142,6 +153,9 @@ export default function funnel() {
       )}
       {currentStep === '전화번호' && (
         <PhoneNumberPage data={funnelData[currentStep]} onNext={gotoSaveNextStep} />
+      )}
+      {currentStep === '전화번호인증' && (
+        <PhoneNumberCheckPage data={funnelData['전화번호']} onNext={gotoSaveNextStep} />
       )}
       {currentStep === '닉네임' && (
         <NicknamePage data={funnelData[currentStep]} onNext={gotoSaveNextStep} />
