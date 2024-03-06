@@ -111,7 +111,7 @@ export default function funnel() {
   }
 
   useEffect(() => {
-    setCurrentStepIndex(4); // 원하는 단계로 바로 이동하고 싶을 때 사용
+    setCurrentStepIndex(0); // 원하는 단계로 바로 이동하고 싶을 때 사용
     setScreenSize(); // 화면 크기 설정
   }, []);
 

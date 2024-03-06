@@ -20,7 +20,11 @@ function useFunnel<StepType extends string, DataType>(steps: StepType[], initial
   };
 
   const gotoPreviousStep = () => {
-    setCurrentStepIndex((currentIndex) => Math.max(currentIndex - 1, 0));
+    setCurrentStepIndex((currentIndex) =>
+      steps[currentStepIndex - 1] === '전화번호인증'
+        ? Math.max(currentIndex - 2, 0)
+        : Math.max(currentIndex - 1, 0),
+    );
   };
 
   return {
