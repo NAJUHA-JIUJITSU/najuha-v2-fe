@@ -21,6 +21,7 @@ export default function SnsRedirectPage({ params, searchParams }: SnsRedirectPag
         router.push(`/funnel`);
       } else {
         console.log('로그인된 회원입니다');
+        router.push(`/funnel`); //todo: 이전 페이지로 리다이렉트
       }
     } else if (!isLoading && error) {
       console.error('로그인 에러:', error);
