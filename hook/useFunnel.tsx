@@ -1,4 +1,13 @@
-import { useState } from 'react';
+import React, { ReactElement, ReactNode, useState } from 'react';
+
+export interface StepProps {
+  name: string;
+  children: ReactNode;
+}
+
+export interface FunnelProps {
+  children: Array<ReactElement<StepProps>>;
+}
 
 function useFunnel<StepType extends string, DataType>(steps: StepType[], initialData: DataType) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
@@ -27,6 +36,19 @@ function useFunnel<StepType extends string, DataType>(steps: StepType[], initial
     );
   };
 
+  // 각 단계를 나타내는 Step 컴포넌트
+  const Step = (props: StepProps): ReactElement => {
+    return <>{props.children}</>;
+  };
+
+  // 여러 단계의 Step 컴포넌트 중 현재 활성화된 스텝을 렌더링하는 Funnel
+  // find를 통해 Step 중 현재 Step을 찾아 렌더링
+  const Funnel = ({ children }: FunnelProps) => {
+    const targetStep = children.find((childStep) => childStep.props.name === currentStep);
+
+    return <>{targetStep}</>;
+  };
+
   return {
     currentStep,
     gotoSaveNextStep,
@@ -34,6 +56,8 @@ function useFunnel<StepType extends string, DataType>(steps: StepType[], initial
     funnelData,
     setFunnelData,
     setCurrentStepIndex, // 이 함수를 제공하여 특정 단계로 직접 이동할 수 있도록 함
+    Funnel,
+    Step,
   };
 }
 

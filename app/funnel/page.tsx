@@ -93,6 +93,8 @@ export default function funnel() {
     funnelData,
     setFunnelData,
     setCurrentStepIndex,
+    Funnel,
+    Step,
   } = useFunnel(steps, initialFunnelData);
   const { data: user } = useTemporaryUserInfo();
   const { mutate: register, isPending } = useRegister();
@@ -152,29 +154,29 @@ export default function funnel() {
         leftIcon={<ButtonIcon icon={<IconNavigateBefore />} onClick={gotoPreviousStep} />}
         title={titleName[currentStep as keyof typeof titleName]}
       />
-
-      {currentStep === '약관동의' && (
-        <AgreePage data={funnelData[currentStep]} onNext={gotoSaveNextStep} />
-      )}
-      {currentStep === '성별' && (
-        <GenderPage data={funnelData[currentStep]} onNext={gotoSaveNextStep} />
-      )}
-      {currentStep === '생년월일' && (
-        <BirthPage data={funnelData[currentStep]} onNext={gotoSaveNextStep} />
-      )}
-      {currentStep === '전화번호' && (
-        <PhoneNumberPage data={funnelData[currentStep]} onNext={gotoSaveNextStep} />
-      )}
-      {currentStep === '전화번호인증' && (
-        <PhoneNumberCheckPage data={funnelData['전화번호']} onNext={gotoSaveNextStep} />
-      )}
-      {currentStep === '닉네임' && (
-        <NicknamePage data={funnelData[currentStep]} onNext={gotoSaveNextStep} />
-      )}
-      {currentStep === '벨트' && (
-        <BeltPage data={funnelData[currentStep]} onNext={gotoSaveNextStep} />
-      )}
-
+      <Funnel>
+        <Step name="약관동의">
+          <AgreePage data={funnelData['약관동의']} onNext={gotoSaveNextStep} />
+        </Step>
+        <Step name="성별">
+          <GenderPage data={funnelData['성별']} onNext={gotoSaveNextStep} />
+        </Step>
+        <Step name="생년월일">
+          <BirthPage data={funnelData['생년월일']} onNext={gotoSaveNextStep} />
+        </Step>
+        <Step name="전화번호">
+          <PhoneNumberPage data={funnelData['전화번호']} onNext={gotoSaveNextStep} />
+        </Step>
+        <Step name="전화번호인증">
+          <PhoneNumberCheckPage data={funnelData['전화번호']} onNext={gotoSaveNextStep} />
+        </Step>
+        <Step name="닉네임">
+          <NicknamePage data={funnelData['닉네임']} onNext={gotoSaveNextStep} />
+        </Step>
+        <Step name="벨트">
+          <BeltPage data={funnelData['벨트']} onNext={gotoSaveNextStep} />
+        </Step>
+      </Funnel>
       {isPending && <div style={{ lineHeight: 1 }}>회원가입 중...</div>}
     </div>
   );
