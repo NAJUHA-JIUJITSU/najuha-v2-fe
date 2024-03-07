@@ -1,7 +1,7 @@
 import { axiosPrivate } from '@/api/axios/interceptors';
 
 //임시 사용자 정보를 가져옵니다.
-export const getTemporaryUserInfo = async () => {
+const getTemporaryUserInfo = async () => {
   try {
     const response = await axiosPrivate.get('/user/register/users/me');
     return response.data.result;
@@ -12,7 +12,7 @@ export const getTemporaryUserInfo = async () => {
 };
 
 //닉네임 중복 확인
-export const getCheckDuplicatedNickname = async (nickname: string) => {
+const getCheckDuplicatedNickname = async (nickname: string) => {
   try {
     const response = await axiosPrivate.get(`/user/register/users/${nickname}/is-duplicated`);
     return response.data.result;
@@ -23,7 +23,7 @@ export const getCheckDuplicatedNickname = async (nickname: string) => {
 };
 
 //전화번호로 인증코드 전송
-export const postSendAuthCode = async (phoneNumber: string) => {
+const postSendAuthCode = async (phoneNumber: string) => {
   try {
     const response = await axiosPrivate.post('/user/register/phone-number/auth-code', {
       phoneNumber: phoneNumber,
@@ -36,7 +36,7 @@ export const postSendAuthCode = async (phoneNumber: string) => {
 };
 
 //전화번호 인증코드 확인
-export const postConfirmAuthCode = async (authCode: string) => {
+const postConfirmAuthCode = async (authCode: string) => {
   try {
     const response = await axiosPrivate.post('/user/register/phone-number/auth-code/confirm', {
       authCode: authCode,
@@ -46,4 +46,11 @@ export const postConfirmAuthCode = async (authCode: string) => {
     console.error('Failed to check auth code:', error);
     throw new Error('Failed to check auth code');
   }
+};
+
+export const registerApi = {
+  getTemporaryUserInfo,
+  getCheckDuplicatedNickname,
+  postSendAuthCode,
+  postConfirmAuthCode,
 };

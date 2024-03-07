@@ -4,7 +4,7 @@ function usePhoneNumberCodeValidation() {
   const [code, setCode] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>('');
-  const [timeLeft, setTimeLeft] = useState<number>(180); // 3분을 초 단위로 설정
+  const [timeLeft, setTimeLeft] = useState<number>(10); // 3분을 초 단위로 설정
   const [isTimerActive, setIsTimerActive] = useState<boolean>(true);
 
   const handleCodeChange = () => {

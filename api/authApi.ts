@@ -36,3 +36,8 @@ export const postRefreshToken = async (): Promise<string | null> => {
     return null;
   }
 };
+
+export const authApi = {
+  postSnsLogin,
+  postRefreshToken,
+};

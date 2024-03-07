@@ -1,5 +1,5 @@
 import { axiosPrivate, axiosPublic } from '@/api/axios/axiosInstances.ts';
-import { postRefreshToken } from '../authService';
+import { postRefreshToken } from '../authApi';
 import Cookies from 'js-cookie';
 
 axiosPrivate.interceptors.request.use((config) => {
