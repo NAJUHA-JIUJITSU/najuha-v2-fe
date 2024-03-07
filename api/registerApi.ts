@@ -1,4 +1,5 @@
 import { axiosPrivate } from '@/api/axios/interceptors';
+import { saveTokens } from '@/util/tokenManagement';
 
 //임시 사용자 정보를 가져옵니다.
 const getTemporaryUserInfo = async () => {
@@ -48,9 +49,25 @@ const postConfirmAuthCode = async (authCode: string) => {
   }
 };
 
+//회원가입
+const patchRegister = async (data: any) => {
+  try {
+    const response = await axiosPrivate.patch('/user/register', data);
+
+    const { accessToken, refreshToken } = response.data.result;
+    saveTokens(accessToken, refreshToken);
+
+    return response.data.result;
+  } catch (error) {
+    console.error('Failed to register:', error);
+    throw new Error('Failed to register');
+  }
+};
+
 export const registerApi = {
   getTemporaryUserInfo,
   getCheckDuplicatedNickname,
   postSendAuthCode,
   postConfirmAuthCode,
+  patchRegister,
 };

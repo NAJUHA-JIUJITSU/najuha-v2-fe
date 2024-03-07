@@ -12,7 +12,7 @@ import BirthPage from '@/components/registerFunnel/birthPage';
 import NicknamePage from '@/components/registerFunnel/nicknamePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import useFunnel from '@/hook/useFunnel';
-import { useTemporaryUserInfo } from '@/hook/useRegister';
+import { useTemporaryUserInfo, useRegister } from '@/hook/useRegister';
 
 const steps = [
   '약관동의',
@@ -30,6 +30,7 @@ const titleName = {
   성별: '',
   생년월일: '',
   전화번호: '',
+  전화번호인증: '',
   닉네임: '',
   벨트: '',
   가입성공: '가입성공',
@@ -57,14 +58,13 @@ interface UserResponseData {
 const initialFunnelData = {
   약관동의: {
     all: false,
-    use: false,
-    privacy: false,
-    refund: false,
-    ad: false,
+    TERMS_OF_SERVICE: false,
+    PRIVACY: false,
+    REFUND: false,
+    ADVERTISEMENT: false,
   },
   성별: '',
   전화번호: '',
-  전화번호인증: false,
   생년월일: '',
   닉네임: '',
   벨트: '',
@@ -94,6 +94,7 @@ export default function funnel() {
     setCurrentStepIndex,
   } = useFunnel(steps, initialFunnelData);
   const { data: user } = useTemporaryUserInfo();
+  const { mutate: register } = useRegister();
 
   console.log('funnelData: ', funnelData);
 
@@ -120,17 +121,25 @@ export default function funnel() {
     setUserInfo(); //사용자 정보 채우기
   }, [user]);
 
-  //currentStep이 '가입성공'일 때, userLogin api 호출 후, 쿠키에 저장된 토큰 삭제하고, 회원가입 완료 로직 후 메인페이지로 이동
+  //currentStep이 '가입성공'일 때 회원가입 완료 후 메인페이지로 이동
   useEffect(() => {
     if (currentStep === '가입성공') {
-      console.log('최종 funnelData: ', funnelData);
-      // handleRegister({
-      //   nickname: funnelData.닉네임,
-      //   gender: funnelData.성별,
-      //   belt: funnelData.벨트,
-      //   birth: '19981127',
-      // });
+      const registerUser = {
+        user: {
+          gender: funnelData.성별,
+          birth: funnelData.생년월일.replace(/\//g, ''),
+          nickname: funnelData.닉네임,
+          belt: funnelData.벨트,
+        },
+        consentPolicyTypes: Object.entries(funnelData.약관동의)
+          .filter(([_key, value]) => value)
+          .map(([key, _value]) => key),
+      };
+      console.log('최종 registerUser: ', registerUser);
 
+      register(registerUser); //회원가입 요청
+
+      //회원가입 완료 후, 메인페이지로 이동
       console.log('회원가입 완료');
     }
   }, [currentStep]);

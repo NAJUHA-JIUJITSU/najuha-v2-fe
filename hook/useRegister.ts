@@ -33,3 +33,11 @@ export const useConfirmAuthCode = () => {
     },
   });
 };
+
+export const useRegister = () => {
+  return useMutation({
+    mutationFn: (data: any) => {
+      return registerApi.patchRegister(data);
+    },
+  });
+};
