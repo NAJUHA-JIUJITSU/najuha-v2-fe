@@ -21,6 +21,7 @@ export default function birthPage({ onNext, data }: BirthPageProps) {
         value={birth}
         onChange={(e) => setBirth(e.target.value)}
         errMsg={errorMessage}
+        autoFocus={true}
         // disabled={isLoading} //todo: isLoading true일때 비활성화 되게 하기
       />
 

@@ -37,6 +37,7 @@ export default function phoneNumberPage({ onNext, data }: PhoneNumberPageProps) 
         onChange={(e) => setNumber(e.target.value)}
         errMsg={errorMessage}
         disabled={isPending}
+        autoFocus={true}
       />
 
       {/* 다음 버튼 */}

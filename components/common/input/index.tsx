@@ -10,6 +10,7 @@ interface Props {
   errMsg?: string | null;
   successMsg?: string | null;
   disabled?: boolean;
+  autoFocus?: boolean;
 }
 
 const Input: React.FC<Props> = ({
@@ -20,6 +21,7 @@ const Input: React.FC<Props> = ({
   errMsg,
   successMsg,
   disabled = false,
+  autoFocus = false,
 }) => {
   return (
     <div className={styles.wrapper}>
@@ -35,6 +37,7 @@ const Input: React.FC<Props> = ({
         value={value}
         onChange={onChange}
         disabled={disabled}
+        autoFocus={autoFocus}
       />
       <span
         className={clsx(

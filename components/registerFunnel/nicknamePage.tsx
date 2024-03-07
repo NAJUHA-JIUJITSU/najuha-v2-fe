@@ -43,6 +43,7 @@ export default function nicknamePage({ onNext, data }: NicknamePageProps) {
         errMsg={errorMessage}
         successMsg={successMessage}
         disabled={isPending} //todo: isLoading true일때 비활성화 되게 하기
+        autoFocus={true}
       />
 
       {/* 중복확인 버튼 */}

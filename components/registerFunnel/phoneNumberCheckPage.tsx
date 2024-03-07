@@ -67,6 +67,7 @@ export default function phoneNumberCheckPage({
         onChange={(e) => setCode(e.target.value)}
         errMsg={errorMessage}
         disabled={isPending}
+        autoFocus={true}
       />
 
       {/* 다시 받기 버튼 */}
