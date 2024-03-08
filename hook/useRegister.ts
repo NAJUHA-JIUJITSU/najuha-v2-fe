@@ -6,6 +6,10 @@ export const useTemporaryUserInfo = () => {
   return useQuery({
     queryKey: queries.register.me().queryKey,
     queryFn: () => registerApi.getTemporaryUserInfo(),
+    // queryFn: () => axiosPrivate.get('/user/register/users/me'),
+    meta: {
+      errorMsg: '회원정보를 가져오는데 실패했습니다.',
+    },
   });
 };
 

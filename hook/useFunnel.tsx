@@ -41,8 +41,7 @@ function useFunnel<StepType extends string, DataType>(steps: StepType[], initial
     return <>{props.children}</>;
   };
 
-  // 여러 단계의 Step 컴포넌트 중 현재 활성화된 스텝을 렌더링하는 Funnel
-  // find를 통해 Step 중 현재 Step을 찾아 렌더링
+  // 여러 단계의 Step 컴포넌트 중 현재 활성화된 스텝을 렌더링하는 Funnel 컴포넌트
   const Funnel = ({ children }: FunnelProps) => {
     const targetStep = children.find((childStep) => childStep.props.name === currentStep);
 
