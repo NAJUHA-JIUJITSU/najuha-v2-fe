@@ -2,13 +2,19 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import { registerApi } from '@/api/registerApi';
 import { queries } from '@/queries/index';
 
+// 전역 select 함수 정의
+const globalSelectFn = (response: any) => {
+  return response.data.result;
+};
+
 export const useTemporaryUserInfo = () => {
   return useQuery({
     queryKey: queries.register.me().queryKey,
     queryFn: () => registerApi.getTemporaryUserInfo(),
-    // queryFn: () => axiosPrivate.get('/user/register/users/me'),
+    select: globalSelectFn,
+    //추가에러 처리 로직
     meta: {
-      errorMsg: '회원정보를 가져오는데 실패했습니다.',
+      alertMsg: '회원정보를 가져오는데 실패했습니다.',
     },
   });
 };

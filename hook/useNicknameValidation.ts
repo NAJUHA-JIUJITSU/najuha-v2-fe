@@ -32,8 +32,8 @@ function useNicknameValidation(initialNickname: string) {
   // 중복 체크 API 호출
   const checkNicknameDuplication = async () => {
     checkDuplicatedNickname(nickname, {
-      onSuccess: (data) => {
-        if (data) {
+      onSuccess: (response) => {
+        if (response.data.result) {
           setErrorMessage('이미 사용중인 닉네임입니다.');
         } else {
           setSuccessMessage('사용 가능한 닉네임입니다.');

@@ -14,6 +14,7 @@ import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import useFunnel from '@/hook/useFunnel';
 import { useTemporaryUserInfo, useRegister } from '@/hook/useRegister';
 import { useRouter } from 'next/navigation';
+import { saveTokens } from '@/util/tokenManagement';
 
 const steps = [
   '약관동의',

@@ -31,8 +31,8 @@ export default function phoneNumberCheckPage({
 
   const handleButtonClick = () => {
     confirmAuthCode(code, {
-      onSuccess: (result) => {
-        if (result) {
+      onSuccess: (response) => {
+        if (response.data.result) {
           onNext(true);
         }
         setErrorMessage('인증코드가 일치하지 않습니다.');
@@ -45,8 +45,8 @@ export default function phoneNumberCheckPage({
 
   const handleAgainButtonClick = () => {
     sendAuthCode(phoneNumber, {
-      onSuccess: (code) => {
-        console.log('인증코드 전송 성공: ', code);
+      onSuccess: (response) => {
+        console.log('인증코드 전송 성공: ', response.data.result);
         resetTimer();
       },
       onError: (error) => {

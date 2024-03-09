@@ -17,8 +17,8 @@ export default function phoneNumberPage({ onNext, data }: PhoneNumberPageProps) 
 
   const handleButtonClick = () => {
     sendAuthCode(number, {
-      onSuccess: (code) => {
-        console.log('인증코드 전송 성공: ', code);
+      onSuccess: (response) => {
+        console.log('인증코드 전송 성공: ', response.data.result);
         onNext(number);
       },
       onError: (error) => {
