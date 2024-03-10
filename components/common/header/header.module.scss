@@ -1,0 +1,44 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+// 헤더 레이아웃
+.wrapper {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: $--color-basic-white;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.right {
+  display: flex;
+  margin-left: auto;
+}
+
+// 각 컴포넌트 스타일
+
+.title {
+  @include font-h3-medium;
+  color: $--color-font-headline;
+}
+
+.subtitle {
+  @include font-title-medium;
+  color: $--color-font-headline;
+}
+
+.leftIcon {
+  margin-right: 10px;
+}
+
+.rightIcon2 {
+  margin-left: 10px;
+}

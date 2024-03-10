@@ -1,0 +1,14 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+//전체 레이아웃
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  box-sizing: border-box;
+  padding: 0 16px;
+  background-color: $--color-basic-white;
+}

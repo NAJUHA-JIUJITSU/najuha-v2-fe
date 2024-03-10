@@ -1,0 +1,11 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+//login
+.login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}

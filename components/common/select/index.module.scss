@@ -1,0 +1,73 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+
+/* CSS 스타일링 */
+.dropdown {
+  position: relative;
+  background-color: $--color-basic-white;
+  cursor: pointer;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 54px;
+  padding: 0px 16px;
+  border-radius: 4px;
+  border: 1px solid $--color-gray-4;
+  box-sizing: border-box;
+
+  color: $--color-font-body;
+  background-color: $--color-basic-white;
+}
+
+.example {
+  @include font-body1-regular;
+  color: $--color-gray-3;
+}
+
+// menu
+.menu {
+  position: absolute;
+  top: calc(54px + 7px);
+
+  width: 100%;
+  padding: 4px;
+  max-height: 278px;
+  overflow-y: auto;
+  box-sizing: border-box;
+
+  border-radius: 4px;
+  border: 1px solid $--color-gray-4;
+  background-color: $--color-basic-white;
+}
+
+.menu::-webkit-scrollbar {
+  display: none; /* 스크롤바 숨김 */
+}
+
+// option
+.option {
+  display: flex;
+  align-items: center;
+
+  height: 54px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  @include font-body1-regular;
+  color: $--color-font-headline;
+  background-color: $--color-basic-white;
+}
+
+.option:hover {
+  background-color: $--color-brand-blue-10;
+}
+
+.selectedOption {
+  @include font-body1-regular;
+  color: $--color-font-headline;
+}

@@ -1,0 +1,43 @@
+import { axiosPublic } from '@/api/axios/axiosInstances.ts';
+import { saveTokens } from '@/util/tokenManagement';
+import Cookies from 'js-cookie';
+import { decodeToken } from '@/util/tokenManagement';
+
+// 소셜 로그인
+export const postSnsLogin = async (snsAuthProvider: string, snsAuthCode: string) => {
+  try {
+    const response = await axiosPublic.post('/user/auth/sns-login', {
+      snsAuthProvider,
+      snsAuthCode,
+    });
+    const { accessToken, refreshToken } = response.data.result;
+    saveTokens(accessToken, refreshToken);
+
+    let payload = decodeToken(accessToken);
+    return payload;
+  } catch (error) {
+    console.error('Failed to login with sns:', error);
+    throw new Error('Failed to login with sns');
+  }
+};
+
+// 리프레시 토큰을 사용하여 엑세스 토큰 갱신
+export const postRefreshToken = async (): Promise<string | null> => {
+  try {
+    //쿠기에서 리프레시 토큰 가져오기
+    const response = await axiosPublic.post('/user/auth/token', {
+      refreshToken: Cookies.get('refreshToken'),
+    });
+    const { accessToken, refreshToken } = response.data.result;
+    saveTokens(accessToken, refreshToken);
+    return accessToken;
+  } catch (error) {
+    console.error('Failed to refresh token:', error); //todo: refreshError발생시 어떻게 처리할지 확인. 아마 로그인 페이지로 이동시키는게 좋을듯
+    return null;
+  }
+};
+
+export const authApi = {
+  postSnsLogin,
+  postRefreshToken,
+};

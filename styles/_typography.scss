@@ -1,94 +1,95 @@
 @font-face {
   font-family: 'Noto Sans KR';
   src: url('../public/fonts/NotoSansKR-Regular.ttf') format('truetype');
-  font-weight: 400;
+  font-weight: 400; //regular
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Noto Sans KR';
   src: url('../public/fonts/NotoSansKR-Medium.ttf') format('truetype');
-  font-weight: 500;
+  font-weight: 500; //medium
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Noto Sans KR';
   src: url('../public/fonts/NotoSansKR-Bold.ttf') format('truetype');
-  font-weight: 700;
+  font-weight: 700; //bold
   font-style: normal;
 }
 
 // Title text styles - minxin
-@mixin typography($font-size, $line-height, $letter-spacing) {
+@mixin typography($font-size, $line-height, $letter-spacing, $font-weight) {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: $font-size;
   line-height: $line-height;
   letter-spacing: $letter-spacing;
+  font-weight: $font-weight;
 }
 
 // Title text styles
-@mixin h1-style {
-  @include typography(24px, 29px, 0%);
+@mixin font-h1-medium {
+  @include typography(24px, 29px, 0%, 500);
 }
 
-@mixin h2-style {
-  @include typography(20px, 25px, 0.15%);
+@mixin font-h2-bold {
+  @include typography(20px, 25px, 0.15%, 700);
 }
 
-@mixin h3-style {
-  @include typography(20px, 25px, 0.15%);
+@mixin font-h3-medium {
+  @include typography(20px, 25px, 0.15%, 500);
 }
 
-@mixin title-style {
-  @include typography(18px, 21px, 0.15%);
+@mixin font-title-medium {
+  @include typography(18px, 21px, 0.15%, 500);
 }
 
-@mixin subtitle1-style {
-  @include typography(16px, 21px, 0.15%);
+@mixin font-subtitle1-bold {
+  @include typography(16px, 21px, 0.15%, 700);
 }
 
-@mixin subtitle2-style {
-  @include typography(16px, 21px, 0.15%);
+@mixin font-subtitle2-medium {
+  @include typography(16px, 21px, 0.15%, 500);
 }
 
-@mixin subtitle3-style {
-  @include typography(14px, 19px, 0.25%);
+@mixin font-subtitle3-bold {
+  @include typography(14px, 19px, 0.25%, 700);
 }
 
 // Body text styles
-@mixin body1 {
-  @include typography(16px, 21px, 0.15%);
+@mixin font-body1-regular {
+  @include typography(16px, 21px, 0.15%, 400);
 }
 
-@mixin body2 {
-  @include typography(14px, 19px, 0.25%);
+@mixin font-body2-medium {
+  @include typography(14px, 19px, 0.25%, 500);
 }
 
-@mixin body3 {
-  @include typography(14px, 19px, 0.25%);
+@mixin font-body3-regular {
+  @include typography(14px, 19px, 0.25%, 400);
 }
 
 // Caption styles
-@mixin caption-medium {
-  @include typography(12px, 12px, -1.25%);
+@mixin font-caption-medium {
+  @include typography(12px, 12px, -1.25%, 500);
 }
 
-@mixin caption-regular {
-  @include typography(12px, 12px, -1.25%);
+@mixin font-caption-regular {
+  @include typography(12px, 12px, -1.25%, 400);
 }
 
 // Button styles
-@mixin button-medium {
-  @include typography(14px, 14px, 1.25%);
+@mixin font-button-medium {
+  @include typography(14px, 14px, 1.25%, 500);
 }
 
-@mixin button-underline {
-  @include typography(14px, 14px, 1.25%);
+@mixin font-button-medium-underline {
+  @include typography(14px, 14px, 1.25%, 500);
   text-decoration: underline;
 }
 
 // Tag style
-@mixin tag {
-  @include typography(10px, 12px, -1.25%);
+@mixin font-tag-regualr {
+  @include typography(10px, 12px, -1.25%, 400);
 }

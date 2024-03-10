@@ -1,0 +1,63 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  @include font-subtitle1-bold;
+  color: $--color-font-headline;
+}
+
+.input {
+  outline: none;
+  background-color: $--color-basic-white;
+  height: 54px;
+  padding: 0px 16px;
+  border-radius: 4px;
+  border: 1px solid $--color-gray-2;
+  @include font-body1-regular;
+  color: $--color-font-headline;
+
+  &:focus {
+    border: 1px solid $--color-gray-5;
+  }
+
+  &::placeholder {
+    color: $--color-font-body;
+  }
+
+  &:disabled {
+    background-color: $--color-gray-0;
+  }
+}
+
+.errInput {
+  border: 1px solid $--color-state-error;
+  &:focus {
+    border: 1px solid $--color-state-error;
+  }
+}
+.successInput {
+  border: 1px solid $--color-state-success;
+  &:focus {
+    border: 1px solid $--color-state-success;
+  }
+}
+
+.msg {
+  height: 19px;
+}
+.errorMsg {
+  @include font-body3-regular;
+  color: $--color-state-error;
+}
+
+.successMsg {
+  @include font-body3-regular;
+  color: $--color-state-success;
+}

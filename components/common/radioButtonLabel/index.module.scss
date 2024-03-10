@@ -1,0 +1,23 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-color: $--color-basic-white;
+  height: 56px;
+  cursor: pointer;
+  gap: 8px;
+}
+
+.isUnderlined {
+  border-bottom: 1px solid $--color-gray-1;
+}
+
+.message {
+  @include font-body1-regular;
+  color: $--color-font-headline;
+  width: 100%;
+}
