@@ -32,7 +32,7 @@ export const postRefreshToken = async (): Promise<string | null> => {
     saveTokens(accessToken, refreshToken);
     return accessToken;
   } catch (error) {
-    console.error('Failed to refresh token:', error);
+    console.error('Failed to refresh token:', error); //todo: refreshError발생시 어떻게 처리할지 확인. 아마 로그인 페이지로 이동시키는게 좋을듯
     return null;
   }
 };

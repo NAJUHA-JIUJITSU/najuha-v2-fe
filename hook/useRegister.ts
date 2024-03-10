@@ -1,6 +1,7 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { registerApi } from '@/api/registerApi';
 import { queries } from '@/queries/index';
+import { useState } from 'react';
 
 // 전역 select 함수 정의
 const globalSelectFn = (response: any) => {
@@ -45,9 +46,18 @@ export const useConfirmAuthCode = () => {
 };
 
 export const useRegister = () => {
-  return useMutation({
+  const [data, setData] = useState<any>({});
+
+  function parseData(data: any) {
+    // 가공
+  }
+
+  const { mutate, isPending, isError } = useMutation({
     mutationFn: (data: any) => {
-      return registerApi.patchRegister(data);
+      //todo: data 타입 정의
+      return registerApi.patchRegister(parseData(data));
     },
   });
+
+  return { data, setData, mutate, isPending, isError };
 };

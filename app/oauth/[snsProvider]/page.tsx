@@ -16,6 +16,7 @@ export default function SnsRedirectPage({ params, searchParams }: SnsRedirectPag
 
   useEffect(() => {
     if (!isLoading && !error && payload) {
+      //todo: switch문으로 변경
       const { userRole } = payload;
       if (userRole === 'TEMPORARY_USER') {
         router.push(`/funnel`);

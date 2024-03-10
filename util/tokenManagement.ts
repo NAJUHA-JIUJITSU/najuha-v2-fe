@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 
 interface MyTokenPayload {
   userId: number;
-  userRole: string;
+  userRole: string; //todo: userRole을 enum으로 변경
   iat: number;
   exp: number;
 }

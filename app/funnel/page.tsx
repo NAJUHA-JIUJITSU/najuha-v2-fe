@@ -14,7 +14,6 @@ import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import useFunnel from '@/hook/useFunnel';
 import { useTemporaryUserInfo, useRegister } from '@/hook/useRegister';
 import { useRouter } from 'next/navigation';
-import { saveTokens } from '@/util/tokenManagement';
 
 const steps = [
   '약관동의',
@@ -88,12 +87,12 @@ function setScreenSize() {
 
 export default function funnel() {
   const {
-    currentStep,
-    gotoSaveNextStep,
-    gotoPreviousStep,
-    funnelData,
-    setFunnelData,
-    setCurrentStepIndex,
+    currentStep, // step
+    gotoSaveNextStep, // setStep -> handleNext
+    gotoPreviousStep, // handleBack
+    funnelData, //recoil
+    setFunnelData, //recoil
+    setCurrentStepIndex, // dev setStep[3]
     Funnel,
     Step,
   } = useFunnel(steps, initialFunnelData);

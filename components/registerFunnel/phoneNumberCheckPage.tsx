@@ -27,7 +27,7 @@ export default function phoneNumberCheckPage({
     timeLeft,
   } = usePhoneNumberCodeValidation();
   const { mutate: confirmAuthCode, isPending } = useConfirmAuthCode();
-  const { mutate: sendAuthCode } = useSendAuthCode();
+  const { mutate: sendAuthCode } = useSendAuthCode(); //todo: isPending 사용해서 버튼 비활성화
 
   const handleButtonClick = () => {
     confirmAuthCode(code, {

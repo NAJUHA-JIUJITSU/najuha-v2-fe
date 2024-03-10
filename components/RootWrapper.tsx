@@ -8,6 +8,7 @@ import { AxiosError } from 'axios';
 import { saveTokens } from '@/util/tokenManagement';
 
 // 전역 select 함수 정의
+// todo: RecoilRoot, QueryClientProvider 파일을 분리해서 적용
 const globalSelectFn = (response: any) => {
   return response.data.result;
 };
@@ -50,7 +51,6 @@ export default function RootWrapper({ children }: RootWrapperProps) {
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
         {children}
-
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </RecoilRoot>
