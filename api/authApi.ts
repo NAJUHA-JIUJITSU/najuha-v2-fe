@@ -17,7 +17,7 @@ export const postSnsLogin = async (snsAuthProvider: string, snsAuthCode: string)
 };
 
 // 리프레시 토큰을 사용하여 엑세스 토큰 갱신
-export const postRefreshToken = async (): Promise<string | null> => {
+export const postRefreshToken = async (): Promise<string> => {
   //쿠기에서 리프레시 토큰 가져오기
   const response = await axiosPublic.post('/user/auth/token', {
     refreshToken: Cookies.get('refreshToken'),

@@ -28,7 +28,7 @@ axiosPrivate.interceptors.response.use(
         }
       } catch (refreshError) {
         console.error('Error refreshing token:', refreshError); //todo: refreshError발생을 api 로직에서 처리
-        return Promise.reject(refreshError);
+        // throw refreshError;
       }
     }
     return Promise.reject(error); //todo: 여기서 던지는 에러는 interceptor 자체의 에러만 던져줄 수 있도록 관리 (1000, 1001코드를 제외한 모든 에러를 관리)
