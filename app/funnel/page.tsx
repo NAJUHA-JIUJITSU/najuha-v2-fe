@@ -39,21 +39,10 @@ const titleName = {
 
 interface UserResponseData {
   belt: null | string;
-  createdAt: string;
-  email: string;
   gender: 'MALE' | 'FEMALE';
-  id: number;
-  name: string;
   nickname: null | string;
   phoneNumber: string;
   birth: string;
-  profileImageUrlKey: null | string;
-  role: string;
-  snsAuthProvider: string;
-  snsId: string;
-  status: string;
-  updatedAt: string;
-  weight: null | number;
 }
 
 const initialFunnelData = {
@@ -71,82 +60,24 @@ const initialFunnelData = {
   벨트: '',
 };
 
-// 국가 코드("+82")를 "0"으로 변환하고, 문자열의 모든 공백과 하이픈을 제거하는 함수
-function convertPhoneNumber(phoneNumber: string): string {
-  const formattedNumber = phoneNumber.replace('+82', '0').replace(/\s|-/g, '');
-
-  return formattedNumber;
-}
-
 //모바일 화면 높이를 1vh 단위로 설정하는 함수
-function setScreenSize() {
-  let vh = window.innerHeight * 0.01;
+// function setScreenSize() {
+//   let vh = window.innerHeight * 0.01;
 
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
-}
+//   document.documentElement.style.setProperty('--vh', `${vh}px`);
+// }
 
 export default function funnel() {
   const {
-    currentStep, // step
     gotoSaveNextStep, // setStep -> handleNext
     gotoPreviousStep, // handleBack
     funnelData, //recoil
-    setFunnelData, //recoil
-    setCurrentStepIndex, // dev setStep[3]
     Funnel,
     Step,
   } = useFunnel(steps, initialFunnelData);
   const { data: user } = useTemporaryUserInfo();
   const { mutate: register, isPending } = useRegister();
   const router = useRouter();
-
-  console.log('funnelData: ', funnelData);
-
-  //사용자 정보 가져와서 user상태변경하는 함수
-  async function setUserInfo() {
-    if (user) {
-      setFunnelData((prev) => ({
-        ...prev,
-        ...(user.gender ? { 성별: user.gender } : {}),
-        ...(user.phoneNumber ? { 전화번호: convertPhoneNumber(user.phoneNumber) } : {}),
-        ...(user.nickname ? { 닉네임: user.nickname } : {}),
-        ...(user.birth ? { 생년월일: user.birth } : {}),
-      }));
-    }
-  }
-
-  useEffect(() => {
-    setCurrentStepIndex(0); // 원하는 단계로 바로 이동하고 싶을 때 사용
-    setScreenSize(); // 화면 크기 설정
-  }, []);
-
-  useEffect(() => {
-    console.log('user: ', user);
-    setUserInfo(); //사용자 정보 채우기
-  }, [user]);
-
-  //currentStep이 '가입성공'일 때 회원가입 완료 후 메인페이지로 이동
-  useEffect(() => {
-    if (currentStep === '가입성공') {
-      const registerUser = {
-        user: {
-          gender: funnelData.성별,
-          birth: funnelData.생년월일.replace(/\//g, ''),
-          nickname: funnelData.닉네임,
-          belt: funnelData.벨트,
-        },
-        consentPolicyTypes: Object.entries(funnelData.약관동의)
-          .filter(([_key, value]) => value)
-          .map(([key, _value]) => key),
-      };
-      console.log('최종 registerUser: ', registerUser);
-
-      register(registerUser); //회원가입 요청
-
-      //회원가입 완료 후, 메인페이지로 이동
-      router.push('/');
-    }
-  }, [currentStep]);
 
   return (
     <div className={styles.wrapper}>
