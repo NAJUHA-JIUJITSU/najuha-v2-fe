@@ -25,29 +25,6 @@ const steps = [
   '가입성공',
 ];
 
-interface UserResponseData {
-  belt: null | string;
-  gender: 'MALE' | 'FEMALE';
-  nickname: null | string;
-  phoneNumber: string;
-  birth: string;
-}
-
-const initialFunnelData = {
-  약관동의: {
-    all: false,
-    TERMS_OF_SERVICE: false,
-    PRIVACY: false,
-    REFUND: false,
-    ADVERTISEMENT: false,
-  },
-  성별: '',
-  전화번호: '',
-  생년월일: '',
-  닉네임: '',
-  벨트: '',
-};
-
 //모바일 화면 높이를 1vh 단위로 설정하는 함수
 // function setScreenSize() {
 //   let vh = window.innerHeight * 0.01;
@@ -56,13 +33,7 @@ const initialFunnelData = {
 // }
 
 export default function funnel() {
-  const {
-    gotoNextStep, // setStep -> handleNext
-    gotoPreviousStep, // handleBack
-    Funnel,
-    Step,
-    currentStep,
-  } = useFunnel(steps);
+  const { gotoNextStep, gotoPreviousStep, Funnel, Step, currentStep } = useFunnel(steps);
   const { data: user } = useTemporaryUserInfo();
   const { mutate: register, isPending } = useRegister();
   const router = useRouter();
@@ -75,28 +46,27 @@ export default function funnel() {
       />
       <Funnel>
         <Step name="약관동의">
-          <AgreePage data={} onNext={gotoNextStep} />
+          <AgreePage onNext={gotoNextStep} />
         </Step>
         <Step name="성별">
-          <GenderPage data={} onNext={gotoNextStep} />
+          <GenderPage onNext={gotoNextStep} />
         </Step>
         <Step name="생년월일">
-          <BirthPage data={} onNext={gotoNextStep} />
+          <BirthPage onNext={gotoNextStep} />
         </Step>
         <Step name="전화번호">
-          <PhoneNumberPage data={} onNext={gotoNextStep} />
+          <PhoneNumberPage onNext={gotoNextStep} />
         </Step>
         <Step name="전화번호인증">
-          <PhoneNumberCheckPage data={} onNext={gotoNextStep} />
+          <PhoneNumberCheckPage onNext={gotoNextStep} />
         </Step>
         <Step name="닉네임">
-          <NicknamePage data={} onNext={gotoNextStep} />
+          <NicknamePage onNext={gotoNextStep} />
         </Step>
         <Step name="벨트">
-          <BeltPage data={} onNext={gotoNextStep} />
+          <BeltPage onNext={gotoNextStep} />
         </Step>
       </Funnel>
-      {isPending && <div style={{ lineHeight: 1 }}>회원가입 중...</div>}
     </div>
   );
 }
