@@ -1,6 +1,5 @@
 'use client';
 import styles from './index.module.scss';
-import { useEffect } from 'react';
 import Header from '@/components/common/header/Header';
 import { ButtonIcon } from '@/components/common/icon/iconOnClick';
 import AgreePage from '@/components/registerFunnel/agreePage';
@@ -11,7 +10,7 @@ import BeltPage from '@/components/registerFunnel/beltPage';
 import BirthPage from '@/components/registerFunnel/birthPage';
 import NicknamePage from '@/components/registerFunnel/nicknamePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
-import useFunnel from '@/hook/useFunnel';
+import { useFunnel } from '@/hook/useFunnel';
 import { useTemporaryUserInfo, useRegister } from '@/hook/useRegister';
 import { useRouter } from 'next/navigation';
 
@@ -25,17 +24,6 @@ const steps = [
   '벨트',
   '가입성공',
 ];
-
-const titleName = {
-  약관동의: '회원가입',
-  성별: '',
-  생년월일: '',
-  전화번호: '',
-  전화번호인증: '',
-  닉네임: '',
-  벨트: '',
-  가입성공: '가입성공',
-};
 
 interface UserResponseData {
   belt: null | string;
@@ -69,12 +57,12 @@ const initialFunnelData = {
 
 export default function funnel() {
   const {
-    gotoSaveNextStep, // setStep -> handleNext
+    gotoNextStep, // setStep -> handleNext
     gotoPreviousStep, // handleBack
-    funnelData, //recoil
     Funnel,
     Step,
-  } = useFunnel(steps, initialFunnelData);
+    currentStep,
+  } = useFunnel(steps);
   const { data: user } = useTemporaryUserInfo();
   const { mutate: register, isPending } = useRegister();
   const router = useRouter();
@@ -83,29 +71,29 @@ export default function funnel() {
     <div className={styles.wrapper}>
       <Header
         leftIcon={<ButtonIcon icon={<IconNavigateBefore />} onClick={gotoPreviousStep} />}
-        title={titleName[currentStep as keyof typeof titleName]}
+        title={currentStep === '약관동의' ? '회원가입' : currentStep}
       />
       <Funnel>
         <Step name="약관동의">
-          <AgreePage data={funnelData['약관동의']} onNext={gotoSaveNextStep} />
+          <AgreePage data={} onNext={gotoNextStep} />
         </Step>
         <Step name="성별">
-          <GenderPage data={funnelData['성별']} onNext={gotoSaveNextStep} />
+          <GenderPage data={} onNext={gotoNextStep} />
         </Step>
         <Step name="생년월일">
-          <BirthPage data={funnelData['생년월일']} onNext={gotoSaveNextStep} />
+          <BirthPage data={} onNext={gotoNextStep} />
         </Step>
         <Step name="전화번호">
-          <PhoneNumberPage data={funnelData['전화번호']} onNext={gotoSaveNextStep} />
+          <PhoneNumberPage data={} onNext={gotoNextStep} />
         </Step>
         <Step name="전화번호인증">
-          <PhoneNumberCheckPage data={funnelData['전화번호']} onNext={gotoSaveNextStep} />
+          <PhoneNumberCheckPage data={} onNext={gotoNextStep} />
         </Step>
         <Step name="닉네임">
-          <NicknamePage data={funnelData['닉네임']} onNext={gotoSaveNextStep} />
+          <NicknamePage data={} onNext={gotoNextStep} />
         </Step>
         <Step name="벨트">
-          <BeltPage data={funnelData['벨트']} onNext={gotoSaveNextStep} />
+          <BeltPage data={} onNext={gotoNextStep} />
         </Step>
       </Funnel>
       {isPending && <div style={{ lineHeight: 1 }}>회원가입 중...</div>}

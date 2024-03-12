@@ -1,6 +1,7 @@
 // useFunnel.tsx;
 
 import React, { ReactElement, ReactNode, useState } from 'react';
+import useGoBack from './useGoBack';
 
 export interface StepProps {
   name: string;
@@ -15,7 +16,7 @@ export const useFunnel = (steps: string[]) => {
   // state를 통해 현재 스텝을 관리한다.
   // setStep 함수를 통해 현재 스텝을 변경할 수 있다.
   const [stepIndex, setStepIndex] = useState(0);
-
+  const goBack = useGoBack();
   const currentStep = steps[stepIndex];
 
   // 다음 스텝으로 이동
@@ -24,7 +25,12 @@ export const useFunnel = (steps: string[]) => {
   };
 
   // 이전 스텝으로 이동
+  // 스텝 인덱스가 0일때는 goBack 함수를 호출한다.
   const gotoPreviousStep = () => {
+    if (stepIndex === 0) {
+      goBack();
+      return;
+    }
     setStepIndex((currentIndex) => Math.max(currentIndex - 1, 0));
   };
 
@@ -42,7 +48,7 @@ export const useFunnel = (steps: string[]) => {
     return <>{targetStep}</>;
   };
 
-  return { Funnel, Step, gotoNextStep, gotoPreviousStep };
+  return { Funnel, Step, gotoNextStep, gotoPreviousStep, currentStep };
 };
 
 // import React, { ReactElement, ReactNode, useState } from 'react';
