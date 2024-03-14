@@ -2,7 +2,7 @@
 @import '@/styles/_variable.scss';
 @import '@/styles/_zindex.scss';
 
-//가격 있음
+// 가격 있음
 .card {
   background-color: $--color-basic-white;
   padding: 20px 0 20px 0;
@@ -118,48 +118,66 @@
       }
     }
   }
+
+  // 세로형
+  &.vertical {
+    display: inline-block;
+    padding: 0;
+    width: 141px;
+    height: 283px;
+    margin-right: 16px;
+    border-bottom: none;
+
+    .posterSection {
+      width: 141px;
+      height: 188px;
+      margin-bottom: 8px;
+      margin-right: 0;
+    }
+
+    .detailSection {
+      height: 87px;
+      padding: 0 2px;
+
+      .tags {
+        display: none;
+      }
+
+      .location {
+        -webkit-line-clamp: 1;
+      }
+
+      .price {
+        display: none;
+      }
+    }
+  }
+
+  // 비활성화
+  &.disabled {
+    .title,
+    .location,
+    .applyDate {
+      color: $--color-font-disabled;
+    }
+
+    .bottom {
+      .applyDate {
+        color: $--color-font-disabled;
+      }
+      .price {
+        color: $--color-font-disabled;
+      }
+    }
+  }
 }
 
-//가격 없음
+// 가격 없음
 .bottom.noPrice {
   .applyDate {
     margin-left: auto;
   }
   .price {
     display: none;
-  }
-}
-
-// 세로형
-.card.vertical {
-  display: inline-block;
-  padding: 0;
-  width: 141px;
-  height: 283px;
-  margin-right: 16px;
-  border-bottom: none;
-
-  .posterSection {
-    width: 141px;
-    height: 188px;
-    margin-bottom: 8px;
-    margin-right: 0;
-  }
-
-  .detailSection {
-    height: 87px;
-    padding: 0 2px;
-
-    .tags {
-      display: none;
-    }
-
-    .location {
-      -webkit-line-clamp: 1;
-    }
-
-    .price {
-      display: none;
-    }
   }
 }
