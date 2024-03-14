@@ -1,6 +1,6 @@
 'use client';
 import styles from './index.module.scss';
-import Input from '../common/input';
+import Input from '../../common/input';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import useBirthValidation from '@/hook/useBirthValidation';
 

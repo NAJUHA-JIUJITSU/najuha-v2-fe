@@ -1,7 +1,7 @@
 'use client';
-import Input from '../common/input';
+import Input from '../../common/input';
 import styles from './index.module.scss';
-import ButtonOnClick from '../common/button/buttonOnClick';
+import ButtonOnClick from '../../common/button/buttonOnClick';
 import React from 'react';
 import usePhoneNumberValidation from '@/hook/usePhoneNumberValidation';
 import { useSendAuthCode } from '@/hook/useRegister';

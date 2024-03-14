@@ -1,8 +1,8 @@
 'use client';
-import Input from '../common/input';
+import Input from '../../common/input';
 import { useEffect, useState } from 'react';
 import styles from './index.module.scss';
-import ButtonOnClick from '../common/button/buttonOnClick';
+import ButtonOnClick from '../../common/button/buttonOnClick';
 import React from 'react';
 import usePhoneNumberCodeValidation from '@/hook/usePhoneNumberCodeValidation';
 import { useConfirmAuthCode, useSendAuthCode } from '@/hook/useRegister';

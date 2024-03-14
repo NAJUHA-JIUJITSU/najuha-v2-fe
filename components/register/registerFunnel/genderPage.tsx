@@ -1,7 +1,7 @@
 'use client';
 import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
-import RadioButtonLabel from '../common/radioButtonLabel';
+import RadioButtonLabel from '../../common/radioButtonLabel';
 import { useState } from 'react';
 
 interface GenderPageProps {

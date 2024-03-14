@@ -1,8 +1,8 @@
 'use client';
-import Input from '../common/input';
+import Input from '../../common/input';
 import styles from './index.module.scss';
-import ButtonOnClick from '../common/button/buttonOnClick';
-import InfoMessage from '../common/infoMessage';
+import ButtonOnClick from '../../common/button/buttonOnClick';
+import InfoMessage from '../../common/infoMessage';
 import React from 'react';
 import useNicknameValidation from '@/hook/useNicknameValidation';
 

@@ -5,11 +5,7 @@
 //wrapper
 .wrapper {
   margin-top: 16px;
-  display: flex;
   flex: 1;
-  flex-direction: column;
-  box-sizing: border-box;
-  background-color: $--color-basic-white;
 }
 
 .submit {
@@ -17,9 +13,9 @@
   margin-bottom: 12px;
 }
 
-.validateButton {
-  margin-left: auto;
+.check {
   display: flex;
+  justify-content: flex-end;
 }
 
 .timer {
@@ -29,10 +25,4 @@
   margin-right: 8px;
   color: $--color-state-error;
   @include font-body3-regular;
-}
-
-.label {
-  @include font-subtitle1-bold;
-  color: $--color-font-headline;
-  margin-bottom: 8px;
 }
