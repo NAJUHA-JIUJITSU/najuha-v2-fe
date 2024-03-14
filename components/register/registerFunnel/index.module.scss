@@ -26,3 +26,8 @@
   color: $--color-state-error;
   @include font-body3-regular;
 }
+
+.info {
+  @include font-subtitle1-bold;
+  color: $--color-font-headline;
+}

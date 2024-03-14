@@ -1,45 +1,45 @@
 'use client';
 import styles from './index.module.scss';
+import RadioButtonLabel from '@/components/common/radioButtonLabel';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
-import RadioButtonLabel from '../../common/radioButtonLabel';
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { genderState, GenderType } from '@/recoil/atoms/registerState';
 
-interface GenderPageProps {
-  onNext: (data: string) => void;
-  data: string;
-}
-
-export default function genderPage({ onNext, data }: GenderPageProps) {
-  const [gender, setGender] = useState<string>(data);
+export default function Gender({ onNext }: any) {
+  const [gender, setGender] = useRecoilState(genderState);
+  const [localGender, setLocalGender] = useState<GenderType>(gender);
 
   return (
-    <div className={styles.wrapper}>
-      {/* 성별 선택 */}
-      <label className={styles.label}>성별을 선택해주세요</label>
-      <RadioButtonLabel
-        msg={'남성'}
-        isChecked={gender === 'MALE'}
-        changeCheck={() => setGender('MALE')}
-        isUnderlined={true}
-      />
-      <RadioButtonLabel
-        msg={'여성'}
-        isChecked={gender === 'FEMALE'}
-        changeCheck={() => setGender('FEMALE')}
-        isUnderlined={true}
-      />
-
-      {/* 다음 버튼 */}
+    <>
+      <div className={styles.wrapper}>
+        <div className={styles.info}>성별을 선택해 주세요</div>
+        <RadioButtonLabel
+          msg={'남성'}
+          isChecked={localGender === 'MALE'}
+          changeCheck={() => setLocalGender('MALE')}
+          isUnderlined={true}
+        />
+        <RadioButtonLabel
+          msg={'여성'}
+          isChecked={localGender === 'FEMALE'}
+          changeCheck={() => setLocalGender('FEMALE')}
+          isUnderlined={true}
+        />
+      </div>
       <div className={styles.submit}>
         <ButtonOnClick
           type="filled"
           text="다음"
-          color={gender ? 'blue' : 'disabled'}
+          color="blue"
           width="full"
           size="large"
-          onClick={() => onNext(gender)}
+          onClick={() => {
+            setGender(localGender);
+            onNext();
+          }}
         />
       </div>
-    </div>
+    </>
   );
 }
