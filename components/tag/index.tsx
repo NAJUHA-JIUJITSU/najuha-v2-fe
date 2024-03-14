@@ -1,6 +1,6 @@
 import styles from './index.module.scss';
 
-type TagType = 'easyPay' | 'earlyBird' | 'apply' | 'deadline' | 'soloApply';
+export type TagType = 'easyPay' | 'earlyBird' | 'apply' | 'deadline' | 'soloApply';
 
 interface TagProps {
   type: TagType;

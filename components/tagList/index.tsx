@@ -1,27 +1,19 @@
 import styles from './index.module.scss';
 import Tag from '@/components/tag';
+import { isDatePast, isDateToday, calculateDayDiff, areBothDatesPassed } from '@/util/dateCheck';
+import { TagType } from '@/components/tag';
 
 interface TagListProps {
   info: {
     registrationStartDate: Date;
     registrationEndDate: Date;
     easyPayAvailable: boolean;
+    soloRegistrationAdjustmentStartDate: Date;
+    soloRegistrationAdjustmentEndDate: Date;
   };
 }
 
 export default function TagList({ info }: TagListProps) {
-  const today = new Date();
-  const registrationStartDate = new Date(info.registrationStartDate);
-  const registrationEndDate = new Date(info.registrationEndDate);
-
-  // 현재 날짜와 대회 신청 시작 및 마감 날짜 비교
-  const startDiff = registrationStartDate.getTime() - today.getTime();
-  const endDiff = registrationEndDate.getTime() - today.getTime();
-
-  // 시작 및 마감 날짜까지 남은 일수 계산
-  const startDayDiff = Math.ceil(startDiff / (1000 * 3600 * 24));
-  const endDayDiff = Math.ceil(endDiff / (1000 * 3600 * 24));
-
   const tags = [];
 
   // 간편결제 유무에 따른 태그 추가
@@ -29,15 +21,37 @@ export default function TagList({ info }: TagListProps) {
     tags.push(<Tag type="easyPay" content="간편결제" />);
   }
 
-  // 대회 신청 D-Day 계산 및 태그 추가
-  if (startDayDiff <= 0 && endDayDiff > 0) {
-    // 대회 신청 시작일이 지났고 마감일이 남았을 경우
-    tags.push(<Tag type="apply" content={`신청마감 D-${endDayDiff}`} />);
-  } else if (endDayDiff === 0) {
-    // 대회 신청 마감일이 바로 오늘일 경우
-    tags.push(<Tag type="apply" content="신청마감 D-Day" />);
-  } else if (endDayDiff < 0) {
-    // 대회 신청 마감일이 지났을 경우
+  // D-Day 계산에 따른 태그 추가를 위한 함수
+  const addDdayTagIfNeeded = (
+    startDate: Date,
+    endDate: Date,
+    tagType: TagType,
+    tagName: string,
+  ) => {
+    if (isDateToday(startDate) || isDatePast(startDate)) {
+      // 시작 날짜가 오늘이거나 지났을 경우에만 D-Day 계산
+      if (isDateToday(endDate)) {
+        tags.push(<Tag type={tagType} content={`${tagName} D-Day`} />);
+      } else if (!isDatePast(endDate)) {
+        const dayDiff = calculateDayDiff(endDate);
+        tags.push(<Tag type={tagType} content={`${tagName} D-${dayDiff}`} />);
+      }
+    }
+  };
+
+  // 대회 신청 D-Day 및 마감 태그 추가
+  addDdayTagIfNeeded(info.registrationStartDate, info.registrationEndDate, 'apply', '신청마감');
+
+  // 단독출전 조정기간 D-Day 및 마감 태그 추가
+  addDdayTagIfNeeded(
+    info.soloRegistrationAdjustmentStartDate,
+    info.soloRegistrationAdjustmentEndDate,
+    'soloApply',
+    '단독출전조정 마감',
+  );
+
+  // 신청마감 태그 추가 (대회 신청 및 단독출전 조정기간 모두 지났을 경우)
+  if (areBothDatesPassed(info.registrationEndDate, info.soloRegistrationAdjustmentEndDate)) {
     tags.push(<Tag type="deadline" content="신청마감" />);
   }
 
