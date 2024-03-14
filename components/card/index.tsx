@@ -1,6 +1,7 @@
 import styles from './index.module.scss';
 import clsx from 'clsx';
 import TagList from '@/components/tagList';
+import { formatDateYMD, formatDateMDWeekday, formatDateMD } from '@/util/dateFormat';
 
 type CardType = 'normal' | 'vertical';
 
@@ -25,13 +26,9 @@ interface CardProps {
 
 //todo: image 최적화
 export default function Card({ type = 'normal', info }: CardProps) {
-  const isPrice = true;
-
-  function formatDate(date: Date) {
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-    return `${year}.${month}.${day}`;
+  let isPrice = true;
+  if (type === 'normal' && !info.price) {
+    isPrice = false;
   }
 
   return (
@@ -40,7 +37,7 @@ export default function Card({ type = 'normal', info }: CardProps) {
         <img className={styles.posterImg} src={info.posterImg}></img>
         <div className={styles.shadowInfo}>
           <p className={styles.viewCnt}>123</p>
-          <p className={styles.date}>{formatDate(info.date)}</p>
+          <p className={styles.date}>{formatDateMDWeekday(info.date)}</p>
         </div>
       </div>
       <div className={styles.detailSection}>
@@ -58,7 +55,7 @@ export default function Card({ type = 'normal', info }: CardProps) {
         <h2 className={styles.location}>{info.address}</h2>
         <div className={clsx(styles.bottom, { [styles.noPrice]: !isPrice })}>
           <h3 className={styles.applyDate}>
-            {formatDate(info.registrationStartDate)}~{formatDate(info.registrationEndDate)}
+            {formatDateYMD(info.registrationStartDate)}~{formatDateMD(info.registrationEndDate)}
           </h3>
           <p className={styles.price}>
             {info.price}
