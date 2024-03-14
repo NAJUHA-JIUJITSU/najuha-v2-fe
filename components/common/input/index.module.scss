@@ -16,15 +16,16 @@
 .input {
   outline: none;
   background-color: $--color-basic-white;
-  height: 54px;
+  min-height: 54px;
   padding: 0px 16px;
   border-radius: 4px;
   border: 1px solid $--color-gray-2;
   @include font-body1-regular;
   color: $--color-font-headline;
+  flex-shrink: 0;
 
   &:focus {
-    border: 1px solid $--color-gray-5;
+    border: 1px solid $--color-gray-4;
   }
 
   &::placeholder {
@@ -36,28 +37,28 @@
   }
 }
 
-.errInput {
-  border: 1px solid $--color-state-error;
+.error {
+  border: 1px solid $--color-state-error; // 에러 상태의 포커스 색
   &:focus {
-    border: 1px solid $--color-state-error;
-  }
-}
-.successInput {
-  border: 1px solid $--color-state-success;
-  &:focus {
-    border: 1px solid $--color-state-success;
+    border: 1px solid $--color-state-error; // 에러 상태의 포커스 색
   }
 }
 
-.msg {
-  height: 19px;
+.success {
+  border: 1px solid $--color-state-success; // 성공 상태의 포커스 색
+  &:focus {
+    border: 1px solid $--color-state-success; // 성공 상태의 포커스 색
+  }
 }
+
 .errorMsg {
   @include font-body3-regular;
   color: $--color-state-error;
+  height: 19px;
 }
 
 .successMsg {
   @include font-body3-regular;
   color: $--color-state-success;
+  height: 19px;
 }
