@@ -55,6 +55,11 @@ export const validateNickname: ValidateFunction = (
     if (setValue) setValue(formattedNickname);
   }
 
+  // 닉네임 길이가 2자 미만인 경우
+  if (nickname.length < 2) {
+    setErrMsg('닉네임은 2자 이상 입력해주세요.');
+    return false;
+  }
   // 닉네임 길이가 8자를 초과하는 경우
   if (nickname.length > 8) {
     setErrMsg('닉네임은 8자 이하로 입력해주세요.');

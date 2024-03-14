@@ -61,3 +61,11 @@ export const useRegister = () => {
 
   return { data, setData, mutate, isPending, isError };
 };
+
+export const useCheckNickname = () => {
+  return useMutation({
+    mutationFn: (nickname: string) => {
+      return registerApi.getCheckDuplicatedNickname(nickname);
+    },
+  });
+};
