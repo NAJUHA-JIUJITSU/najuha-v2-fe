@@ -1,0 +1,12 @@
+import styles from './index.module.scss';
+
+type TagType = 'easyPay' | 'earlyBird' | 'apply' | 'deadline';
+
+interface TagProps {
+  type: TagType;
+  content: string;
+}
+
+export default function Tag({ type, content }: TagProps) {
+  return <div className={`${styles.tag} ${styles[type]}`}>{content}</div>;
+}

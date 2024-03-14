@@ -1,32 +1,67 @@
 import styles from './index.module.scss';
 import clsx from 'clsx';
+import TagList from '@/components/tagList';
+
+type CardType = 'normal' | 'vertical';
+
+interface CardProps {
+  type: CardType;
+  info: {
+    id: number;
+    title: string;
+    address: string;
+    date: Date;
+    registrationStartDate: Date;
+    registrationEndDate: Date;
+    refundDeadlineDate: Date;
+    soloRegistrationAdjustmentStartDate: Date;
+    soloRegistrationAdjustmentEndDate: Date;
+    price?: number;
+    viewCnt: number;
+    posterImg: string;
+    easyPayAvailable: boolean;
+  };
+}
 
 //todo: image 최적화
-export default function Card() {
-  const vertical = false;
+export default function Card({ type = 'normal', info }: CardProps) {
   const isPrice = true;
-  const price = '50,000';
+
+  function formatDate(date: Date) {
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${year}.${month}.${day}`;
+  }
 
   return (
-    <div className={clsx(styles.card, { [styles.vertical]: vertical })}>
+    <div className={clsx(styles.card, { [styles.vertical]: type === 'vertical' })}>
       <div className={styles.posterSection}>
-        <img className={styles.posterImg} src="/images/samplePoster1.png"></img>
+        <img className={styles.posterImg} src={info.posterImg}></img>
         <div className={styles.shadowInfo}>
           <p className={styles.viewCnt}>123</p>
-          <p className={styles.date}>08.27 (월)</p>
+          <p className={styles.date}>{formatDate(info.date)}</p>
         </div>
       </div>
       <div className={styles.detailSection}>
         <div className={styles.tags}>
-          <div className={`${styles.tag} ${styles.ealryBird}`}>얼리버드</div>
-          <div className={`${styles.tag} ${styles.easyPay}`}>간편결제</div>
+          <TagList
+            info={{
+              registrationStartDate: info.registrationStartDate,
+              registrationEndDate: info.registrationEndDate,
+              easyPayAvailable: info.easyPayAvailable,
+            }}
+          />
         </div>
-        <h1 className={styles.title}>제 2회 서브미션 리그</h1>
-        <h2 className={styles.location}>송도, 글로벌 캠퍼스 양도로 113-101</h2>
+
+        <h1 className={styles.title}>{info.title}</h1>
+        <h2 className={styles.location}>{info.address}</h2>
         <div className={clsx(styles.bottom, { [styles.noPrice]: !isPrice })}>
-          <h3 className={styles.applyDate}>2023.10.03~11.19</h3>
+          <h3 className={styles.applyDate}>
+            {formatDate(info.registrationStartDate)}~{formatDate(info.registrationEndDate)}
+          </h3>
           <p className={styles.price}>
-            {price}
+            {info.price}
             <span>원</span>
           </p>
         </div>

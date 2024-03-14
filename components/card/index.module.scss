@@ -72,28 +72,7 @@
     box-sizing: border-box;
 
     .tags {
-      .tag {
-        justify-content: center;
-        align-items: center;
-        display: inline-flex;
-        height: 18px;
-        width: fit-content;
-        padding: 0 6px;
-        border-radius: 4px;
-        @include font-caption-regular;
-        margin-bottom: 8px;
-        margin-right: 4px;
-      }
-
-      .ealryBird {
-        background-color: $--color-tag-red-10;
-        color: $--color-tag-red;
-      }
-
-      .easyPay {
-        background-color: $--color-tag-purple-10;
-        color: $--color-tag-purple;
-      }
+      margin-bottom: 8px;
     }
 
     .title {

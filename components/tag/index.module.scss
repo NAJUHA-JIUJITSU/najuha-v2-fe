@@ -1,0 +1,34 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.tag {
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+  height: 18px;
+  width: fit-content;
+  padding: 0 6px;
+  border-radius: 4px;
+  @include font-caption-regular;
+
+  &.ealryBird {
+    background-color: $--color-tag-red-10;
+    color: $--color-tag-red;
+  }
+
+  &.easyPay {
+    background-color: $--color-tag-purple-10;
+    color: $--color-tag-purple;
+  }
+
+  &.apply {
+    background-color: $--color-brand-blue-10;
+    color: $--color-brand-blue;
+  }
+
+  &.deadline {
+    background-color: $--color-gray-1;
+    color: $--color-font-body;
+  }
+}
