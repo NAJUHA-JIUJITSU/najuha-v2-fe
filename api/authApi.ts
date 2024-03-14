@@ -1,7 +1,7 @@
 import { axiosPublic } from '@/api/axios/axiosInstances.ts';
-import { saveTokens } from '@/util/tokenManagement';
+import { saveTokens } from '@/utils/tokenManagement';
 import Cookies from 'js-cookie';
-import { decodeToken } from '@/util/tokenManagement';
+import { decodeToken } from '@/utils/tokenManagement';
 
 // 소셜 로그인
 export const postSnsLogin = async (snsAuthProvider: string, snsAuthCode: string) => {

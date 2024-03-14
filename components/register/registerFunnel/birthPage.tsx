@@ -1,41 +1,45 @@
 'use client';
-import styles from './index.module.scss';
-import Input from '../../common/input';
+import { useState, useEffect, useCallback } from 'react';
+import Input from '@/components/common/input';
+import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
-import useBirthValidation from '@/hook/useBirthValidation';
+import { useRecoilState } from 'recoil';
+import { birthDateState } from '@/recoil/atoms/registerState';
+import { useInput } from '@/hook/useInput';
+import { validateBirthdate } from '@/utils/validations/userValidations';
 
-interface BirthPageProps {
-  onNext: (data: string) => void;
-  data: string;
-}
+export default function Birthday({ onNext }: any) {
+  const [birth, setBirth] = useRecoilState(birthDateState);
+  const { value, setValue, errMsg, validate } = useInput(birth, validateBirthdate);
 
-export default function birthPage({ onNext, data }: BirthPageProps) {
-  const { birth, setBirth, isValid, errorMessage } = useBirthValidation(data);
+  const handleButtonClick = useCallback(() => {
+    setBirth(value);
+    onNext();
+  }, [value, setBirth, onNext]);
 
   return (
-    <div className={styles.wrapper}>
-      {/* 생년월일 입력 */}
-      <Input
-        label="생년월일을 입력해주세요"
-        placeholder="YYYY/MM/DD"
-        value={birth}
-        onChange={(e) => setBirth(e.target.value)}
-        errMsg={errorMessage}
-        autoFocus={true}
-        // disabled={isLoading} //todo: isLoading true일때 비활성화 되게 하기
-      />
-
-      {/* 다음 버튼 */}
-      <div className={styles.submit}>
+    <>
+      <div className={stlyes.wrapper}>
+        <Input
+          label="생년월일을 입력해주세요"
+          placeholder="YYYY/MM/DD"
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          errMsg={errMsg}
+          autoFocus={true}
+        />
+      </div>
+      <div className={stlyes.submit}>
         <ButtonOnClick
           type="filled"
           text="다음"
-          color={isValid ? 'blue' : 'disabled'}
+          color={validate ? 'blue' : 'disabled'}
           width="full"
           size="large"
-          onClick={() => onNext(birth)}
+          disabled={!validate}
+          onClick={handleButtonClick}
         />
       </div>
-    </div>
+    </>
   );
 }
