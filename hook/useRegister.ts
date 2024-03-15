@@ -2,6 +2,9 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import { registerApi } from '@/api/registerApi';
 import { queries } from '@/queries/index';
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { registrationInfoSelector } from '@/recoil/selectors/registerSelector';
+import Cookies from 'js-cookie';
 
 // 전역 select 함수 정의
 const globalSelectFn = (response: any) => {
@@ -45,22 +48,27 @@ export const useConfirmAuthCode = () => {
   });
 };
 
-export const useRegister = () => {
-  const [data, setData] = useState<any>({});
-
-  function parseData(data: any) {
-    // 가공
-  }
+export function useRegister() {
+  const data = useRecoilValue(registrationInfoSelector);
 
   const { mutate, isPending, isError } = useMutation({
-    mutationFn: (data: any) => {
-      //todo: data 타입 정의
-      return registerApi.patchRegister(parseData(data));
+    mutationFn: () => {
+      return registerApi.patchRegister(data);
+    },
+    onError: (error: any) => {
+      console.log(error);
+    },
+    onSuccess: (res) => {
+      console.log(res);
+      if (res.status === 200) {
+        Cookies.set('najuha-accessToken', res.data.result.accessToken, { expires: 1, path: '/' });
+        Cookies.set('najuha-refreshToken', res.data.result.refreshToken, { expires: 7, path: '/' });
+        alert('회원가입이 완료되었습니다.');
+      }
     },
   });
-
-  return { data, setData, mutate, isPending, isError };
-};
+  return { mutate, isPending, isError };
+}
 
 export const useCheckNickname = () => {
   return useMutation({

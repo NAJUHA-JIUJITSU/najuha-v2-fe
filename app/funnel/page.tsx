@@ -35,8 +35,6 @@ const steps = [
 export default function funnel() {
   const { gotoNextStep, gotoPreviousStep, Funnel, Step, currentStep } = useFunnel(steps);
   const { data: user } = useTemporaryUserInfo();
-  const { mutate: register, isPending } = useRegister();
-  const router = useRouter();
 
   return (
     <div className={styles.wrapper}>
@@ -64,7 +62,7 @@ export default function funnel() {
           <NicknamePage onNext={gotoNextStep} />
         </Step>
         <Step name="벨트">
-          <BeltPage onNext={gotoNextStep} />
+          <BeltPage />
         </Step>
       </Funnel>
     </div>

@@ -33,17 +33,8 @@ const postConfirmAuthCode = async (authCode: string) => {
 const patchRegister = async (data: any) => {
   // const response = await axiosPrivate.patch('/user/register', data);
   // return response;
-  try {
-    const response = await axiosPrivate.patch('/user/register', data);
-
-    const { accessToken, refreshToken } = response.data.result;
-    saveTokens(accessToken, refreshToken);
-
-    return response.data.result;
-  } catch (error) {
-    console.error('Failed to register:', error);
-    throw new Error('Failed to register');
-  }
+  const response = await axiosPrivate.patch('/user/register', data);
+  return response;
 };
 
 export const registerApi = {
