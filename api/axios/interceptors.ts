@@ -16,8 +16,11 @@ axiosPrivate.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
     //todo: status가 아니라 code 조건으로 바꿔야함
-    if (error.response?.status === 400 && !originalRequest._retry) {
-      //todo: _retry가 무엇인지 확인
+    if (
+      (error.response.data.code === 1000 || error.response.data.code === 1001) &&
+      !originalRequest._retry
+    ) {
+      // _retry로 무한 호출 방지
       originalRequest._retry = true;
       try {
         const newAccessToken = await postRefreshToken();
@@ -29,9 +32,10 @@ axiosPrivate.interceptors.response.use(
       } catch (refreshError) {
         console.error('Error refreshing token:', refreshError); //todo: refreshError발생을 api 로직에서 처리
         // throw refreshError;
+        window.location.href = '/login';
       }
     }
-    return Promise.reject(error); //todo: 여기서 던지는 에러는 interceptor 자체의 에러만 던져줄 수 있도록 관리 (1000, 1001코드를 제외한 모든 에러를 관리)
+    throw error; //(1000, 1001코드를 제외한 모든 에러를 관리)
   },
 );
 
