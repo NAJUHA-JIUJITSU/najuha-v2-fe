@@ -7,7 +7,7 @@ import { nicknameState } from '@/recoil/atoms/registerState';
 import { useInput } from '@/hook/useInput';
 import { validateNickname } from '@/utils/validations/userValidations';
 import { useState, useCallback } from 'react';
-import { useCheckNickname } from '@/hook/useRegister';
+import { useCheckNickname } from '@/hook/register';
 import InfoMessage from '../../common/infoMessage';
 
 const title = '확인해주세요';

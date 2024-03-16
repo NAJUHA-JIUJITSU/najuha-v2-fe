@@ -5,7 +5,7 @@ import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import { useInput } from '@/hook/useInput';
 import { validateVerificationNumber } from '@/utils/validations/userValidations';
-import { useConfirmAuthCode, useSendAuthCode } from '@/hook/useRegister';
+import { useConfirmAuthCode, useSendAuthCode } from '@/hook/register';
 import { useRecoilValue } from 'recoil';
 import { phoneNumberState } from '@/recoil/atoms/registerState';
 import { useTimer } from '@/hook/useTimer';

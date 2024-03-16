@@ -11,7 +11,7 @@ import BirthPage from '@/components/register/registerFunnel/birthPage';
 import NicknamePage from '@/components/register/registerFunnel/nicknamePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import { useFunnel } from '@/hook/useFunnel';
-import { useTemporaryUserInfo, useRegister } from '@/hook/useRegister';
+import { useTemporaryUserInfo, useRegister } from '@/hook/register';
 import { useRouter } from 'next/navigation';
 
 const steps = [
@@ -32,7 +32,7 @@ const steps = [
 //   document.documentElement.style.setProperty('--vh', `${vh}px`);
 // }
 
-export default function funnel() {
+export default function Register() {
   const { gotoNextStep, gotoPreviousStep, Funnel, Step, currentStep } = useFunnel(steps);
   const { data: user } = useTemporaryUserInfo();
 

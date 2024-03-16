@@ -6,7 +6,7 @@ import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import { useRecoilState } from 'recoil';
 import { phoneNumberState } from '@/recoil/atoms/registerState';
 import { useInput } from '@/hook/useInput';
-import { useSendAuthCode } from '@/hook/useRegister';
+import { useSendAuthCode } from '@/hook/register';
 import { validatePhonenumber } from '@/utils/validations/userValidations';
 
 export default function Phonenumber({ onNext }: any) {
