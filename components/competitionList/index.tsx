@@ -39,15 +39,15 @@ interface CompetitionListProps {
   dateFilter: string;
 }
 
-async function fetchFilteredCompetitions(sortOption: string, dateFilter: string) {
-  // 서버 또는 API에서 필터링 및 정렬 옵션에 맞는 데이터를 가져오는 로직 구현
-  const response = await fetch(`/competitions?sort=${sortOption}&date=${dateFilter}`);
-  const data = await response.json();
-  return data;
-}
+// async function fetchFilteredCompetitions(sortOption: string, dateFilter: string) {
+//   // 서버 또는 API에서 필터링 및 정렬 옵션에 맞는 데이터를 가져오는 로직 구현
+//   const response = await fetch(`/competitions?sort=${sortOption}&date=${dateFilter}`);
+//   const data = await response.json();
+//   return data;
+// }
 
-export default async function CompetitionList({ sortOption, dateFilter }: CompetitionListProps) {
-  const FetchCompetitionList = await fetchFilteredCompetitions(sortOption, dateFilter);
+export default function CompetitionList({ sortOption, dateFilter }: CompetitionListProps) {
+  // const FetchCompetitionList = await fetchFilteredCompetitions(sortOption, dateFilter);
 
   return (
     <div className={styles.wrapper}>
