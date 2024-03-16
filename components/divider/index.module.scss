@@ -1,0 +1,12 @@
+@import '@/styles/_variable.scss';
+
+.dividerContainer {
+  position: relative;
+}
+.divider {
+  padding: 4px 0;
+  position: absolute;
+  left: -16px;
+  width: calc(100% + 32px);
+  background-color: $--color-gray-0;
+}
