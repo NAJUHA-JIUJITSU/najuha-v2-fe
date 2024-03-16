@@ -40,12 +40,6 @@ export const phoneNumberState = atom<string>({
   default: '',
 });
 
-// 인증번호 검증 상태
-export const verificationState = atom<boolean>({
-  key: 'verificationState',
-  default: false,
-});
-
 // 닉네임 설정 상태
 export const nicknameState = atom<string>({
   key: 'nicknameState',
