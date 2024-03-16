@@ -1,10 +1,9 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { registerApi } from '@/api/registerApi';
 import { queries } from '@/queries/index';
-import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import { registrationInfoSelector } from '@/recoil/selectors/registerSelector';
-import Cookies from 'js-cookie';
+import { saveTokens } from '@/utils/tokenManagement';
 
 // 전역 select 함수 정의
 const globalSelectFn = (response: any) => {
@@ -61,8 +60,7 @@ export function useRegister() {
     onSuccess: (res) => {
       console.log(res);
       if (res.status === 200) {
-        Cookies.set('najuha-accessToken', res.data.result.accessToken, { expires: 1, path: '/' });
-        Cookies.set('najuha-refreshToken', res.data.result.refreshToken, { expires: 7, path: '/' });
+        saveTokens(res.data.result.accessToken, res.data.result.refreshToken);
         alert('회원가입이 완료되었습니다.');
       }
     },
