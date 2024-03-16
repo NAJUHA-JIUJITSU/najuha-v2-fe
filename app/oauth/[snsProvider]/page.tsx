@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './index.module.scss';
-import { useSnsLogin } from '@/hook/useAuth';
+import { useSnsLogin } from '@/hook/auth';
 
 interface SnsRedirectPageProps {
   params: { snsProvider: string };
