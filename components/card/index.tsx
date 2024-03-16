@@ -3,26 +3,13 @@ import clsx from 'clsx';
 import TagList from '@/components/tagList';
 import { formatDateYMD, formatDateMDWeekday } from '@/util/dateFormat';
 import { areBothDatesPassed } from '@/util/dateCheck';
+import { CompetitionInfo } from '@/interfaces/CompetitionInfo';
 
 type CardType = 'normal' | 'vertical';
 
 interface CardProps {
   type: CardType;
-  info: {
-    id: number;
-    title: string;
-    address: string;
-    date: Date;
-    registrationStartDate: Date;
-    registrationEndDate: Date;
-    refundDeadlineDate: Date;
-    soloRegistrationAdjustmentStartDate: Date;
-    soloRegistrationAdjustmentEndDate: Date;
-    price?: number;
-    viewCnt: number;
-    posterImg: string;
-    easyPayAvailable: boolean;
-  };
+  info: CompetitionInfo;
 }
 
 //todo: image 최적화
