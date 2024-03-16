@@ -6,11 +6,13 @@
   padding: 0 16px;
   display: flex;
   flex-direction: column;
-  //   height: 100vh;
-  //   box-sizing: border-box;
   background-color: $--color-basic-white;
 }
 
 .wrapper h1 {
   line-height: 1;
+}
+
+.sortWrapper {
+  margin: 4px 0 4px auto;
 }
