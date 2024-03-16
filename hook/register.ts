@@ -1,9 +1,16 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { registerApi } from '@/api/registerApi';
 import { queries } from '@/queries/index';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { registrationInfoSelector } from '@/recoil/selectors/registerSelector';
 import { saveTokens } from '@/utils/tokenManagement';
+import {
+  birthDateState,
+  genderState,
+  nicknameState,
+  phoneNumberState,
+} from '@/recoil/atoms/registerState';
+import { useEffect } from 'react';
 
 // 전역 select 함수 정의
 const globalSelectFn = (response: any) => {
@@ -11,7 +18,12 @@ const globalSelectFn = (response: any) => {
 };
 
 export const useTemporaryUserInfo = () => {
-  return useQuery({
+  const setGender = useSetRecoilState(genderState);
+  const setBirthDate = useSetRecoilState(birthDateState);
+  const setPhoneNumber = useSetRecoilState(phoneNumberState);
+  const setNickname = useSetRecoilState(nicknameState);
+
+  const query = useQuery({
     queryKey: queries.register.me().queryKey,
     queryFn: () => registerApi.getTemporaryUserInfo(),
     select: globalSelectFn,
@@ -20,6 +32,14 @@ export const useTemporaryUserInfo = () => {
       alertMsg: '회원정보를 가져오는데 실패했습니다.',
     },
   });
+  useEffect(() => {
+    if (query.data) {
+      setGender(query.data.gender);
+      setBirthDate(query.data.birth);
+      setPhoneNumber(query.data.phoneNumber);
+      setNickname(query.data.nickname);
+    }
+  }, [query.data]);
 };
 
 export const useCheckDuplicatedNickname = () => {

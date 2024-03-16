@@ -11,8 +11,7 @@ import BirthPage from '@/components/register/registerFunnel/birthPage';
 import NicknamePage from '@/components/register/registerFunnel/nicknamePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import { useFunnel } from '@/hook/useFunnel';
-import { useTemporaryUserInfo, useRegister } from '@/hook/register';
-import { useRouter } from 'next/navigation';
+import { useTemporaryUserInfo } from '@/hook/register';
 
 const steps = [
   '약관동의',
@@ -34,7 +33,7 @@ const steps = [
 
 export default function Register() {
   const { gotoNextStep, gotoPreviousStep, Funnel, Step, currentStep } = useFunnel(steps);
-  const { data: user } = useTemporaryUserInfo();
+  useTemporaryUserInfo();
 
   return (
     <div className={styles.wrapper}>
