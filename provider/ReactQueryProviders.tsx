@@ -1,21 +1,7 @@
 'use client';
-
-import { RecoilRoot } from 'recoil';
-import React from 'react';
 import { QueryClient, QueryClientProvider, QueryCache } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AxiosError } from 'axios';
-import { saveTokens } from '@/util/tokenManagement';
-
-// 전역 select 함수 정의
-// todo: RecoilRoot, QueryClientProvider 파일을 분리해서 적용
-const globalSelectFn = (response: any) => {
-  return response.data.result;
-};
-
-export interface AxiosResponse {
-  data: { isSuccess: true; code: 200; result: any };
-}
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,17 +28,11 @@ const queryClient = new QueryClient({
   }),
 });
 
-interface RootWrapperProps {
-  children: React.ReactNode;
-}
-
-export default function RootWrapper({ children }: RootWrapperProps) {
+export default function ReactQueryProviders({ children }: React.PropsWithChildren) {
   return (
-    <RecoilRoot>
-      <QueryClientProvider client={queryClient}>
-        {children}
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </RecoilRoot>
+    <QueryClientProvider client={queryClient}>
+      {children}
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 }

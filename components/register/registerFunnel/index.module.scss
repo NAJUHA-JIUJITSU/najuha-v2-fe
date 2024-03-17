@@ -5,21 +5,17 @@
 //wrapper
 .wrapper {
   margin-top: 16px;
-  display: flex;
   flex: 1;
-  flex-direction: column;
-  box-sizing: border-box;
-  background-color: $--color-basic-white;
 }
 
 .submit {
-  margin-top: auto;
-  margin-bottom: 12px;
+  display: flex;
+  padding: 12px 0px;
 }
 
-.validateButton {
-  margin-left: auto;
+.check {
   display: flex;
+  justify-content: flex-end;
 }
 
 .timer {
@@ -31,8 +27,7 @@
   @include font-body3-regular;
 }
 
-.label {
+.info {
   @include font-subtitle1-bold;
   color: $--color-font-headline;
-  margin-bottom: 8px;
 }
