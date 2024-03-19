@@ -29,8 +29,8 @@ const snsConfig = {
   GOOGLE: {
     logo: <AppleLogo />,
     buttonText: 'Google로 계속하기(일단 구글 로그인임)',
-    clientId: 'YOUR_GOOGLE_CLIENT_ID',
-    redirectUri: 'http://localhost:3000/oauth',
+    clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+    redirectUri: process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI,
     loginUrl: 'https://accounts.google.com/o/oauth2/auth',
     scope: 'openid profile email',
     responseType: 'code',
@@ -43,7 +43,7 @@ export default function ButtonSns({ snsProvider }: Props) {
 
   const handleLogin = () => {
     // SNS 로그인 URL을 생성합니다.
-    window.location.href = `${loginUrl}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}`;
+    window.location.href = `${loginUrl}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}`;
   };
 
   return (

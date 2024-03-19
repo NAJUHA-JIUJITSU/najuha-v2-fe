@@ -19,36 +19,29 @@ const Input: React.FC<Props> = ({
   value,
   onChange,
   errMsg,
-  successMsg,
+  successMsg = '',
   disabled = false,
   autoFocus = false,
 }) => {
+  const inputClassName = clsx(styles.input, {
+    [styles.error]: !!errMsg && successMsg === '',
+    [styles.success]: successMsg !== '',
+  });
+
   return (
     <div className={styles.wrapper}>
       <label className={styles.label}>{label}</label>
       <input
-        className={clsx(
-          styles.input,
-          { [styles.errInput]: errMsg },
-          { [styles.successInput]: successMsg },
-        )}
+        className={inputClassName}
         type="text"
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        disabled={disabled}
+        disabled={disabled} //todo: isLoading중일때도 비활성화 되게 하기
         autoFocus={autoFocus}
       />
-      <span
-        className={clsx(
-          styles.msg,
-          { [styles.errorMsg]: errMsg },
-          { [styles.successMsg]: successMsg },
-        )}
-      >
-        {errMsg}
-        {successMsg}
-      </span>
+      {successMsg === '' && <div className={styles.errorMsg}>{errMsg}</div>}
+      {successMsg !== '' && <div className={styles.successMsg}>{successMsg}</div>}
     </div>
   );
 };
