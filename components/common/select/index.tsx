@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './index.module.scss';
 import NavigateMore from '@/public/svgs/navigateMore.svg';
 
@@ -21,6 +21,11 @@ const Select = ({ label, options, setState, value, placeholder }: Props) => {
     setSelectedOption(option);
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    // initialState가 변경되면 selectedOption 상태도 업데이트
+    setSelectedOption(initialState);
+  }, [initialState]); // initialState를 의존성 배열에 추가
 
   return (
     <div className={styles.wrapper}>
