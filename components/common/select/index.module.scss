@@ -6,6 +6,8 @@
   position: relative;
   background-color: $--color-basic-white;
   cursor: pointer;
+  width: 100%;
+  min-width: fit-content;
 }
 
 .trigger {
@@ -30,6 +32,7 @@
 
 // menu
 .menu {
+  z-index: 111;
   position: absolute;
   top: calc(54px + 7px);
 

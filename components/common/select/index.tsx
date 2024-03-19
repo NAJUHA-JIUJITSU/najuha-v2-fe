@@ -1,22 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './index.module.scss';
+import { init } from 'next/dist/compiled/webpack/webpack';
 
 // i wonder type of setState
 // i gonna get setState from parent component
 interface Props {
   options: string[];
   setState: any;
+  initialState?: string;
 }
 
-const Select = ({ options, setState }: Props) => {
+const Select = ({ options, setState, initialState }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(initialState);
   const toggleDropdown = () => setIsOpen(!isOpen);
   const selectOption = (option: any) => {
     setState(option);
     setSelectedOption(option);
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    // initialState가 변경되면 selectedOption 상태도 업데이트
+    setSelectedOption(initialState);
+  }, [initialState]); // initialState를 의존성 배열에 추가
 
   return (
     <div className={styles.dropdown}>

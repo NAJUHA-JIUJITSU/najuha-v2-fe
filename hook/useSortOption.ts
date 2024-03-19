@@ -9,5 +9,5 @@ export const useSortOption = (options: string[], defaultOption?: string) => {
     setSortOption(options[nextIndex]);
   };
 
-  return { sortOption, handleSortOption };
+  return { sortOption, setSortOption, handleSortOption };
 };

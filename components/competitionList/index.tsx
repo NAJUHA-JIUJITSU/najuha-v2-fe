@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './index.module.scss';
 import Card from '@/components/card';
 
@@ -35,24 +37,52 @@ const competitionList = [
 ];
 
 interface CompetitionListProps {
-  sortOption: string;
   dateFilter: string;
+  locationFilter: string;
+  selectOption: string[];
+  sortOption: string;
 }
 
-// async function fetchFilteredCompetitions(sortOption: string, dateFilter: string) {
+// async function fetchFilteredCompetitions({
+//   dateFilter,
+//   locationFilter,
+//   selectOption,
+//   sortOption,
+// }: CompetitionListProps) {
+//   const params = new URLSearchParams({
+//     date: dateFilter,
+//     location: locationFilter,
+//     sort: sortOption,
+//   });
+//   // selectOptions 배열을 쿼리 스트링에 추가
+//   selectOption.forEach((option) => params.append('select', option));
+//   console.log('백엔드 요청: /competitions?', params.toString());
 //   // 서버 또는 API에서 필터링 및 정렬 옵션에 맞는 데이터를 가져오는 로직 구현
-//   const response = await fetch(`/competitions?sort=${sortOption}&date=${dateFilter}`);
-//   const data = await response.json();
-//   return data;
+//   // const response = await fetch(`/competitions?${params.toString()}`);
+//   // if (!response.ok) throw new Error('서버 상태가 이상합니다.');
+//   // const data = await response.json();
+//   // return data;
 // }
 
-export default function CompetitionList({ sortOption, dateFilter }: CompetitionListProps) {
-  // const FetchCompetitionList = await fetchFilteredCompetitions(sortOption, dateFilter);
+export default function CompetitionList({
+  dateFilter,
+  locationFilter,
+  selectOption,
+  sortOption,
+}: CompetitionListProps) {
+  // const FetchCompetitionList = await fetchFilteredCompetitions({
+  //   dateFilter,
+  //   locationFilter,
+  //   selectOption,
+  //   sortOption,
+  // });
 
   return (
     <div className={styles.wrapper}>
-      <h1>{sortOption}</h1>
       <h1>{dateFilter}</h1>
+      <h1>{locationFilter}</h1>
+      <h1>{selectOption}</h1>
+      <h1>{sortOption}</h1>
       {competitionList.map((competition) => (
         <Card key={competition.id} type="normal" info={competition} />
       ))}
