@@ -7,6 +7,7 @@
   flex-direction: column;
   gap: 8px;
   margin-bottom: 16px; //todo: remove this?
+  width: 100%;
 }
 
 .label {
@@ -21,7 +22,6 @@
   cursor: pointer;
   width: 100%;
   min-width: fit-content;
-
 }
 
 .trigger {
@@ -53,7 +53,7 @@
 
   width: 100%;
   padding: 4px;
-  max-height: 278px;
+  max-height: 250px;
   overflow-y: auto;
   box-sizing: border-box;
 

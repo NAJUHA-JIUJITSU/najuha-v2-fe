@@ -24,8 +24,8 @@ const Select = ({ label, options, setState, value, placeholder }: Props) => {
 
   useEffect(() => {
     // initialState가 변경되면 selectedOption 상태도 업데이트
-    setSelectedOption(initialState);
-  }, [initialState]); // initialState를 의존성 배열에 추가
+    setSelectedOption(value);
+  }, [value]); // initialState를 의존성 배열에 추가
 
   return (
     <div className={styles.wrapper}>

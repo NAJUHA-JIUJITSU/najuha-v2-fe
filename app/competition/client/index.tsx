@@ -137,11 +137,17 @@ export default function Competition() {
       />
       <div className={styles.filterWrapper}>
         {/* todo: pull한 뒤 select 업데이트 후 style 추가 */}
-        <Select options={dateOptions} setState={setDateFilter} initialState={dateFilter} />
+        <Select
+          options={dateOptions}
+          setState={setDateFilter}
+          value={dateFilter}
+          placeholder={'날짜'}
+        />
         <Select
           options={locationOptions}
           setState={setLocationFilter}
-          initialState={locationFilter}
+          value={locationFilter}
+          placeholder={'지역'}
         />
       </div>
       <div className={styles.selectWrapper}>
