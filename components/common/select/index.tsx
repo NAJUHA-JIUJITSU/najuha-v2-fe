@@ -29,7 +29,7 @@ const Select = ({ label, options, setState, value, placeholder }: Props) => {
 
   return (
     <div className={styles.wrapper}>
-      <label className={styles.label}>{label}</label>
+      {label && <label className={styles.label}>{label}</label>}
       <div className={styles.dropdown}>
         <div className={styles.trigger} onClick={toggleDropdown}>
           {selectedOption === '' ? (

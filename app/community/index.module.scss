@@ -2,34 +2,21 @@
 @import '@/styles/_variable.scss';
 @import '@/styles/_zindex.scss';
 
+//전체 레이아웃
 .wrapper {
+  padding: 0 16px;
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
   background-color: $--color-basic-white;
-}
-
-.wrapper h1 {
-  line-height: 1;
-}
-
-.filterWrapper {
-  display: flex;
-  gap: 8px;
-  padding: 16px 0;
 }
 
 .selectWrapper {
   display: flex;
   gap: 8px;
-  margin-bottom: 12px;
+  padding: 16px 0;
   overflow: auto;
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
   scrollbar-width: none; /* 파이어폭스 */
-}
-.selectWrapper::-webkit-scrollbar {
-  display: none; /* 크롬, 사파리, 오페라, 엣지 */
-}
-
-.sortWrapper {
-  margin: 4px 0 4px auto;
 }
