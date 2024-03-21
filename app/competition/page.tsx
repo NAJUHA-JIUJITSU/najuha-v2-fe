@@ -1,10 +1,10 @@
-import Competition from './client/index';
+import CompetitionPage from './client/index';
 import styles from './index.module.scss';
 
-export default function CompetitionPage() {
+export default function Competition() {
   return (
     <div className={styles.wrapper}>
-      <Competition />
+      <CompetitionPage />
     </div>
   );
 }

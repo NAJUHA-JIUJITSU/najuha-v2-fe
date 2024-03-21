@@ -1,6 +1,6 @@
 'use client';
 import styles from './index.module.scss';
-import { use, useState, useEffect } from 'react';
+import { useState } from 'react';
 import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
@@ -8,9 +8,8 @@ import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import ButtonOnToggle from '@/components/common/button/buttonOnToggle';
 import IconSort from '@/public/svgs/sort.svg';
 import Divider from '@/components/divider';
-import { useSortOption } from '@/hook/useSortOption';
+import { useURLParams } from '@/hook/useURLParams';
 import Select from '@/components/common/select';
-import { useRouter } from 'next/navigation';
 import CompetitionList from '@/components/competitionList';
 
 const locationOptions = [
@@ -63,69 +62,38 @@ const selectOptions = [
 ];
 const sortOptions = ['일자순', '조회순', '마감임박순'];
 
-export default function Competition() {
-  const [dateFilter, setDateFilter] = useState('');
-  const [locationFilter, setLocationFilter] = useState('');
+export default function CompetitionPage() {
+  const { params, getParamValue, updateParams } = useURLParams();
 
-  //todo: useSortOption 훅에서 초기값을 URL 쿼리에서 가져오도록 수정할 필요가 있음
-  const { sortOption, setSortOption, handleSortOption } = useSortOption(sortOptions, '일자순');
-  const [selectOption, setSelectOption] = useState(['']);
+  const dateFilter = getParamValue(params.date as string) || '';
+  const locationFilter = getParamValue(params.location as string) || '';
+  const sortOption = getParamValue(params.sort as string) || sortOptions[0];
+  // select 매개변수는 배열로 처리
+  const [selectOptionsState, setSelectOptionsState] = useState<string[]>(
+    params.select ? (Array.isArray(params.select) ? params.select : [params.select]) : [],
+  );
 
-  const handleSelectOption = (option: string) => {
-    if (selectOption.includes(option)) {
-      setSelectOption(selectOption.filter((item) => item !== option));
-    } else {
-      setSelectOption([...selectOption, option]);
-    }
-    return;
+  const handleDateFilterChange = (newDate: string) => {
+    updateParams({ date: newDate });
   };
 
-  const router = useRouter();
-
-  // URL 검색 매개변수 업데이트 함수
-  const updateURLParams = () => {
-    const searchParams = new URLSearchParams();
-
-    // date와 location은 있으면 추가
-    if (dateFilter) searchParams.set('date', dateFilter);
-    if (locationFilter) searchParams.set('location', locationFilter);
-
-    // selectOption 배열을 개별적으로 'select' 매개변수로 추가
-    // URL에서 select=option1&select=option2 형태로 표현됩니다.
-    selectOption.forEach((option) => {
-      if (option) searchParams.append('select', option);
-    });
-
-    // sort는 있으면 추가
-    if (sortOption) searchParams.set('sort', sortOption);
-
-    // URL 업데이트
-    // router.push(`/competition?${searchParams.toString()}`, undefined, { shallow: true });
-    // router.push(`/competition?${searchParams.toString()}`);
-    window.history.pushState({}, '', `/competition?${searchParams.toString()}`);
+  const handleLocationFilterChange = (newLocation: string) => {
+    updateParams({ location: newLocation });
   };
 
-  // 컴포넌트 마운트 시 URL 검색 매개변수를 읽어 상태를 초기화
-  useEffect(() => {
-    // URLSearchParams 객체를 사용하여 window.location.search에서 검색 매개변수 파싱
-    const searchParams = new URLSearchParams(window.location.search);
-    const date = searchParams.get('date');
-    const location = searchParams.get('location');
-    const select = searchParams.getAll('select');
-    const sort = searchParams.get('sort');
+  const handleSortOptionChange = (sortOption: string) => {
+    let newSortOption = sortOptions[sortOptions.indexOf(sortOption) + 1];
+    updateParams({ sort: newSortOption });
+  };
 
-    console.log(date, location, select, sort);
+  const handleSelectOptionChange = (optionId: string) => {
+    const updatedSelectOptions = selectOptionsState.includes(optionId)
+      ? selectOptionsState.filter((id) => id !== optionId)
+      : [...selectOptionsState, optionId];
 
-    if (date) setDateFilter(date);
-    if (location) setLocationFilter(location);
-    if (select.length > 0) setSelectOption(select);
-    if (sort) setSortOption(sort);
-  }, []);
-
-  // 검색 매개변수가 변경될 때마다 URL 검색 매개변수 업데이트
-  useEffect(() => {
-    updateURLParams();
-  }, [dateFilter, locationFilter, selectOption, sortOption]);
+    setSelectOptionsState(updatedSelectOptions);
+    updateParams({ select: updatedSelectOptions.length > 0 ? updatedSelectOptions : undefined });
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -139,13 +107,13 @@ export default function Competition() {
         {/* todo: pull한 뒤 select 업데이트 후 style 추가 */}
         <Select
           options={dateOptions}
-          setState={setDateFilter}
+          setState={handleDateFilterChange}
           value={dateFilter}
           placeholder={'날짜'}
         />
         <Select
           options={locationOptions}
-          setState={setLocationFilter}
+          setState={handleLocationFilterChange}
           value={locationFilter}
           placeholder={'지역'}
         />
@@ -159,8 +127,8 @@ export default function Competition() {
             size="medium"
             shape="tag"
             text={option.msg}
-            isToggled={selectOption.includes(option.id)}
-            onToggle={() => handleSelectOption(option.id)}
+            isToggled={selectOptionsState.includes(option.id)}
+            onToggle={() => handleSelectOptionChange(option.id)}
           />
         ))}
       </div>
@@ -172,13 +140,13 @@ export default function Competition() {
           color="gray"
           text={sortOption}
           iconLeft={<IconSort />}
-          onClick={handleSortOption}
+          onClick={() => handleSortOptionChange(sortOption)}
         />
       </div>
       <CompetitionList
         dateFilter={dateFilter}
         locationFilter={locationFilter}
-        selectOption={selectOption}
+        selectOption={selectOptionsState}
         sortOption={sortOption}
       />
     </div>
