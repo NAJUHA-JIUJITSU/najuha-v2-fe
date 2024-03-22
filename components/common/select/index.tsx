@@ -4,7 +4,10 @@ import NavigateMore from '@/public/svgs/navigateMore.svg';
 
 // i wonder type of setState
 // i gonna get setState from parent component
+type SelectType = 'normal' | 'soft';
+
 interface Props {
+  type?: SelectType;
   label?: string;
   options: string[];
   setState: any;
@@ -12,7 +15,7 @@ interface Props {
   placeholder: string;
 }
 
-const Select = ({ label, options, setState, value, placeholder }: Props) => {
+const Select = ({ type = 'normal', label, options, setState, value, placeholder }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(value);
   const toggleDropdown = () => setIsOpen(!isOpen);
@@ -22,13 +25,24 @@ const Select = ({ label, options, setState, value, placeholder }: Props) => {
     setIsOpen(false);
   };
 
+  // 외부 클릭시 isOpen 상태 변경
+  useEffect(() => {
+    const handleClickOutside = (e: any) => {
+      if (e.target.closest(`.${styles.wrapper}`) === null) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
   useEffect(() => {
     // initialState가 변경되면 selectedOption 상태도 업데이트
     setSelectedOption(value);
   }, [value]); // initialState를 의존성 배열에 추가
 
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${styles[type]}`}>
       {label && <label className={styles.label}>{label}</label>}
       <div className={styles.dropdown}>
         <div className={styles.trigger} onClick={toggleDropdown}>
