@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
 export function useURLParams() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const pathname = usePathname();
 
   // URLSearchParams에서 모든 매개변수를 읽어와 상태로 관리하는 함수
   const getParamValue = (value: string) => (Array.isArray(value) ? value[0] : value);
@@ -51,7 +52,7 @@ export function useURLParams() {
       }
     }
     // Next.js 라우터를 사용하여 URL 매개변수 업데이트
-    router.push(`/competition?${updatedSearchParams.toString()}`);
+    router.push(`${pathname}?${updatedSearchParams.toString()}`);
   };
 
   // 매개변수 상태 업데이트를 위한 훅
