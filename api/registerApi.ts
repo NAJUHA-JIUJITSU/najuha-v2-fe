@@ -1,5 +1,4 @@
-import { axiosPrivate, axiosPublic } from '@/api/axios/interceptors';
-import { saveTokens } from '@/utils/tokenManagement';
+import { axiosPrivate } from '@/api/axios/interceptors';
 
 //임시 사용자 정보를 가져옵니다.
 const getTemporaryUserInfo = async () => {

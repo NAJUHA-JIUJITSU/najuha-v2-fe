@@ -2,6 +2,7 @@
 
 import styles from './index.module.scss';
 import Card from '@/components/card';
+import { useGetCompetitions, useGetFilteredCompetitions } from '@/hook/competition';
 
 const competitionList = [
   {
@@ -43,39 +44,18 @@ interface CompetitionListProps {
   sortOption: string;
 }
 
-// async function fetchFilteredCompetitions({
-//   dateFilter,
-//   locationFilter,
-//   selectOption,
-//   sortOption,
-// }: CompetitionListProps) {
-//   const params = new URLSearchParams({
-//     date: dateFilter,
-//     location: locationFilter,
-//     sort: sortOption,
-//   });
-//   // selectOptions 배열을 쿼리 스트링에 추가
-//   selectOption.forEach((option) => params.append('select', option));
-//   console.log('백엔드 요청: /competitions?', params.toString());
-//   // 서버 또는 API에서 필터링 및 정렬 옵션에 맞는 데이터를 가져오는 로직 구현
-//   // const response = await fetch(`/competitions?${params.toString()}`);
-//   // if (!response.ok) throw new Error('서버 상태가 이상합니다.');
-//   // const data = await response.json();
-//   // return data;
-// }
-
 export default function CompetitionList({
   dateFilter,
   locationFilter,
   selectOption,
   sortOption,
 }: CompetitionListProps) {
-  // const FetchCompetitionList = await fetchFilteredCompetitions({
+  // const { data: competitionListHook } = useGetFilteredCompetitions(
   //   dateFilter,
   //   locationFilter,
   //   selectOption,
   //   sortOption,
-  // });
+  // ); //todo: 초기값 설정 필요
 
   return (
     <div className={styles.wrapper}>
