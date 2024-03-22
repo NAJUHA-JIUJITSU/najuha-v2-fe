@@ -9,6 +9,42 @@
   width: 100%;
 }
 
+//Type
+.wrapper.soft {
+  .trigger {
+    border-radius: 8px;
+    background-color: $--color-gray-0;
+    border: none;
+    height: 40px;
+  }
+
+  .example {
+    @include font-subtitle2-medium;
+  }
+
+  .menu {
+    border-radius: 8px;
+    height: 220px;
+    top: calc(40px + 7px);
+    border: none;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .option {
+    height: 48px;
+
+    &:hover {
+      background-color: $--color-brand-blue-10;
+      color: $--color-brand-blue;
+    }
+  }
+
+  .selectedOption {
+    color: $--color-brand-blue;
+    @include font-subtitle2-medium;
+  }
+}
+
 .label {
   @include font-subtitle1-bold;
   color: $--color-font-headline;
@@ -41,7 +77,7 @@
 
 .example {
   @include font-body1-regular;
-  color: $--color-gray-3;
+  color: $--color-font-body;
 }
 
 // menu
