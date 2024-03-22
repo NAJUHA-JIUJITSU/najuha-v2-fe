@@ -1,9 +1,7 @@
 'use client';
 import styles from './index.module.scss';
 import { useState } from 'react';
-import Header from '@/components/common/header/Header';
-import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
-import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
+
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import ButtonOnToggle from '@/components/common/button/buttonOnToggle';
 import IconSort from '@/public/svgs/sort.svg';
@@ -97,12 +95,6 @@ export default function CompetitionPage() {
 
   return (
     <div className={styles.wrapper}>
-      <Header
-        leftIcon={<ButtonIconNavigateBefore />}
-        title={'대회일정'}
-        rightIcon1={<IconLinkAlarm />}
-        rightIcon2={<IconLinkSearch />}
-      />
       <div className={styles.filterWrapper}>
         {/* todo: pull한 뒤 select 업데이트 후 style 추가 */}
         <Select
