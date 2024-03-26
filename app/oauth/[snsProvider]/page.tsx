@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './index.module.scss';
-import { useSnsLogin } from '@/hook/auth';
+import { useSnsLogin } from '@/hooks/auth';
 
 interface SnsRedirectPageProps {
   params: { snsProvider: string };
@@ -23,7 +23,7 @@ export default function SnsRedirectPage({ params, searchParams }: SnsRedirectPag
     if (payload) {
       const { userRole } = payload;
       if (userRole === 'TEMPORARY_USER') {
-        router.push(`/funnel`);
+        router.push(`/register`);
       } else {
         // 리프레시 토큰이 만료되어 왔으면 이전페이지로 리다이렉트해야함
         console.log('로그인된 회원입니다');
