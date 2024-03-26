@@ -41,6 +41,7 @@
   &.black {
     border-bottom: 2px solid $--color-basic-black;
     &.isNotToggled {
+      color: $--color-font-disabled;
       border: 0px;
       border-bottom: 1px solid $--color-gray-1;
     }
