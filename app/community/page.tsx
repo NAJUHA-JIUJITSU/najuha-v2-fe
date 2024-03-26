@@ -43,20 +43,21 @@ const postList = [
     likeCnt: 2312,
     viewCnt: 1123,
     commentCnt: 123,
-
     content:
       '게시물 내용은 여기다 좀ㅋㅋㅋㅋㅋㅋㅋㅋㅋ 한줄보기로 할거야야얔ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ',
+    hot: true,
   },
   {
     id: 2,
     title: '제목1',
-    type: 'popular',
+    type: 'competition',
     date: '2024-04-01',
     likeCnt: 1231,
     viewCnt: 12322,
     commentCnt: 123,
     image: '/images/samplePoster1.png',
     content: '너네 이거 봄?',
+    hot: false,
   },
 ];
 
