@@ -4,10 +4,10 @@ import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import { useRecoilState } from 'recoil';
 import { nicknameState } from '@/recoil/atoms/registerState';
-import { useInput } from '@/hook/useInput';
+import { useInput } from '@/hooks/useInput';
 import { validateNickname } from '@/utils/validations/userValidations';
 import { useState, useCallback } from 'react';
-import { useCheckNickname } from '@/hook/register';
+import { useCheckNickname } from '@/hooks/register';
 import InfoMessage from '@/components/register/infoMessage';
 
 const title = '확인해주세요';
@@ -76,7 +76,7 @@ export default function Nickname({ onNext }: any) {
       <div className={styles.submit}>
         <ButtonOnClick
           type="filled"
-          text="약관전체 동의"
+          text="다음"
           color={!isDuplicated ? 'blue' : 'disabled'}
           width="full"
           size="large"
