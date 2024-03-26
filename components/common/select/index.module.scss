@@ -9,42 +9,6 @@
   width: 100%;
 }
 
-//Type
-.wrapper.soft {
-  .trigger {
-    border-radius: 8px;
-    background-color: $--color-gray-0;
-    border: none;
-    height: 40px;
-  }
-
-  .example {
-    @include font-subtitle2-medium;
-  }
-
-  .menu {
-    border-radius: 8px;
-    height: 220px;
-    top: calc(40px + 7px);
-    border: none;
-    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.4);
-  }
-
-  .option {
-    height: 48px;
-
-    &:hover {
-      background-color: $--color-brand-blue-10;
-      color: $--color-brand-blue;
-    }
-  }
-
-  .selectedOption {
-    color: $--color-brand-blue;
-    @include font-subtitle2-medium;
-  }
-}
-
 .label {
   @include font-subtitle1-bold;
   color: $--color-font-headline;
@@ -53,74 +17,107 @@
 .dropdown {
   position: relative;
   background-color: $--color-basic-white;
-
   cursor: pointer;
   width: 100%;
   min-width: fit-content;
+
+  .trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    height: 54px;
+    padding: 0px 16px;
+    border-radius: 4px;
+    border: 1px solid $--color-gray-4;
+    box-sizing: border-box;
+
+    color: $--color-font-body;
+    background-color: $--color-basic-white;
+
+    .example {
+      @include font-body1-regular;
+      color: $--color-font-body;
+    }
+
+    .selectedOption {
+      @include font-body1-regular;
+      color: $--color-font-headline;
+    }
+  }
+
+  .menu {
+    z-index: 111;
+    position: absolute;
+    top: calc(54px + 7px);
+
+    width: 100%;
+    padding: 4px;
+    max-height: 250px;
+    overflow-y: auto;
+    box-sizing: border-box;
+
+    border-radius: 4px;
+    border: 1px solid $--color-gray-4;
+    background-color: $--color-basic-white;
+
+    &::-webkit-scrollbar {
+      display: none; /* 스크롤바 숨김 */
+    }
+
+    // option
+    .option {
+      display: flex;
+      align-items: center;
+
+      height: 54px;
+      padding: 0 12px;
+      box-sizing: border-box;
+      border-radius: 4px;
+
+      @include font-body1-regular;
+      color: $--color-font-headline;
+      background-color: $--color-basic-white;
+
+      &:hover {
+        background-color: $--color-brand-blue-10;
+      }
+    }
+  }
 }
 
-.trigger {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+// Type - filled
+.filled {
+  .trigger {
+    border-radius: 8px;
+    background-color: $--color-gray-0;
+    border: none;
+    height: 40px;
 
-  width: 100%;
-  height: 54px;
-  padding: 0px 16px;
-  border-radius: 4px;
-  border: 1px solid $--color-gray-4;
-  box-sizing: border-box;
+    .selectedOption {
+      color: $--color-brand-blue;
+      @include font-subtitle2-medium;
+    }
 
-  color: $--color-font-body;
-  background-color: $--color-basic-white;
-}
+    .example {
+      @include font-subtitle2-medium;
+    }
+  }
 
-.example {
-  @include font-body1-regular;
-  color: $--color-font-body;
-}
+  .menu {
+    border-radius: 8px;
+    height: 220px;
+    top: calc(40px + 7px);
+    border: none;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.4);
+    .option {
+      height: 48px;
 
-// menu
-.menu {
-  z-index: 111;
-  position: absolute;
-  top: calc(54px + 7px);
-
-  width: 100%;
-  padding: 4px;
-  max-height: 250px;
-  overflow-y: auto;
-  box-sizing: border-box;
-
-  border-radius: 4px;
-  border: 1px solid $--color-gray-4;
-  background-color: $--color-basic-white;
-}
-
-.menu::-webkit-scrollbar {
-  display: none; /* 스크롤바 숨김 */
-}
-
-// option
-.option {
-  display: flex;
-  align-items: center;
-
-  height: 54px;
-  padding: 0 12px;
-  box-sizing: border-box;
-  border-radius: 4px;
-
-  @include font-body1-regular;
-  color: $--color-font-headline;
-  background-color: $--color-basic-white;
-}
-
-.option:hover {
-  background-color: $--color-brand-blue-10;
-}
-
-.selectedOption {
-  @include font-body1-regular;
-  color: $--color-font-headline;
+      &:hover {
+        background-color: $--color-brand-blue-10;
+        color: $--color-brand-blue;
+      }
+    }
+  }
 }
