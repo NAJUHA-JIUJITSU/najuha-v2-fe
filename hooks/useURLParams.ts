@@ -30,7 +30,7 @@ export function useURLParams() {
 
   // URL 매개변수 업데이트 함수
   const updateParams = (newParams: { [key: string]: string | string[] | undefined }) => {
-    const updatedSearchParams = new URLSearchParams(searchParams.toString());
+    const updatedSearchParams = new URLSearchParams(window.location.search);
 
     // 새 매개변수로 기존 매개변수 업데이트 또는 추가
     for (const [key, value] of Object.entries(newParams)) {
@@ -52,7 +52,7 @@ export function useURLParams() {
       }
     }
     // Next.js 라우터를 사용하여 URL 매개변수 업데이트
-    router.push(`${pathname}?${updatedSearchParams.toString()}`);
+    window.history.pushState({}, '', `${pathname}?${updatedSearchParams.toString()}`);
   };
 
   // 매개변수 상태 업데이트를 위한 훅

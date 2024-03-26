@@ -5,6 +5,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { registrationInfoSelector } from '@/recoil/selectors/registerSelector';
 import { saveTokens } from '@/utils/tokenManagement';
 import {
+  nameState,
   birthDateState,
   genderState,
   nicknameState,
@@ -18,6 +19,7 @@ const globalSelectFn = (response: any) => {
 };
 
 export const useTemporaryUserInfo = () => {
+  const setName = useSetRecoilState(nameState);
   const setGender = useSetRecoilState(genderState);
   const setBirthDate = useSetRecoilState(birthDateState);
   const setPhoneNumber = useSetRecoilState(phoneNumberState);
@@ -33,11 +35,13 @@ export const useTemporaryUserInfo = () => {
     },
   });
   useEffect(() => {
+    //todo: data가 없을 때 처리
     if (query.data) {
+      setName(query.data.name);
       setGender(query.data.gender);
       setBirthDate(query.data.birth);
-      setPhoneNumber(query.data.phoneNumber);
-      setNickname(query.data.nickname);
+      // setPhoneNumber(query.data.phoneNumber);
+      // setNickname(query.data.nickname);
     }
   }, [query.data]);
 };
