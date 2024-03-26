@@ -3,7 +3,7 @@ import styles from './index.module.scss';
 import RegisterInfo from '@/components/register/registerInfo';
 import CheckBoxLabel from '@/components/common/checkBoxLabel';
 import { IconLink } from '@/components/common/icon/iconLink';
-import useCheckboxState from '@/hook/useCheckbox';
+import useCheckboxState from '@/hooks/useCheckbox';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import IconNavigateNext from '@/public/svgs/navigateNext.svg';
 import { agreementState } from '@/recoil/atoms/registerState';

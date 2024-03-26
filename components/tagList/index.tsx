@@ -1,6 +1,11 @@
 import styles from './index.module.scss';
 import Tag from '@/components/tag';
-import { isDatePast, isDateToday, calculateDayDiff, areBothDatesPassed } from '@/util/dateCheck';
+import {
+  isDatePast,
+  isDateToday,
+  calculateDayDiff,
+  areBothDatesPassed,
+} from '@/utils/dateUtils/dateCheck';
 import { TagType } from '@/components/tag';
 
 interface TagListProps {
