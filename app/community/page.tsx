@@ -33,13 +33,23 @@ const selectOptions = [
     msg: '모집',
   },
 ];
-
+// id: number;
+// title: string;
+// type: 'seminar' | 'competition' | 'free';
+// date: Date;
+// likeCnt: number;
+// viewCnt: number;
+// commentCnt: number;
+// content: string;
+// hot: boolean;
+// image?: string;
 const postList = [
   {
     id: 1,
     title: '제목2',
     type: 'free',
-    date: '2024-04-01',
+    // 2024년 1월 1일
+    date: new Date(2024, 2, 26),
     likeCnt: 2312,
     viewCnt: 1123,
     commentCnt: 123,
@@ -51,12 +61,26 @@ const postList = [
     id: 2,
     title: '제목1',
     type: 'competition',
-    date: '2024-04-01',
+    date: new Date(2024, 2, 27, 12, 30, 0), // 월인덱스는 0부터 시작
     likeCnt: 1231,
     viewCnt: 12322,
     commentCnt: 123,
     image: '/images/samplePoster1.png',
     content: '너네 이거 봄?',
+    hot: false,
+  },
+  {
+    id: 3,
+    title:
+      '제목3아ㅣㅁㄴ어ㅣ나멍ㅁ나어ㅣㅁ나어ㅣㅁㄴ어ㅣㅁ나어ㅣㅁㄴ어ㅣㅁ나어ㅣㅁ나어ㅣㅁ너ㅣㅁ나어ㅣㅁㄴ어',
+    type: 'competition',
+    date: new Date(2024, 2, 27, 18, 0, 0),
+    likeCnt: 1231,
+    viewCnt: 12322,
+    commentCnt: 123,
+    image: '/images/samplePoster1.png',
+    content:
+      '너네 이거 봄?ㅁㄴ이;ㅁ나이;ㅁ나이;ㄴ망;ㅣㅏㄴ아ㅗㅓㅂ저ㅏ옵자ㅓ옵자어ㅗㅂㅈ어ㅗㅂ자옵자어ㅗㅂ저ㅏ옵저ㅏ옺바옵저ㅏ오ㅁㄴㅇㅁㄴㅇㅁㄴㅇㄴㅇㅁㄴㅇㅁㄴㅇㄴㅁ',
     hot: false,
   },
 ];

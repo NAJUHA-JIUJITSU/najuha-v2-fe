@@ -2,12 +2,13 @@ import styles from './index.module.scss';
 import Tag from '@/components/tag';
 import IconThumbUp from '@/public/svgs/thumbUp.svg';
 import IconChat from '@/public/svgs/chat.svg';
+import { getPastTime } from '@/util/dateCheck';
 
 interface PostInfo {
   id: number;
   title: string;
   type: 'seminar' | 'competition' | 'free';
-  date: string;
+  date: Date;
   likeCnt: number;
   viewCnt: number;
   commentCnt: number;
@@ -21,6 +22,7 @@ interface PostCardProps {
 }
 
 export default function PostCard({ info }: PostCardProps) {
+  // 태그 생성 함수
   function makeTag() {
     const tags = [];
 
@@ -42,6 +44,11 @@ export default function PostCard({ info }: PostCardProps) {
     return <>{tags}</>;
   }
 
+  // top, middle, bottom으로 나누어서 구조화
+  // top: 태그, 조회수
+  // middle: 제목, 내용, 이미지
+  // bottom: 작성일, 좋아요, 댓글
+  // 이미지가 있을 경우에만 이미지 노출
   return (
     <div className={styles.wrapper}>
       <div className={styles.top}>
@@ -52,14 +59,8 @@ export default function PostCard({ info }: PostCardProps) {
       </div>
       <div className={styles.middle}>
         <div className={styles.left}>
-          <div className={styles.title}>
-            엄청나게
-            계속길어진ㅁ나ㅣ어ㅏㅁㄴ어남어ㅏㅁ니엄니ㅏㅁㅁㅁㅁㅁㅁㅁㅁ나ㅣㅓ욈나ㅓ아ㅣㅁㄴ어ㅏㅣㅁㄴ어ㅣㄴ마어ㅣㅁ나어ㅣㅁ나엄나ㅣ어ㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅓㅇ
-          </div>
-          <div className={styles.content}>
-            엄청나게
-            계속길어진ㅁ나ㅣ어ㅏㅁㄴ어남어ㅏㅁ니엄니ㅏㅁㅁㅁㅁㅁㅁㅁㅁ나ㅣㅓ욈나ㅓ아ㅣㅁㄴ어ㅏㅣㅁㄴ어ㅣㄴ마어ㅣㅁ나어ㅣㅁ나엄나ㅣ어ㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅓㅇasdasdasdasdsa
-          </div>
+          <div className={styles.title}>{info.title}</div>
+          <div className={styles.content}>{info.content}</div>
         </div>
         {info.image && (
           <div className={styles.right}>
@@ -69,7 +70,7 @@ export default function PostCard({ info }: PostCardProps) {
       </div>
       <div className={styles.bottom}>
         <div className={styles.left}>
-          <div className={styles.caption}>2일 전</div>
+          <div className={styles.caption}>{getPastTime(info.date)}</div>
         </div>
         <div className={styles.right}>
           <div className={styles.thumup}>
