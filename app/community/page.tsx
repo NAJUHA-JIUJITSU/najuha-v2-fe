@@ -6,6 +6,9 @@ import ButtonOnToggle from '@/components/common/button/buttonOnToggle';
 import { useState } from 'react';
 import Divider from '@/components/divider';
 import PostCard from '@/components/postCard';
+import { useSortOption } from '@/hook/useSortOption';
+import ButtonOnClick from '@/components/common/button/buttonOnClick';
+import IconSort from '@/public/svgs/sort.svg';
 
 const selectOptions = [
   {
@@ -85,7 +88,10 @@ const postList = [
   },
 ];
 
+const sortOptions = ['일자순', '조회순', '마감임박순'];
+
 export default function CommunityPage() {
+  const { sortOption, setSortOption, handleSortOption } = useSortOption(sortOptions, '일자순');
   const [selectedOption, setSelectedOption] = useState('all');
 
   function handleSelectOption(id: string) {
@@ -110,6 +116,16 @@ export default function CommunityPage() {
         ))}
       </div>
       <Divider />
+      <div className={styles.sortWrapper}>
+        <ButtonOnClick
+          type="text"
+          size="small"
+          color="gray"
+          text={sortOption}
+          iconLeft={<IconSort />}
+          onClick={handleSortOption}
+        />
+      </div>
       <div>
         {postList.map((post) => (
           <PostCard key={post.id} info={post} />
