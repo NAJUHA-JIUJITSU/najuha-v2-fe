@@ -9,6 +9,7 @@ import PostCard from '@/components/postCard';
 import { useSortOption } from '@/hook/useSortOption';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import IconSort from '@/public/svgs/sort.svg';
+import Link from 'next/link';
 
 const selectOptions = [
   {
@@ -128,7 +129,9 @@ export default function CommunityPage() {
       </div>
       <div>
         {postList.map((post) => (
-          <PostCard key={post.id} info={post} />
+          <Link href={`/post/${post.id}`} key={post.id}>
+            <PostCard key={post.id} info={post} />
+          </Link>
         ))}
       </div>
     </div>
