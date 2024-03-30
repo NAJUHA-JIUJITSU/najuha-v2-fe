@@ -15,7 +15,8 @@ interface BaseButtonProps {
   iconLeft?: React.ReactNode;
   text: string;
   isToggled?: boolean;
-  onToggle: () => void;
+  onToggle?: () => void;
+  asd?: () => void;
 }
 
 export default function ButtonOnToggle({
@@ -26,7 +27,7 @@ export default function ButtonOnToggle({
   iconLeft,
   text,
   isToggled = false,
-  onToggle,
+  onToggle = () => {},
 }: BaseButtonProps) {
   const typeColor = `${type}-${color}`;
 

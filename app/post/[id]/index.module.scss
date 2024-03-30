@@ -1,0 +1,10 @@
+@import '@/styles/_variable.scss';
+
+.wrapper {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
+  background-color: $--color-basic-white;
+}

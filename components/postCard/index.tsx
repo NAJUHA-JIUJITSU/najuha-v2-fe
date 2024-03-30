@@ -74,15 +74,11 @@ export default function PostCard({ info }: PostCardProps) {
         </div>
         <div className={styles.right}>
           <div className={styles.thumup}>
-            <div className={styles.icon}>
-              <IconThumbUp />
-            </div>
+            <IconThumbUp />
             <span>{info.likeCnt}</span>
           </div>
           <div className={styles.comment}>
-            <div className={styles.icon}>
-              <IconChat />
-            </div>
+            <IconChat />
             <span>{info.commentCnt}</span>
           </div>
         </div>

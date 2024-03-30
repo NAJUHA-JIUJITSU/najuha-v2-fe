@@ -83,11 +83,6 @@
   height: 70px;
 }
 
-.icon {
-  width: 14px;
-  height: 14px;
-}
-
 .caption {
   @include font-caption-regular;
   color: $--color-font-body;
