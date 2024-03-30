@@ -16,6 +16,7 @@ interface Props {
 
 const Select = ({ type = 'outlined', label, options, setState, value, placeholder }: Props) => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
+
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(value);
   const toggleDropdown = () => setIsOpen(!isOpen);
@@ -24,21 +25,8 @@ const Select = ({ type = 'outlined', label, options, setState, value, placeholde
     setSelectedOption(option);
     setIsOpen(false);
   };
-
   // 외부 클릭시 isOpen 상태 변경
   useOutsideClick(wrapperRef, () => setIsOpen(false));
-
-  // 외부 클릭시 isOpen 상태 변경
-  //Todo: react에서는 이런식으로 이벤트를 등록하는게 맞는지 확인
-  // useEffect(() => {
-  //   const handleClickOutside = (e: any) => {
-  //     if (e.target.closest(`.${styles.wrapper}`) === null) {
-  //       setIsOpen(false);
-  //     }
-  //   };
-  //   document.addEventListener('click', handleClickOutside);
-  //   return () => document.removeEventListener('click', handleClickOutside);
-  // }, []);
 
   // initialState가 변경되면 selectedOption 상태도 업데이트
   useEffect(() => {
