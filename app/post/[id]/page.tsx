@@ -4,7 +4,21 @@ import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import Post from '@/components/post';
 import stlyes from './index.module.scss';
 
-async function getPost(id: number) {
+interface PostInfo {
+  id: number;
+  nickname: string;
+  title: string;
+  type: 'free' | 'seminar' | 'competition';
+  date: Date;
+  likeCnt: number;
+  viewCnt: number;
+  commentCnt: number;
+  content: string;
+  hot: boolean;
+  profile: string;
+}
+
+async function getPost(id: number): Promise<PostInfo> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
