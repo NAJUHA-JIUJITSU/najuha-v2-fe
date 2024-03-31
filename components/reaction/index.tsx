@@ -8,7 +8,7 @@ import IconChat from '@/public/svgs/chat.svg';
 interface ReactionProps {
   id: number;
   likeCnt: number;
-  commentCnt: number;
+  commentCnt?: number;
 }
 
 // todo
@@ -20,24 +20,27 @@ export default function Reaction({ id, likeCnt, commentCnt }: ReactionProps) {
         type="outlined"
         color="pink"
         iconLeft={<IconThumbUp />}
-        size="small"
+        size="xSmall"
         shape="reaction"
         text={likeCnt.toString()}
         onToggle={() => {
           console.log('like button clicked');
         }}
       />
-      <ButtonOnToggle
-        type="outlined"
-        color="infoBlue"
-        iconLeft={<IconChat />}
-        size="small"
-        shape="reaction"
-        text={commentCnt.toString()}
-        onToggle={() => {
-          console.log('comment button clicked');
-        }}
-      />
+      {/* commentCnt가 있을 경우에만 댓글 버튼을 노출합니다. */}
+      {commentCnt && (
+        <ButtonOnToggle
+          type="outlined"
+          color="infoBlue"
+          iconLeft={<IconChat />}
+          size="xSmall"
+          shape="reaction"
+          text={commentCnt.toString()}
+          onToggle={() => {
+            console.log('comment button clicked');
+          }}
+        />
+      )}
     </div>
   );
 }

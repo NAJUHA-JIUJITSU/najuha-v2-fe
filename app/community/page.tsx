@@ -4,7 +4,7 @@ import styles from './index.module.scss';
 import { IconLinkAlarm, IconLinkSearch } from '@/components/common/icon/iconLink';
 import ButtonOnToggle from '@/components/common/button/buttonOnToggle';
 import { useState } from 'react';
-import Divider from '@/components/divider';
+import { Divider } from '@/components/divider';
 import PostCard from '@/components/postCard';
 import { useSortOption } from '@/hook/useSortOption';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';

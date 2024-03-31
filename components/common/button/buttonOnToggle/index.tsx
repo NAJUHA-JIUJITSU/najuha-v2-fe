@@ -3,7 +3,7 @@ import styles from '../button.module.scss';
 import clsx from 'clsx';
 
 type ButtonType = 'outlined' | 'text';
-type ButtonSize = 'small' | 'medium' | 'large';
+type ButtonSize = 'xSmall' | 'small' | 'medium' | 'large';
 type ButtonColor = 'black' | 'pink' | 'infoBlue';
 type ButtonShape = 'tag' | 'tap' | 'reaction';
 
