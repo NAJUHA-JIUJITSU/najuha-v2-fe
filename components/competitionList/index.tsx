@@ -2,7 +2,7 @@
 
 import styles from './index.module.scss';
 import Card from '@/components/card';
-import { useGetCompetitions, useGetFilteredCompetitions } from '@/hook/competition';
+import { useGetCompetitions, useGetFilteredCompetitions } from '@/hooks/competition';
 
 const competitionList = [
   {

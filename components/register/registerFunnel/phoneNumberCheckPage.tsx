@@ -3,12 +3,12 @@ import { useState, useCallback } from 'react';
 import Input from '@/components/common/input';
 import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
-import { useInput } from '@/hook/useInput';
+import { useInput } from '@/hooks/useInput';
 import { validateVerificationNumber } from '@/utils/validations/userValidations';
-import { useConfirmAuthCode, useSendAuthCode } from '@/hook/register';
+import { useConfirmAuthCode, useSendAuthCode } from '@/hooks/register';
 import { useRecoilValue } from 'recoil';
 import { phoneNumberState } from '@/recoil/atoms/registerState';
-import { useTimer } from '@/hook/useTimer';
+import { useTimer } from '@/hooks/useTimer';
 
 export default function Verify({ onNext }: any) {
   const { value, setValue, errMsg, validate, setErrMsg, setSuccessMsg, successMsg } = useInput(

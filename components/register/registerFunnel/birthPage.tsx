@@ -5,7 +5,7 @@ import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import { useRecoilState } from 'recoil';
 import { birthDateState } from '@/recoil/atoms/registerState';
-import { useInput } from '@/hook/useInput';
+import { useInput } from '@/hooks/useInput';
 import { validateBirthdate } from '@/utils/validations/userValidations';
 
 export default function Birthday({ onNext }: any) {

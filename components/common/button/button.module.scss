@@ -36,26 +36,6 @@
   height: 56px;
 }
 
-//----shape----
-.tag {
-  border-radius: 100px;
-  padding: 6px 12px;
-}
-
-.tap {
-  border-radius: 0px;
-  border-bottom: 2px solid $--color-basic-black !important;
-  padding: 17px 16px;
-  &.isNotToggled {
-    border: 0px !important;
-    border-bottom: 1px solid $--color-gray-1 !important;
-  }
-}
-
-.reaction {
-  border-radius: 10px;
-}
-
 //----typeColor----
 
 // filled 버튼
@@ -91,11 +71,6 @@
   &-black {
     background-color: $--color-basic-white;
     color: $--color-font-headline;
-    &.isNotToggled {
-      border: 1px solid $--color-gray-1;
-      background-color: $--color-basic-white;
-      color: $--color-font-disabled;
-    }
   }
   &-gray {
     background-color: $--color-basic-white;
@@ -105,22 +80,6 @@
     background-color: $--color-basic-white;
     color: $--color-font-disabled;
     cursor: not-allowed;
-  }
-  &-pink {
-    background-color: $--color-tag-pink;
-    color: $--color-basic-white;
-    &.isNotToggled {
-      background-color: $--color-basic-white;
-      color: $--color-tag-pink;
-    }
-  }
-  &-infoBlue {
-    background-color: $--color-state-info;
-    color: $--color-basic-white;
-    &.isNotToggled {
-      background-color: $--color-basic-white;
-      color: $--color-state-info;
-    }
   }
 }
 
@@ -136,10 +95,6 @@
     border: 1px solid $--color-gray-1;
   }
   &-disabled {
-    border: 1px solid $--color-gray-1;
-  }
-  &-pink,
-  &-infoBlue {
     border: 1px solid $--color-gray-1;
   }
 }

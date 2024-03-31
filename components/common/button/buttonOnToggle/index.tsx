@@ -1,38 +1,39 @@
 'use client';
-import styles from '../button.module.scss';
+import styles from './index.module.scss';
 import clsx from 'clsx';
 
-type ButtonType = 'outlined' | 'text';
-type ButtonSize = 'small' | 'medium' | 'large';
-type ButtonColor = 'black' | 'pink' | 'infoBlue';
-type ButtonShape = 'tag' | 'tap' | 'reaction';
-
+// 기본 버튼 타입 정의
 interface BaseButtonProps {
-  type: ButtonType;
-  color: ButtonColor;
-  size: ButtonSize;
-  shape: ButtonShape;
   iconLeft?: React.ReactNode;
   text: string;
   isToggled?: boolean;
   onToggle: () => void;
 }
 
-export default function ButtonOnToggle({
-  type,
-  color,
-  size,
-  shape,
-  iconLeft,
-  text,
-  isToggled = false,
-  onToggle,
-}: BaseButtonProps) {
-  const typeColor = `${type}-${color}`;
+// 각 버튼 타입에 따른 타입 정의
+interface TagButtonProps extends BaseButtonProps {
+  type: 'tag';
+  color?: 'black';
+}
 
+interface TapButtonProps extends BaseButtonProps {
+  type: 'tap';
+  color?: 'black';
+}
+
+interface ReactionButtonProps extends BaseButtonProps {
+  type: 'reaction';
+  color: 'pink' | 'infoBlue';
+}
+
+// 버튼 타입 정의
+type ButtonProps = TagButtonProps | TapButtonProps | ReactionButtonProps;
+
+export default function ButtonOnToggle(props: ButtonProps) {
+  const { type, color = 'black', iconLeft, text, isToggled, onToggle } = props;
   return (
     <button
-      className={clsx(styles.wrapper, styles[typeColor], styles[size], styles[shape], {
+      className={clsx(styles.wrapper, styles[type], styles[color], {
         [styles.isNotToggled]: !isToggled,
       })}
       onClick={onToggle}

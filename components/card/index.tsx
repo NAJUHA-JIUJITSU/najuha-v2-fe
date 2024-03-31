@@ -1,8 +1,8 @@
 import styles from './index.module.scss';
 import clsx from 'clsx';
 import TagList from '@/components/tagList';
-import { formatDateYMD, formatDateMDWeekday } from '@/util/dateFormat';
-import { areBothDatesPassed } from '@/util/dateCheck';
+import { formatDateYMD, formatDateMDWeekday } from '@/utils/dateUtils/dateFormat';
+import { areBothDatesPassed } from '@/utils/dateUtils/dateCheck';
 import { CompetitionInfo } from '@/interfaces/CompetitionInfo';
 
 type CardType = 'normal' | 'vertical';

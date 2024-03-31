@@ -6,7 +6,7 @@ import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import ButtonOnToggle from '@/components/common/button/buttonOnToggle';
 import IconSort from '@/public/svgs/sort.svg';
 import Divider from '@/components/divider';
-import { useURLParams } from '@/hook/useURLParams';
+import { useURLParams } from '@/hooks/useURLParams';
 import Select from '@/components/common/select';
 import CompetitionList from '@/components/competitionList';
 
@@ -63,24 +63,34 @@ const sortOptions = ['일자순', '조회순', '마감임박순'];
 export default function CompetitionPage() {
   const { params, getParamValue, updateParams } = useURLParams();
 
-  const dateFilter = getParamValue(params.date as string) || '';
-  const locationFilter = getParamValue(params.location as string) || '';
-  const sortOption = getParamValue(params.sort as string) || sortOptions[0];
+  const [dateFilterState, setDateFilterState] = useState<string>(
+    getParamValue(params.date as string) || '',
+  );
+  const [locationFilterState, setLocationFilterState] = useState<string>(
+    getParamValue(params.location as string) || '',
+  );
+  const [sortOptionState, setSortOptionState] = useState<string>(
+    getParamValue(params.sort as string) || sortOptions[0],
+  );
   // select 매개변수는 배열로 처리
   const [selectOptionsState, setSelectOptionsState] = useState<string[]>(
     params.select ? (Array.isArray(params.select) ? params.select : [params.select]) : [],
   );
 
   const handleDateFilterChange = (newDate: string) => {
+    setDateFilterState(newDate);
     updateParams({ date: newDate });
   };
 
   const handleLocationFilterChange = (newLocation: string) => {
+    setLocationFilterState(newLocation);
     updateParams({ location: newLocation });
   };
 
   const handleSortOptionChange = (sortOption: string) => {
     let newSortOption = sortOptions[sortOptions.indexOf(sortOption) + 1];
+    if (!newSortOption) newSortOption = sortOptions[0];
+    setSortOptionState(newSortOption);
     updateParams({ sort: newSortOption });
   };
 
@@ -96,17 +106,18 @@ export default function CompetitionPage() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.filterWrapper}>
-        {/* todo: pull한 뒤 select 업데이트 후 style 추가 */}
         <Select
+          type="filled"
           options={dateOptions}
           setState={handleDateFilterChange}
-          value={dateFilter}
+          value={dateFilterState}
           placeholder={'날짜'}
         />
         <Select
+          type="filled"
           options={locationOptions}
           setState={handleLocationFilterChange}
-          value={locationFilter}
+          value={locationFilterState}
           placeholder={'지역'}
         />
       </div>
@@ -114,10 +125,7 @@ export default function CompetitionPage() {
         {selectOptions.map((option) => (
           <ButtonOnToggle
             key={option.id}
-            type="outlined"
-            color="black"
-            size="medium"
-            shape="tag"
+            type="tag"
             text={option.msg}
             isToggled={selectOptionsState.includes(option.id)}
             onToggle={() => handleSelectOptionChange(option.id)}
@@ -130,16 +138,16 @@ export default function CompetitionPage() {
           type="text"
           size="small"
           color="gray"
-          text={sortOption}
+          text={sortOptionState}
           iconLeft={<IconSort />}
-          onClick={() => handleSortOptionChange(sortOption)}
+          onClick={() => handleSortOptionChange(sortOptionState)}
         />
       </div>
       <CompetitionList
-        dateFilter={dateFilter}
-        locationFilter={locationFilter}
+        dateFilter={dateFilterState}
+        locationFilter={locationFilterState}
         selectOption={selectOptionsState}
-        sortOption={sortOption}
+        sortOption={sortOptionState}
       />
     </div>
   );

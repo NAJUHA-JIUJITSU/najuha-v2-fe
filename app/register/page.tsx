@@ -10,8 +10,8 @@ import BeltPage from '@/components/register/registerFunnel/beltPage';
 import BirthPage from '@/components/register/registerFunnel/birthPage';
 import NicknamePage from '@/components/register/registerFunnel/nicknamePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
-import { useFunnel } from '@/hook/useFunnel';
-import { useTemporaryUserInfo } from '@/hook/register';
+import { useFunnel } from '@/hooks/useFunnel';
+import { useTemporaryUserInfo } from '@/hooks/register';
 
 const steps = [
   '약관동의',

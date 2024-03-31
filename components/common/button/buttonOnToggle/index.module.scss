@@ -1,0 +1,74 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+// 버튼 공통 스타일
+.wrapper {
+  padding: 7px 8px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  gap: 2px;
+  @include font-button-medium;
+  min-width: fit-content;
+}
+
+//----Type----
+.tag {
+  border-radius: 100px;
+  padding: 6px 12px;
+  height: 32px;
+
+  &.black {
+    background-color: $--color-basic-white;
+    color: $--color-font-headline;
+    border: 1px solid $--color-basic-black;
+    &.isNotToggled {
+      border: 1px solid $--color-gray-1;
+      background-color: $--color-basic-white;
+      color: $--color-font-disabled;
+    }
+  }
+}
+
+.tap {
+  border-radius: 0px;
+  padding: 17px 16px;
+  height: 48px;
+
+  &.black {
+    border-bottom: 2px solid $--color-basic-black;
+    &.isNotToggled {
+      color: $--color-font-disabled;
+      border: 0px;
+      border-bottom: 1px solid $--color-gray-1;
+    }
+  }
+}
+
+.reaction {
+  border-radius: 10px;
+  height: 26px;
+  border: 1px solid $--color-gray-1;
+  @include font-caption-regular;
+
+  &.pink {
+    background-color: $--color-tag-pink;
+    color: $--color-basic-white;
+    &.isNotToggled {
+      background-color: $--color-basic-white;
+      color: $--color-tag-pink;
+    }
+  }
+
+  &.infoBlue {
+    background-color: $--color-state-info;
+    color: $--color-basic-white;
+    &.isNotToggled {
+      background-color: $--color-basic-white;
+      color: $--color-state-info;
+    }
+  }
+}

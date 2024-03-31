@@ -22,6 +22,12 @@ export const agreementState = atom<AgreementState>({
 
 export type GenderType = 'MALE' | 'FEMALE' | null;
 
+//이름 상태
+export const nameState = atom<string>({
+  key: 'nameState',
+  default: '',
+});
+
 // 성별 선택 상태
 export const genderState = atom<GenderType>({
   key: 'genderState',
