@@ -53,12 +53,6 @@
   }
 }
 
-.bottom {
-  display: flex;
-  justify-content: flex-end;
-  gap: 4px;
-}
-
 .caption {
   @include font-caption-regular;
   color: $--color-font-body;

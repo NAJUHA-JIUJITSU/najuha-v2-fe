@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import Post from '@/components/post';
+import Comment from '@/components/comment';
 import stlyes from './index.module.scss';
 
 interface PostInfo {
@@ -46,6 +47,7 @@ export default async function post(props: any) {
     <div className={stlyes.wrapper}>
       <Header leftIcon={<ButtonIconNavigateBefore />} title="글페이지" />
       <Post postInfo={data} />
+      <Comment commentInfo={data} />
     </div>
   );
 }
