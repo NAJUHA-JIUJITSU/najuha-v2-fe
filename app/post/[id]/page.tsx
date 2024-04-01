@@ -3,8 +3,9 @@ import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import Post from '@/components/post';
 import Comment from '@/components/comment';
-import stlyes from './index.module.scss';
+import styles from './index.module.scss';
 import { ThinDivider } from '@/components/divider';
+import { comment, replyComment } from '@/interfaces/comment';
 
 interface PostInfo {
   id: number;
@@ -18,21 +19,6 @@ interface PostInfo {
   content: string;
   hot: boolean;
   profile: string;
-}
-interface BaseComment {
-  id: number;
-  nickname: string;
-  date: Date;
-  likeCnt: number;
-  content: string;
-  profile: string;
-  changed: boolean;
-}
-
-interface CommentInfo extends BaseComment {
-  best: boolean;
-  commentCnt?: number; // Optional로 변경
-  extracomment?: BaseComment[];
 }
 
 async function getPost(id: number): Promise<PostInfo> {
@@ -57,7 +43,7 @@ async function getPost(id: number): Promise<PostInfo> {
   });
 }
 
-const commentInfo: CommentInfo[] = [
+const commentInfo: comment[] = [
   {
     id: 5,
     nickname: '오칸',
@@ -68,7 +54,7 @@ const commentInfo: CommentInfo[] = [
     best: true,
     profile: '/images/samplePoster1.png',
     changed: true,
-    extracomment: [
+    replyComment: [
       {
         id: 1,
         nickname: '이응',
@@ -100,25 +86,27 @@ const commentInfo: CommentInfo[] = [
     best: false,
     profile: '/images/samplePoster1.png',
     changed: false,
+    replyComment: [],
   },
 ];
 
 export default async function post(props: any) {
   const data = await getPost(props.params.id);
-  // i want show extra comment with each comment
-  function renderComment(comment: CommentInfo[]) {
+
+  // 댓글 렌더링 함수
+  function renderComment(comment: comment[]) {
     return comment.map((comment) => {
       const writer = comment.nickname === data.nickname;
       return (
         <>
-          <Comment key={comment.id} commentInfo={comment} type="normal" writer={writer} />
+          <Comment key={comment.id} commentInfo={comment} type="comment" writer={writer} />
           <ThinDivider />
           <>
-            {comment.extracomment?.map((extra: BaseComment) => {
-              const writer = extra.nickname === data.nickname;
+            {comment.replyComment?.map((reply: replyComment) => {
+              const writer = reply.nickname === data.nickname;
               return (
                 <>
-                  <Comment key={extra.id} commentInfo={extra} type="extra" writer={writer} />
+                  <Comment key={reply.id} commentInfo={reply} type="reply" writer={writer} />
                   <ThinDivider />
                 </>
               );
@@ -130,7 +118,7 @@ export default async function post(props: any) {
   }
 
   return (
-    <div className={stlyes.wrapper}>
+    <div className={styles.wrapper}>
       <Header leftIcon={<ButtonIconNavigateBefore />} title="글페이지" />
       <Post postInfo={data} />
       <ThinDivider />

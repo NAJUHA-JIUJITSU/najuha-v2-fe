@@ -3,39 +3,22 @@ import Reaction from '@/components/reaction';
 import IconMoreVert from '@/public/svgs/more_vert.svg';
 import IconReply from '@/public/svgs/reply.svg';
 import { getPastTime } from '@/util/dateCheck';
+import { comment, replyComment } from '@/interfaces/comment';
 
-interface BaseComment {
-  id: number;
-  nickname: string;
-  date: Date;
-  likeCnt: number;
-  content: string;
-  profile: string;
-  changed: boolean;
+function isCommentInfo(comment: comment | replyComment): comment is comment {
+  return (comment as comment).best !== undefined;
 }
 
-interface CommentInfo extends BaseComment {
-  best: boolean;
-  commentCnt?: number; // Optional로 변경
-  extracomment?: BaseComment[];
-}
-
-function isCommentInfo(comment: CommentInfo | BaseComment): comment is CommentInfo {
-  return (comment as CommentInfo).best !== undefined;
-}
-
-export default async function Comment({
-  commentInfo,
-  type,
-  writer = false,
-}: {
-  commentInfo: CommentInfo | BaseComment;
-  type: 'normal' | 'extra';
+interface CommentProps {
+  commentInfo: comment | replyComment;
+  type: 'comment' | 'reply';
   writer?: boolean;
-}) {
+}
+
+export default function Comment({ commentInfo, type, writer = false }: CommentProps) {
   return (
     <div className={styles.wrapper}>
-      {type === 'extra' && (
+      {type === 'reply' && (
         <div className={styles.extraIcon}>
           <IconReply />
         </div>
