@@ -47,7 +47,21 @@ const selectOptions = [
 // content: string;
 // hot: boolean;
 // image?: string;
-const postList = [
+
+interface PostInfo {
+  id: number;
+  title: string;
+  type: 'seminar' | 'competition' | 'free';
+  date: Date;
+  likeCnt: number;
+  viewCnt: number;
+  commentCnt: number;
+  content: string;
+  hot: boolean;
+  image?: string;
+}
+
+const postList: PostInfo[] = [
   {
     id: 1,
     title: '제목2',
