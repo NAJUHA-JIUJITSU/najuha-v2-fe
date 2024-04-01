@@ -2,25 +2,42 @@ import styles from './index.module.scss';
 import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
-import CompetitionDetail from './client/index';
+import CompetitionIdContent from './client/index';
 
+// 대회 더미 데이터
 const competition = {
+  earlybirdDiscountSnapshots: [
+    {
+      id: 1,
+      createdAt: '2024-03-01',
+      earlybirdStartDate: '2024-03-10',
+      earlybirdEndDate: '2024-03-20',
+      discountAmount: 0,
+      competitionId: 0,
+    },
+  ],
   id: 1,
-  title: '제 1회 대한민국 코딩대회',
-  address: '서울특별시 강남구',
-  date: new Date('2024-04-01'),
-  registrationStartDate: new Date('2024-03-10'),
-  registrationEndDate: new Date('2024-03-21'),
-  refundDeadlineDate: new Date('2024-03-21'),
-  soloRegistrationAdjustmentStartDate: new Date('2024-03-21'),
-  soloRegistrationAdjustmentEndDate: new Date('2024-03-24'),
-  price: 10000,
-  viewCnt: 123,
-  posterImg: '/images/samplePoster1.png',
-  easyPayAvailable: true,
+  status: 'ACTIVE',
+  createdAt: '2024-03-01',
+  updatedAt: '2024-03-25',
+  title: '제 1회 대한민국 개발자 대회',
+  address: '서울특별시 강남구 테헤란로',
+  competitionDate: '2024-04-15',
+  registrationStartDate: '2024-03-10',
+  registrationEndDate: '2024-03-31',
+  refundDeadlineDate: '2024-04-01',
+  soloRegistrationAdjustmentStartDate: '2024-04-02',
+  soloRegistrationAdjustmentEndDate: '2024-04-05',
+  registrationListOpenDate: '2024-04-01',
+  bracketOpenDate: '2024-04-08',
+  description:
+    '대한민국 개발자들을 위한 대회로, 다양한 분야에서 실력을 겨루는 이벤트입니다. 참가자들은 최신 기술 트렌드와 혁신적인 아이디어를 공유할 수 있는 기회를 가집니다.',
+  isPartnership: true,
+  viewCount: 1234,
+  posterImgUrlKey: '/images/samplePoster1.png',
 };
 
-export default function CompetitionInfo() {
+export default function CompetitionId() {
   return (
     <div className={styles.wrapper}>
       <Header
@@ -29,7 +46,7 @@ export default function CompetitionInfo() {
         rightIcon1={<IconLinkAlarm />}
         rightIcon2={<IconLinkSearch />}
       />
-      <CompetitionDetail competition={competition}></CompetitionDetail>
+      <CompetitionIdContent competition={competition}></CompetitionIdContent>
     </div>
   );
 }

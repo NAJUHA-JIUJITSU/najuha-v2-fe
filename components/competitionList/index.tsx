@@ -6,34 +6,66 @@ import { useGetCompetitions, useGetFilteredCompetitions } from '@/hooks/competit
 
 const competitionList = [
   {
+    earlybirdDiscountSnapshots: [
+      {
+        id: 1,
+        createdAt: '2024-03-01',
+        earlybirdStartDate: '2024-03-10',
+        earlybirdEndDate: '2024-03-20',
+        discountAmount: 0,
+        competitionId: 0,
+      },
+    ],
     id: 1,
-    title: '제 1회 대한민국 코딩대회',
-    address: '서울특별시 강남구',
-    date: new Date('2024-04-01'),
-    registrationStartDate: new Date('2024-03-10'),
-    registrationEndDate: new Date('2024-03-21'),
-    refundDeadlineDate: new Date('2024-03-21'),
-    soloRegistrationAdjustmentStartDate: new Date('2024-03-21'),
-    soloRegistrationAdjustmentEndDate: new Date('2024-03-24'),
-    price: 10000,
-    viewCnt: 123,
-    posterImg: '/images/samplePoster1.png',
-    easyPayAvailable: true,
+    status: 'ACTIVE',
+    createdAt: '2024-03-01',
+    updatedAt: '2024-03-25',
+    title: '제 1회 대한민국 개발자 대회',
+    address: '서울특별시 강남구 테헤란로',
+    competitionDate: '2024-04-15',
+    registrationStartDate: '2024-03-10',
+    registrationEndDate: '2024-03-31',
+    refundDeadlineDate: '2024-04-01',
+    soloRegistrationAdjustmentStartDate: '2024-04-02',
+    soloRegistrationAdjustmentEndDate: '2024-04-05',
+    registrationListOpenDate: '2024-04-06',
+    bracketOpenDate: '2024-04-08',
+    description:
+      '대한민국 개발자들을 위한 대회로, 다양한 분야에서 실력을 겨루는 이벤트입니다. 참가자들은 최신 기술 트렌드와 혁신적인 아이디어를 공유할 수 있는 기회를 가집니다.',
+    isPartnership: true,
+    viewCount: 1234,
+    posterImgUrlKey: '/images/samplePoster1.png',
   },
   {
+    earlybirdDiscountSnapshots: [
+      {
+        id: 2,
+        createdAt: '2024-03-01',
+        earlybirdStartDate: '2024-03-10',
+        earlybirdEndDate: '2024-03-20',
+        discountAmount: 0,
+        competitionId: 0,
+      },
+    ],
     id: 2,
-    title: '제 2회 대한민국 코딩대회',
-    address: '서울특별시 강남구',
-    date: new Date('2024-09-01'),
-    registrationStartDate: new Date('2024-08-01'),
-    registrationEndDate: new Date('2024-08-31'),
-    refundDeadlineDate: new Date('2024-08-31'),
-    soloRegistrationAdjustmentStartDate: new Date('2024-08-31'),
-    soloRegistrationAdjustmentEndDate: new Date('2024-08-31'),
-    price: 10000,
-    viewCnt: 123,
-    posterImg: '/images/samplePoster1.png',
-    easyPayAvailable: true,
+    status: 'ACTIVE',
+    createdAt: '2024-03-01',
+    updatedAt: '2024-03-25',
+    title: '제 1회 대한민국 개발자 대회',
+    address: '서울특별시 강남구 테헤란로',
+    competitionDate: '2024-04-15',
+    registrationStartDate: '2024-03-10',
+    registrationEndDate: '2024-03-31',
+    refundDeadlineDate: '2024-04-01',
+    soloRegistrationAdjustmentStartDate: '2024-04-02',
+    soloRegistrationAdjustmentEndDate: '2024-04-05',
+    registrationListOpenDate: '2024-04-06',
+    bracketOpenDate: '2024-04-08',
+    description:
+      '대한민국 개발자들을 위한 대회로, 다양한 분야에서 실력을 겨루는 이벤트입니다. 참가자들은 최신 기술 트렌드와 혁신적인 아이디어를 공유할 수 있는 기회를 가집니다.',
+    isPartnership: true,
+    viewCount: 1234,
+    posterImgUrlKey: '/images/samplePoster1.png',
   },
 ];
 
@@ -50,12 +82,14 @@ export default function CompetitionList({
   selectOption,
   sortOption,
 }: CompetitionListProps) {
-  // const { data: competitionListHook } = useGetFilteredCompetitions(
-  //   dateFilter,
-  //   locationFilter,
-  //   selectOption,
-  //   sortOption,
-  // ); //todo: 초기값 설정 필요
+  const { data: competitionListHook } = useGetFilteredCompetitions(
+    dateFilter,
+    locationFilter,
+    selectOption,
+    sortOption,
+  ); //todo: 초기값 설정 필요
+
+  console.log('대회 리스트: ', competitionListHook);
 
   return (
     <div className={styles.wrapper}>
@@ -64,7 +98,7 @@ export default function CompetitionList({
       <h1>{selectOption}</h1>
       <h1>{sortOption}</h1>
       {competitionList.map((competition) => (
-        <Card key={competition.id} type="normal" info={competition} />
+        <Card key={competition.id} type="normal" competition={competition} />
       ))}
     </div>
   );
