@@ -29,6 +29,9 @@ export default function ButtonOnClick({
   width = 'normal',
   disabled = false,
 }: BaseButtonProps) {
+  if (disabled) {
+    color = 'disabled';
+  }
   const typeColor = `${type}-${color}`;
   return (
     <button
