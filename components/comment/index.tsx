@@ -1,8 +1,8 @@
 import styles from './index.module.scss';
 import Reaction from '@/components/reaction';
 import IconMoreVert from '@/public/svgs/more_vert.svg';
-import clsx from 'clsx';
 import IconReply from '@/public/svgs/reply.svg';
+import { getPastTime } from '@/util/dateCheck';
 
 interface BaseComment {
   id: number;
@@ -11,11 +11,13 @@ interface BaseComment {
   likeCnt: number;
   content: string;
   profile: string;
+  changed: boolean;
 }
 
 interface CommentInfo extends BaseComment {
   best: boolean;
   commentCnt?: number; // Optional로 변경
+  extracomment?: BaseComment[];
 }
 
 function isCommentInfo(comment: CommentInfo | BaseComment): comment is CommentInfo {
@@ -25,9 +27,11 @@ function isCommentInfo(comment: CommentInfo | BaseComment): comment is CommentIn
 export default async function Comment({
   commentInfo,
   type,
+  writer = false,
 }: {
   commentInfo: CommentInfo | BaseComment;
   type: 'normal' | 'extra';
+  writer?: boolean;
 }) {
   return (
     <div className={styles.wrapper}>
@@ -40,8 +44,17 @@ export default async function Comment({
         <div className={styles.top}>
           <div className={styles.left}>
             <img className={styles.profile} src={commentInfo.profile} alt="profile" />
-            <div className={styles.name}>{commentInfo.nickname}</div>
-            <div className={styles.date}>1년 전(수정됨)</div>
+            <div className={styles.name}>
+              {writer ? (
+                <div className={styles.writer}>{commentInfo.nickname}(글쓴이)</div>
+              ) : (
+                commentInfo.nickname
+              )}
+            </div>
+            <div className={styles.date}>
+              {getPastTime(commentInfo.date)}
+              {commentInfo.changed ? '(수정됨)' : ''}
+            </div>
           </div>
           <div className={styles.right}>
             <IconMoreVert />

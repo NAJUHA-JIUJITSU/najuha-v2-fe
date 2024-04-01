@@ -26,17 +26,12 @@ interface BaseComment {
   likeCnt: number;
   content: string;
   profile: string;
+  changed: boolean;
 }
 
-interface CommentInfo {
-  id: number;
-  nickname: string;
-  date: Date;
-  likeCnt: number;
-  commentCnt: number;
-  content: string;
+interface CommentInfo extends BaseComment {
   best: boolean;
-  profile: string;
+  commentCnt?: number; // Optional로 변경
   extracomment?: BaseComment[];
 }
 
@@ -45,11 +40,11 @@ async function getPost(id: number): Promise<PostInfo> {
     setTimeout(() => {
       resolve({
         id,
-        nickname: '닉네임이다 이짜식아',
+        nickname: '바보',
         title:
           '제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데 ', // 따로 글자제한이 필요해보임
         type: 'free',
-        date: new Date(),
+        date: new Date(2024, 2, 26, 12, 30, 0),
         likeCnt: 1234,
         viewCnt: 4558,
         commentCnt: 27,
@@ -66,41 +61,45 @@ const commentInfo: CommentInfo[] = [
   {
     id: 5,
     nickname: '오칸',
-    date: new Date(),
+    date: new Date(2024, 2, 27, 12, 30, 0),
     likeCnt: 13,
     commentCnt: 27,
     content: '게시물 내용은 여기에 한 줄 미리보기로 표시할건데 여기선 전문을 다보여줍니다ㅋㅋㅋㅋ',
     best: true,
     profile: '/images/samplePoster1.png',
+    changed: true,
     extracomment: [
       {
         id: 1,
         nickname: '이응',
-        date: new Date(),
+        date: new Date(2024, 2, 28, 12, 30, 0),
         likeCnt: 6,
         content: '대댓글인데 어쫄어쫄',
         profile: '/images/samplePoster1.png',
+        changed: true,
       },
       {
         id: 2,
-        nickname: '이응',
-        date: new Date(),
+        nickname: '바보',
+        date: new Date(2024, 3, 1, 12, 30, 0),
         likeCnt: 0,
         content: '대댓글인데 이런거 처음보냐?',
         profile: '/images/samplePoster1.png',
+        changed: false,
       },
     ],
   },
   {
     id: 6,
     nickname: '이응',
-    date: new Date(),
+    date: new Date(2024, 3, 1, 16, 0, 0),
     likeCnt: 1234,
     commentCnt: 27,
     content:
       '게시물 내용은 여기에 한 줄 미리보기로 표시할건데 여기선 전문을 다보여줍니다ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ게시물 내용은 여기에 한 줄 미리보기로 표시할건데 여기선 전문을 다보여줍니다ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ게시물 내용은 여기에 한 줄 미리보기로 표시할건데 여기선 전문을 다보여줍니다ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ',
-    best: true,
+    best: false,
     profile: '/images/samplePoster1.png',
+    changed: false,
   },
 ];
 
@@ -108,22 +107,26 @@ export default async function post(props: any) {
   const data = await getPost(props.params.id);
   // i want show extra comment with each comment
   function renderComment(comment: CommentInfo[]) {
-    return comment.map((comment) => (
-      <>
-        <Comment key={comment.id} commentInfo={comment} type="normal" />
-        <ThinDivider />
+    return comment.map((comment) => {
+      const writer = comment.nickname === data.nickname;
+      return (
         <>
-          {comment.extracomment?.map((extra: BaseComment) => {
-            return (
-              <>
-                <Comment key={extra.id} commentInfo={extra} type="extra" />
-                <ThinDivider />
-              </>
-            );
-          })}
+          <Comment key={comment.id} commentInfo={comment} type="normal" writer={writer} />
+          <ThinDivider />
+          <>
+            {comment.extracomment?.map((extra: BaseComment) => {
+              const writer = extra.nickname === data.nickname;
+              return (
+                <>
+                  <Comment key={extra.id} commentInfo={extra} type="extra" writer={writer} />
+                  <ThinDivider />
+                </>
+              );
+            })}
+          </>
         </>
-      </>
-    ));
+      );
+    });
   }
 
   return (
