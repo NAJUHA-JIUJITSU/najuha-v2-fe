@@ -1,0 +1,9 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.copy {
+  @include font-body1-regular;
+  color: $--color-state-info;
+  cursor: pointer;
+}
