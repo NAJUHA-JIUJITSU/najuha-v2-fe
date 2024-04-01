@@ -5,6 +5,7 @@ import clsx from 'clsx';
 // 기본 버튼 타입 정의
 interface BaseButtonProps {
   iconLeft?: React.ReactNode;
+  width?: 'full' | 'normal';
   text: string;
   isToggled?: boolean;
   onToggle: () => void;
@@ -30,10 +31,10 @@ interface ReactionButtonProps extends BaseButtonProps {
 type ButtonProps = TagButtonProps | TapButtonProps | ReactionButtonProps;
 
 export default function ButtonOnToggle(props: ButtonProps) {
-  const { type, color = 'black', iconLeft, text, isToggled, onToggle } = props;
+  const { type, width = 'normal', color = 'black', iconLeft, text, isToggled, onToggle } = props;
   return (
     <button
-      className={clsx(styles.wrapper, styles[type], styles[color], {
+      className={clsx(styles.wrapper, styles[type], styles[color], styles[width], {
         [styles.isNotToggled]: !isToggled,
       })}
       onClick={onToggle}
