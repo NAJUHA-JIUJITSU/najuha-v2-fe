@@ -6,22 +6,9 @@ import Comment from '@/components/comment';
 import styles from './index.module.scss';
 import { ThinDivider } from '@/components/divider';
 import { comment, replyComment } from '@/interfaces/comment';
+import { post } from '@/interfaces/post';
 
-interface PostInfo {
-  id: number;
-  nickname: string;
-  title: string;
-  type: 'free' | 'seminar' | 'competition';
-  date: Date;
-  likeCnt: number;
-  viewCnt: number;
-  commentCnt: number;
-  content: string;
-  hot: boolean;
-  profile: string;
-}
-
-async function getPost(id: number): Promise<PostInfo> {
+async function getPost(id: number): Promise<post> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({

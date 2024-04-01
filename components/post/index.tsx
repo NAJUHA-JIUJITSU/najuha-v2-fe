@@ -1,24 +1,13 @@
 import styles from './index.module.scss';
 import Reaction from '@/components/reaction';
+import { post } from '@/interfaces/post';
 
 // we get postinfo from parent component as props
 // we don't need to fetch postinfo from server
 // we can use postInfo directly
 // set postInfo type
-interface PostInfo {
-  id: number;
-  nickname: string;
-  title: string;
-  type: 'free' | 'seminar' | 'competition';
-  date: Date;
-  likeCnt: number;
-  viewCnt: number;
-  commentCnt: number;
-  content: string;
-  hot: boolean;
-  profile: string;
-}
-export default async function Post({ postInfo }: { postInfo: PostInfo }) {
+
+export default async function Post({ postInfo }: { postInfo: post }) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.top}>
