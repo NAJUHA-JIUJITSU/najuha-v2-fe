@@ -87,15 +87,18 @@ export default async function post(props: any) {
       return (
         <>
           <Comment key={comment.id} commentInfo={comment} type="comment" writer={writer} />
-          <ThinDivider />
+          <ThinDivider key={`divider-${comment.id}`} />
+
           <>
             {comment.replyComment?.map((reply: replyComment) => {
-              const writer = reply.nickname === data.nickname;
+              const replyWriter = reply.nickname === data.nickname;
+              // 대댓글에 대한 고유 key 값으로 reply.id를 사용
+              // 또한, 각 ThinDivider에도 고유한 key를 제공하기 위해 댓글 ID와 대댓글 ID를 조합하여 key를 생성
               return (
-                <>
-                  <Comment key={reply.id} commentInfo={reply} type="reply" writer={writer} />
-                  <ThinDivider />
-                </>
+                <React.Fragment key={reply.id}>
+                  <Comment commentInfo={reply} type="reply" writer={replyWriter} />
+                  <ThinDivider key={`divider-reply-${comment.id}-${reply.id}`} />
+                </React.Fragment>
               );
             })}
           </>
