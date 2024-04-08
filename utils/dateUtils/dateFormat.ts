@@ -27,6 +27,7 @@ export const formatDateMDWeekday = (date: string) => {
 
 // 년도.월.일(요일) 포맷
 export const formatDateYMDWeekday = (date: string) => {
+  if (!date) return '해당없음';
   const dateObj = new Date(date);
   const year = dateObj.getFullYear().toString().slice(-2);
   const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
