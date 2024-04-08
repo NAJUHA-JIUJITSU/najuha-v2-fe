@@ -1,19 +1,23 @@
+'use client';
 import styles from './index.module.scss';
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
 import TagList from '@/components/tagList';
 import { formatDateYMD, formatDateMDWeekday } from '@/utils/dateUtils/dateFormat';
 import { areBothDatesPassed } from '@/utils/dateUtils/dateCheck';
-import { CompetitionInfo } from '@/interfaces/CompetitionInfo';
+import { Competition } from '@/interfaces/CompetitionInfo';
 
 type CardType = 'normal' | 'vertical';
 
 interface CardProps {
   type: CardType;
-  competition: CompetitionInfo;
+  competition: Competition;
 }
 
 //todo: image 최적화
 export default function Card({ type = 'normal', competition }: CardProps) {
+  const router = useRouter();
+
   //타입이 normal이거나 가격이 없으면 가격 표시 안함
   let isPrice = false;
   // if (type === 'normal' || !info.price) {
@@ -26,6 +30,11 @@ export default function Card({ type = 'normal', competition }: CardProps) {
     competition.soloRegistrationAdjustmentEndDate,
   );
 
+  // 클릭 시 대회 상세페이지로 이동
+  const handleClick = () => {
+    router.push(`/competition/${competition.id}`);
+  };
+
   return (
     <div
       className={clsx(
@@ -33,6 +42,7 @@ export default function Card({ type = 'normal', competition }: CardProps) {
         { [styles.vertical]: type === 'vertical' },
         { [styles.disabled]: disabled },
       )}
+      onClick={handleClick}
     >
       <div className={styles.posterSection}>
         {/* 포스터 이미지 및 기타 정보 표시 */}
