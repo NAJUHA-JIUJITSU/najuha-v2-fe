@@ -2,7 +2,7 @@ import { createQueryKeys } from '@lukemorales/query-key-factory';
 
 export const competition = createQueryKeys('competition', {
   all: () => ({
-    queryKey: ['competition', 'all'],
+    queryKey: ['all'],
   }),
   filtered: (
     dateFilter: string,
@@ -10,6 +10,9 @@ export const competition = createQueryKeys('competition', {
     selectOption: string[],
     sortOption: string,
   ) => ({
-    queryKey: ['competition', 'filtered', dateFilter, locationFilter, selectOption, sortOption],
+    queryKey: [dateFilter, locationFilter, selectOption.join(','), sortOption],
+  }),
+  id: (competitionId: number) => ({
+    queryKey: [competitionId],
   }),
 });
