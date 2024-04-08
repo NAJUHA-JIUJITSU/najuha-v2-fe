@@ -1,7 +1,6 @@
 'use client';
 import styles from './index.module.scss';
 import { useState } from 'react';
-
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import ButtonOnToggle from '@/components/common/button/buttonOnToggle';
 import IconSort from '@/public/svgs/sort.svg';
@@ -40,24 +39,7 @@ const dateOptions = [
   '2024-11',
   '2024-12',
 ];
-const selectOptions = [
-  {
-    id: 'easyPayAvailable',
-    msg: '간편결제',
-  },
-  {
-    id: 'earlyBird',
-    msg: '얼리버드',
-  },
-  {
-    id: 'registrationAvailable',
-    msg: '신청가능',
-  },
-  {
-    id: 'soloRegistrationAdjustment',
-    msg: '단독출전조정',
-  },
-];
+const selectOptions = ['간편결제', '얼리버드', '신청가능', '단독출전조정'];
 const sortOptions = ['일자순', '조회순', '마감임박순'];
 
 export default function CompetitionPage() {
@@ -124,11 +106,11 @@ export default function CompetitionPage() {
       <div className={styles.selectWrapper}>
         {selectOptions.map((option) => (
           <ButtonOnToggle
-            key={option.id}
+            key={option}
             type="tag"
-            text={option.msg}
-            isToggled={selectOptionsState.includes(option.id)}
-            onToggle={() => handleSelectOptionChange(option.id)}
+            text={option}
+            isToggled={selectOptionsState.includes(option)}
+            onToggle={() => handleSelectOptionChange(option)}
           />
         ))}
       </div>
