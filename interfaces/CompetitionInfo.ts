@@ -1,4 +1,4 @@
-export interface CompetitionInfo {
+export interface Competition {
   earlybirdDiscountSnapshots: {
     id: number;
     createdAt: string;
@@ -25,4 +25,24 @@ export interface CompetitionInfo {
   isPartnership: boolean;
   viewCount: number;
   posterImgUrlKey: string;
+}
+
+export interface ApiCompetitionsResponse {
+  data: {
+    code: number;
+    isSuccess: boolean;
+    result: {
+      competitions: Competition[];
+    };
+  };
+}
+
+export interface ApiCompetitionIdResponse {
+  data: {
+    code: number;
+    isSuccess: boolean;
+    result: {
+      competition: Competition;
+    };
+  };
 }
