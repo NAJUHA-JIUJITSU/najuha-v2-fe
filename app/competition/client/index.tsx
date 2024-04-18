@@ -7,7 +7,7 @@ import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import ButtonOnToggle from '@/components/common/button/buttonOnToggle';
 import IconSort from '@/public/svgs/sort.svg';
-import Divider from '@/components/divider';
+import { Divider } from '@/components/divider';
 import { useSortOption } from '@/hook/useSortOption';
 import Select from '@/components/common/select';
 import { useRouter } from 'next/navigation';

@@ -111,3 +111,18 @@ export const validateVerificationNumber: ValidateFunction = (
   setErrMsg('');
   return true;
 };
+
+// make validategeder function
+// only allow '남성' or '여성'
+export const validateGender: ValidateFunction = (gender, setErrMsg, setValue) => {
+  if (gender === '남성' || gender === '여성') {
+    setErrMsg('');
+    return true;
+  }
+  setErrMsg('남성 혹은 여성을 입력해주세요.');
+  return false;
+};
+
+export const validateTrue: ValidateFunction = (email, setErrMsg, setValue) => {
+  return true;
+};
