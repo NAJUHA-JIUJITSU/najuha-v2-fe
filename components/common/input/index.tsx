@@ -11,6 +11,8 @@ interface Props {
   successMsg?: string | null;
   disabled?: boolean;
   autoFocus?: boolean;
+  width?: 'full' | null;
+  type?: 'text' | 'password';
 }
 
 const Input: React.FC<Props> = ({
@@ -22,18 +24,22 @@ const Input: React.FC<Props> = ({
   successMsg = '',
   disabled = false,
   autoFocus = false,
+  width = null,
+  type = 'text',
 }) => {
   const inputClassName = clsx(styles.input, {
     [styles.error]: !!errMsg && successMsg === '',
     [styles.success]: successMsg !== '',
   });
 
+  const fullWidthClassName = width === 'full' ? styles.fullWidth : '';
+
   return (
-    <div className={styles.wrapper}>
+    <div className={clsx(styles.wrapper, fullWidthClassName)}>
       <label className={styles.label}>{label}</label>
       <input
         className={inputClassName}
-        type="text"
+        type={type}
         placeholder={placeholder}
         value={value}
         onChange={onChange}

@@ -13,6 +13,7 @@ import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import { useFunnel } from '@/hook/useFunnel';
 import PlayerInfoPage from '@/components/competitionApply/applyFunnel/playerInfoPage';
 import { useState } from 'react';
+import ExtraInfoPage from '@/components/competitionApply/applyFunnel/extraInfoPage';
 
 const steps = [
   '선수정보 확인',
@@ -40,7 +41,12 @@ export default function CompetitionApply() {
       phoneNumber: '',
       belt: '',
     },
+    extraInfo: {
+      ssn: '',
+      address: '',
+    },
   });
+
   return (
     <div className={styles.wrapper}>
       <Header
@@ -52,7 +58,7 @@ export default function CompetitionApply() {
           <PlayerInfoPage playerInfo={applyInfo.playerInfo} onNext={gotoNextStep} />
         </Step>
         <Step name="추가정보 입력">
-          <GenderPage onNext={gotoNextStep} />
+          <ExtraInfoPage extraInfo={applyInfo.extraInfo} onNext={gotoNextStep} />
         </Step>
         <Step name="부문선택">
           <BirthPage onNext={gotoNextStep} />

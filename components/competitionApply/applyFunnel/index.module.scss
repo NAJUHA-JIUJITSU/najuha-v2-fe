@@ -1,3 +1,5 @@
+@import '@/styles/_variable.scss';
+
 .wrapper {
   margin-top: 16px;
   flex: 1;
@@ -6,4 +8,16 @@
 .submit {
   display: flex;
   padding: 12px 0px;
+}
+
+.ssnWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.hyphen {
+  width: 12px;
+  height: 2px;
+  margin: 11px 6px;
+  background-color: $--color-gray-3;
 }
