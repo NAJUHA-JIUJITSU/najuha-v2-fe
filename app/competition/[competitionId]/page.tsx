@@ -6,6 +6,7 @@ import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
 import CompetitionIdContent from './client/index';
 import { useGetCompetitionId } from '@/hooks/competition';
+import { Competition, ApiCompetitionIdResponse } from '@/interfaces/CompetitionInfo';
 
 export default function CompetitionId({ params }: { params: { competitionId: number } }) {
   // 대회 조회
@@ -20,9 +21,9 @@ export default function CompetitionId({ params }: { params: { competitionId: num
         rightIcon2={<IconLinkSearch />}
       />
       {isLoading ? (
-        <div>Loading...</div>
+        <span>Loading...</span>
       ) : isError || !competition ? (
-        <div>대회정보가 없습니다.</div>
+        <span>대회정보가 없습니다.</span>
       ) : (
         <CompetitionIdContent competition={competition}></CompetitionIdContent>
       )}

@@ -3,8 +3,13 @@
 @import '@/styles/_zindex.scss';
 
 .wrapper {
-  padding: 0 16px;
+  padding: 0 16px 72px 16px;
   display: flex;
   flex-direction: column;
   background-color: $--color-basic-white;
+
+  span {
+    @include font-body1-regular;
+    color: $--color-font-body;
+  }
 }
