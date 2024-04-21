@@ -4,6 +4,7 @@ import CompetitionBanner from '@/components/competitionId/CompetitionBanner';
 import CompetitionInfos from '@/components/competitionId/CompetitionInfos';
 import CompetitionInfoButtonList from '@/components/competitionId/CompetitionInfoButtonList';
 import CompetitionDetails from '@/components/competitionId/CompetitionDetails';
+import ButtonLink from '@/components/common/button/buttonLink';
 
 interface CompetitionIdContentProps {
   competition: Competition;
@@ -47,11 +48,45 @@ export default function CompetitionIdContent({ competition }: CompetitionIdConte
       {/* 대회 상세 정보 */}
       <CompetitionDetails
         description={{
-          DetailedInfo: competition.description,
-          PrizeInfo: '부문/상금표',
-          Timetable: '타임 테이블',
+          DetailedInfo: [
+            {
+              title: '시합접수',
+              content: '- 시합 접수내용\n - 시합 접수내용',
+            },
+            {
+              title: '대회규정',
+              content: '대회 규정내용',
+            },
+          ],
+          DivisionTable: [
+            {
+              title: '부문표',
+              content: '부문표 내용',
+            },
+            {
+              title: '상금표',
+              content: '상금표 내용',
+            },
+          ],
+          Timetable: [
+            {
+              title: '타임테이블',
+              content: '타임테이블 내용',
+            },
+          ],
         }}
       ></CompetitionDetails>
+
+      {/* 참가하기 버튼 */}
+      <ButtonLink
+        type="filled"
+        size="large"
+        color="blue"
+        width="full"
+        text="참가하기"
+        position="fixed"
+        href="/login"
+      />
     </div>
   );
 }

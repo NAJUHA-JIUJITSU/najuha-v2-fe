@@ -2,27 +2,33 @@
 import styles from './index.module.scss';
 import { useState } from 'react';
 import ButtonOnToggle from '@/components/common/button/buttonOnToggle';
-import CompetitionMarkdown from '../CompetitionMarkdown';
+import CompetitionDescriptionContent from '../CompetitionDescriptionContent';
 
-type TabKey = 'DetailedInfo' | 'PrizeInfo' | 'Timetable';
+type TabKey = 'DetailedInfo' | 'DivisionTable' | 'Timetable';
+
+const TabLabel = {
+  DetailedInfo: '상세정보',
+  DivisionTable: '부문/상금표',
+  Timetable: '타임 테이블',
+};
+
+interface Description {
+  title: string;
+  img?: string;
+  content: string;
+}
 
 interface CompetitionDetailsProps {
   description: {
-    DetailedInfo: string;
-    PrizeInfo: string;
-    Timetable: string;
+    DetailedInfo: Description[];
+    DivisionTable?: Description[];
+    Timetable?: Description[];
   };
 }
 
 export default function CompetitionDetails(props: CompetitionDetailsProps) {
-  const tabs: TabKey[] = ['DetailedInfo', 'PrizeInfo', 'Timetable'];
+  const tabs: TabKey[] = ['DetailedInfo', 'DivisionTable', 'Timetable'];
   const [selectedTab, setSelectedTab] = useState<TabKey>('DetailedInfo');
-
-  const tabLabel = {
-    DetailedInfo: '상세정보',
-    PrizeInfo: '부문/상금표',
-    Timetable: '타임 테이블',
-  };
 
   return (
     <div className={styles.wrapper}>
@@ -32,13 +38,13 @@ export default function CompetitionDetails(props: CompetitionDetailsProps) {
             key={index}
             type="tap"
             width="full"
-            text={tabLabel[tab]}
+            text={TabLabel[tab]}
             isToggled={selectedTab === tab}
             onToggle={() => setSelectedTab(tab)}
           />
         ))}
       </div>
-      <CompetitionMarkdown description={props.description[selectedTab]} />
+      <CompetitionDescriptionContent description={props.description[selectedTab]} />
     </div>
   );
 }
