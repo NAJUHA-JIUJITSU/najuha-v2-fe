@@ -1,14 +1,18 @@
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import { queries } from '@/queries/index';
 import { competitionApi } from '@/api/competitionApi';
-import { ApiCompetitionsResponse, ApiCompetitionIdResponse } from '@/interfaces/CompetitionInfo';
+import {
+  ApiCompetitionsResponse,
+  ApiCompetitionIdResponse,
+  ApiInfiniteCompetitionsResponse,
+} from '@/interfaces/CompetitionInfo';
 
-// competitions(전체대회목록) select 함수 정의
+// competitions select 함수 정의
 const competitionsSelectFn = (response: ApiCompetitionsResponse) => {
   return response.data.result.competitions;
 };
 
-// competition(특정대회) select 함수 정의
+// competition select 함수 정의
 const competitionIdSelectFn = (response: ApiCompetitionIdResponse) => {
   return response.data.result.competition;
 };
@@ -27,15 +31,28 @@ export const useGetCompetitions = () => {
 export const useGetFilteredCompetitions = (
   dateFilter: string,
   locationFilter: string,
-  selectOption: string[],
+  selectFilter: string[],
   sortOption: string,
+  limit: number = 10,
 ) => {
-  return useQuery({
-    queryKey: queries.competition.filtered(dateFilter, locationFilter, selectOption, sortOption)
+  const fetchCompetitions = async ({ pageParam }: { pageParam: number }) => {
+    const response: ApiInfiniteCompetitionsResponse = await competitionApi.getFilteredCompetitions(
+      pageParam,
+      limit,
+      dateFilter,
+      locationFilter,
+      selectFilter,
+      sortOption,
+    );
+    return response.data.result;
+  };
+
+  return useInfiniteQuery({
+    queryKey: queries.competition.filtered(dateFilter, locationFilter, selectFilter, sortOption)
       .queryKey,
-    queryFn: () =>
-      competitionApi.getFilteredCompetitions(dateFilter, locationFilter, selectOption, sortOption),
-    select: competitionsSelectFn,
+    queryFn: fetchCompetitions,
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => lastPage.nextPage,
   });
 };
 

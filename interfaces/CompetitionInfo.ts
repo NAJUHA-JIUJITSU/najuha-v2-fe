@@ -37,6 +37,17 @@ export interface ApiCompetitionsResponse {
   };
 }
 
+export interface ApiInfiniteCompetitionsResponse {
+  data: {
+    code: number;
+    isSuccess: boolean;
+    result: {
+      competitions: Competition[];
+      nextPage: number | null;
+    };
+  };
+}
+
 export interface ApiCompetitionIdResponse {
   data: {
     code: number;

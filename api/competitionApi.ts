@@ -8,24 +8,22 @@ export const getCompetitions = async () => {
 
 // 대회 목록 조회 - 필터링
 export const getFilteredCompetitions = async (
+  page: number,
+  limit: number,
   dateFilter: string,
   locationFilter: string,
-  selectOption: string[],
+  selectFilter: string[],
   sortOption: string,
 ) => {
   const response = await axiosPublic.get('user/competitions', {
     params: {
+      page: page,
+      limit: limit,
       dateFilter: dateFilter,
       locationFilter: locationFilter,
-      selectOption: selectOption,
+      selectFilter: selectFilter,
       sortOption: sortOption,
     },
-  });
-  console.log({
-    dateFilter: dateFilter,
-    locationFilter: locationFilter,
-    selectOption: selectOption,
-    sortOption: sortOption,
   });
   return response;
 };
