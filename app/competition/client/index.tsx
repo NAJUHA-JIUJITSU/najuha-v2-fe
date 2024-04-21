@@ -43,17 +43,16 @@ const selectOptions = ['간편결제', '얼리버드', '신청가능', '단독�
 const sortOptions = ['일자순', '조회순', '마감임박순'];
 
 export default function CompetitionPage() {
-  const { params, getParamValue, updateParams } = useURLParams();
+  const { params, updateParams } = useURLParams();
 
-  const [dateFilterState, setDateFilterState] = useState<string>(
-    getParamValue(params.date as string) || '',
-  );
+  const [dateFilterState, setDateFilterState] = useState<string>((params.date as string) || '');
   const [locationFilterState, setLocationFilterState] = useState<string>(
-    getParamValue(params.location as string) || '',
+    (params.location as string) || '',
   );
   const [sortOptionState, setSortOptionState] = useState<string>(
-    getParamValue(params.sort as string) || sortOptions[0],
+    (params.sort as string) || sortOptions[0],
   );
+
   // select 매개변수는 배열로 처리
   const [selectOptionsState, setSelectOptionsState] = useState<string[]>(
     params.select ? (Array.isArray(params.select) ? params.select : [params.select]) : [],
@@ -76,7 +75,7 @@ export default function CompetitionPage() {
     updateParams({ sort: newSortOption });
   };
 
-  const handleSelectOptionChange = (optionId: string) => {
+  const handleSelectnFilterChange = (optionId: string) => {
     const updatedSelectOptions = selectOptionsState.includes(optionId)
       ? selectOptionsState.filter((id) => id !== optionId)
       : [...selectOptionsState, optionId];
@@ -110,7 +109,7 @@ export default function CompetitionPage() {
             type="tag"
             text={option}
             isToggled={selectOptionsState.includes(option)}
-            onToggle={() => handleSelectOptionChange(option)}
+            onToggle={() => handleSelectnFilterChange(option)}
           />
         ))}
       </div>

@@ -1,13 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { useSearchParams, usePathname } from 'next/navigation';
 
 export function useURLParams() {
   const searchParams = useSearchParams();
-  const router = useRouter();
   const pathname = usePathname();
-
-  // URLSearchParams에서 모든 매개변수를 읽어와 상태로 관리하는 함수
-  const getParamValue = (value: string) => (Array.isArray(value) ? value[0] : value);
 
   // URLSearchParams에서 모든 매개변수를 읽어와 상태로 관리하는 함수
   const getAllParams = () => {
@@ -51,7 +47,7 @@ export function useURLParams() {
         }
       }
     }
-    // Next.js 라우터를 사용하여 URL 매개변수 업데이트
+    // Next.js 라우터를 사용하여 URL 매개변수 업데이트하면 새로고침 됨. 이를 방지하기 위해 pushState 사용
     window.history.pushState({}, '', `${pathname}?${updatedSearchParams.toString()}`);
   };
 
@@ -60,5 +56,5 @@ export function useURLParams() {
     setParams(getAllParams());
   }, [searchParams]);
 
-  return { params, getParamValue, updateParams };
+  return { params, updateParams };
 }
