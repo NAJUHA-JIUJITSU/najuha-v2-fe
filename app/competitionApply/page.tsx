@@ -2,18 +2,16 @@
 import styles from './index.module.scss';
 import Header from '@/components/common/header/Header';
 import { ButtonIcon } from '@/components/common/icon/iconOnClick';
-import AgreePage from '@/components/register/registerFunnel/agreePage';
-import GenderPage from '@/components/register/registerFunnel/genderPage';
-import PhoneNumberPage from '@/components/register/registerFunnel/phoneNumberPage';
 import PhoneNumberCheckPage from '@/components/register/registerFunnel/phoneNumberCheckPage';
 import BeltPage from '@/components/register/registerFunnel/beltPage';
-import BirthPage from '@/components/register/registerFunnel/birthPage';
 import NicknamePage from '@/components/register/registerFunnel/nicknamePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import { useFunnel } from '@/hook/useFunnel';
 import PlayerInfoPage from '@/components/competitionApply/applyFunnel/playerInfoPage';
 import { useState } from 'react';
 import ExtraInfoPage from '@/components/competitionApply/applyFunnel/extraInfoPage';
+import ChooseDivisionPage from '@/components/competitionApply/applyFunnel/chooseDivisionPage';
+import TeamInfoPage from '@/components/competitionApply/applyFunnel/teamInfoPage';
 
 const steps = [
   '선수정보 확인',
@@ -61,10 +59,10 @@ export default function CompetitionApply() {
           <ExtraInfoPage extraInfo={applyInfo.extraInfo} onNext={gotoNextStep} />
         </Step>
         <Step name="부문선택">
-          <BirthPage onNext={gotoNextStep} />
+          <ChooseDivisionPage onNext={gotoNextStep} />
         </Step>
         <Step name="소속 입력">
-          <PhoneNumberPage onNext={gotoNextStep} />
+          <TeamInfoPage onNext={gotoNextStep} />
         </Step>
         <Step name="전화번호인증">
           <PhoneNumberCheckPage onNext={gotoNextStep} />

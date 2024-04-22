@@ -1,4 +1,5 @@
 @import '@/styles/_variable.scss';
+@import '@/styles/_typography.scss';
 
 .wrapper {
   margin-top: 16px;
@@ -20,4 +21,96 @@
   height: 2px;
   margin: 11px 6px;
   background-color: $--color-gray-3;
+}
+
+.playerInfoList {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+  div {
+    @include font-subtitle1-bold;
+    color: $--color-font-headline;
+  }
+}
+
+.divisionColumn {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  div {
+    @include font-body2-medium;
+    color: $--color-font-body;
+    width: 25%;
+    text-align: center;
+  }
+}
+
+.divisionRow {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  div {
+    @include font-body2-medium;
+    color: $--color-font-headline;
+    width: 25%;
+    text-align: center;
+  }
+}
+
+.chooseDivisonBox {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: $--color-brand-blue-10;
+  box-sizing: border-box;
+  padding: 0px 16px;
+  padding-bottom: 32px;
+}
+
+.chooseDivisonBoxHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: $--color-brand-blue;
+}
+
+.iconComment {
+  @include font-caption-regular;
+  color: $--color-font-subheadline;
+}
+
+.divisionOptionCardList {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.divisionOptionCard {
+  border-radius: 6px;
+  width: calc(50% - 4px);
+  height: 67.5px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: $--color-gray-5;
+  color: $--color-basic-white;
+  @include font-subtitle3-bold;
 }
