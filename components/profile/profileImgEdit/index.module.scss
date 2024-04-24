@@ -1,0 +1,47 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $--color-basic-white;
+
+  .profile {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+
+    .profileImg {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+    }
+
+    .editButton {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 24px;
+      height: 24px;
+      background-color: $--color-gray-3;
+      border: 2px solid $--color-basic-white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        width: 18px;
+        height: 18px;
+        color: $--color-basic-white;
+      }
+    }
+  }
+
+  .imgUploadHidden {
+    display: none;
+  }
+}
