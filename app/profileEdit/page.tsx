@@ -1,5 +1,6 @@
 import styles from './index.module.scss';
 import Header from '@/components/common/header/Header';
+import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
 import ButtonLists from '@/components/common/buttonList/buttonLists';
 import ProfileImgEdit from '@/components/profile/profileImgEdit';
@@ -17,7 +18,12 @@ export default function profileEdit() {
 
   return (
     <div className={styles.wrapper}>
-      <Header title={'내 프로필'} rightIcon1={<IconLinkAlarm />} rightIcon2={<IconLinkSearch />} />
+      <Header
+        title={'프로필 수정'}
+        leftIcon={<ButtonIconNavigateBefore />}
+        rightIcon1={<IconLinkAlarm />}
+        rightIcon2={<IconLinkSearch />}
+      />
       <div className={styles.topSection}>
         <ProfileImgEdit />
       </div>
