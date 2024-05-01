@@ -31,10 +31,6 @@ export default function CompetitionList({
   const observerRef = useRef<IntersectionObserver | null>(null);
   const lastElementRef = useRef<HTMLDivElement | null>(null);
 
-  if (isLoading) return <div>Loading...</div>;
-
-  if (isError) return <div>대회정보가 없습니다.</div>;
-
   useEffect(() => {
     // 다음 페이지 요청 중이거나 다음 페이지가 없으면 return
     if (isFetchingNextPage || !hasNextPage) return;
@@ -59,12 +55,16 @@ export default function CompetitionList({
     return () => observerRef.current?.disconnect();
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
+  if (isLoading) return <div>Loading...</div>;
+
+  if (isError) return <div>대회정보가 없습니다.</div>;
+
   return (
     <div className={styles.wrapper}>
       <h1>{dateFilter}</h1>
       <h1>{locationFilter}</h1>
       <h1>{selectOption}</h1>
-      <h1 style={{ textAlign: 'center', padding: '900px' }}>{sortOption}</h1>
+      <h1>{sortOption}</h1>
 
       {/* 대회 리스트 */}
       {competitionList?.pages.map((group, i) => (
@@ -77,7 +77,7 @@ export default function CompetitionList({
       {/* 무한 스크롤 로딩 및 상태 메시지 */}
       <div
         ref={lastElementRef}
-        style={{ textAlign: 'center', padding: '200px', backgroundColor: 'red' }}
+        style={{ textAlign: 'center', padding: '100px', backgroundColor: 'red' }}
       >
         {isFetchingNextPage ? (
           <p>더 불러오는 중...</p>
