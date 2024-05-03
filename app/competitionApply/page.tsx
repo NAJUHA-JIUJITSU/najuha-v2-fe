@@ -4,7 +4,6 @@ import Header from '@/components/common/header/Header';
 import { ButtonIcon } from '@/components/common/icon/iconOnClick';
 import PhoneNumberCheckPage from '@/components/register/registerFunnel/phoneNumberCheckPage';
 import BeltPage from '@/components/register/registerFunnel/beltPage';
-import NicknamePage from '@/components/register/registerFunnel/nicknamePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import { useFunnel } from '@/hook/useFunnel';
 import PlayerInfoPage from '@/components/competitionApply/applyFunnel/playerInfoPage';
@@ -12,6 +11,7 @@ import { useState } from 'react';
 import ExtraInfoPage from '@/components/competitionApply/applyFunnel/extraInfoPage';
 import ChooseDivisionPage from '@/components/competitionApply/applyFunnel/chooseDivisionPage';
 import TeamInfoPage from '@/components/competitionApply/applyFunnel/teamInfoPage';
+import CheckApplyInfoPage from '@/components/competitionApply/applyFunnel/checkApplyInfoPage/checkApplyInfoPage';
 
 const steps = [
   '선수정보 확인',
@@ -68,7 +68,7 @@ export default function CompetitionApply() {
           <PhoneNumberCheckPage onNext={gotoNextStep} />
         </Step>
         <Step name="신청정보 확인">
-          <NicknamePage onNext={gotoNextStep} />
+          <CheckApplyInfoPage onNext={gotoNextStep} />
         </Step>
         <Step name="결제하기">
           <BeltPage />
