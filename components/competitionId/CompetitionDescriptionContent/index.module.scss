@@ -1,0 +1,35 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 0;
+}
+
+.content {
+  padding: 24px 0;
+  border-bottom: 1px solid $--color-gray-1;
+
+  h1 {
+    @include font-body1-regular;
+    color: $--color-font-body;
+    margin-bottom: 8px;
+  }
+
+  p {
+    @include font-body1-regular;
+    color: $--color-font-headline;
+    white-space: pre-line;
+  }
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  //마지막 content에 border-bottom을 주지 않기 위해
+  &:last-child {
+    border-bottom: none;
+  }
+}

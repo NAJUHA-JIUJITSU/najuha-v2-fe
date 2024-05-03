@@ -10,6 +10,7 @@
   box-sizing: border-box;
   display: flex;
   border-bottom: 1px solid $--color-gray-1;
+  cursor: pointer;
 
   .posterSection {
     margin-right: 8px;
@@ -52,7 +53,7 @@
         color: $--color-basic-white;
       }
 
-      .date {
+      .competitionDate {
         background-color: $--color-basic-black-60;
         height: 28px;
         justify-content: center;

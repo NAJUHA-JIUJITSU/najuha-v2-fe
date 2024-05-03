@@ -1,0 +1,21 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.topContent {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .CompetitionInfoWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}

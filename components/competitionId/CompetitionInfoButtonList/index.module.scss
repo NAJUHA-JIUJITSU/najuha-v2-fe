@@ -1,0 +1,9 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}

@@ -9,27 +9,27 @@ import {
 import { TagType } from '@/components/tag';
 
 interface TagListProps {
-  info: {
-    registrationStartDate: Date;
-    registrationEndDate: Date;
-    easyPayAvailable: boolean;
-    soloRegistrationAdjustmentStartDate: Date;
-    soloRegistrationAdjustmentEndDate: Date;
+  competiton: {
+    registrationStartDate: string;
+    registrationEndDate: string;
+    isPartnership: boolean;
+    soloRegistrationAdjustmentStartDate: string;
+    soloRegistrationAdjustmentEndDate: string;
   };
 }
 
-export default function TagList({ info }: TagListProps) {
+export default function TagList({ competiton }: TagListProps) {
   const tags = [];
 
   // 간편결제 유무에 따른 태그 추가
-  if (info.easyPayAvailable) {
+  if (competiton.isPartnership) {
     tags.push(<Tag key="easyPay" type="easyPay" content="간편결제" />);
   }
 
   // D-Day 계산에 따른 태그 추가를 위한 함수
   const addDdayTagIfNeeded = (
-    startDate: Date,
-    endDate: Date,
+    startDate: string,
+    endDate: string,
     tagType: TagType,
     tagName: string,
   ) => {
@@ -45,18 +45,25 @@ export default function TagList({ info }: TagListProps) {
   };
 
   // 대회 신청 D-Day 및 마감 태그 추가
-  addDdayTagIfNeeded(info.registrationStartDate, info.registrationEndDate, 'apply', '신청마감');
+  addDdayTagIfNeeded(
+    competiton.registrationStartDate,
+    competiton.registrationEndDate,
+    'apply',
+    '신청마감',
+  );
 
   // 단독출전 조정기간 D-Day 및 마감 태그 추가
   addDdayTagIfNeeded(
-    info.soloRegistrationAdjustmentStartDate,
-    info.soloRegistrationAdjustmentEndDate,
+    competiton.soloRegistrationAdjustmentStartDate,
+    competiton.soloRegistrationAdjustmentEndDate,
     'soloApply',
     '단독출전조정 마감',
   );
 
   // 신청마감 태그 추가 (대회 신청 및 단독출전 조정기간 모두 지났을 경우)
-  if (areBothDatesPassed(info.registrationEndDate, info.soloRegistrationAdjustmentEndDate)) {
+  if (
+    areBothDatesPassed(competiton.registrationEndDate, competiton.soloRegistrationAdjustmentEndDate)
+  ) {
     tags.push(<Tag key="deadline" type="deadline" content="신청마감" />);
   }
 
