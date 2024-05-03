@@ -1,0 +1,30 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.wrapper {
+  background-color: $--color-gray-2;
+  border-radius: 6px;
+  width: 100%;
+}
+
+// size
+.small {
+  height: 60px;
+}
+
+.medium {
+  height: 80px;
+}
+
+.large {
+  height: 117px;
+}
+
+// img
+.img {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  object-fit: cover;
+}

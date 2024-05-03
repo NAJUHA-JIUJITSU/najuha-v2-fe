@@ -9,7 +9,7 @@ export const postSnsLogin = async (snsAuthProvider: string, snsAuthCode: string)
     snsAuthProvider,
     snsAuthCode,
   });
-  const { accessToken, refreshToken } = response.data.result;
+  const { accessToken, refreshToken } = response.data.result.authTokens;
   saveTokens(accessToken, refreshToken);
 
   let payload = decodeToken(accessToken);

@@ -17,7 +17,12 @@ const listItems = [
   '다른 사람에게 불쾌감을 주는 닉네임은 추후 경고조치될 수 있습니다.',
 ];
 
-export default function Nickname({ onNext }: any) {
+interface NicknameProps {
+  onNext: () => void;
+  submitText?: string;
+}
+
+export default function Nickname({ onNext, submitText = '다음' }: NicknameProps) {
   const [nickname, setNickname] = useRecoilState(nicknameState);
   const { value, setValue, errMsg, setErrMsg, successMsg, setSuccessMsg, validate } = useInput(
     nickname,
@@ -35,8 +40,8 @@ export default function Nickname({ onNext }: any) {
     // onSuccess에 따라서 isDuplicated를 변경
     mutate(value, {
       onSuccess: (res) => {
-        setIsDuplicated(res.data.result);
-        if (res.data.result) {
+        setIsDuplicated(res.data.result.isDuplicated);
+        if (res.data.result.isDuplicated) {
           setErrMsg('이미 사용중인 닉네임입니다.');
         } else {
           setSuccessMsg('사용 가능한 닉네임입니다.');
@@ -76,7 +81,7 @@ export default function Nickname({ onNext }: any) {
       <div className={styles.submit}>
         <ButtonOnClick
           type="filled"
-          text="다음"
+          text={submitText}
           color={!isDuplicated ? 'blue' : 'disabled'}
           width="full"
           size="large"

@@ -29,19 +29,21 @@ export const useTemporaryUserInfo = () => {
     queryKey: queries.register.me().queryKey,
     queryFn: () => registerApi.getTemporaryUserInfo(),
     select: globalSelectFn,
-    //추가에러 처리 로직
+    //todo: 추가에러 처리 로직
     meta: {
       alertMsg: '회원정보를 가져오는데 실패했습니다.',
     },
   });
+
+  console.log('query: ', query.data);
   useEffect(() => {
     //todo: data가 없을 때 처리
     if (query.data) {
-      setName(query.data.name);
-      setGender(query.data.gender);
-      setBirthDate(query.data.birth);
+      setName(query.data.user.name);
+      setGender(query.data.user.gender);
+      setBirthDate(query.data.user.birth);
       // setPhoneNumber(query.data.phoneNumber);
-      // setNickname(query.data.nickname);
+      // setNickname(query.data.user.nickname); //todo: nickname이 없을 때 처리
     }
   }, [query.data]);
 };
@@ -84,7 +86,7 @@ export function useRegister() {
     onSuccess: (res) => {
       console.log(res);
       if (res.status === 200) {
-        saveTokens(res.data.result.accessToken, res.data.result.refreshToken);
+        saveTokens(res.data.result.authTokens.accessToken, res.data.result.authTokens.refreshToken);
         alert('회원가입이 완료되었습니다.');
       }
     },
