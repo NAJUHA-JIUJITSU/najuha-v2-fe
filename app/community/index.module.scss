@@ -1,0 +1,26 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+//전체 레이아웃
+.wrapper {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  box-sizing: border-box;
+  background-color: $--color-basic-white;
+}
+
+.selectWrapper {
+  display: flex;
+  gap: 8px;
+  padding: 16px 0;
+  overflow: auto;
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+}
+
+.sortWrapper {
+  margin: 4px 0 4px auto;
+}

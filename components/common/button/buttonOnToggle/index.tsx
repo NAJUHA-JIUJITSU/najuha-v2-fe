@@ -7,7 +7,8 @@ interface BaseButtonProps {
   iconLeft?: React.ReactNode;
   text: string;
   isToggled?: boolean;
-  onToggle: () => void;
+  onToggle?: () => void;
+  asd?: () => void;
 }
 
 // 각 버튼 타입에 따른 타입 정의

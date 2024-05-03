@@ -36,4 +36,24 @@
     background-color: $--color-tag-green-10;
     color: $--color-tag-green;
   }
+
+  &.hot {
+    background-color: $--color-tag-pink-10;
+    color: $--color-tag-pink;
+  }
+
+  &.free {
+    background-color: $--color-gray-1;
+    color: $--color-font-body;
+  }
+
+  &.seminar {
+    background-color: $--color-gray-1;
+    color: $--color-font-body;
+  }
+
+  &.competition {
+    background-color: $--color-gray-1;
+    color: $--color-font-body;
+  }
 }

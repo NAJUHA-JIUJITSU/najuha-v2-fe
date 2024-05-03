@@ -45,3 +45,25 @@ export const calculateDayDiff = (futureDate: Date): number => {
   const timeDiff = futureDate.getTime() - now.getTime();
   return Math.ceil(timeDiff / (1000 * 3600 * 24));
 };
+
+// 날짜를 ~일 전, ~시간 전, ~분 전으로 표시하는 함수
+export const getPastTime = (date: Date): string => {
+  const now = new Date();
+  const timeDiff = now.getTime() - date.getTime(); // 현재 시간과의 차이를 밀리초 단위로 계산
+
+  if (timeDiff < 0) {
+    return ''; // 입력된 날짜가 미래인 경우
+  }
+
+  const minuteDiff = Math.floor(timeDiff / (1000 * 60));
+  const hourDiff = Math.floor(timeDiff / (1000 * 3600));
+  const dayDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+
+  if (dayDiff >= 1) {
+    return `${dayDiff}일 전`;
+  } else if (hourDiff >= 1) {
+    return `${hourDiff}시간 전`;
+  } else {
+    return `${minuteDiff}분 전`;
+  }
+};
