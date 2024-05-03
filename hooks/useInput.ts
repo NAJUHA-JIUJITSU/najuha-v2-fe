@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export function useInput(initialValue: any, validateSync: any) {
+export function useInput(initialValue: any, validateSync?: any) {
   const [value, setValue] = useState(initialValue);
   const [errMsg, setErrMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');

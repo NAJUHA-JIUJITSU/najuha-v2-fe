@@ -111,3 +111,57 @@ export const validateVerificationNumber: ValidateFunction = (
   setErrMsg('');
   return true;
 };
+
+// make validategeder function
+// only allow '남성' or '여성'
+export const validateGender: ValidateFunction = (gender, setErrMsg, setValue) => {
+  if (gender === '남성' || gender === '여성') {
+    setErrMsg('');
+    return true;
+  }
+  setErrMsg('남성 혹은 여성을 입력해주세요.');
+  return false;
+};
+
+export const validateTrue: ValidateFunction = (email, setErrMsg, setValue) => {
+  return true;
+};
+
+//ssn validation
+//make ssnFront and ssnBack
+//ssnFront is only number and length is 6
+//ssnBack is only number and length is 7
+
+export const validateSsnFront: ValidateFunction = (ssn, setErrMsg, setValue) => {
+  const numericValue = ssn.replace(/[^0-9]/g, '');
+  const formattedSsn = numericValue.slice(0, 6);
+
+  if (ssn !== formattedSsn && setValue) {
+    setValue(formattedSsn); // 형식화된 값을 입력 값으로 업데이트
+  }
+
+  if (formattedSsn.length === 6) {
+    setErrMsg('');
+    return true;
+  }
+
+  setErrMsg('주민등록번호 앞 6자리를 입력해주세요.');
+  return false;
+};
+
+export const validateSsnBack: ValidateFunction = (ssn, setErrMsg, setValue) => {
+  const numericValue = ssn.replace(/[^0-9]/g, '');
+  const formattedSsn = numericValue.slice(0, 7);
+
+  if (ssn !== formattedSsn && setValue) {
+    setValue(formattedSsn); // 형식화된 값을 입력 값으로 업데이트
+  }
+
+  if (formattedSsn.length === 7) {
+    setErrMsg('');
+    return true;
+  }
+
+  setErrMsg('주민등록번호 뒷 7자리를 입력해주세요.');
+  return false;
+};
