@@ -5,7 +5,7 @@ import { ButtonIcon } from '@/components/common/icon/iconOnClick';
 import PhoneNumberCheckPage from '@/components/register/registerFunnel/phoneNumberCheckPage';
 import BeltPage from '@/components/register/registerFunnel/beltPage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
-import { useFunnel } from '@/hook/useFunnel';
+import { useFunnel } from '@/hooks/useFunnel';
 import PlayerInfoPage from '@/components/competitionApply/applyFunnel/playerInfoPage';
 import { useState } from 'react';
 import ExtraInfoPage from '@/components/competitionApply/applyFunnel/extraInfoPage';

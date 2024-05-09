@@ -2,7 +2,7 @@ import styles from './index.module.scss';
 import Reaction from '@/components/reaction';
 import IconMoreVert from '@/public/svgs/more_vert.svg';
 import IconReply from '@/public/svgs/reply.svg';
-import { getPastTime } from '@/util/dateCheck';
+import { getPastTime } from '@/utils/dateUtils/dateCheck';
 import { comment, replyComment } from '@/interfaces/comment';
 
 function isCommentInfo(comment: comment | replyComment): comment is comment {

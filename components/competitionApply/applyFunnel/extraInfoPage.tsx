@@ -1,7 +1,7 @@
 import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import Input from '@/components/common/input';
-import { useInput } from '@/hook/useInput';
+import { useInput } from '@/hooks/useInput';
 import { validateSsnFront, validateSsnBack } from '@/utils/validations/userValidations';
 
 export default function ExtraInfoPage({

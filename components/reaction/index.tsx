@@ -17,11 +17,9 @@ export default function Reaction({ id, likeCnt, commentCnt }: ReactionProps) {
   return (
     <div className={styles.wrapper}>
       <ButtonOnToggle
-        type="outlined"
+        type="reaction"
         color="pink"
         iconLeft={<IconThumbUp />}
-        size="xSmall"
-        shape="reaction"
         text={likeCnt.toString()}
         onToggle={() => {
           console.log('like button clicked');
@@ -30,11 +28,9 @@ export default function Reaction({ id, likeCnt, commentCnt }: ReactionProps) {
       {/* commentCnt가 있을 경우에만 댓글 버튼을 노출합니다. */}
       {commentCnt && (
         <ButtonOnToggle
-          type="outlined"
+          type="reaction"
           color="infoBlue"
           iconLeft={<IconChat />}
-          size="xSmall"
-          shape="reaction"
           text={commentCnt.toString()}
           onToggle={() => {
             console.log('comment button clicked');

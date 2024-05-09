@@ -2,7 +2,7 @@ import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import Input from '@/components/common/input';
 import Select from '@/components/common/select';
-import { useInput } from '@/hook/useInput';
+import { useInput } from '@/hooks/useInput';
 import {
   validateBirthdate,
   validatePhonenumber,

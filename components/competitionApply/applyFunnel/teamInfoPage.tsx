@@ -1,7 +1,7 @@
 import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import Input from '@/components/common/input';
-import { useInput } from '@/hook/useInput';
+import { useInput } from '@/hooks/useInput';
 import { validateTrue } from '@/utils/validations/userValidations';
 import CheckBoxLabel from '@/components/common/checkBoxLabel';
 import { useState } from 'react';
