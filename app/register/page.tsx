@@ -12,6 +12,7 @@ import NicknamePage from '@/components/register/registerFunnel/nicknamePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import { useFunnel } from '@/hooks/useFunnel';
 import { useTemporaryUserInfo } from '@/hooks/register';
+import { useRegister } from '@/hooks/register';
 
 const steps = [
   '약관동의',
@@ -34,6 +35,7 @@ const steps = [
 export default function Register() {
   const { gotoNextStep, gotoPreviousStep, Funnel, Step, currentStep } = useFunnel(steps);
   useTemporaryUserInfo();
+  const { mutate, isPending } = useRegister();
 
   return (
     <div className={styles.wrapper}>
@@ -61,7 +63,7 @@ export default function Register() {
           <NicknamePage onNext={gotoNextStep} />
         </Step>
         <Step name="벨트">
-          <BeltPage />
+          <BeltPage onNext={mutate} isPending={isPending} />
         </Step>
       </Funnel>
     </div>
