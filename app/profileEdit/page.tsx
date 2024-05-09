@@ -6,22 +6,22 @@ import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink
 import ButtonLists from '@/components/common/buttonList/buttonLists';
 import ProfileImgEdit from '@/components/profile/profileImgEdit';
 
-import { useTemporaryUserInfo } from '@/hooks/register';
-import { nicknameState } from '@/recoil/atoms/registerState';
-import { useRecoilState } from 'recoil';
+import { useUserInfo } from '@/hooks/users';
+import { useRecoilValue } from 'recoil';
+import { userInfoSelector } from '@/recoil/selectors/userSelector';
 
 export default function profileEdit() {
-  useTemporaryUserInfo(); //todo: 임시 유저 정보 받아온 후 닉네임 받아오기
-  const [nickname, setNickname] = useRecoilState(nicknameState);
+  useUserInfo();
+  const userInfo = useRecoilValue(userInfoSelector);
 
   const myProfileButtonLists = [
-    { text: '닉네임', href: '/profileEdit/nickname', info: nickname },
-    { text: '이름', info: '조지훈' },
-    { text: '성별', href: '/profileEdit/gender', info: '남자' },
-    { text: '생년월일', href: '/profileEdit/birth', info: '1998.04.04' },
-    { text: '휴대폰 번호', href: '/profileEdit/phoneNumber', info: '01012345678' },
-    { text: '벨트', href: '/profileEdit/belt', info: '블루' },
-    { text: '연동된 소셜 계정', info: '카카오' },
+    { text: '닉네임', href: '/profileEdit/nickname', info: userInfo.nickname },
+    { text: '이름', info: userInfo.name },
+    { text: '성별', href: '/profileEdit/gender', info: userInfo.gender },
+    { text: '생년월일', href: '/profileEdit/birth', info: userInfo.birth },
+    { text: '휴대폰 번호', href: '/profileEdit/phoneNumber', info: userInfo.phoneNumber },
+    { text: '벨트', href: '/profileEdit/belt', info: userInfo.belt },
+    { text: '연동된 소셜 계정', info: userInfo.snsProvider },
   ];
 
   return (
