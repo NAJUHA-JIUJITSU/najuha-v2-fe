@@ -6,7 +6,12 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { genderState, GenderType } from '@/recoil/atoms/registerState';
 
-export default function Gender({ onNext }: any) {
+interface GenderProps {
+  onNext: () => void;
+  submitText?: string;
+}
+
+export default function Gender({ onNext, submitText = '다음' }: GenderProps) {
   const [gender, setGender] = useRecoilState(genderState);
   const [localGender, setLocalGender] = useState<GenderType>(gender);
 
@@ -30,7 +35,7 @@ export default function Gender({ onNext }: any) {
       <div className={styles.submit}>
         <ButtonOnClick
           type="filled"
-          text="다음"
+          text={submitText}
           color="blue"
           width="full"
           size="large"
