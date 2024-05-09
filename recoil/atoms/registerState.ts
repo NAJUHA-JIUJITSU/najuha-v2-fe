@@ -57,3 +57,9 @@ export const beltState = atom<string>({
   key: 'beltState',
   default: '',
 });
+
+// sns-provider 선택 상태
+export const snsProviderState = atom<string>({
+  key: 'snsProviderState',
+  default: '',
+});
