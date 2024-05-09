@@ -23,7 +23,6 @@ export const useTemporaryUserInfo = () => {
   const setGender = useSetRecoilState(genderState);
   const setBirthDate = useSetRecoilState(birthDateState);
   const setPhoneNumber = useSetRecoilState(phoneNumberState);
-  const setNickname = useSetRecoilState(nicknameState);
 
   const query = useQuery({
     queryKey: queries.register.me().queryKey,
@@ -35,15 +34,21 @@ export const useTemporaryUserInfo = () => {
     },
   });
 
-  console.log('query: ', query.data);
+  console.log('처음데이터: ', query.data);
   useEffect(() => {
-    //todo: data가 없을 때 처리
     if (query.data) {
-      setName(query.data.user.name);
-      setGender(query.data.user.gender);
-      setBirthDate(query.data.user.birth);
-      // setPhoneNumber(query.data.phoneNumber);
-      // setNickname(query.data.user.nickname); //todo: nickname이 없을 때 처리
+      {
+        query.data.user.name && setName(query.data.user.name);
+      }
+      {
+        query.data.user.gender && setGender(query.data.user.gender);
+      }
+      {
+        query.data.user.birth && setBirthDate(query.data.user.birth);
+      }
+      {
+        query.data.user.phoneNumber && setPhoneNumber(query.data.user.phoneNumber);
+      }
     }
   }, [query.data]);
 };
