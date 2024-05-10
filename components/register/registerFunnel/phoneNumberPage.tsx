@@ -9,7 +9,11 @@ import { useInput } from '@/hooks/useInput';
 import { useSendAuthCode } from '@/hooks/register';
 import { validatePhonenumber } from '@/utils/validations/userValidations';
 
-export default function Phonenumber({ onNext }: any) {
+interface PhoneNumberProps {
+  onNext: () => void;
+}
+
+export default function Phonenumber({ onNext }: PhoneNumberProps) {
   const [phoneNumber, setPhoneNumber] = useRecoilState(phoneNumberState);
   const { value, setValue, errMsg, setErrMsg, validate } = useInput(
     phoneNumber,
@@ -46,7 +50,7 @@ export default function Phonenumber({ onNext }: any) {
       <div className={stlyes.submit}>
         <ButtonOnClick
           type="filled"
-          text="다음"
+          text="인증번호 받기"
           color={validate && !isPending ? 'blue' : 'disabled'}
           width="full"
           size="large"

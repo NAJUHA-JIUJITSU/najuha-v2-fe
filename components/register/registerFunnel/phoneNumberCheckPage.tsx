@@ -1,5 +1,5 @@
 'use client';
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import Input from '@/components/common/input';
 import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
@@ -10,7 +10,12 @@ import { useRecoilValue } from 'recoil';
 import { phoneNumberState } from '@/recoil/atoms/registerState';
 import { useTimer } from '@/hooks/useTimer';
 
-export default function Verify({ onNext }: any) {
+interface VerifyProps {
+  onNext: () => void;
+  submitText?: string;
+}
+
+export default function Verify({ onNext, submitText = '다음' }: VerifyProps) {
   const { value, setValue, errMsg, validate, setErrMsg, setSuccessMsg, successMsg } = useInput(
     '',
     validateVerificationNumber,
@@ -75,7 +80,7 @@ export default function Verify({ onNext }: any) {
       <div className={stlyes.submit}>
         <ButtonOnClick
           type="filled"
-          text="다음"
+          text={submitText}
           color={validate ? 'blue' : 'disabled'}
           width="full"
           size="large"
