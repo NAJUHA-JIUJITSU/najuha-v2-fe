@@ -43,6 +43,11 @@ export default function CompetitionApply() {
       ssn: '',
       address: '',
     },
+    teamInfo: {
+      network: '',
+      masterName: '',
+    },
+    selectedDivision: [{ uniform: '', category: '', belt: '', weight: '' }],
   });
 
   return (
@@ -63,9 +68,6 @@ export default function CompetitionApply() {
         </Step>
         <Step name="소속 입력">
           <TeamInfoPage onNext={gotoNextStep} />
-        </Step>
-        <Step name="전화번호인증">
-          <PhoneNumberCheckPage onNext={gotoNextStep} />
         </Step>
         <Step name="신청정보 확인">
           <CheckApplyInfoPage onNext={gotoNextStep} />
