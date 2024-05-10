@@ -1,13 +1,14 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { usersApi } from '@/api/usersApi';
-import { userInfoSelector } from '@/recoil/selectors/userSelector';
+import { userPatchSelector } from '@/recoil/selectors/userSelector';
 import {
   nameState,
   birthDateState,
   genderState,
   nicknameState,
   phoneNumberState,
+  beltState,
   snsProviderState,
 } from '@/recoil/atoms/registerState';
 import { useEffect } from 'react';
@@ -19,6 +20,7 @@ export const useUserInfo = () => {
   const setPhoneNumber = useSetRecoilState(phoneNumberState);
   const setNickname = useSetRecoilState(nicknameState);
   const setSnsProvider = useSetRecoilState(snsProviderState);
+  const setBelt = useSetRecoilState(beltState);
 
   const query = useQuery({
     queryKey: ['userInfo'],
@@ -30,7 +32,6 @@ export const useUserInfo = () => {
       alertMsg: '회원정보를 가져오는데 실패했습니다.',
     },
   });
-
   console.log('userInfo: ', query.data);
   useEffect(() => {
     if (query.data) {
@@ -39,18 +40,20 @@ export const useUserInfo = () => {
       setBirthDate(query.data.user.birth);
       setPhoneNumber(query.data.user.phoneNumber);
       setNickname(query.data.user.nickname);
+      setBelt(query.data.user.belt);
       setSnsProvider(query.data.user.snsAuthProvider);
     }
   }, [query.data]);
 };
 
 export const useUserPatch = () => {
-  const userInfo = useRecoilValue(userInfoSelector);
+  const userPatch = useRecoilValue(userPatchSelector);
   const queryClient = useQueryClient();
+  console.log('userInfoPatch: ', userPatch);
 
   const { mutate, isPending, isError } = useMutation({
     mutationFn: () => {
-      return usersApi.patchUser(userInfo);
+      return usersApi.patchUser(userPatch);
     },
     onError: (error: any) => {
       console.log(error);
