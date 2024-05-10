@@ -100,7 +100,11 @@ export default function CompetitionApply() {
           />
         </Step>
         <Step name="추가정보 입력">
-          <ExtraInfoPage extraInfo={applyInfo.extraInfo} onNext={gotoNextStep} />
+          <ExtraInfoPage
+            extraInfo={applyInfo.extraInfo}
+            setExtraInfo={setExtraInfo}
+            onNext={gotoNextStep}
+          />
         </Step>
         <Step name="부문선택">
           <ChooseDivisionPage onNext={gotoNextStep} />

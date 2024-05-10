@@ -7,9 +7,11 @@ import { validateSsnFront, validateSsnBack } from '@/utils/validations/userValid
 export default function ExtraInfoPage({
   extraInfo,
   onNext,
+  setExtraInfo,
 }: {
   extraInfo: any;
   onNext: () => void;
+  setExtraInfo: (extraInfo: any) => void;
 }) {
   const {
     value: ssnFront,
@@ -31,6 +33,15 @@ export default function ExtraInfoPage({
   } = useInput(extraInfo.address, () => true);
 
   const validation = ssnBackValidate && ssnFrontValidate && addressValidate;
+
+  const handleNext = () => {
+    setExtraInfo({
+      ...extraInfo,
+      ssn: ssnFront + ssnBack,
+      address,
+    });
+    onNext();
+  };
 
   return (
     <>
@@ -72,7 +83,7 @@ export default function ExtraInfoPage({
           disabled={!validation}
           width="full"
           size="large"
-          onClick={onNext}
+          onClick={handleNext}
         />
       </div>
     </>
