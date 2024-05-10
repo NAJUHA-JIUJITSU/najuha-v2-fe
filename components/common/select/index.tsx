@@ -10,7 +10,7 @@ interface Props {
   label?: string;
   options: string[];
   setState: any;
-  value: string;
+  value: string | undefined;
   placeholder: string;
 }
 
@@ -38,7 +38,7 @@ const Select = ({ type = 'outlined', label, options, setState, value, placeholde
       {label && <label className={styles.label}>{label}</label>}
       <div className={styles.dropdown}>
         <div className={styles.trigger} onClick={toggleDropdown}>
-          {selectedOption === '' ? (
+          {!selectedOption || selectedOption === '' ? (
             <div className={styles.example}>{placeholder}</div>
           ) : (
             <div className={styles.selectedOption}>{selectedOption}</div>
