@@ -20,7 +20,7 @@ export const agreementState = atom<AgreementState>({
   },
 });
 
-export type GenderType = 'MALE' | 'FEMALE' | null;
+export type GenderType = 'MALE' | 'FEMALE';
 
 //이름 상태
 export const nameState = atom<string>({
