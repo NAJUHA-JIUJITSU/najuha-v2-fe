@@ -45,9 +45,11 @@ const sortOptions = ['일자순', '조회순', '마감임박순'];
 export default function CompetitionPage() {
   const { params, updateParams } = useURLParams();
 
-  const [dateFilterState, setDateFilterState] = useState<string>((params.date as string) || '');
-  const [locationFilterState, setLocationFilterState] = useState<string>(
-    (params.location as string) || '',
+  const [dateFilterState, setDateFilterState] = useState<string | undefined>(
+    (params.date as string) || undefined,
+  );
+  const [locationFilterState, setLocationFilterState] = useState<string | undefined>(
+    (params.location as string) || undefined,
   );
   const [sortOptionState, setSortOptionState] = useState<string>(
     (params.sort as string) || sortOptions[0],

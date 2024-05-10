@@ -10,11 +10,20 @@ export const getCompetitions = async () => {
 export const getFilteredCompetitions = async (
   page: number,
   limit: number,
-  dateFilter: string,
-  locationFilter: string,
+  dateFilter: string | undefined,
+  locationFilter: string | undefined,
   selectFilter: string[],
   sortOption: string,
 ) => {
+  console.log('대회 요청: ', {
+    page: page,
+    limit: limit,
+    dateFilter: dateFilter,
+    locationFilter: locationFilter,
+    selectFilter: selectFilter,
+    sortOption: sortOption,
+  });
+
   const response = await axiosPublic.get('user/competitions', {
     params: {
       page: page,
@@ -25,6 +34,8 @@ export const getFilteredCompetitions = async (
       sortOption: sortOption,
     },
   });
+
+  console.log('대회 응답: ', response.data.result);
   return response;
 };
 

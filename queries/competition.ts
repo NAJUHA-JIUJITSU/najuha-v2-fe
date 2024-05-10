@@ -5,8 +5,8 @@ export const competition = createQueryKeys('competition', {
     queryKey: ['all'],
   }),
   filtered: (
-    dateFilter: string,
-    locationFilter: string,
+    dateFilter: string | undefined,
+    locationFilter: string | undefined,
     selectOption: string[],
     sortOption: string,
   ) => ({
