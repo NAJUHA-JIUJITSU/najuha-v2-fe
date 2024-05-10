@@ -4,25 +4,16 @@ import Header from '@/components/common/header/Header';
 import { ButtonIcon } from '@/components/common/icon/iconOnClick';
 import AgreePage from '@/components/register/registerFunnel/agreePage';
 import GenderPage from '@/components/register/registerFunnel/genderPage';
-import PhoneNumberPage from '@/components/register/registerFunnel/phoneNumberPage';
-import PhoneNumberCheckPage from '@/components/register/registerFunnel/phoneNumberCheckPage';
+import PhoneNumberAllPage from '@/components/register/registerFunnel/phoneNumberAllPage';
 import BeltPage from '@/components/register/registerFunnel/beltPage';
 import BirthPage from '@/components/register/registerFunnel/birthPage';
 import NicknamePage from '@/components/register/registerFunnel/nicknamePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import { useFunnel } from '@/hooks/useFunnel';
 import { useTemporaryUserInfo } from '@/hooks/register';
+import { useRegister } from '@/hooks/register';
 
-const steps = [
-  '약관동의',
-  '성별',
-  '생년월일',
-  '전화번호',
-  '전화번호인증',
-  '닉네임',
-  '벨트',
-  '가입성공',
-];
+const steps = ['약관동의', '성별', '생년월일', '전화번호', '닉네임', '벨트', '가입성공'];
 
 //모바일 화면 높이를 1vh 단위로 설정하는 함수
 // function setScreenSize() {
@@ -34,6 +25,7 @@ const steps = [
 export default function Register() {
   const { gotoNextStep, gotoPreviousStep, Funnel, Step, currentStep } = useFunnel(steps);
   useTemporaryUserInfo();
+  const { mutate, isPending } = useRegister();
 
   return (
     <div className={styles.wrapper}>
@@ -52,17 +44,15 @@ export default function Register() {
           <BirthPage onNext={gotoNextStep} />
         </Step>
         <Step name="전화번호">
-          <PhoneNumberPage onNext={gotoNextStep} />
-        </Step>
-        <Step name="전화번호인증">
-          <PhoneNumberCheckPage onNext={gotoNextStep} />
+          <PhoneNumberAllPage onNext={gotoNextStep} />
         </Step>
         <Step name="닉네임">
           <NicknamePage onNext={gotoNextStep} />
         </Step>
         <Step name="벨트">
-          <BeltPage />
+          <BeltPage onNext={mutate} isPending={isPending} />
         </Step>
+        {/* todo: 가입성공 페이지 연결 */}
       </Funnel>
     </div>
   );

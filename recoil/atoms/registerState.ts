@@ -20,7 +20,7 @@ export const agreementState = atom<AgreementState>({
   },
 });
 
-export type GenderType = 'MALE' | 'FEMALE' | null;
+export type GenderType = 'MALE' | 'FEMALE';
 
 //이름 상태
 export const nameState = atom<string>({
@@ -55,5 +55,11 @@ export const nicknameState = atom<string>({
 // 주짓수 벨트 선택 상태
 export const beltState = atom<string>({
   key: 'beltState',
+  default: '',
+});
+
+// sns-provider 선택 상태
+export const snsProviderState = atom<string>({
+  key: 'snsProviderState',
   default: '',
 });

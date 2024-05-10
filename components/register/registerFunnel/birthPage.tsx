@@ -8,7 +8,12 @@ import { birthDateState } from '@/recoil/atoms/registerState';
 import { useInput } from '@/hooks/useInput';
 import { validateBirthdate } from '@/utils/validations/userValidations';
 
-export default function Birthday({ onNext }: any) {
+interface BirthdayProps {
+  onNext: () => void;
+  submitText?: string;
+}
+
+export default function Birthday({ onNext, submitText = '다음' }: BirthdayProps) {
   const [birth, setBirth] = useRecoilState(birthDateState);
   const { value, setValue, errMsg, validate } = useInput(birth, validateBirthdate);
 
@@ -32,7 +37,7 @@ export default function Birthday({ onNext }: any) {
       <div className={stlyes.submit}>
         <ButtonOnClick
           type="filled"
-          text="다음"
+          text={submitText}
           color={validate ? 'blue' : 'disabled'}
           width="full"
           size="large"
