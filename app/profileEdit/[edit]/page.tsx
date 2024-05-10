@@ -6,6 +6,7 @@ import NicknamePage from '@/components/register/registerFunnel/nicknamePage';
 import GenderPage from '@/components/register/registerFunnel/genderPage';
 import BirthPage from '@/components/register/registerFunnel/birthPage';
 import BeltPage from '@/components/register/registerFunnel/beltPage';
+import PhoneNumberAllPage from '@/components/register/registerFunnel/phoneNumberAllPage';
 import { useUserPatch } from '@/hooks/users';
 import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
@@ -18,27 +19,24 @@ interface EditProps {
 
 export default function Edit({ params }: EditProps) {
   const { mutate, isPending } = useUserPatch();
+  const router = useRouter();
+  const queryClient = useQueryClient();
 
-  // const profileEditGoBack = () => {
-  //   mutate();
-  //   alert('회원정보 수정이 완료되었습니다.');
-  //   router.back();
-  // };
+  const profileGoBack = () => {
+    queryClient.invalidateQueries({
+      queryKey: ['userInfo'],
+    });
+    alert('회원정보 수정이 완료되었습니다.');
+    router.back();
+  };
 
   const profileEditGoBack = () => {
-    const router = useRouter();
-    const queryClient = useQueryClient();
-
     mutate(undefined, {
       onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: ['userInfo'],
-        });
-        alert('회원정보 수정이 완료되었습니다.');
-        router.back();
+        profileGoBack();
       },
       onError: () => {
-        alert('회원 정보 수정 중 오류가 발생했습니다.');
+        alert('회원정보 수정 중 오류가 발생했습니다.');
       },
     });
   };
@@ -50,7 +48,7 @@ export default function Edit({ params }: EditProps) {
     },
     phoneNumber: {
       title: '휴대폰 번호 수정',
-      Page: <div>휴대폰 번호 페이지</div>,
+      Page: <PhoneNumberAllPage onNext={profileGoBack} submitText="수정 완료" />,
     },
     gender: {
       title: '성별 수정',
@@ -65,6 +63,20 @@ export default function Edit({ params }: EditProps) {
       Page: <BeltPage onNext={profileEditGoBack} submitText="수정 완료" isPending={isPending} />,
     },
   };
+
+  if (!pages[params.edit]) {
+    //todo: 에러 페이지를 반환합니다.
+    return (
+      <div
+        style={{
+          lineHeight: 1,
+          fontSize: 30,
+        }}
+      >
+        요청하신 페이지는 존재하지 않습니다.
+      </div>
+    );
+  }
 
   return (
     <div className={styles.wrapper}>
