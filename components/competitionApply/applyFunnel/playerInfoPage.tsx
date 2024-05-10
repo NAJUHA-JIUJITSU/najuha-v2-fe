@@ -9,6 +9,7 @@ import {
   validateGender,
   validateTrue,
 } from '@/utils/validations/userValidations';
+import { on } from 'events';
 import { useState } from 'react';
 
 const options = ['화이트', '블루', '퍼플', '브라운', '블랙'];
@@ -16,9 +17,11 @@ const options = ['화이트', '블루', '퍼플', '브라운', '블랙'];
 export default function PlayerInfoPage({
   onNext,
   playerInfo,
+  setPlayerInfo,
 }: {
   onNext: () => void;
   playerInfo: any;
+  setPlayerInfo: (playerInfo: any) => void;
 }) {
   const {
     value: name,
@@ -47,6 +50,18 @@ export default function PlayerInfoPage({
   const [belt, setBelt] = useState('화이트');
 
   const validate = nameValidate && genderValidate && birthValidate && phoneNumberValidate;
+
+  const handleNext = () => {
+    setPlayerInfo({
+      ...playerInfo,
+      name,
+      gender,
+      birth,
+      phoneNumber,
+      belt,
+    });
+    onNext();
+  };
 
   return (
     <>
@@ -95,7 +110,7 @@ export default function PlayerInfoPage({
           disabled={!validate}
           width="full"
           size="large"
-          onClick={onNext}
+          onClick={handleNext}
         />
       </div>
     </>

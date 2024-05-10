@@ -45,10 +45,45 @@ export default function CompetitionApply() {
     },
     teamInfo: {
       network: '',
+      team: '',
       masterName: '',
     },
     selectedDivision: [{ uniform: '', category: '', belt: '', weight: '' }],
+    selectedDicisionId: [],
   });
+
+  // setplayerInfo for props in PlayerInfoPage
+  const setPlayerInfo = (playerInfo: {
+    name: string;
+    gender: string;
+    birth: string;
+    phoneNumber: string;
+    belt: string;
+  }) => {
+    setApplyInfo({ ...applyInfo, playerInfo });
+  };
+
+  // setExtraInfo for props in ExtraInfoPage
+  const setExtraInfo = (extraInfo: { ssn: string; address: string }) => {
+    setApplyInfo({ ...applyInfo, extraInfo });
+  };
+
+  // setTeamInfo for props in TeamInfoPage
+  const setTeamInfo = (teamInfo: { network: string; masterName: string; team: string }) => {
+    setApplyInfo({ ...applyInfo, teamInfo });
+  };
+
+  // setDivision for props in ChooseDivisionPage
+  const setDivision = (
+    selectedDivision: [{ uniform: string; category: string; belt: string; weight: string }],
+  ) => {
+    setApplyInfo({ ...applyInfo, selectedDivision });
+  };
+
+  // setDivisionId for props in ChooseDivisionPage
+  const setDivisionId = (selectedDicisionId: any) => {
+    setApplyInfo({ ...applyInfo, selectedDicisionId });
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -58,7 +93,11 @@ export default function CompetitionApply() {
       />
       <Funnel>
         <Step name="선수정보 확인">
-          <PlayerInfoPage playerInfo={applyInfo.playerInfo} onNext={gotoNextStep} />
+          <PlayerInfoPage
+            playerInfo={applyInfo.playerInfo}
+            setPlayerInfo={setPlayerInfo}
+            onNext={gotoNextStep}
+          />
         </Step>
         <Step name="추가정보 입력">
           <ExtraInfoPage extraInfo={applyInfo.extraInfo} onNext={gotoNextStep} />
