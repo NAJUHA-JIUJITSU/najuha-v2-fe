@@ -5,8 +5,8 @@ import Card from '@/components/card';
 import { useGetFilteredCompetitions } from '@/hooks/competition';
 
 interface CompetitionListProps {
-  dateFilter: string | undefined;
-  locationFilter: string | undefined;
+  dateFilter: string;
+  locationFilter: string;
   selectOption: string[];
   sortOption: string;
 }

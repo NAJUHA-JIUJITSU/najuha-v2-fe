@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from './index.module.scss';
 import NavigateMore from '@/public/svgs/navigateMore.svg';
 import useOutsideClick from '@/hooks/useOutsideClick';
+import clsx from 'clsx';
 
 type SelectType = 'outlined' | 'filled';
 
@@ -10,13 +11,12 @@ interface Props {
   label?: string;
   options: string[];
   setState: any;
-  value: string | undefined;
+  value: string;
   placeholder: string;
 }
 
 const Select = ({ type = 'outlined', label, options, setState, value, placeholder }: Props) => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
-
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(value);
   const toggleDropdown = () => setIsOpen(!isOpen);
@@ -38,7 +38,7 @@ const Select = ({ type = 'outlined', label, options, setState, value, placeholde
       {label && <label className={styles.label}>{label}</label>}
       <div className={styles.dropdown}>
         <div className={styles.trigger} onClick={toggleDropdown}>
-          {!selectedOption || selectedOption === '' ? (
+          {!selectedOption || selectedOption === '' || selectedOption === '전체' ? (
             <div className={styles.example}>{placeholder}</div>
           ) : (
             <div className={styles.selectedOption}>{selectedOption}</div>
@@ -48,7 +48,11 @@ const Select = ({ type = 'outlined', label, options, setState, value, placeholde
         {isOpen && (
           <div className={styles.menu}>
             {options.map((option: any, index: any) => (
-              <div key={index} className={styles.option} onClick={() => selectOption(option)}>
+              <div
+                key={index}
+                className={clsx(styles.option, { [styles.selected]: option === selectedOption })}
+                onClick={() => selectOption(option)}
+              >
                 {option}
               </div>
             ))}

@@ -29,8 +29,8 @@ export const useGetCompetitions = () => {
 
 //필터 및 정렬된 대회 목록 조회
 export const useGetFilteredCompetitions = (
-  dateFilter: string | undefined,
-  locationFilter: string | undefined,
+  dateFilter: string,
+  locationFilter: string,
   selectFilter: string[],
   sortOption: string,
   limit: number = 10,
