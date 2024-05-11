@@ -7,7 +7,7 @@ import IconSort from '@/public/svgs/sort.svg';
 import { Divider } from '@/components/divider';
 import { useURLParams } from '@/hooks/useURLParams';
 import Select from '@/components/common/select';
-import CompetitionList from '@/components/competitionList';
+import CompetitionList from '@/components/competition/competitionList';
 
 const locationOptions = [
   '전체',
