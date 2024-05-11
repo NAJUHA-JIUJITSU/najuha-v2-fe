@@ -4,7 +4,7 @@ import styles from './index.module.scss';
 import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
-import CompetitionIdContent from './client/index';
+import CompetitionIdContent from '../../../components/competitionId/competitionIdContent/index';
 import { useGetCompetitionId } from '@/hooks/competition';
 import { Competition, ApiCompetitionIdResponse } from '@/interfaces/CompetitionInfo';
 
@@ -21,9 +21,9 @@ export default function CompetitionId({ params }: { params: { competitionId: num
         rightIcon2={<IconLinkSearch />}
       />
       {isLoading ? (
-        <span>Loading...</span>
+        <h3>Loading...</h3>
       ) : isError || !competition ? (
-        <span>대회정보가 없습니다.</span>
+        <h3>대회정보가 없습니다.</h3>
       ) : (
         <CompetitionIdContent competition={competition}></CompetitionIdContent>
       )}
