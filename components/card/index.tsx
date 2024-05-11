@@ -64,6 +64,14 @@ export default function Card({ type = 'normal', competition }: CardProps) {
               isPartnership: competition.isPartnership,
               soloRegistrationAdjustmentStartDate: competition.soloRegistrationAdjustmentStartDate,
               soloRegistrationAdjustmentEndDate: competition.soloRegistrationAdjustmentEndDate,
+              ealryBirdStartDate:
+                competition.earlybirdDiscountSnapshots[
+                  competition.earlybirdDiscountSnapshots.length - 1
+                ]?.earlybirdStartDate,
+              ealryBirdEndDate:
+                competition.earlybirdDiscountSnapshots[
+                  competition.earlybirdDiscountSnapshots.length - 1
+                ]?.earlybirdEndDate,
             }}
           />
         </div>
