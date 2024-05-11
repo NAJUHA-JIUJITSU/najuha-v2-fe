@@ -18,6 +18,11 @@ interface CardProps {
 export default function Card({ type = 'normal', competition }: CardProps) {
   const router = useRouter();
 
+  // imageURL이 없으면 기본 이미지로 대체
+  if (!competition.posterImgUrlKey) {
+    competition.posterImgUrlKey = '/images/samplePoster1.png';
+  }
+
   //타입이 normal이거나 가격이 없으면 가격 표시 안함
   let isPrice = false;
   // if (type === 'normal' || !info.price) {
