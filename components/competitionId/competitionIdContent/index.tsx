@@ -14,6 +14,10 @@ interface CompetitionIdContentProps {
 //리액트 쿼리를 이용하면 각 컴포넌트에서 여러번 api를 호출해도 최초 호출시에만 api를 호출하고 그 이후에는 캐시된 데이터를 사용하니까 괜찮을 것 같습니다.??
 
 export default function CompetitionIdContent({ competition }: CompetitionIdContentProps) {
+  // imageURL이 없으면 기본 이미지로 대체
+  if (!competition.posterImgUrlKey) {
+    competition.posterImgUrlKey = '/images/samplePoster1.png';
+  }
   return (
     <div className={styles.wrapper}>
       {/* 대회 상세페이지 상단 */}
@@ -30,7 +34,11 @@ export default function CompetitionIdContent({ competition }: CompetitionIdConte
             title={competition.title}
             competitionDate={competition.competitionDate}
             address={competition.address}
-            earlybirdEndDate={competition.earlybirdDiscountSnapshots[0]?.earlybirdEndDate && ''} //todo: earlybirdDiscountSnapshots 가장 마지막 데이터로 수정
+            earlybirdEndDate={
+              competition.earlybirdDiscountSnapshots[
+                competition.earlybirdDiscountSnapshots.length - 1
+              ]?.earlybirdEndDate || ''
+            } //todo: earlybirdDiscountSnapshots 가장 마지막 데이터로 수정
             registrationEndDate={competition.registrationEndDate}
             registrationListOpenDate={competition.registrationListOpenDate}
             bracketOpenDate={competition.bracketOpenDate}
