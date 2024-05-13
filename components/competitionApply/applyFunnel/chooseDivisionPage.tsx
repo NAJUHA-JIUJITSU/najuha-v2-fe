@@ -229,21 +229,24 @@ const playerInfo = {
 type OptionType = 'uniform' | 'category' | 'belt' | 'weight';
 
 interface SelectedOptions {
-  uniform?: string;
-  category?: string;
-  belt?: string;
-  weight?: string;
+  uniform: string;
+  category: string;
+  belt: string;
+  weight: string;
 }
 
-export default function ChooseDivisionPage({ onNext }: { onNext: () => void }) {
-  const [selectedOptions, setSelectedOptions] = useState<SelectedOptions[]>([
-    {
-      uniform: '',
-      category: '',
-      belt: '',
-      weight: '',
-    },
-  ]);
+export default function ChooseDivisionPage({
+  onNext,
+  selectedDivision,
+  setDivision,
+  setDivisionId,
+}: {
+  onNext: () => void;
+  selectedDivision: SelectedOptions[];
+  setDivision: (selectedDivision: SelectedOptions[]) => void;
+  setDivisionId: (selectedDicisionId: any) => void;
+}) {
+  const [selectedOptions, setSelectedOptions] = useState<SelectedOptions[]>(selectedDivision);
 
   const cur = selectedOptions.length - 1;
   const optionKeys: OptionType[] = ['uniform', 'category', 'belt', 'weight'];
@@ -262,12 +265,53 @@ export default function ChooseDivisionPage({ onNext }: { onNext: () => void }) {
     ? [...new Set(filteredDivisions.map((division) => division[nextOption]))].sort()
     : [];
 
-  // 옵션 선택 처리
+  // 옵션 선택 처리 => 타입에러 발생에 따른 2가지 해결책
+  // 1. 옵션 선택 처리 => 타입에러 발생
+  // const handleOptionSelect = (optionType: OptionType, value: string) => {
+  //   if (selectedOptions.length === 0 || selectedOptions[cur][optionType]) {
+  //     setSelectedOptions([...selectedOptions, { [optionType]: value }]);
+  //   } else {
+  //     setSelectedOptions((prev) => [...prev.slice(0, -1), { ...prev[cur], [optionType]: value }]);
+  //   }
+  // };
+
+  // 2. 옵션 선택 처리 => 타입에러 해결1
+  // const handleOptionSelect = (optionType: OptionType, value: string) => {
+  //   if (selectedOptions.length === 0 || selectedOptions[cur][optionType]) {
+  //     // 새 옵션을 직접 생성하고 SelectedOptions 타입으로 단언
+  //     const newOption: SelectedOptions = { ...selectedOptions[cur], [optionType]: value } as SelectedOptions;
+  //     setSelectedOptions([...selectedOptions, newOption]);
+  //   } else {
+  //     // 이전 상태를 수정하며 SelectedOptions 타입으로 단언
+  //     setSelectedOptions((prev) => {
+  //       const newOptions = [...prev.slice(0, -1)];
+  //       const updatedOption: SelectedOptions = { ...prev[cur], [optionType]: value } as SelectedOptions;
+  //       newOptions.push(updatedOption);
+  //       return newOptions;
+  //     });
+  //   }
+  // };
+
+  // 3. 옵션 선택 처리 => 타입에러 해결2
   const handleOptionSelect = (optionType: OptionType, value: string) => {
+    // 먼저 변경하려는 키와 값을 새 객체에 설정
+    const updatedValues = {
+      ...selectedOptions[cur],
+      [optionType]: value, // 새 값을 먼저 적용
+    };
+
+    // 모든 필수 필드를 포함한 새 옵션 객체를 생성
+    const newOption: SelectedOptions = {
+      uniform: updatedValues.uniform || '', // 기본값으로 fallback
+      category: updatedValues.category || '',
+      belt: updatedValues.belt || '',
+      weight: updatedValues.weight || '',
+    };
+
     if (selectedOptions.length === 0 || selectedOptions[cur][optionType]) {
-      setSelectedOptions([...selectedOptions, { [optionType]: value }]);
+      setSelectedOptions([...selectedOptions, newOption]);
     } else {
-      setSelectedOptions((prev) => [...prev.slice(0, -1), { ...prev[cur], [optionType]: value }]);
+      setSelectedOptions((prev) => [...prev.slice(0, -1), newOption]);
     }
   };
 
@@ -342,19 +386,41 @@ export default function ChooseDivisionPage({ onNext }: { onNext: () => void }) {
   };
 
   const handleNext = () => {
-    // 선택된 옵션이 하나이고 모든 값이 채워지지 않았을 경우 경고
-    if (
-      selectedOptions.length === 1 &&
-      (!selectedOptions[0].uniform ||
-        !selectedOptions[0].category ||
-        !selectedOptions[0].belt ||
-        !selectedOptions[0].weight)
-    ) {
-      alert('옵션 선택을 완료해주세요.');
+    // 선택된 옵션이 2개 이상일 때만 빈 옵션을 정리
+    if (selectedOptions.length > 1) {
+      cleanUpOptions();
+    }
+
+    // 모든 필드가 채워진 옵션만을 처리
+    const completeSelectedOptions = selectedOptions.filter(
+      (option) => option.uniform && option.category && option.belt && option.weight,
+    );
+
+    // 완전히 선택된 옵션이 없을 경우 경고
+    if (completeSelectedOptions.length === 0) {
+      alert('모든 옵션을 선택해주세요.');
       return; // 함수 실행을 중단
     }
 
-    cleanUpOptions(); // 선택 항목 정리
+    // 선택된 옵션들을 바탕으로 대회 ID 찾기
+    const selectedIds = completeSelectedOptions
+      .map((option) => {
+        const match = divisions.find(
+          (division) =>
+            division.uniform === option.uniform &&
+            division.category === option.category &&
+            division.belt === option.belt &&
+            division.weight === option.weight,
+        );
+        return match ? match.id : null;
+      })
+      .filter((id) => id !== null); // null이 아닌 ID만 필터링
+
+    console.log(completeSelectedOptions);
+    console.log(selectedIds);
+    setDivision(completeSelectedOptions); // 선택된 옵션 상태 업데이트
+    setDivisionId(selectedIds); // 선택된 옵션에 해당되는 대회 ID 상태 업데이트
+
     onNext(); // 다음 페이지 또는 다음 단계로 진행
   };
 

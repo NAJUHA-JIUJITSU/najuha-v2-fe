@@ -22,6 +22,13 @@ const steps = [
   '결제하기',
 ];
 
+interface SelectedOptions {
+  uniform: string;
+  category: string;
+  belt: string;
+  weight: string;
+}
+
 //모바일 화면 높이를 1vh 단위로 설정하는 함수
 // function setScreenSize() {
 //   let vh = window.innerHeight * 0.01;
@@ -51,7 +58,7 @@ export default function CompetitionApply() {
     selectedDivision: [{ uniform: '', category: '', belt: '', weight: '' }],
     selectedDicisionId: [],
   });
-
+  console.log(applyInfo);
   // setplayerInfo for props in PlayerInfoPage
   const setPlayerInfo = (playerInfo: {
     name: string;
@@ -60,29 +67,42 @@ export default function CompetitionApply() {
     phoneNumber: string;
     belt: string;
   }) => {
-    setApplyInfo({ ...applyInfo, playerInfo });
+    setApplyInfo((prevState) => ({
+      ...prevState,
+      playerInfo,
+    }));
   };
 
   // setExtraInfo for props in ExtraInfoPage
   const setExtraInfo = (extraInfo: { ssn: string; address: string }) => {
-    setApplyInfo({ ...applyInfo, extraInfo });
+    setApplyInfo((prevState) => ({
+      ...prevState,
+      extraInfo,
+    }));
   };
 
   // setTeamInfo for props in TeamInfoPage
   const setTeamInfo = (teamInfo: { network: string; masterName: string; team: string }) => {
-    setApplyInfo({ ...applyInfo, teamInfo });
+    setApplyInfo((prevState) => ({
+      ...prevState,
+      teamInfo,
+    }));
   };
 
   // setDivision for props in ChooseDivisionPage
-  const setDivision = (
-    selectedDivision: [{ uniform: string; category: string; belt: string; weight: string }],
-  ) => {
-    setApplyInfo({ ...applyInfo, selectedDivision });
+  const setDivision = (selectedDivision: SelectedOptions[]) => {
+    setApplyInfo((prevState) => ({
+      ...prevState,
+      selectedDivision,
+    }));
   };
 
   // setDivisionId for props in ChooseDivisionPage
   const setDivisionId = (selectedDicisionId: any) => {
-    setApplyInfo({ ...applyInfo, selectedDicisionId });
+    setApplyInfo((prevState) => ({
+      ...prevState,
+      selectedDicisionId,
+    }));
   };
 
   return (
@@ -107,7 +127,12 @@ export default function CompetitionApply() {
           />
         </Step>
         <Step name="부문선택">
-          <ChooseDivisionPage onNext={gotoNextStep} />
+          <ChooseDivisionPage
+            onNext={gotoNextStep}
+            selectedDivision={applyInfo.selectedDivision}
+            setDivision={setDivision}
+            setDivisionId={setDivisionId}
+          />
         </Step>
         <Step name="소속 입력">
           <TeamInfoPage onNext={gotoNextStep} />
