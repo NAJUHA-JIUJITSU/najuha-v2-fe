@@ -135,7 +135,11 @@ export default function CompetitionApply() {
           />
         </Step>
         <Step name="소속 입력">
-          <TeamInfoPage onNext={gotoNextStep} />
+          <TeamInfoPage
+            teamInfo={applyInfo.teamInfo}
+            setTeamInfo={setTeamInfo}
+            onNext={gotoNextStep}
+          />
         </Step>
         <Step name="신청정보 확인">
           <CheckApplyInfoPage onNext={gotoNextStep} />

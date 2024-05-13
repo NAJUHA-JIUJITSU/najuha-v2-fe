@@ -9,7 +9,6 @@ import {
   validateGender,
   validateTrue,
 } from '@/utils/validations/userValidations';
-import { on } from 'events';
 import { useState } from 'react';
 
 const options = ['화이트', '블루', '퍼플', '브라운', '블랙'];

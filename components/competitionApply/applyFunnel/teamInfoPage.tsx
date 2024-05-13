@@ -6,7 +6,15 @@ import { validateTrue } from '@/utils/validations/userValidations';
 import CheckBoxLabel from '@/components/common/checkBoxLabel';
 import { useState } from 'react';
 
-export default function TeamInfoPage({ onNext }: { onNext: () => void }) {
+export default function TeamInfoPage({
+  onNext,
+  teamInfo,
+  setTeamInfo,
+}: {
+  onNext: () => void;
+  teamInfo: any;
+  setTeamInfo: any;
+}) {
   // network name input
   // team input
   // master name input
@@ -15,20 +23,31 @@ export default function TeamInfoPage({ onNext }: { onNext: () => void }) {
     setValue: setNetwork,
     errMsg: networkErrMsg,
     validate: networkValidate,
-  } = useInput('', validateTrue);
+  } = useInput(teamInfo.network, validateTrue);
   const {
     value: team,
     setValue: setTeam,
     errMsg: teamErrMsg,
     validate: teamValidate,
-  } = useInput('', validateTrue);
+  } = useInput(teamInfo.team, validateTrue);
   const {
     value: master,
     setValue: setMaster,
     errMsg: masterErrMsg,
     validate: masterValidate,
-  } = useInput('', validateTrue);
+  } = useInput(teamInfo.master, validateTrue);
+
   const [isChecked, setIsChecked] = useState(false);
+
+  const handleNext = () => {
+    setTeamInfo({
+      ...teamInfo,
+      network,
+      team,
+      master,
+    });
+    onNext();
+  };
 
   const validate = networkValidate && teamValidate && masterValidate;
   return (
@@ -72,7 +91,7 @@ export default function TeamInfoPage({ onNext }: { onNext: () => void }) {
           disabled={!validate}
           width="full"
           size="large"
-          onClick={onNext}
+          onClick={handleNext}
         />
       </div>
     </>
