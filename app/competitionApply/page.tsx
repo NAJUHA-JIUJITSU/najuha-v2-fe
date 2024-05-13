@@ -58,6 +58,7 @@ export default function CompetitionApply() {
     selectedDivision: [{ uniform: '', category: '', belt: '', weight: '' }],
     selectedDicisionId: [],
   });
+
   console.log(applyInfo);
   // setplayerInfo for props in PlayerInfoPage
   const setPlayerInfo = (playerInfo: {
@@ -105,6 +106,11 @@ export default function CompetitionApply() {
     }));
   };
 
+  //todo: 타입정의 및 분리 필요
+  //todo: 대회신청 api 호출
+  //todo: 가격조회 api 호출
+  //todo: 결제 api 호출
+
   return (
     <div className={styles.wrapper}>
       <Header
@@ -142,7 +148,7 @@ export default function CompetitionApply() {
           />
         </Step>
         <Step name="신청정보 확인">
-          <CheckApplyInfoPage onNext={gotoNextStep} />
+          <CheckApplyInfoPage onNext={gotoNextStep} applyInfo={applyInfo} />
         </Step>
         <Step name="결제하기">
           <BeltPage />
