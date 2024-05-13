@@ -5,6 +5,7 @@ import { useInput } from '@/hooks/useInput';
 import { validateTrue } from '@/utils/validations/userValidations';
 import CheckBoxLabel from '@/components/common/checkBoxLabel';
 import { useState } from 'react';
+import { TeamInfo } from '@/interfaces/competitionApply';
 
 export default function TeamInfoPage({
   onNext,
@@ -12,8 +13,8 @@ export default function TeamInfoPage({
   setTeamInfo,
 }: {
   onNext: () => void;
-  teamInfo: any;
-  setTeamInfo: any;
+  teamInfo: TeamInfo;
+  setTeamInfo: (teamInfo: TeamInfo) => void;
 }) {
   // network name input
   // team input

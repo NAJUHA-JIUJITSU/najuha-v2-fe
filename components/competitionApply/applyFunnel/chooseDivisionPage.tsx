@@ -4,6 +4,7 @@ import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import IconRefresh from '@/public/svgs/refresh.svg';
 import { useState } from 'react';
 import IconClose from '@/public/svgs/closeSmall.svg';
+import { PlayerInfo, SelectedOptions } from '@/interfaces/competitionApply';
 
 interface Division {
   id: string;
@@ -219,29 +220,17 @@ const divisions: Division[] = [
   },
 ];
 
-const playerInfo = {
-  name: '홍길동',
-  birth: '980404',
-  belt: '블루',
-  gender: '남성',
-};
-
 type OptionType = 'uniform' | 'category' | 'belt' | 'weight';
-
-interface SelectedOptions {
-  uniform: string;
-  category: string;
-  belt: string;
-  weight: string;
-}
 
 export default function ChooseDivisionPage({
   onNext,
+  playerInfo,
   selectedDivision,
   setDivision,
   setDivisionId,
 }: {
   onNext: () => void;
+  playerInfo: PlayerInfo;
   selectedDivision: SelectedOptions[];
   setDivision: (selectedDivision: SelectedOptions[]) => void;
   setDivisionId: (selectedDicisionId: any) => void;

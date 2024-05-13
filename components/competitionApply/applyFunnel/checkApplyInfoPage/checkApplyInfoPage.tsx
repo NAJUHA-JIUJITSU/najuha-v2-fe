@@ -1,19 +1,21 @@
 import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
+import { ApplyInfo } from '@/interfaces/competitionApply';
 
 export default function CheckApplyInfoPage({
   onNext,
   applyInfo,
 }: {
   onNext: () => void;
-  applyInfo: any;
+  applyInfo: ApplyInfo;
 }) {
   const playerInfo = applyInfo.playerInfo;
   const teamInfo = applyInfo.teamInfo;
   const selectedDivision = applyInfo.selectedDivision;
   const selectedDicisionId = applyInfo.selectedDicisionId;
 
-  // 가격조회 호출 api 필요
+  // 1998/04/04 => 980404
+  playerInfo.birth = playerInfo.birth.replace(/[^0-9]/g, '').slice(2);
 
   return (
     <>

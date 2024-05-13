@@ -10,6 +10,7 @@ import {
   validateTrue,
 } from '@/utils/validations/userValidations';
 import { useState } from 'react';
+import { PlayerInfo } from '@/interfaces/competitionApply';
 
 const options = ['화이트', '블루', '퍼플', '브라운', '블랙'];
 
@@ -19,8 +20,8 @@ export default function PlayerInfoPage({
   setPlayerInfo,
 }: {
   onNext: () => void;
-  playerInfo: any;
-  setPlayerInfo: (playerInfo: any) => void;
+  playerInfo: PlayerInfo;
+  setPlayerInfo: (playerInfo: PlayerInfo) => void;
 }) {
   const {
     value: name,

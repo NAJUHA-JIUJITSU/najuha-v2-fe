@@ -2,7 +2,6 @@
 import styles from './index.module.scss';
 import Header from '@/components/common/header/Header';
 import { ButtonIcon } from '@/components/common/icon/iconOnClick';
-import PhoneNumberCheckPage from '@/components/register/registerFunnel/phoneNumberCheckPage';
 import BeltPage from '@/components/register/registerFunnel/beltPage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import { useFunnel } from '@/hooks/useFunnel';
@@ -12,6 +11,13 @@ import ExtraInfoPage from '@/components/competitionApply/applyFunnel/extraInfoPa
 import ChooseDivisionPage from '@/components/competitionApply/applyFunnel/chooseDivisionPage';
 import TeamInfoPage from '@/components/competitionApply/applyFunnel/teamInfoPage';
 import CheckApplyInfoPage from '@/components/competitionApply/applyFunnel/checkApplyInfoPage/checkApplyInfoPage';
+import {
+  ApplyInfo,
+  ExtraInfo,
+  PlayerInfo,
+  SelectedOptions,
+  TeamInfo,
+} from '@/interfaces/competitionApply';
 
 const steps = [
   '선수정보 확인',
@@ -22,13 +28,6 @@ const steps = [
   '결제하기',
 ];
 
-interface SelectedOptions {
-  uniform: string;
-  category: string;
-  belt: string;
-  weight: string;
-}
-
 //모바일 화면 높이를 1vh 단위로 설정하는 함수
 // function setScreenSize() {
 //   let vh = window.innerHeight * 0.01;
@@ -38,7 +37,7 @@ interface SelectedOptions {
 
 export default function CompetitionApply() {
   const { gotoNextStep, gotoPreviousStep, Funnel, Step, currentStep } = useFunnel(steps);
-  const [applyInfo, setApplyInfo] = useState({
+  const [applyInfo, setApplyInfo] = useState<ApplyInfo>({
     playerInfo: {
       name: '',
       gender: '',
@@ -53,21 +52,14 @@ export default function CompetitionApply() {
     teamInfo: {
       network: '',
       team: '',
-      masterName: '',
+      master: '',
     },
     selectedDivision: [{ uniform: '', category: '', belt: '', weight: '' }],
     selectedDicisionId: [],
   });
 
-  console.log(applyInfo);
   // setplayerInfo for props in PlayerInfoPage
-  const setPlayerInfo = (playerInfo: {
-    name: string;
-    gender: string;
-    birth: string;
-    phoneNumber: string;
-    belt: string;
-  }) => {
+  const setPlayerInfo = (playerInfo: PlayerInfo) => {
     setApplyInfo((prevState) => ({
       ...prevState,
       playerInfo,
@@ -75,7 +67,7 @@ export default function CompetitionApply() {
   };
 
   // setExtraInfo for props in ExtraInfoPage
-  const setExtraInfo = (extraInfo: { ssn: string; address: string }) => {
+  const setExtraInfo = (extraInfo: ExtraInfo) => {
     setApplyInfo((prevState) => ({
       ...prevState,
       extraInfo,
@@ -83,7 +75,7 @@ export default function CompetitionApply() {
   };
 
   // setTeamInfo for props in TeamInfoPage
-  const setTeamInfo = (teamInfo: { network: string; masterName: string; team: string }) => {
+  const setTeamInfo = (teamInfo: TeamInfo) => {
     setApplyInfo((prevState) => ({
       ...prevState,
       teamInfo,
@@ -107,6 +99,7 @@ export default function CompetitionApply() {
   };
 
   //todo: 타입정의 및 분리 필요
+  //todo: 컴포넌트 분리 및 styles 분리 필요
   //todo: 대회신청 api 호출
   //todo: 가격조회 api 호출
   //todo: 결제 api 호출
@@ -135,6 +128,7 @@ export default function CompetitionApply() {
         <Step name="부문선택">
           <ChooseDivisionPage
             onNext={gotoNextStep}
+            playerInfo={applyInfo.playerInfo}
             selectedDivision={applyInfo.selectedDivision}
             setDivision={setDivision}
             setDivisionId={setDivisionId}
