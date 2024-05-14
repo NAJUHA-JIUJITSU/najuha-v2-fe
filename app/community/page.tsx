@@ -6,7 +6,7 @@ import ButtonOnToggle from '@/components/common/button/buttonOnToggle';
 import { useState } from 'react';
 import { Divider } from '@/components/divider';
 import PostCard from '@/components/postCard';
-import { useSortOption } from '@/hook/useSortOption';
+import { useSortOption } from '@/hooks/useSortOption';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import IconSort from '@/public/svgs/sort.svg';
 import Link from 'next/link';
@@ -120,10 +120,7 @@ export default function CommunityPage() {
         {selectOptions.map((option) => (
           <ButtonOnToggle
             key={option.id}
-            type="outlined"
-            color="black"
-            size="medium"
-            shape="tag"
+            type="tag"
             text={option.msg}
             isToggled={selectedOption === option.id}
             onToggle={() => handleSelectOption(option.id)}
