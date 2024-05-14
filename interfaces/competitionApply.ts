@@ -31,3 +31,14 @@ export interface ApplyInfo {
   selectedDivision: SelectedOptions[];
   selectedDicisionId: string[];
 }
+
+export interface Division {
+  id: string;
+  category: string;
+  uniform: string;
+  gender: string;
+  belt: string;
+  weight: string;
+  birthYearRangeStart: string;
+  birthYearRangeEnd: string;
+}

@@ -2,20 +2,10 @@ import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import IconRefresh from '@/public/svgs/refresh.svg';
-import { useState } from 'react';
 import IconClose from '@/public/svgs/closeSmall.svg';
-import { PlayerInfo, SelectedOptions } from '@/interfaces/competitionApply';
-
-interface Division {
-  id: string;
-  category: string;
-  uniform: string;
-  gender: string;
-  belt: string;
-  weight: string;
-  birthYearRangeStart: string;
-  birthYearRangeEnd: string;
-}
+import { PlayerInfo, SelectedOptions, Division } from '@/interfaces/competitionApply';
+import { useSelectedOptions } from '@/hooks/useSelectedOptions';
+import { useDivisionFilter } from '@/hooks/useDivisionFilter';
 
 const divisions: Division[] = [
   {
@@ -235,144 +225,20 @@ export default function ChooseDivisionPage({
   setDivision: (selectedDivision: SelectedOptions[]) => void;
   setDivisionId: (selectedDicisionId: any) => void;
 }) {
-  const [selectedOptions, setSelectedOptions] = useState<SelectedOptions[]>(selectedDivision);
-
-  const cur = selectedOptions.length - 1;
-  const optionKeys: OptionType[] = ['uniform', 'category', 'belt', 'weight'];
-  const nextOption: OptionType | undefined = optionKeys.find((key) => !selectedOptions[cur][key]);
-
-  // selectedOptions[cur]을 기준으로 변경
-  const filteredDivisions = divisions.filter(
-    (division) =>
-      (!selectedOptions[cur].uniform || division.uniform === selectedOptions[cur].uniform) &&
-      (!selectedOptions[cur].category || division.category === selectedOptions[cur].category) &&
-      (!selectedOptions[cur].belt || division.belt === selectedOptions[cur].belt) &&
-      (!selectedOptions[cur].weight || division.weight === selectedOptions[cur].weight),
-  );
-
-  const optionsToShow = nextOption
-    ? [...new Set(filteredDivisions.map((division) => division[nextOption]))].sort()
-    : [];
-
-  // 옵션 선택 처리 => 타입에러 발생에 따른 2가지 해결책
-  // 1. 옵션 선택 처리 => 타입에러 발생
-  // const handleOptionSelect = (optionType: OptionType, value: string) => {
-  //   if (selectedOptions.length === 0 || selectedOptions[cur][optionType]) {
-  //     setSelectedOptions([...selectedOptions, { [optionType]: value }]);
-  //   } else {
-  //     setSelectedOptions((prev) => [...prev.slice(0, -1), { ...prev[cur], [optionType]: value }]);
-  //   }
-  // };
-
-  // 2. 옵션 선택 처리 => 타입에러 해결1
-  // const handleOptionSelect = (optionType: OptionType, value: string) => {
-  //   if (selectedOptions.length === 0 || selectedOptions[cur][optionType]) {
-  //     // 새 옵션을 직접 생성하고 SelectedOptions 타입으로 단언
-  //     const newOption: SelectedOptions = { ...selectedOptions[cur], [optionType]: value } as SelectedOptions;
-  //     setSelectedOptions([...selectedOptions, newOption]);
-  //   } else {
-  //     // 이전 상태를 수정하며 SelectedOptions 타입으로 단언
-  //     setSelectedOptions((prev) => {
-  //       const newOptions = [...prev.slice(0, -1)];
-  //       const updatedOption: SelectedOptions = { ...prev[cur], [optionType]: value } as SelectedOptions;
-  //       newOptions.push(updatedOption);
-  //       return newOptions;
-  //     });
-  //   }
-  // };
-
-  // 3. 옵션 선택 처리 => 타입에러 해결2
-  const handleOptionSelect = (optionType: OptionType, value: string) => {
-    // 먼저 변경하려는 키와 값을 새 객체에 설정
-    const updatedValues = {
-      ...selectedOptions[cur],
-      [optionType]: value, // 새 값을 먼저 적용
-    };
-
-    // 모든 필수 필드를 포함한 새 옵션 객체를 생성
-    const newOption: SelectedOptions = {
-      uniform: updatedValues.uniform || '', // 기본값으로 fallback
-      category: updatedValues.category || '',
-      belt: updatedValues.belt || '',
-      weight: updatedValues.weight || '',
-    };
-
-    if (selectedOptions.length === 0 || selectedOptions[cur][optionType]) {
-      setSelectedOptions([...selectedOptions, newOption]);
-    } else {
-      setSelectedOptions((prev) => [...prev.slice(0, -1), newOption]);
-    }
-  };
-
-  // 선택 항목 삭제 처리
-  const handleDeleteOption = (index: number) => {
-    const newOptions = selectedOptions.filter((_, i) => i !== index);
-    setSelectedOptions(newOptions);
-  };
-
-  // 이전 버튼 클릭 시
-  const handleGoBack = () => {
-    if (selectedOptions.length > 0) {
-      const newOptions = [...selectedOptions];
-      const currentOptions = newOptions[newOptions.length - 1]; // 현재 선택 옵션을 참조
-
-      // 현재 설정해야 할 옵션을 결정
-      const nextOption = optionKeys.find((key) => !currentOptions[key]);
-
-      // 'uniform'을 설정해야 하는 상태에서 이전 버튼을 눌렀을 때 작동하지 않도록
-      if (nextOption === 'uniform') {
-        return; // 아무 동작도 하지 않고 함수를 종료
-      }
-
-      // 다음 설정해야 할 옵션 이외의 최근 설정된 옵션을 삭제
-      if (currentOptions) {
-        const optionKeysReversed = optionKeys.slice().reverse();
-        let keyRemoved = false;
-        for (const key of optionKeysReversed) {
-          if (currentOptions[key] && key !== nextOption) {
-            delete currentOptions[key]; // 마지막으로 추가된 옵션 삭제
-            keyRemoved = true;
-            break;
-          }
-        }
-
-        // 변경된 옵션이 있으면 상태 업데이트
-        if (keyRemoved) {
-          newOptions[newOptions.length - 1] = currentOptions; // 수정된 현재 옵션을 업데이트
-        }
-      }
-
-      // 결과를 상태에 반영
-      setSelectedOptions(newOptions);
-    }
-  };
-
-  // 선택 옵션을 초기화하는 함수
-  const handleRefresh = () => {
-    setSelectedOptions((prev) => [
-      ...prev.slice(0, -1),
-      { uniform: '', category: '', belt: '', weight: '' },
-    ]);
-  };
-
-  // 선택 항목에서 빈 값이 있는지 검사하고 제거하는 함수
-  const cleanUpOptions = () => {
-    // 빈 옵션이 있는지 먼저 확인
-    const hasIncompleteOptions = selectedOptions.some(
-      (option) => !option.uniform || !option.category || !option.belt || !option.weight,
-    );
-
-    // 빈 옵션이 있다면 경고 메시지 표시
-    if (hasIncompleteOptions) {
-      alert('선택이 완료되지 않은 부문은 삭제됩니다.');
-    }
-
-    // 빈 옵션이 없는 항목만 필터링
-    const filteredOptions = selectedOptions.filter(
-      (option) => option.uniform && option.category && option.belt && option.weight,
-    );
-    setSelectedOptions(filteredOptions);
-  };
+  // const [selectedOptions, setSelectedOptions] = useState<SelectedOptions[]>(selectedDivision);
+  const {
+    selectedOptions,
+    handleOptionSelect,
+    handleDeleteOption,
+    cleanUpOptions,
+    undoLastOptionChange,
+    resetLatestOption,
+    handleAddNewOption,
+  } = useSelectedOptions({
+    initialOptions: selectedDivision,
+    divisions,
+  });
+  const { optionsToShow, nextOption } = useDivisionFilter(divisions, selectedOptions);
 
   const handleNext = () => {
     // 선택된 옵션이 2개 이상일 때만 빈 옵션을 정리
@@ -429,7 +295,8 @@ export default function ChooseDivisionPage({
           <div>체급</div>
         </div>
         {selectedOptions.map((division, index) => (
-          <div className={styles.divisionRow}>
+          // key 값 index말고 다른 걸로 바꿔야함
+          <div key={index} className={styles.divisionRow}>
             <div>{division.uniform || '-'}</div>
             <div>{division.category || '-'}</div>
             <div>{division.belt || '-'}</div>
@@ -443,11 +310,11 @@ export default function ChooseDivisionPage({
         ))}
         <div className={styles.chooseDivisonBox}>
           <div className={styles.chooseDivisonBoxHeader}>
-            <div className={styles.icon} onClick={handleGoBack}>
+            <div className={styles.icon} onClick={undoLastOptionChange}>
               <IconNavigateBefore />
               <div className={styles.iconComment}>이전</div>
             </div>
-            <div className={styles.icon} onClick={handleRefresh}>
+            <div className={styles.icon} onClick={resetLatestOption}>
               <IconRefresh />
               <div className={styles.iconComment}>초기화</div>
             </div>
@@ -463,15 +330,7 @@ export default function ChooseDivisionPage({
               </div>
             ))}
             {!nextOption && (
-              <div
-                className={styles.divisionOptionFullCard}
-                onClick={() =>
-                  setSelectedOptions([
-                    ...selectedOptions,
-                    { uniform: '', category: '', belt: '', weight: '' },
-                  ])
-                }
-              >
+              <div className={styles.divisionOptionFullCard} onClick={handleAddNewOption}>
                 부문추가
               </div>
             )}

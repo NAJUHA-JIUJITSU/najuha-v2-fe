@@ -98,7 +98,7 @@ export default function CompetitionApply() {
     }));
   };
 
-  //todo: 타입정의 및 분리 필요
+  //todo: 타입정의 및 분리 필요 => 완료
   //todo: 컴포넌트 분리 및 styles 분리 필요
   //todo: 대회신청 api 호출
   //todo: 가격조회 api 호출
