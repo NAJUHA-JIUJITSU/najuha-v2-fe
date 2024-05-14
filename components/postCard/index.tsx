@@ -2,7 +2,7 @@ import styles from './index.module.scss';
 import Tag from '@/components/tag';
 import IconThumbUp from '@/public/svgs/thumbUp.svg';
 import IconChat from '@/public/svgs/chat.svg';
-import { getPastTime } from '@/util/dateCheck';
+import { getPastTime } from '@/utils/dateUtils/dateCheck';
 
 interface PostInfo {
   id: number;
