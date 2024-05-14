@@ -225,7 +225,6 @@ export default function ChooseDivisionPage({
   setDivision: (selectedDivision: SelectedOptions[]) => void;
   setDivisionId: (selectedDicisionId: any) => void;
 }) {
-  // const [selectedOptions, setSelectedOptions] = useState<SelectedOptions[]>(selectedDivision);
   const {
     selectedOptions,
     handleOptionSelect,
