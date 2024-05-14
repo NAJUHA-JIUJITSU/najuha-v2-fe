@@ -31,7 +31,11 @@ export default function Edit({ params }: EditProps) {
   };
 
   const profileEditGoBack = () => {
-    mutate(undefined, {
+    if (params.edit === 'phoneNumber') {
+      profileGoBack();
+      return;
+    }
+    mutate(params.edit, {
       onSuccess: () => {
         profileGoBack();
       },

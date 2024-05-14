@@ -36,12 +36,10 @@ export const userPatchSelector = selector({
   key: 'userPatchSelector',
   get: ({ get }) => {
     const nickname = get(nicknameState);
-    const name = get(nameState);
     const gender = get(genderState)?.toUpperCase();
     const birth = get(birthDateState).replace(/\//g, '');
     const belt = get(beltState);
     return {
-      name,
       gender,
       nickname,
       birth,
