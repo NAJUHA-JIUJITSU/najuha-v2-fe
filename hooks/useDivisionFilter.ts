@@ -18,9 +18,9 @@ export function useDivisionFilter(divisions: Division[], selectedOptions: Select
   }, [divisions, currentSelection]);
 
   // 다음에 선택할 옵션
-  const nextOption = useMemo(() => {
+  const nextOption: keyof SelectedOptions | null = useMemo(() => {
     const existingKeys = optionKeys.filter((key) => currentSelection[key]);
-    return optionKeys.find((key) => !existingKeys.includes(key));
+    return optionKeys.find((key) => !existingKeys.includes(key)) || null;
   }, [currentSelection, optionKeys]);
 
   // 필터링된 대회 목록에서 다음에 선택할 수 있는 옵션

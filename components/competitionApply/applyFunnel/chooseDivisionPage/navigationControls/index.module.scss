@@ -1,0 +1,22 @@
+@import '@/styles/_variable.scss';
+@import '@/styles/_typography.scss';
+
+.chooseDivisonBoxHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: $--color-brand-blue;
+}
+
+.iconComment {
+  @include font-caption-regular;
+  color: $--color-font-subheadline;
+}

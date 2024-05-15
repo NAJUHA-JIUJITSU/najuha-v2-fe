@@ -1,11 +1,13 @@
 import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
-import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
-import IconRefresh from '@/public/svgs/refresh.svg';
-import IconClose from '@/public/svgs/closeSmall.svg';
 import { PlayerInfo, SelectedOptions, Division } from '@/interfaces/competitionApply';
 import { useSelectedOptions } from '@/hooks/useSelectedOptions';
 import { useDivisionFilter } from '@/hooks/useDivisionFilter';
+import { PlayerInfoDisplay } from '@/components/competitionApply/applyFunnel/chooseDivisionPage/playerInfoDisplay/playerInfoDisplay';
+import { OptionsDisplay } from './optionsDisplay/optionsDisplay';
+import { NavigationControls } from './navigationControls/navigationControls';
+import { DivisionOptions } from './divisionOptions/divisionOptions';
+import { DivisionHeader } from './divisionHeader/divisionHeader';
 
 const divisions: Division[] = [
   {
@@ -210,8 +212,6 @@ const divisions: Division[] = [
   },
 ];
 
-type OptionType = 'uniform' | 'category' | 'belt' | 'weight';
-
 export default function ChooseDivisionPage({
   onNext,
   playerInfo,
@@ -281,59 +281,17 @@ export default function ChooseDivisionPage({
   return (
     <>
       <div className={styles.wrapper}>
-        <div className={styles.playerInfoList}>
-          <div>{playerInfo.name}</div>
-          <div>{playerInfo.gender}</div>
-          <div>{playerInfo.birth}</div>
-          <div>{playerInfo.belt}</div>
-        </div>
-        <div className={styles.divisionColumn}>
-          <div>기/노기</div>
-          <div>부문</div>
-          <div>벨트</div>
-          <div>체급</div>
-        </div>
-        {selectedOptions.map((division, index) => (
-          // key 값 index말고 다른 걸로 바꿔야함
-          <div key={index} className={styles.divisionRow}>
-            <div>{division.uniform || '-'}</div>
-            <div>{division.category || '-'}</div>
-            <div>{division.belt || '-'}</div>
-            <div>{division.weight || '-'}</div>
-            {selectedOptions.length > 1 && (
-              <div className={styles.divisionDelete} onClick={() => handleDeleteOption(index)}>
-                <IconClose />
-              </div>
-            )}
-          </div>
-        ))}
+        <PlayerInfoDisplay playerInfo={playerInfo} />
+        <DivisionHeader />
+        <OptionsDisplay options={selectedOptions} onDelete={handleDeleteOption} />
         <div className={styles.chooseDivisonBox}>
-          <div className={styles.chooseDivisonBoxHeader}>
-            <div className={styles.icon} onClick={undoLastOptionChange}>
-              <IconNavigateBefore />
-              <div className={styles.iconComment}>이전</div>
-            </div>
-            <div className={styles.icon} onClick={resetLatestOption}>
-              <IconRefresh />
-              <div className={styles.iconComment}>초기화</div>
-            </div>
-          </div>
-          <div className={styles.divisionOptionCardList}>
-            {optionsToShow.map((option) => (
-              <div
-                key={option}
-                className={styles.divisionOptionCard}
-                onClick={() => (nextOption ? handleOptionSelect(nextOption, option) : null)}
-              >
-                {option}
-              </div>
-            ))}
-            {!nextOption && (
-              <div className={styles.divisionOptionFullCard} onClick={handleAddNewOption}>
-                부문추가
-              </div>
-            )}
-          </div>
+          <NavigationControls onBack={undoLastOptionChange} onRefresh={resetLatestOption} />
+          <DivisionOptions
+            optionsToShow={optionsToShow}
+            nextOption={nextOption}
+            handleOptionSelect={handleOptionSelect}
+            handleAddNewOption={handleAddNewOption}
+          />
         </div>
       </div>
       <div className={styles.submit}>

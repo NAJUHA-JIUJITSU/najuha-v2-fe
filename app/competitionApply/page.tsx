@@ -8,7 +8,7 @@ import { useFunnel } from '@/hooks/useFunnel';
 import PlayerInfoPage from '@/components/competitionApply/applyFunnel/playerInfoPage';
 import { useState } from 'react';
 import ExtraInfoPage from '@/components/competitionApply/applyFunnel/extraInfoPage';
-import ChooseDivisionPage from '@/components/competitionApply/applyFunnel/chooseDivisionPage';
+import ChooseDivisionPage from '@/components/competitionApply/applyFunnel/chooseDivisionPage/chooseDivisionPage';
 import TeamInfoPage from '@/components/competitionApply/applyFunnel/teamInfoPage';
 import CheckApplyInfoPage from '@/components/competitionApply/applyFunnel/checkApplyInfoPage/checkApplyInfoPage';
 import {
