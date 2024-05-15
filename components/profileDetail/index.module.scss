@@ -1,0 +1,13 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+//wrapper
+.wrapper {
+}
+
+.tagBtnOptionsWrapper {
+  padding: 8px 0;
+  display: flex;
+  gap: 8px;
+}
