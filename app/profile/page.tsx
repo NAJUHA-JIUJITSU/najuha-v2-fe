@@ -6,9 +6,10 @@ import ProfileInfo from '@/components/profile/profileInfo';
 import Ad from '@/components/ad';
 
 export default function profile() {
-  const myProfileButtonLists = [
-    { text: '게시판 활동', href: '/' },
-    { text: '주최목록', href: '/' },
+  const profileButtonLists = [
+    { text: '게시판 활동', href: '/profile/myCommunity' },
+    { text: '주최목록', href: '/profile/hostedEvent' },
+    { text: '신청내역', href: '/applicationList' },
     { text: '환경설정', href: '/' },
     { text: '고객센터', href: '/' },
     { text: '공지사항', href: '/' },
@@ -25,7 +26,7 @@ export default function profile() {
       </div>
       {/* <Ad src={'/images/sampleAd.png'} alt={'ad'} size={'small'} /> */}
       <div className={styles.bottomSection}>
-        <ButtonLists buttonLists={myProfileButtonLists} />
+        <ButtonLists buttonLists={profileButtonLists} />
       </div>
     </div>
   );
