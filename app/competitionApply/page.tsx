@@ -99,7 +99,9 @@ export default function CompetitionApply() {
   };
 
   //todo: 타입정의 및 분리 필요 => 완료
-  //todo: 컴포넌트 분리 및 styles 분리 필요
+  //todo: 컴포넌트 분리 및 styles 분리 필요 => 완료
+  //todo: chooseDivisionPage 변수명 다시 짓기
+  // --- dummydata api 생기면 그때 기능 구현 ---
   //todo: 대회신청 api 호출
   //todo: 가격조회 api 호출
   //todo: 결제 api 호출
