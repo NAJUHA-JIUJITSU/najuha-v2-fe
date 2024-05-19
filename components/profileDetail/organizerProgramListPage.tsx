@@ -3,6 +3,7 @@ import styles from './index.module.scss';
 import { useState } from 'react';
 import TabList from '@/components/tapList';
 import ButtonOnToggle from '@/components/common/button/buttonOnToggle';
+import OrganizerProgramCard from '../programCard/organizerProgramCard';
 
 // TabKey 타입 정의
 type TabKey = 'competiton' | 'seminar' | 'openmat';
@@ -20,7 +21,7 @@ const TabLabels: Record<TabKey, string> = {
 // tagBtnOptions 배열 상수 정의
 const tagBtnOptions = ['전체', '오픈 전', '신청 중', '마감'];
 
-export default function hostedEventPage() {
+export default function organizerProgramListPage() {
   const [selectedTab, setSelectedTab] = useState<TabKey>('competiton');
   const [selectOptionsState, setSelectOptionsState] = useState<string>('전체');
 
@@ -43,16 +44,12 @@ export default function hostedEventPage() {
           />
         ))}
       </div>
-      <div>
-        <div
-          style={{
-            lineHeight: 4,
-            fontSize: 18,
-          }}
-        >
+      <div className={styles.OrganizerProgramCardList}>
+        <p>
           {TabLabels[selectedTab]}의 {selectOptionsState} 상태의 리스트 불러오기
-        </div>
-        주최목록 카드들
+        </p>
+        <OrganizerProgramCard />
+        <OrganizerProgramCard />
       </div>
     </div>
   );

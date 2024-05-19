@@ -1,11 +1,11 @@
 'use client';
-
 import styles from './index.module.scss';
 import { useState } from 'react';
 import Header from '@/components/common/header/Header';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
 import TabList from '@/components/tapList';
 import ButtonOnToggle from '@/components/common/button/buttonOnToggle';
+import ApplicantProgramCard from '@/components/programCard/applicantProgramCard';
 
 // TabKey 타입 정의
 type TabKey = 'competiton' | 'seminar' | 'openmat';
@@ -47,16 +47,12 @@ export default function applicationList() {
           />
         ))}
       </div>
-      <div>
-        <div
-          style={{
-            lineHeight: 4,
-            fontSize: 18,
-          }}
-        >
+      <div className={styles.applicationCardList}>
+        <p>
           {TabLabels[selectedTab]}의 {selectOptionsState} 상태의 리스트 불러오기
-        </div>
-        신청내역 카드들
+        </p>
+        <ApplicantProgramCard />
+        <ApplicantProgramCard />
       </div>
     </div>
   );

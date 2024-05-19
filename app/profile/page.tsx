@@ -8,7 +8,7 @@ import Ad from '@/components/ad';
 export default function profile() {
   const profileButtonLists = [
     { text: '게시판 활동', href: '/profile/myCommunity' },
-    { text: '주최목록', href: '/profile/hostedEvent' },
+    { text: '주최목록', href: '/profile/organizerProgramList' },
     { text: '신청내역', href: '/applicationList' },
     { text: '환경설정', href: '/' },
     { text: '고객센터', href: '/' },

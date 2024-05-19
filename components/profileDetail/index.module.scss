@@ -11,3 +11,14 @@
   display: flex;
   gap: 8px;
 }
+
+.OrganizerProgramCardList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  p {
+    @include font-body3-regular;
+    color: $--color-font-headline;
+  }
+}

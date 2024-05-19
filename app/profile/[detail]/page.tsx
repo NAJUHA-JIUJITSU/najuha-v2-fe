@@ -2,9 +2,9 @@ import styles from './index.module.scss';
 import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import MyCommunityPage from '@/components/profileDetail/myCommunityPage';
-import HostedEventPage from '@/components/profileDetail/hostedEventPage';
+import OrganizerProgramListPage from '@/components/profileDetail/organizerProgramListPage';
 
-type detailType = 'myCommunity' | 'hostedEvent';
+type detailType = 'myCommunity' | 'organizerProgramList';
 
 interface DetailProps {
   params: { detail: detailType };
@@ -16,9 +16,9 @@ export default function detail({ params }: DetailProps) {
       title: '게시판 활동',
       Page: <MyCommunityPage />,
     },
-    hostedEvent: {
+    organizerProgramList: {
       title: '주최 목록',
-      Page: <HostedEventPage />,
+      Page: <OrganizerProgramListPage />,
     },
   };
 
