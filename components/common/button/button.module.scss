@@ -14,6 +14,7 @@
 }
 
 // 버튼 공통 스타일
+
 .wrapper {
   padding: 7px 8px;
   box-sizing: border-box;
@@ -90,7 +91,7 @@
   }
   &-gray {
     background-color: $--color-basic-white;
-    color: $--color-font-body;
+    color: $--color-font-subheadline;
   }
   &-disabled {
     background-color: $--color-basic-white;

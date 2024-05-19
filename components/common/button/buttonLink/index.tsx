@@ -1,7 +1,6 @@
 import styles from '../button.module.scss';
 import Link from 'next/link';
 import clsx from 'clsx';
-
 type ButtonType = 'filled' | 'outlined' | 'text' | 'underlined' | 'caption';
 type ButtonSize = 'small' | 'medium' | 'large' | 'xLarge';
 type ButtonColor = 'blue' | 'lightblue' | 'black' | 'gray' | 'disabled';
@@ -35,7 +34,7 @@ export default function ButtonLink({
   const typeColor = `${type}-${color}`;
   return (
     <div
-      className={clsx({
+      className={clsx(`${styles[width]}`, {
         [styles.fixed]: position === 'fixed',
       })}
     >
