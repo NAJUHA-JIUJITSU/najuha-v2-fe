@@ -6,6 +6,7 @@ import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink
 import TabList from '@/components/tapList';
 import ButtonOnToggle from '@/components/common/button/buttonOnToggle';
 import ApplicantProgramCard from '@/components/programCard/applicantProgramCard';
+import NavigationBar from '@/components/common/navigationBar';
 
 // TabKey 타입 정의
 type TabKey = 'competiton' | 'seminar' | 'openmat';
@@ -53,6 +54,7 @@ export default function applicationList() {
         </p>
         <ApplicantProgramCard />
         <ApplicantProgramCard />
+        <NavigationBar />
       </div>
     </div>
   );

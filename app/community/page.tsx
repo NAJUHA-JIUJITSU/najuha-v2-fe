@@ -10,6 +10,7 @@ import { useSortOption } from '@/hooks/useSortOption';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import IconSort from '@/public/svgs/sort.svg';
 import Link from 'next/link';
+import NavigationBar from '@/components/common/navigationBar';
 
 const selectOptions = [
   {
@@ -145,6 +146,7 @@ export default function CommunityPage() {
           </Link>
         ))}
       </div>
+      <NavigationBar />
     </div>
   );
 }
