@@ -1,0 +1,32 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.wrapper {
+  height: 49px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  .menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: $--color-gray-2;
+    width: 72px;
+    height: 49px;
+
+    &.active {
+      color: $--color-brand-blue;
+      span {
+        @include font-tag-medium;
+        color: $--color-brand-blue;
+      }
+    }
+
+    span {
+      @include font-tag-regular;
+      color: $--color-font-subheadline;
+    }
+  }
+}
