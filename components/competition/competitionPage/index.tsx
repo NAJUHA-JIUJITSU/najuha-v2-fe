@@ -7,9 +7,10 @@ import IconSort from '@/public/svgs/sort.svg';
 import { Divider } from '@/components/divider';
 import { useURLParams } from '@/hooks/useURLParams';
 import Select from '@/components/common/select';
-import CompetitionList from '@/components/competitionList';
+import CompetitionList from '@/components/competition/competitionList';
 
 const locationOptions = [
+  '전체',
   '서울',
   '경기',
   '인천',
@@ -29,6 +30,7 @@ const locationOptions = [
   '제주',
 ];
 const dateOptions = [
+  '전체',
   '2024-04',
   '2024-05',
   '2024-06',
@@ -45,9 +47,9 @@ const sortOptions = ['일자순', '조회순', '마감임박순'];
 export default function CompetitionPage() {
   const { params, updateParams } = useURLParams();
 
-  const [dateFilterState, setDateFilterState] = useState<string>((params.date as string) || '');
+  const [dateFilterState, setDateFilterState] = useState<string>((params.date as string) || '전체');
   const [locationFilterState, setLocationFilterState] = useState<string>(
-    (params.location as string) || '',
+    (params.location as string) || '전체',
   );
   const [sortOptionState, setSortOptionState] = useState<string>(
     (params.sort as string) || sortOptions[0],
@@ -60,11 +62,13 @@ export default function CompetitionPage() {
 
   const handleDateFilterChange = (newDate: string) => {
     setDateFilterState(newDate);
+    if (newDate === '전체') newDate = '';
     updateParams({ date: newDate });
   };
 
   const handleLocationFilterChange = (newLocation: string) => {
     setLocationFilterState(newLocation);
+    if (newLocation === '전체') newLocation = '';
     updateParams({ location: newLocation });
   };
 

@@ -81,6 +81,11 @@
       color: $--color-font-headline;
       background-color: $--color-basic-white;
 
+      &.selected {
+        @include font-body1-regular;
+        color: $--color-brand-blue;
+      }
+
       &:hover {
         background-color: $--color-brand-blue-10;
       }

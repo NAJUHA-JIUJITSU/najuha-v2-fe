@@ -15,16 +15,29 @@ export const getFilteredCompetitions = async (
   selectFilter: string[],
   sortOption: string,
 ) => {
-  const response = await axiosPublic.get('user/competitions', {
-    params: {
-      page: page,
-      limit: limit,
-      dateFilter: dateFilter,
-      locationFilter: locationFilter,
-      selectFilter: selectFilter,
-      sortOption: sortOption,
-    },
-  });
+  const params: Record<string, any> = {
+    page: page,
+    limit: limit,
+    sortOption: sortOption,
+  };
+
+  if (dateFilter !== '전체') {
+    params.dateFilter = dateFilter;
+  }
+
+  if (locationFilter !== '전체') {
+    params.locationFilter = locationFilter;
+  }
+
+  if (selectFilter.length > 0) {
+    params.selectFilter = selectFilter;
+  }
+
+  console.log('대회 요청: ', { params });
+
+  const response = await axiosPublic.get('user/competitions', { params: params });
+
+  console.log('대회 응답: ', response.data.result);
   return response;
 };
 

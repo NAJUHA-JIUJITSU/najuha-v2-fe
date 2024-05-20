@@ -36,22 +36,21 @@ export default function CompetitionList({
     if (isFetchingNextPage || !hasNextPage) return;
 
     // IntersectionObserver 생성
-    if (!observerRef.current) {
-      observerRef.current = new IntersectionObserver((entries) => {
-        // 마지막 리스트 요소가 화면에 보이면 다음 페이지 요청
-        if (entries[0].isIntersecting) {
-          console.log('다음 페이지 요청');
-          fetchNextPage();
-        }
-      });
+    if (observerRef.current) observerRef.current.disconnect();
 
-      // observer에 관찰 대상 등록
-      if (lastElementRef.current) {
-        observerRef.current.observe(lastElementRef.current);
+    observerRef.current = new IntersectionObserver((entries) => {
+      // 마지막 리스트 요소가 화면에 보이면 다음 페이지 요청
+      if (entries[0].isIntersecting) {
+        console.log('다음 페이지 요청');
+        fetchNextPage();
       }
+    });
+
+    // observer에 관찰 대상 등록
+    if (lastElementRef.current) {
+      observerRef.current.observe(lastElementRef.current);
     }
 
-    // 컴포넌트 언마운트 시 observer 해제
     return () => observerRef.current?.disconnect();
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 

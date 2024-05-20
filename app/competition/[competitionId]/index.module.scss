@@ -8,7 +8,7 @@
   flex-direction: column;
   background-color: $--color-basic-white;
 
-  span {
+  h3 {
     @include font-body1-regular;
     color: $--color-font-body;
   }

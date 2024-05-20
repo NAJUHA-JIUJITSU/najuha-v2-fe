@@ -15,6 +15,8 @@ interface TagListProps {
     isPartnership: boolean;
     soloRegistrationAdjustmentStartDate: string;
     soloRegistrationAdjustmentEndDate: string;
+    ealryBirdStartDate: string | undefined;
+    ealryBirdEndDate: string | undefined;
   };
 }
 
@@ -59,6 +61,16 @@ export default function TagList({ competiton }: TagListProps) {
     'soloApply',
     '단독출전조정 마감',
   );
+
+  // 얼리버드 할인 기간 태그 추가
+  if (competiton.ealryBirdStartDate && competiton.ealryBirdEndDate) {
+    addDdayTagIfNeeded(
+      competiton.ealryBirdStartDate,
+      competiton.ealryBirdEndDate,
+      'earlyBird',
+      '얼리버드',
+    );
+  }
 
   // 신청마감 태그 추가 (대회 신청 및 단독출전 조정기간 모두 지났을 경우)
   if (

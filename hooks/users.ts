@@ -46,14 +46,15 @@ export const useUserInfo = () => {
   }, [query.data]);
 };
 
+type editType = 'nickname' | 'gender' | 'birth' | 'belt';
+
 export const useUserPatch = () => {
   const userPatch = useRecoilValue(userPatchSelector);
   const queryClient = useQueryClient();
-  console.log('userInfoPatch: ', userPatch);
 
   const { mutate, isPending, isError } = useMutation({
-    mutationFn: () => {
-      return usersApi.patchUser(userPatch);
+    mutationFn: (edit: editType) => {
+      return usersApi.patchUser({ [edit]: userPatch[edit] });
     },
     onError: (error: any) => {
       console.log(error);
