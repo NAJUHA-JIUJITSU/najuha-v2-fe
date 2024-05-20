@@ -21,7 +21,7 @@ export interface ExtraInfo {
 export interface TeamInfo {
   network: string;
   team: string;
-  master: string;
+  masterName: string;
 }
 
 export interface ApplyInfo {

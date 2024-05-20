@@ -1,4 +1,4 @@
-import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
+import { useQuery, useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import { queries } from '@/queries/index';
 import { competitionApi } from '@/api/competitionApi';
 import {
@@ -62,5 +62,18 @@ export const useGetCompetitionId = (competitionId: number) => {
     queryKey: queries.competition.id(competitionId).queryKey,
     queryFn: () => competitionApi.getCompetitionId(competitionId),
     select: competitionIdSelectFn,
+  });
+};
+
+//대회 신청하기
+export const useSubmitApplication = () => {
+  return useMutation({
+    mutationFn: competitionApi.submitApplication,
+    onSuccess: (data) => {
+      console.log('Application submitted successfully:', data);
+    },
+    onError: (error) => {
+      console.error('Error submitting application:', error);
+    },
   });
 };

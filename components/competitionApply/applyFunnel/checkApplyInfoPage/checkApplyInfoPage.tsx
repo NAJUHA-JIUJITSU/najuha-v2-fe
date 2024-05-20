@@ -43,7 +43,7 @@ export default function CheckApplyInfoPage({
           </div>
           <div className={styles.row}>
             <div className={styles.subtitle}>관장님 성함</div>
-            <div className={styles.content}>{teamInfo.master}</div>
+            <div className={styles.content}>{teamInfo.masterName}</div>
           </div>
         </div>
         <div className={styles.block}>

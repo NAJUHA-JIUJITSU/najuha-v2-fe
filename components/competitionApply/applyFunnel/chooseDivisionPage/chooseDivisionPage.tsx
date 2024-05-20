@@ -216,12 +216,14 @@ export default function ChooseDivisionPage({
   onNext,
   playerInfo,
   selectedDivision,
+  divisions,
   setDivision,
   setDivisionId,
 }: {
   onNext: () => void;
   playerInfo: PlayerInfo;
   selectedDivision: SelectedOptions[];
+  divisions: Division[];
   setDivision: (selectedDivision: SelectedOptions[]) => void;
   setDivisionId: (selectedDicisionId: any) => void;
 }) {

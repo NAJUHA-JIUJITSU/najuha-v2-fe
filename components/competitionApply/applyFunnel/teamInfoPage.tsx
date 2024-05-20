@@ -12,7 +12,7 @@ export default function TeamInfoPage({
   teamInfo,
   setTeamInfo,
 }: {
-  onNext: () => void;
+  onNext: any;
   teamInfo: TeamInfo;
   setTeamInfo: (teamInfo: TeamInfo) => void;
 }) {
@@ -32,22 +32,23 @@ export default function TeamInfoPage({
     validate: teamValidate,
   } = useInput(teamInfo.team, validateTrue);
   const {
-    value: master,
+    value: masterName,
     setValue: setMaster,
     errMsg: masterErrMsg,
     validate: masterValidate,
-  } = useInput(teamInfo.master, validateTrue);
+  } = useInput(teamInfo.masterName, validateTrue);
 
   const [isChecked, setIsChecked] = useState(false);
 
   const handleNext = () => {
-    setTeamInfo({
+    const updatedTeamInfo = {
       ...teamInfo,
       network,
       team,
-      master,
-    });
-    onNext();
+      masterName,
+    };
+
+    onNext(updatedTeamInfo); // 최신 teamInfo를 handleSubmit로 전달
   };
 
   const validate = networkValidate && teamValidate && masterValidate;
@@ -72,7 +73,7 @@ export default function TeamInfoPage({
         <Input
           label="관장님 성함"
           placeholder="김영태"
-          value={master}
+          value={masterName}
           errMsg={masterErrMsg}
           onChange={(e) => setMaster(e.target.value)}
         />
