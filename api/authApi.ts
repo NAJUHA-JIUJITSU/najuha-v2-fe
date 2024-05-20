@@ -22,7 +22,7 @@ export const postRefreshToken = async (): Promise<string> => {
   const response = await axiosPublic.post('/user/auth/token', {
     refreshToken: Cookies.get('refreshToken'),
   });
-  const { accessToken, refreshToken } = response.data.result;
+  const { accessToken, refreshToken } = response.data.result.authTokens;
   saveTokens(accessToken, refreshToken);
   return accessToken;
 };

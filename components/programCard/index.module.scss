@@ -1,0 +1,90 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.wrapper {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid $--color-gray-1;
+  flex-direction: column;
+  background-color: $--color-basic-white;
+}
+
+// 신청, 결제, 환불 일자
+.top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid $--color-gray-1;
+  h1 {
+    @include font-subtitle2-medium;
+    color: $--color-font-headline;
+    span {
+      margin-right: 8px;
+      color: $--color-font-body;
+    }
+  }
+  button {
+    color: $--color-gray-2;
+  }
+}
+
+// 신청 정보 미리보기
+.middle {
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+
+  img {
+    width: 90px;
+    height: 122px;
+    border-radius: 8px;
+  }
+
+  .info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 2px 0;
+    h1 {
+      @include font-subtitle1-bold;
+      color: $--color-font-headline;
+    }
+
+    h2 {
+      @include font-body3-regular;
+      color: $--color-font-subheadline;
+    }
+
+    h3 {
+      @include font-body3-regular;
+      color: $--color-font-body;
+    }
+
+    .price {
+      display: flex;
+      margin-left: auto;
+      margin-top: auto;
+      gap: 8px;
+      align-items: center;
+      span {
+        @include font-caption-regular;
+        color: $--color-brand-blue;
+      }
+      p {
+        @include font-subtitle1-bold;
+        color: $--color-brand-blue;
+      }
+    }
+  }
+}
+
+// 신청관련 바로가기 버튼
+.bottom {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
