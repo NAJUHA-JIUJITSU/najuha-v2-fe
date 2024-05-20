@@ -7,4 +7,9 @@
   overflow: auto;
   -ms-overflow-style: none; /* 인터넷 익스플로러 */
   scrollbar-width: none; /* 파이어폭스 */
+  //너비가 부모패딩을 무시하고 전체 너비로
+  position: relative;
+  left: -16px;
+  width: calc(100% + 32px);
+  height: 48px;
 }
