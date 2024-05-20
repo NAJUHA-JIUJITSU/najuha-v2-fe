@@ -4,6 +4,7 @@ import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink
 import ButtonLists from '@/components/common/buttonList/buttonLists';
 import ProfileInfo from '@/components/profile/profileInfo';
 import Ad from '@/components/ad';
+import NavigationBar from '@/components/common/navigationBar';
 
 export default function profile() {
   const profileButtonLists = [
@@ -28,6 +29,7 @@ export default function profile() {
       <div className={styles.bottomSection}>
         <ButtonLists buttonLists={profileButtonLists} />
       </div>
+      <NavigationBar />
     </div>
   );
 }

@@ -6,7 +6,7 @@ export default function LoginFooter() {
     <div className={styles.footer}>
       <ButtonLink text="문의하기" size="large" type="caption" color="gray" href="/najuhaOfficial" />
       <div className={styles.seperateBar}></div>
-      <ButtonLink text="둘러보기" size="large" type="caption" color="gray" href="/najuhaOfficial" />
+      <ButtonLink text="둘러보기" size="large" type="caption" color="gray" href="/" />
     </div>
   );
 }

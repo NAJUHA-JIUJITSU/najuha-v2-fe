@@ -90,6 +90,10 @@
 }
 
 // Tag style
-@mixin font-tag-regualr {
+@mixin font-tag-regular {
   @include typography(10px, 12px, -1.25%, 400);
+}
+
+@mixin font-tag-medium {
+  @include typography(10px, 12px, -1.25%, 500);
 }

@@ -1,0 +1,17 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+//고정 하단바 스타일
+.wrapper {
+  position: fixed;
+  display: flex;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 81px;
+  box-sizing: border-box;
+  background-color: $--color-basic-white;
+  border: 0.2px solid $--color-gray-3;
+  z-index: 999;
+}

@@ -7,19 +7,3 @@
   padding: 0 16px;
   background-color: $--color-basic-white;
 }
-
-.tagBtnOptionsWrapper {
-  padding: 8px 0;
-  display: flex;
-  gap: 8px;
-}
-
-.applicationCardList {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  p {
-    @include font-body3-regular;
-    color: $--color-font-headline;
-  }
-}

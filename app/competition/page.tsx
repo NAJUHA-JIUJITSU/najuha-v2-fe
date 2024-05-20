@@ -3,6 +3,7 @@ import styles from './index.module.scss';
 import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
+import NavigationBar from '@/components/common/navigationBar';
 
 export default function Competition() {
   return (
@@ -14,6 +15,7 @@ export default function Competition() {
         rightIcon2={<IconLinkSearch />}
       />
       <CompetitionPage />
+      <NavigationBar />
     </div>
   );
 }
