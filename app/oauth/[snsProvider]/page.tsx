@@ -25,7 +25,7 @@ export default function SnsRedirectPage({ params, searchParams }: SnsRedirectPag
       if (userRole === 'TEMPORARY_USER') {
         router.push(`/register`);
       } else {
-        // 리프레시 토큰이 만료되어 왔으면 이전페이지로 리다이렉트해야함
+        // todo: 이전페이지로 리다이렉트해야함
         console.log('로그인된 회원입니다');
         router.push('/');
       }
