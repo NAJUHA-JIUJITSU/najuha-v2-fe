@@ -56,7 +56,6 @@ export default function CompetitionApply({ params }: { params: { competitionId: 
   // 대회 조회
   const { data: competition, isLoading, isError } = useGetCompetitionId(params.competitionId);
   let divisions: Division[] = competition?.divisions;
-  console.log('divisions:', divisions);
   const { mutate } = useSubmitApplication();
   const [applicationId, setApplicationId] = useState<string | null>(null);
 
