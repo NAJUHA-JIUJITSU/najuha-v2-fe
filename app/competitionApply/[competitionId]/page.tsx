@@ -60,12 +60,6 @@ export default function CompetitionApply({ params }: { params: { competitionId: 
   const [applicationId, setApplicationId] = useState<string | null>(null);
 
   const handleSubmit = (updatedTeamInfo: TeamInfo) => {
-    // applyInfo 상태를 업데이트
-    setApplyInfo((prevState) => ({
-      ...prevState,
-      teamInfo: updatedTeamInfo,
-    }));
-
     // 상태 업데이트가 완료된 후 mutate 호출
     mutate(
       {
@@ -132,22 +126,13 @@ export default function CompetitionApply({ params }: { params: { competitionId: 
     }));
   };
 
-  //todo: 타입정의 및 분리 필요 => 완료
-  //todo: 컴포넌트 분리 및 styles 분리 필요 => 완료
-  //todo: chooseDivisionPage 변수명 다시 짓기
-  // --- dummydata api 생기면 그때 기능 구현 ---
-  //todo: 대회신청 api 호출 => 완료
   // ---
-  // 1. 팀정보 입력시에 setState동기적으로 일어날 수 있게 그래야 팀정보가 applyInfo에 제대로 들어감 => 완료
-  // 2. 대회신청 요청할때 제대로 데이터 들어갈 수 있게 parsing? format? 함수 만들기 복사해서 넣어줘야함 => 완료 => 나중에 포맷팅함수를 따로 만들어야함 f=>b b=>f둘다
-  // 3. CheckApplyInfoPage(신청상세페이지)는 결국 퍼널구조에서 빠져야하고 새로운 url에 노출되어야함 => CheckApplyInfoPage는 기존 퍼널에 그대로 유지, ApplyInfo컴포넌트를 따로 묶음
-  // 3-1. 다른 ui를 확인해보니 컴포넌트 자체에서 네트워크 요청을 하는게 좋은 거 같음
-  // 4. 대회신청이후에 applicationId를 받아서 application/[applicationId]로 이동해야함 => 계획 수정
-  // 5. 부문선택창에 들어갈떄 gender를 바탕으로 division을 필터링해야함 그리고 이전눌렀을때 제대로 동작 안하고있음
-  // 6. 대회신청시에 생년월일부분이 원본이 훼손되는 문제가 있음
-  // 6. 타입정의 및 분리 필요 => 금요일날 하기로함.
-  // 7. 데이터값 안바꾸고 그대로 유지 ui에서 보여주는 부분만 바꾸기
-  //todo: 가격조회 api 호출
+  // 1. 부문선택창에 들어갈떄 gender를 바탕으로 division을 필터링해야함 그리고 이전눌렀을때 제대로 동작 안하고있음
+  // 2. 대회신청시에 생년월일부분이 원본이 훼손되는 문제가 있음
+  // 3. 데이터값 안바꾸고 그대로 유지 ui에서 보여주는 부분만 바꾸기 => input validation도 다 바꿔야함
+  // 4. 가격조회 api호출
+  // 5. 타입정의 및 분리 필요 => 금요일날 하기로함.
+  // 6. 전체적인 변수명 점검 => 변수명 명확히하기
   //todo: 결제 api 호출
 
   return (

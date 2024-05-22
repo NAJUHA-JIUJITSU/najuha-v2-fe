@@ -48,6 +48,8 @@ export default function TeamInfoPage({
       masterName,
     };
 
+    setTeamInfo(updatedTeamInfo); // setTeamInfo로 teamInfo를 업데이트 with updatedTeamInfo
+
     onNext(updatedTeamInfo); // 최신 teamInfo를 handleSubmit로 전달
   };
 
