@@ -19,7 +19,8 @@ import {
   TeamInfo,
   Division,
 } from '@/interfaces/competitionApply';
-import { useGetCompetitionId, useSubmitApplication } from '@/hooks/competition';
+import { useGetCompetitionId } from '@/hooks/competition';
+import { useSubmitApplication } from '@/hooks/applications';
 
 const steps = [
   '선수정보 확인',
@@ -56,6 +57,7 @@ export default function CompetitionApply({ params }: { params: { competitionId: 
   const { data: competition, isLoading, isError } = useGetCompetitionId(params.competitionId);
   let divisions: Division[] = competition?.divisions;
   const { mutate } = useSubmitApplication();
+  const [applicationId, setApplicationId] = useState<string | null>(null);
 
   const handleSubmit = (updatedTeamInfo: TeamInfo) => {
     // applyInfo 상태를 업데이트
@@ -76,6 +78,8 @@ export default function CompetitionApply({ params }: { params: { competitionId: 
       {
         onSuccess: (data) => {
           console.log('Application submitted successfully:', data);
+          console.log('applicationId:', data.result.application.id);
+          setApplicationId(data.result.application.id);
           gotoNextStep();
         },
         onError: (error) => {
@@ -135,9 +139,14 @@ export default function CompetitionApply({ params }: { params: { competitionId: 
   //todo: 대회신청 api 호출 => 완료
   // ---
   // 1. 팀정보 입력시에 setState동기적으로 일어날 수 있게 그래야 팀정보가 applyInfo에 제대로 들어감 => 완료
-  // 2. 대회신청 요청할때 제대로 데이터 들어갈 수 있게 parsing? format? 함수 만들기 복사해서 넣어줘야함
-  // 3. CheckApplyInfoPage(신청상세페이지)는 결국 퍼널구조에서 빠져야하고 새로운 url에 노출되어야함
-  // 4. 대회신청이후에 applicationId를 받아서 application/[applicationId]로 이동해야함
+  // 2. 대회신청 요청할때 제대로 데이터 들어갈 수 있게 parsing? format? 함수 만들기 복사해서 넣어줘야함 => 완료 => 나중에 포맷팅함수를 따로 만들어야함 f=>b b=>f둘다
+  // 3. CheckApplyInfoPage(신청상세페이지)는 결국 퍼널구조에서 빠져야하고 새로운 url에 노출되어야함 => CheckApplyInfoPage는 기존 퍼널에 그대로 유지, ApplyInfo컴포넌트를 따로 묶음
+  // 3-1. 다른 ui를 확인해보니 컴포넌트 자체에서 네트워크 요청을 하는게 좋은 거 같음
+  // 4. 대회신청이후에 applicationId를 받아서 application/[applicationId]로 이동해야함 => 계획 수정
+  // 5. 부문선택창에 들어갈떄 gender를 바탕으로 division을 필터링해야함 그리고 이전눌렀을때 제대로 동작 안하고있음
+  // 6. 대회신청시에 생년월일부분이 원본이 훼손되는 문제가 있음
+  // 6. 타입정의 및 분리 필요 => 금요일날 하기로함.
+  // 7. 데이터값 안바꾸고 그대로 유지 ui에서 보여주는 부분만 바꾸기
   //todo: 가격조회 api 호출
   //todo: 결제 api 호출
 
@@ -180,7 +189,7 @@ export default function CompetitionApply({ params }: { params: { competitionId: 
           />
         </Step>
         <Step name="신청정보 확인">
-          <CheckApplyInfoPage onNext={gotoNextStep} applyInfo={applyInfo} />
+          <CheckApplyInfoPage applicationId={applicationId} />
         </Step>
         <Step name="결제하기">
           <BeltPage /> {/* 결제 컴포넌트로 대체 */}

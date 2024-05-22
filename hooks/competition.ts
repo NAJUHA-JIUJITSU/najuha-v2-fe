@@ -64,16 +64,3 @@ export const useGetCompetitionId = (competitionId: number) => {
     select: competitionIdSelectFn,
   });
 };
-
-//대회 신청하기
-export const useSubmitApplication = () => {
-  return useMutation({
-    mutationFn: competitionApi.submitApplication,
-    onSuccess: (data) => {
-      console.log('Application submitted successfully:', data);
-    },
-    onError: (error) => {
-      console.error('Error submitting application:', error);
-    },
-  });
-};

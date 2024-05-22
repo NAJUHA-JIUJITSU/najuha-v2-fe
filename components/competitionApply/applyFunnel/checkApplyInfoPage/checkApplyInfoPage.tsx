@@ -1,90 +1,43 @@
-import styles from './index.module.scss';
-import ButtonOnClick from '@/components/common/button/buttonOnClick';
-import { ApplyInfo } from '@/interfaces/competitionApply';
+import { useQuery } from '@tanstack/react-query';
+import { applicationsApi } from '@/api/applicationsApi';
+import ApplyInfo from '@/components/applyInfo/applyInfo/applyInfo';
 
-export default function CheckApplyInfoPage({
-  onNext,
-  applyInfo,
-}: {
-  onNext: () => void;
-  applyInfo: ApplyInfo;
-}) {
-  const playerInfo = applyInfo.playerInfo;
-  const teamInfo = applyInfo.teamInfo;
-  const selectedDivision = applyInfo.selectedDivision;
-  const selectedDicisionId = applyInfo.selectedDicisionId;
+export default function CheckApplyInfoPage({ applicationId }: { applicationId: string | null }) {
+  // 네트워크 요청을 수행하는 useQuery 훅
+  const { data, error, isLoading, isError } = useQuery({
+    queryKey: ['applicationInfo', applicationId],
+    queryFn: () => applicationsApi.getApplicationInfo(applicationId as string),
+    enabled: !!applicationId, // applicationId가 존재할 때만 요청 수행
+  });
 
-  // 1998/04/04 => 980404
-  playerInfo.birth = playerInfo.birth.replace(/[^0-9]/g, '').slice(2);
+  // 요청 중일 때와 에러 발생 시의 처리
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error loading application info</div>;
+  }
+  // 데이터 파싱
+  let parsedData = data?.result.application;
+
+  // 정제되지않은 데이터를 정제하는 부분
+  const selectedDivisionTest = parsedData?.participationDivisionInfos.map((x) => {
+    return x.participationDivisionInfoSnapshots[x.participationDivisionInfoSnapshots.length - 1]
+      .division;
+  });
+
+  // 프롭스로 넘겨줄 애들
+  const playerInfo = parsedData?.playerSnapshots[parsedData.playerSnapshots.length - 1];
+  const selectedDivision = selectedDivisionTest.map((x) => {
+    return { belt: x.belt, category: x.category, uniform: x.uniform, weight: x.weight };
+  });
+  // i want to remove first 2letters
+  playerInfo.birth = playerInfo.birth.slice(2);
 
   return (
     <>
-      <div className={styles.wrapper}>
-        <div className={styles.block}>
-          <div className={styles.title}>신청인</div>
-          <div className={styles.row}>
-            <div className={styles.subtitle}>이름</div>
-            <div className={styles.content}>{playerInfo.name}</div>
-          </div>
-          <div className={styles.row}>
-            <div className={styles.subtitle}>전화번호</div>
-            <div className={styles.content}>{playerInfo.phoneNumber}</div>
-          </div>
-        </div>
-        <div className={styles.block}>
-          <div className={styles.title}>소속</div>
-          <div className={styles.row}>
-            <div className={styles.subtitle}>소속 네트워크</div>
-            <div className={styles.content}>{teamInfo.network}</div>
-          </div>
-          <div className={styles.row}>
-            <div className={styles.subtitle}>소속 팀</div>
-            <div className={styles.content}>{teamInfo.team}</div>
-          </div>
-          <div className={styles.row}>
-            <div className={styles.subtitle}>관장님 성함</div>
-            <div className={styles.content}>{teamInfo.masterName}</div>
-          </div>
-        </div>
-        <div className={styles.block}>
-          <div className={styles.title}>참가선수</div>
-          <div className={styles.selectedDivision}>
-            <div className={styles.player}>
-              {playerInfo.name} {playerInfo.gender} {playerInfo.birth} {playerInfo.belt}
-            </div>
-
-            <div className={styles.divisions}>
-              {selectedDivision.map((division: any, index: any) => (
-                <div key={index} className={styles.division}>
-                  <div className={styles.category}>{division.uniform}</div>
-                  <div className={styles.category}>{division.belt}</div>
-                  <div className={styles.category}>{division.category}</div>
-                  <div className={styles.category}>{division.weight}</div>
-                </div>
-              ))}
-            </div>
-            <div className={styles.price}>50,000원</div>
-          </div>
-        </div>
-      </div>
-      <div className={styles.submit}>
-        <ButtonOnClick
-          type="filled"
-          text="저장하기"
-          color="disabled"
-          width="full"
-          size="large"
-          onClick={onNext}
-        />
-        <ButtonOnClick
-          type="filled"
-          text="결제하기"
-          color="blue"
-          width="full"
-          size="large"
-          onClick={onNext}
-        />
-      </div>
+      <ApplyInfo playerInfo={playerInfo} selectedDivision={selectedDivision} />
     </>
   );
 }

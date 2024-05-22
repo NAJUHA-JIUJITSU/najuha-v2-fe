@@ -1,0 +1,51 @@
+@import '@/styles/_variable.scss';
+@import '@/styles/_typography.scss';
+
+.block {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32px;
+  gap: 8px;
+}
+
+.title {
+  @include font-subtitle1-bold;
+  color: $--color-font-headline;
+}
+
+.selectedDivision {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  gap: 8px;
+}
+
+.player {
+  display: flex;
+  @include font-body1-regular;
+  color: $--color-font-headline;
+}
+
+.division {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.category {
+  width: 25%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid $--color-brand-lightBlue;
+  @include font-body3-regular;
+  color: $--color-font-headline;
+}
+
+.price {
+  display: flex;
+  justify-content: flex-end;
+  @include font-body1-regular;
+  color: $--color-font-headline;
+}
