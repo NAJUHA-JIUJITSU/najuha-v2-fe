@@ -127,8 +127,7 @@ export default function CompetitionApply({ params }: { params: { competitionId: 
   };
 
   // ---
-  // 1. 부문선택창에 들어갈떄 gender를 바탕으로 division을 필터링해야함 그리고 이전눌렀을때 제대로 동작 안하고있음
-  // 2. 대회신청시에 생년월일부분이 원본이 훼손되는 문제가 있음
+  // 1. 부문선택창에 들어갈떄 gender를 바탕으로 division을 필터링해야함 그리고 이전눌렀을때 제대로 동작 안하고있음 => 완료
   // 3. 데이터값 안바꾸고 그대로 유지 ui에서 보여주는 부분만 바꾸기 => input validation도 다 바꿔야함
   // 4. 가격조회 api호출
   // 5. 타입정의 및 분리 필요 => 금요일날 하기로함.

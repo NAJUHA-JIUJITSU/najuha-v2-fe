@@ -50,12 +50,13 @@ export function useSelectedOptions({ initialOptions, divisions }: UseSelectedOpt
         let keyRemoved = false;
         for (const key of optionKeysReversed) {
           if (currentOptions[key] && key !== nextOption) {
-            delete currentOptions[key];
+            currentOptions[key] = '';
             keyRemoved = true;
             break;
           }
         }
         if (keyRemoved) newOptions[newOptions.length - 1] = currentOptions;
+        console.log(newOptions);
         return newOptions;
       }
       return prev;

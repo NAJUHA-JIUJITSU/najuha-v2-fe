@@ -15,7 +15,7 @@ export function useDivisionFilter(divisions: Division[], selectedOptions: Select
         (key) => !currentSelection[key] || division[key] === currentSelection[key],
       );
     });
-  }, [divisions, currentSelection]);
+  }, [divisions, currentSelection, optionKeys]);
 
   // 다음에 선택할 옵션
   const nextOption: keyof SelectedOptions | null = useMemo(() => {
