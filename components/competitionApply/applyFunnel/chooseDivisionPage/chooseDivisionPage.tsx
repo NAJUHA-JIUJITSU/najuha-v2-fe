@@ -36,7 +36,7 @@ export default function ChooseDivisionPage({
     initialOptions: selectedDivision,
     divisions,
   });
-  const { optionsToShow, nextOption } = useDivisionFilter(divisions, selectedOptions);
+  const { optionsToShow, nextOption } = useDivisionFilter(divisions, selectedOptions, playerInfo);
 
   const handleNext = () => {
     // 선택된 옵션이 2개 이상일 때만 빈 옵션을 정리
