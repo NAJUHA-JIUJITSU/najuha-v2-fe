@@ -4,7 +4,7 @@ import styles from './index.module.scss';
 
 interface navigationMenuProps {
   href?: string;
-  icon: JSX.Element;
+  icon?: JSX.Element;
   label?: string;
   isButton?: boolean;
   isLogo?: boolean;
@@ -31,7 +31,7 @@ export default function navigationMenu({
     return (
       <div className={styles.wrapper}>
         <button className={className} onClick={onClick}>
-          {icon}
+          {icon && icon}
           {label && <span>{label}</span>}
         </button>
       </div>
@@ -41,7 +41,7 @@ export default function navigationMenu({
   return (
     <div className={clsx(styles.wrapper, { [styles.logoWrapper]: isLogo })}>
       <Link href={href || ''} className={className}>
-        {icon}
+        {icon && icon}
         {label && <span>{label}</span>}
       </Link>
     </div>

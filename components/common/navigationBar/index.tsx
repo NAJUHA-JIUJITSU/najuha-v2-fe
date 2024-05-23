@@ -25,6 +25,13 @@ export default function navigationBar() {
     { href: '/applicationList', icon: <IconCard />, label: '신청내역' },
     { href: '/profile', icon: <IconProfile />, label: '프로필' },
   ];
+  const loginItems = [
+    { href: '/login', label: '로그인' },
+    { href: '/logout', label: '로그아웃' },
+  ];
+
+  //로그인 여부 확인
+  const isLogin = false;
 
   return (
     <div className={styles.wrapper}>
@@ -46,6 +53,26 @@ export default function navigationBar() {
           onClick={item.onClick}
         />
       ))}
+      {/* todo: 로그인 여부 확인 후 적절한 버튼 렌더 */}
+      <div className={styles.loginWrapper}>
+        {isLogin ? (
+          <NavigationMenu
+            key={loginItems[1].label}
+            href={loginItems[1].href}
+            label={loginItems[1].label}
+            isButton={true}
+            isActive={false}
+          />
+        ) : (
+          <NavigationMenu
+            key={loginItems[0].label}
+            href={loginItems[0].href}
+            label={loginItems[0].label}
+            isButton={true}
+            isActive={false}
+          />
+        )}
+      </div>
     </div>
   );
 }
