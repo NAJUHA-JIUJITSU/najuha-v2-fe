@@ -3,11 +3,11 @@ import styles from './index.module.scss';
 import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
-import NavigationBar from '@/components/common/navigationBar';
+import NavigationLayout from '@/components/layout/navigationLayout';
 
 export default function Competition() {
   return (
-    <div className={styles.wrapper}>
+    <NavigationLayout>
       <Header
         leftIcon={<ButtonIconNavigateBefore />}
         title={'대회일정'}
@@ -15,7 +15,6 @@ export default function Competition() {
         rightIcon2={<IconLinkSearch />}
       />
       <CompetitionPage />
-      <NavigationBar />
-    </div>
+    </NavigationLayout>
   );
 }

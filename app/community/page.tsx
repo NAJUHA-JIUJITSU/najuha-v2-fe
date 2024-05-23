@@ -10,7 +10,7 @@ import { useSortOption } from '@/hooks/useSortOption';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import IconSort from '@/public/svgs/sort.svg';
 import Link from 'next/link';
-import NavigationBar from '@/components/common/navigationBar';
+import NavigationLayout from '@/components/layout/navigationLayout';
 
 const selectOptions = [
   {
@@ -115,7 +115,7 @@ export default function CommunityPage() {
     console.log(`${id} 나 이걸로 정렬 할끄야`);
   }
   return (
-    <div className={styles.wrapper}>
+    <NavigationLayout>
       <Header title="커뮤니티" rightIcon1={<IconLinkAlarm />} rightIcon2={<IconLinkSearch />} />
       <div className={styles.selectWrapper}>
         {selectOptions.map((option) => (
@@ -146,7 +146,6 @@ export default function CommunityPage() {
           </Link>
         ))}
       </div>
-      <NavigationBar />
-    </div>
+    </NavigationLayout>
   );
 }

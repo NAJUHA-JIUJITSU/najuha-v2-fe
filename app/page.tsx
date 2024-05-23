@@ -1,13 +1,13 @@
 import styles from './index.module.scss';
 import Header from '@/components/common/header/Header';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
-import NavigationBar from '@/components/common/navigationBar';
 import ButtonLink from '@/components/common/button/buttonLink';
+import NavigationLayout from '@/components/layout/navigationLayout';
 
 export default function Home() {
   // lineheight 1 font-size 30px
   return (
-    <div className={styles.wrapper}>
+    <NavigationLayout>
       <Header rightIcon1={<IconLinkAlarm />} rightIcon2={<IconLinkSearch />} />
       <div
         style={{
@@ -24,7 +24,6 @@ export default function Home() {
         text="대회일정 보러가기"
         href="/competition"
       />
-      <NavigationBar />
-    </div>
+    </NavigationLayout>
   );
 }
