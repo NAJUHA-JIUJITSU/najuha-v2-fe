@@ -26,7 +26,7 @@ export default function organizerProgramListPage() {
   const [selectOptionsState, setSelectOptionsState] = useState<string>('전체');
 
   return (
-    <div className={styles.wrapper}>
+    <div>
       <TabList<TabKey>
         tabs={Tabs}
         tabLabels={TabLabels}
@@ -48,6 +48,15 @@ export default function organizerProgramListPage() {
         <p>
           {TabLabels[selectedTab]}의 {selectOptionsState} 상태의 리스트 불러오기
         </p>
+        <OrganizerProgramCard />
+        <OrganizerProgramCard />
+        <OrganizerProgramCard />
+        <OrganizerProgramCard />
+        <OrganizerProgramCard />
+        <OrganizerProgramCard />
+        <OrganizerProgramCard />
+        <OrganizerProgramCard />
+        <OrganizerProgramCard />
         <OrganizerProgramCard />
         <OrganizerProgramCard />
       </div>
