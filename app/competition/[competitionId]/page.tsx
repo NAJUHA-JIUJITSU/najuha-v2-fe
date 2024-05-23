@@ -1,5 +1,4 @@
 'use client';
-
 import styles from './index.module.scss';
 import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
