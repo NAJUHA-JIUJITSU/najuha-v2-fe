@@ -19,8 +19,7 @@
 }
 
 .loginWrapper {
-  margin-top: auto;
-  width: 100%;
+  display: none;
 }
 
 // 데스크탑 사이드바 스타일
@@ -37,5 +36,11 @@
     justify-content: start;
     align-items: center;
     padding: 16px 0;
+  }
+
+  .loginWrapper {
+    display: block;
+    margin-top: auto;
+    width: 100%;
   }
 }
