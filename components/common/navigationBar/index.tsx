@@ -9,29 +9,10 @@ import IconCard from '@/public/svgs/card.svg';
 import IconProfile from '@/public/svgs/profile.svg';
 import { usePathname } from 'next/navigation';
 import NavigationMenu from './navigationMenu';
-import Cookies from 'js-cookie';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function navigationBar() {
-  // 로그인 여부 관리
-  const [isLogin, setIsLogin] = useState(false);
-
-  // 쿠키에서 토큰 가져오기
-  const token = Cookies.get('accessToken');
-
-  // 로그아웃 버튼 클릭 시 쿠키 삭제
-  const logout = () => {
-    // 확인 대화상자 표시
-    const confirmLogout = confirm(
-      '작성 중인 정보가 있다면 모두 사라지며 홈으로 돌아가게 됩니다. 정말로 로그아웃 하시겠습니까?',
-    );
-    if (confirmLogout) {
-      Cookies.remove('accessToken');
-      Cookies.remove('refreshToken');
-      setIsLogin(false);
-      // 홈으로 이동
-      window.location.href = '/'; //todo: 최적화 필요
-    }
-  };
+  const { isLogin, logout } = useAuth();
 
   //현재 url 확인 후 해당 메뉴 스타일 변경
   const currentPath = usePathname();
@@ -52,13 +33,6 @@ export default function navigationBar() {
     { href: '/login', label: '로그인' },
     { label: '로그아웃', isButton: true, onClick: logout },
   ];
-
-  // userInfoSelector에서 가져온 값으로 로그인 여부 확인
-  useEffect(() => {
-    if (token) {
-      setIsLogin(true);
-    }
-  }, []);
 
   return (
     <div className={styles.wrapper}>
