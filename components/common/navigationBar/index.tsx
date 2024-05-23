@@ -1,5 +1,6 @@
 'use client';
 import styles from './index.module.scss';
+import IconLogo from '@/public/svgs/logo.svg';
 import IconHome from '@/public/svgs/home.svg';
 import IconBook from '@/public/svgs/book.svg';
 import IconAddCircle from '@/public/svgs/addCircle.svg';
@@ -11,12 +12,13 @@ import NavigationMenu from './navigationMenu';
 export default function navigationBar() {
   //현재 url 확인 후 해당 메뉴 스타일 변경
   const currentPath = usePathname();
+  const logoItem = { href: '/', icon: <IconLogo />, label: '홈' };
   const menuItems = [
     { href: '/', icon: <IconHome />, label: '홈' },
     { href: '/community', icon: <IconBook />, label: '게시판' },
     {
       icon: <IconAddCircle />,
-      label: '등록',
+      label: '게시글 등록',
       isButton: true,
       onClick: () => alert('등록 모달 창 생성'),
     },
@@ -26,6 +28,13 @@ export default function navigationBar() {
 
   return (
     <div className={styles.wrapper}>
+      <NavigationMenu
+        key={logoItem.label}
+        href={logoItem.href}
+        icon={logoItem.icon}
+        isActive={false}
+        isLogo={true}
+      />
       {menuItems.map((item) => (
         <NavigationMenu
           key={item.label}

@@ -7,6 +7,7 @@ interface navigationMenuProps {
   icon: JSX.Element;
   label?: string;
   isButton?: boolean;
+  isLogo?: boolean;
   isActive: boolean;
   onClick?: () => void;
 }
@@ -16,26 +17,32 @@ export default function navigationMenu({
   icon,
   label,
   isButton = false,
+  isLogo = false,
   isActive,
   onClick,
 }: navigationMenuProps) {
-  const className = clsx(styles.menu, { [styles.active]: isActive });
+  const className = clsx(
+    styles.menu,
+    { [styles.active]: isActive },
+    { [styles.buttonMenu]: isButton },
+  );
 
   if (isButton) {
     return (
       <div className={styles.wrapper}>
         <button className={className} onClick={onClick}>
           {icon}
+          {label && <span>{label}</span>}
         </button>
       </div>
     );
   }
 
   return (
-    <div className={styles.wrapper}>
+    <div className={clsx(styles.wrapper, { [styles.logoWrapper]: isLogo })}>
       <Link href={href || ''} className={className}>
         {icon}
-        <span>{label}</span>
+        {label && <span>{label}</span>}
       </Link>
     </div>
   );
