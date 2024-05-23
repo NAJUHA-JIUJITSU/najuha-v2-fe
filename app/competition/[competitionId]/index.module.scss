@@ -13,3 +13,10 @@
     color: $--color-font-body;
   }
 }
+
+// 데스크탑 사이드바 스타일
+@media (min-width: 1024px) {
+  .wrapper {
+    padding: 0 16px 162px 236px;
+  }
+}
