@@ -1,0 +1,24 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.container {
+  display: flex;
+  flex-direction: row;
+  padding: 0 16px 162px;
+  height: 100vh;
+  box-sizing: border-box;
+  background-color: $--color-basic-white;
+}
+
+.content {
+  flex: 1;
+  transition: margin-left 0.3s;
+  display: flex;
+  flex-direction: column;
+
+  // 데스크탑 사이드바와 겹치지 않도록 마진 조정
+  @media (min-width: 1024px) {
+    margin-left: 220px;
+  }
+}
