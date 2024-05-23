@@ -37,7 +37,7 @@ export const submitApplication = async ({ applyInfo, params }) => {
 };
 
 // u-6-2 get application get /user/applications/{applicationId}
-export const getApplicationInfo = async (applicationId: string) => {
+export const getApplicationInfo = async (applicationId: string | null) => {
   const response = await axiosPrivate.get(`/user/applications/${applicationId}`);
   return response.data;
 };
