@@ -7,6 +7,15 @@
   width: 100%;
   display: flex;
   justify-content: center;
+
+  &.logoWrapper {
+    display: none;
+  }
+
+  &.loginWrapper {
+    display: none;
+  }
+
   .menu {
     display: flex;
     flex-direction: column;
@@ -16,6 +25,24 @@
     width: 72px;
     height: 49px;
 
+    svg {
+      width: 24px;
+    }
+
+    &.buttonMenu {
+      svg {
+        width: 36px;
+      }
+      span {
+        display: none;
+      }
+    }
+
+    span {
+      @include font-tag-regular;
+      color: $--color-font-subheadline;
+    }
+
     &.active {
       color: $--color-brand-blue;
       span {
@@ -24,9 +51,69 @@
       }
     }
 
-    span {
-      @include font-tag-regular;
-      color: $--color-font-subheadline;
+    .buttonLabel {
+      display: none;
+    }
+  }
+}
+
+// 데스크탑 사이드바 스타일
+@media (min-width: 1024px) {
+  .wrapper {
+    padding: 0 16px;
+    box-sizing: border-box;
+
+    &.logoWrapper {
+      display: block;
+      .menu {
+        svg {
+          height: 28px;
+          width: 85px;
+        }
+      }
+    }
+
+    &.loginWrapper {
+      display: block;
+      margin-top: auto;
+      width: 100%;
+    }
+
+    .menu {
+      padding: 0 16px;
+      width: 100%;
+      height: 49px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 8px;
+      border-radius: 6px;
+
+      svg {
+        width: 18px;
+      }
+
+      span {
+        @include font-button-medium;
+      }
+
+      &.buttonMenu {
+        svg {
+          width: 18px;
+        }
+        span {
+          display: block;
+        }
+      }
+
+      &.active {
+        background-color: $--color-brand-lightBlue;
+        span {
+          @include font-button-medium;
+        }
+      }
     }
   }
 }

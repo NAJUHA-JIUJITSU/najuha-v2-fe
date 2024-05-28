@@ -125,7 +125,7 @@ export default function CompetitionPage() {
           color="gray"
           text={sortOptionState}
           iconLeft={<IconSort />}
-          onClick={() => handleSortOptionChange(sortOptionState)}
+          onClick={() => handleSortOptionChange(sortOptionState)} //todo: useSortOption 적용
         />
       </div>
       <CompetitionList

@@ -2,16 +2,36 @@
 @import '@/styles/_variable.scss';
 @import '@/styles/_zindex.scss';
 
-//고정 하단바 스타일
+// 공통 스타일
 .wrapper {
+  box-sizing: border-box;
+  background-color: $--color-basic-white;
   position: fixed;
   display: flex;
+  z-index: 999;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 81px;
-  box-sizing: border-box;
-  background-color: $--color-basic-white;
-  border: 0.2px solid $--color-gray-3;
-  z-index: 999;
+  border-top: 0.2px solid $--color-gray-3;
+  justify-content: space-around;
+  align-items: center;
+  overflow: auto;
+}
+
+// 데스크탑 사이드바 스타일
+@media (min-width: 1024px) {
+  .wrapper {
+    flex-direction: column;
+    gap: 8px;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100%;
+    border-top: none;
+    border-right: 1px solid $--color-gray-2;
+    justify-content: start;
+    align-items: center;
+    padding: 16px 0;
+  }
 }

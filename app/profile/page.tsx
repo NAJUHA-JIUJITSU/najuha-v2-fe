@@ -4,7 +4,7 @@ import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink
 import ButtonLists from '@/components/common/buttonList/buttonLists';
 import ProfileInfo from '@/components/profile/profileInfo';
 import Ad from '@/components/ad';
-import NavigationBar from '@/components/common/navigationBar';
+import NavigationLayout from '@/components/layout/navigationLayout';
 
 export default function profile() {
   const profileButtonLists = [
@@ -20,7 +20,7 @@ export default function profile() {
   ];
 
   return (
-    <div className={styles.wrapper}>
+    <NavigationLayout>
       <Header title={'내 프로필'} rightIcon1={<IconLinkAlarm />} rightIcon2={<IconLinkSearch />} />
       <div className={styles.topSection}>
         <ProfileInfo />
@@ -29,7 +29,6 @@ export default function profile() {
       <div className={styles.bottomSection}>
         <ButtonLists buttonLists={profileButtonLists} />
       </div>
-      <NavigationBar />
-    </div>
+    </NavigationLayout>
   );
 }

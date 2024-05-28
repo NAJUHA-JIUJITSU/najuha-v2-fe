@@ -1,10 +1,14 @@
-import NavigationBar from '@/components/common/navigationBar';
+import styles from './index.module.scss';
+import Header from '@/components/common/header/Header';
+import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
 import ButtonLink from '@/components/common/button/buttonLink';
+import NavigationLayout from '@/components/layout/navigationLayout';
 
 export default function Home() {
   // lineheight 1 font-size 30px
   return (
-    <div>
+    <NavigationLayout>
+      <Header rightIcon1={<IconLinkAlarm />} rightIcon2={<IconLinkSearch />} />
       <div
         style={{
           lineHeight: 1,
@@ -20,7 +24,6 @@ export default function Home() {
         text="대회일정 보러가기"
         href="/competition"
       />
-      <NavigationBar />
-    </div>
+    </NavigationLayout>
   );
 }

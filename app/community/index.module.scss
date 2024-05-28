@@ -2,16 +2,6 @@
 @import '@/styles/_variable.scss';
 @import '@/styles/_zindex.scss';
 
-//전체 레이아웃
-.wrapper {
-  padding: 0 16px 162px 16px;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  box-sizing: border-box;
-  background-color: $--color-basic-white;
-}
-
 .selectWrapper {
   display: flex;
   gap: 8px;

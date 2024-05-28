@@ -3,6 +3,7 @@ import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import MyCommunityPage from '@/components/profileDetail/myCommunityPage';
 import OrganizerProgramListPage from '@/components/profileDetail/organizerProgramListPage';
+import NavigationLayout from '@/components/layout/navigationLayout';
 
 type detailType = 'myCommunity' | 'organizerProgramList';
 
@@ -37,9 +38,9 @@ export default function detail({ params }: DetailProps) {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <NavigationLayout>
       <Header title={pages[params.detail].title} leftIcon={<ButtonIconNavigateBefore />} />
       {pages[params.detail].Page}
-    </div>
+    </NavigationLayout>
   );
 }
