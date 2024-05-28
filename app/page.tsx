@@ -1,29 +1,37 @@
 import styles from './index.module.scss';
 import Header from '@/components/common/header/Header';
-import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
-import ButtonLink from '@/components/common/button/buttonLink';
+import { IconLinkSearch, IconLinkAlarm, IconLinkLogo } from '@/components/common/icon/iconLink';
 import NavigationLayout from '@/components/layout/navigationLayout';
+import Link from 'next/link';
+
+import { Divider } from '@/components/divider';
+import {
+  IconLinkThropy,
+  IconLinkSeminar,
+  IconLinkOpenmat,
+  IconLinkEvent,
+} from '@/components/common/icon/iconLink';
 
 export default function Home() {
-  // lineheight 1 font-size 30px
   return (
     <NavigationLayout>
-      <Header rightIcon1={<IconLinkAlarm />} rightIcon2={<IconLinkSearch />} />
-      <div
-        style={{
-          lineHeight: 1,
-          fontSize: 30,
-        }}
-      >
-        서버컴포넌트입니다.
-      </div>
-      <ButtonLink
-        type="filled"
-        size="xLarge"
-        color="blue"
-        text="대회일정 보러가기"
-        href="/competition"
+      <Header
+        leftIcon={<IconLinkLogo />}
+        rightIcon1={<IconLinkAlarm />}
+        rightIcon2={<IconLinkSearch />}
       />
+      {/* 캐러셀 */}
+      <div className={styles.carousel}>
+        <img src="/images/sampleCarousel.png" alt="main-carousel" />
+      </div>
+      {/* 프로그램 버튼 */}
+      <div className={styles.programBtnList}>
+        <IconLinkThropy />
+        <IconLinkSeminar />
+        <IconLinkOpenmat />
+        <IconLinkEvent />
+      </div>
+      <Divider />
     </NavigationLayout>
   );
 }
