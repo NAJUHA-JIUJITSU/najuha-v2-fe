@@ -19,7 +19,7 @@ export function useAuth() {
       Cookies.remove('accessToken');
       Cookies.remove('refreshToken');
       setIsLogin(false);
-      window.location.href = '/';
+      window.location.href = '/'; //todo: 로그아웃 최적화 필요
     }
   };
 
