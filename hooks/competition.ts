@@ -1,4 +1,4 @@
-import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
+import { useQuery, useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import { queries } from '@/queries/index';
 import { competitionApi } from '@/api/competitionApi';
 import {

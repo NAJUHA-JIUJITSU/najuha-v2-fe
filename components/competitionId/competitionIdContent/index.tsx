@@ -93,7 +93,7 @@ export default function CompetitionIdContent({ competition }: CompetitionIdConte
         width="full"
         text="참가하기"
         position="fixed"
-        href="/login"
+        href={`/competitionApply/${competition.id}`}
       />
     </div>
   );

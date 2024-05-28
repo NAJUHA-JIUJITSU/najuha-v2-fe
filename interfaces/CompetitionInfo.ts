@@ -1,3 +1,5 @@
+import { Division } from '@/interfaces/competitionApply';
+
 export interface Competition {
   earlybirdDiscountSnapshots: {
     id: number;
@@ -13,6 +15,7 @@ export interface Competition {
   updatedAt: string;
   title: string;
   address: string;
+  divisions: Division[];
   competitionDate: string;
   registrationStartDate: string;
   registrationEndDate: string;

@@ -1,15 +1,18 @@
 import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import Input from '@/components/common/input';
-import { useInput } from '@/hook/useInput';
+import { useInput } from '@/hooks/useInput';
 import { validateSsnFront, validateSsnBack } from '@/utils/validations/userValidations';
+import { ExtraInfo } from '@/interfaces/competitionApply';
 
 export default function ExtraInfoPage({
   extraInfo,
   onNext,
+  setExtraInfo,
 }: {
-  extraInfo: any;
+  extraInfo: ExtraInfo;
   onNext: () => void;
+  setExtraInfo: (extraInfo: ExtraInfo) => void;
 }) {
   const {
     value: ssnFront,
@@ -31,6 +34,15 @@ export default function ExtraInfoPage({
   } = useInput(extraInfo.address, () => true);
 
   const validation = ssnBackValidate && ssnFrontValidate && addressValidate;
+
+  const handleNext = () => {
+    setExtraInfo({
+      ...extraInfo,
+      ssn: ssnFront + ssnBack,
+      address,
+    });
+    onNext();
+  };
 
   return (
     <>
@@ -72,7 +84,7 @@ export default function ExtraInfoPage({
           disabled={!validation}
           width="full"
           size="large"
-          onClick={onNext}
+          onClick={handleNext}
         />
       </div>
     </>

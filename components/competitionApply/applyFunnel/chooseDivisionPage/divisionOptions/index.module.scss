@@ -1,0 +1,35 @@
+@import '@/styles/_variable.scss';
+@import '@/styles/_typography.scss';
+
+.divisionOptionCardList {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.divisionOptionCard {
+  border-radius: 6px;
+  width: calc(50% - 4px);
+  height: 67.5px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: $--color-gray-5;
+  color: $--color-basic-white;
+  @include font-subtitle3-bold;
+}
+
+.divisionOptionFullCard {
+  border-radius: 6px;
+  width: 100%;
+  height: 67.5px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: $--color-gray-5;
+  color: $--color-basic-white;
+  @include font-subtitle3-bold;
+}

@@ -1,0 +1,17 @@
+@import '@/styles/_variable.scss';
+@import '@/styles/_typography.scss';
+
+.divisionColumn {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  div {
+    @include font-body2-medium;
+    color: $--color-font-body;
+    width: 25%;
+    text-align: center;
+  }
+}

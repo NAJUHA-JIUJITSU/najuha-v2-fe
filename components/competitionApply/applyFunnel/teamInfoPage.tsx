@@ -1,12 +1,21 @@
 import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import Input from '@/components/common/input';
-import { useInput } from '@/hook/useInput';
+import { useInput } from '@/hooks/useInput';
 import { validateTrue } from '@/utils/validations/userValidations';
 import CheckBoxLabel from '@/components/common/checkBoxLabel';
 import { useState } from 'react';
+import { TeamInfo } from '@/interfaces/competitionApply';
 
-export default function TeamInfoPage({ onNext }: { onNext: () => void }) {
+export default function TeamInfoPage({
+  onNext,
+  teamInfo,
+  setTeamInfo,
+}: {
+  onNext: any;
+  teamInfo: TeamInfo;
+  setTeamInfo: (teamInfo: TeamInfo) => void;
+}) {
   // network name input
   // team input
   // master name input
@@ -15,20 +24,34 @@ export default function TeamInfoPage({ onNext }: { onNext: () => void }) {
     setValue: setNetwork,
     errMsg: networkErrMsg,
     validate: networkValidate,
-  } = useInput('', validateTrue);
+  } = useInput(teamInfo.network, validateTrue);
   const {
     value: team,
     setValue: setTeam,
     errMsg: teamErrMsg,
     validate: teamValidate,
-  } = useInput('', validateTrue);
+  } = useInput(teamInfo.team, validateTrue);
   const {
-    value: master,
+    value: masterName,
     setValue: setMaster,
     errMsg: masterErrMsg,
     validate: masterValidate,
-  } = useInput('', validateTrue);
+  } = useInput(teamInfo.masterName, validateTrue);
+
   const [isChecked, setIsChecked] = useState(false);
+
+  const handleNext = () => {
+    const updatedTeamInfo = {
+      ...teamInfo,
+      network,
+      team,
+      masterName,
+    };
+
+    setTeamInfo(updatedTeamInfo); // setTeamInfo로 teamInfo를 업데이트 with updatedTeamInfo
+
+    onNext(updatedTeamInfo); // 최신 teamInfo를 handleSubmit로 전달
+  };
 
   const validate = networkValidate && teamValidate && masterValidate;
   return (
@@ -52,7 +75,7 @@ export default function TeamInfoPage({ onNext }: { onNext: () => void }) {
         <Input
           label="관장님 성함"
           placeholder="김영태"
-          value={master}
+          value={masterName}
           errMsg={masterErrMsg}
           onChange={(e) => setMaster(e.target.value)}
         />
@@ -72,7 +95,7 @@ export default function TeamInfoPage({ onNext }: { onNext: () => void }) {
           disabled={!validate}
           width="full"
           size="large"
-          onClick={onNext}
+          onClick={handleNext}
         />
       </div>
     </>

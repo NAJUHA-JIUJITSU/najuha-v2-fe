@@ -1,0 +1,26 @@
+@import '@/styles/_variable.scss';
+@import '@/styles/_typography.scss';
+
+.divisionRow {
+  width: 100%;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  position: relative;
+  div {
+    @include font-body2-medium;
+    color: $--color-font-headline;
+    width: 25%;
+    text-align: center;
+  }
+}
+
+.divisionDelete {
+  position: absolute;
+  right: 16px;
+  width: 20px !important;
+  height: 20px !important;
+  color: $--color-gray-3 !important;
+}

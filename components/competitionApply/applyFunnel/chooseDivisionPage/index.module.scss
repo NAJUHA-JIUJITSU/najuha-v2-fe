@@ -1,0 +1,22 @@
+@import '@/styles/_variable.scss';
+@import '@/styles/_typography.scss';
+
+.wrapper {
+  margin-top: 16px;
+  flex: 1;
+}
+
+.submit {
+  display: flex;
+  padding: 12px 0px;
+}
+
+.chooseDivisonBox {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: $--color-brand-blue-10;
+  box-sizing: border-box;
+  padding: 0px 16px;
+  padding-bottom: 32px;
+}

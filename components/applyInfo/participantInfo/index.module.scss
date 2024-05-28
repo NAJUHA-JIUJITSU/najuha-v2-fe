@@ -1,17 +1,6 @@
 @import '@/styles/_variable.scss';
 @import '@/styles/_typography.scss';
 
-.wrapper {
-  margin-top: 16px;
-  flex: 1;
-}
-
-.submit {
-  display: flex;
-  padding: 12px 0px;
-  gap: 8px;
-}
-
 .block {
   display: flex;
   flex-direction: column;
@@ -21,23 +10,6 @@
 
 .title {
   @include font-subtitle1-bold;
-  color: $--color-font-headline;
-}
-
-.row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.subtitle {
-  width: 100px;
-  @include font-body1-regular;
-  color: $--color-font-body;
-}
-
-.content {
-  @include font-body1-regular;
   color: $--color-font-headline;
 }
 

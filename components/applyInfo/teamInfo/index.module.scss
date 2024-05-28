@@ -1,0 +1,31 @@
+@import '@/styles/_variable.scss';
+@import '@/styles/_typography.scss';
+
+.block {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 32px;
+  gap: 8px;
+}
+
+.title {
+  @include font-subtitle1-bold;
+  color: $--color-font-headline;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.subtitle {
+  width: 100px;
+  @include font-body1-regular;
+  color: $--color-font-body;
+}
+
+.content {
+  @include font-body1-regular;
+  color: $--color-font-headline;
+}

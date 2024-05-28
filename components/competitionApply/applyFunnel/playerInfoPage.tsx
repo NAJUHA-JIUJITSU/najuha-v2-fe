@@ -2,7 +2,7 @@ import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import Input from '@/components/common/input';
 import Select from '@/components/common/select';
-import { useInput } from '@/hook/useInput';
+import { useInput } from '@/hooks/useInput';
 import {
   validateBirthdate,
   validatePhonenumber,
@@ -10,15 +10,18 @@ import {
   validateTrue,
 } from '@/utils/validations/userValidations';
 import { useState } from 'react';
+import { PlayerInfo } from '@/interfaces/competitionApply';
 
 const options = ['화이트', '블루', '퍼플', '브라운', '블랙'];
 
 export default function PlayerInfoPage({
   onNext,
   playerInfo,
+  setPlayerInfo,
 }: {
   onNext: () => void;
-  playerInfo: any;
+  playerInfo: PlayerInfo;
+  setPlayerInfo: (playerInfo: PlayerInfo) => void;
 }) {
   const {
     value: name,
@@ -47,6 +50,18 @@ export default function PlayerInfoPage({
   const [belt, setBelt] = useState('화이트');
 
   const validate = nameValidate && genderValidate && birthValidate && phoneNumberValidate;
+
+  const handleNext = () => {
+    setPlayerInfo({
+      ...playerInfo,
+      name,
+      gender,
+      birth,
+      phoneNumber,
+      belt,
+    });
+    onNext();
+  };
 
   return (
     <>
@@ -95,7 +110,7 @@ export default function PlayerInfoPage({
           disabled={!validate}
           width="full"
           size="large"
-          onClick={onNext}
+          onClick={handleNext}
         />
       </div>
     </>
