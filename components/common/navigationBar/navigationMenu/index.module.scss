@@ -12,6 +12,10 @@
     display: none;
   }
 
+  &.loginWrapper {
+    display: none;
+  }
+
   .menu {
     display: flex;
     flex-direction: column;
@@ -67,6 +71,12 @@
           width: 85px;
         }
       }
+    }
+
+    &.loginWrapper {
+      display: block;
+      margin-top: auto;
+      width: 100%;
     }
 
     .menu {
