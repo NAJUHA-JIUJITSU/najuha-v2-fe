@@ -1,9 +1,11 @@
 'use client';
 
 import { useEffect } from 'react';
+import Cookies from 'js-cookie';
 import api from 'najuha-v2-api/lib/api';
 
 async function findCompetitions() {
+  'user/competitions';
   const ret = await api.functional.user.competitions.findCompetitions(
     {
       host: 'http://localhost:3001',
@@ -34,6 +36,40 @@ async function getCompetition() {
   return ret;
 }
 
+async function findAdminCompetitions() {
+  const ret = await api.functional.admin.competitions.findCompetitions(
+    {
+      host: 'http://localhost:3001',
+      headers: {
+        Authorization: `Bearer ${Cookies.get('accessToken')}`,
+      },
+    },
+    {
+      page: 0,
+    },
+  );
+  console.log('nestia admin findCompetitions ret', ret);
+  return ret;
+}
+
+// async function postCompetitionDivision() {
+//   const ret = await api.functional.admin.competitions.divisions.createCompetitionDivisions(
+//     {
+//       host: 'http://localhost:3001',
+//     },
+//     {},
+//   );
+//   if (ret.status === 200) {
+//     if (!ret.data.result) return;
+//     // result type 추론 가능 !!!!!!
+//     ret.data.result.competition.address = '서울시 강남구';
+//     // ret.data.result.competition.address = 123123; //type error
+//   } else {
+//   }
+//   console.log('nestia getCompetition ret', ret);
+//   return ret;
+// }
+
 async function snsLogin() {
   const ret = await api.functional.user.auth.sns_login.snsLogin(
     {
@@ -44,7 +80,6 @@ async function snsLogin() {
       snsAuthCode: 'test-auth-code',
     },
   );
-
   if (ret.status === 201) {
     console.log('nestia snsLogin ret', ret);
   } else {
@@ -60,6 +95,7 @@ async function snsLogin() {
 export default function NestiaSdkTest() {
   useEffect(() => {
     findCompetitions();
+    findAdminCompetitions();
     getCompetition();
     snsLogin();
   }, []);
