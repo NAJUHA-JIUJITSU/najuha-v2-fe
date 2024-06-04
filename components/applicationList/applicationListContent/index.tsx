@@ -21,7 +21,7 @@ const TabLabels: Record<TabKey, string> = {
 // tagBtnOptions 배열 상수 정의
 const tagBtnOptions = ['전체', '결제완료', '미결제', '환불'];
 
-export default function applicationListPage() {
+export default function ApplicationListPage() {
   const [selectedTab, setSelectedTab] = useState<TabKey>('competiton');
   const [selectOptionsState, setSelectOptionsState] = useState<string>('전체');
 
