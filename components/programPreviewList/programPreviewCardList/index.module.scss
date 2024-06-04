@@ -1,0 +1,25 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .tagBtnOptions {
+    display: flex;
+    gap: 8px;
+    padding: 0 2px;
+  }
+
+  .programCardList {
+    width: 100%;
+    display: flex;
+    gap: 16px;
+    overflow: auto;
+    box-sizing: border-box;
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+  }
+}
