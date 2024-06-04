@@ -15,6 +15,7 @@
   transition: margin-left 0.3s;
   display: flex;
   flex-direction: column;
+  width: calc(100vw - 268px);
 
   // 데스크탑 사이드바와 겹치지 않도록 마진 조정
   @media (min-width: 1024px) {
