@@ -26,8 +26,8 @@ export default function ProgramCardList({ selectFilter, sortOption }: ProgramPre
   const [selectOptionState, setSelectOptionState] = useState<TagBtnOption>('대회');
   const {
     data: ProgramList,
-    // isLoading, //todo: 로딩 및 에러 처리
-    // isError,
+    isLoading, //todo: 로딩 및 에러 처리
+    isError,
   } = useGetFilteredCompetitions('전체', '전체', selectFilter, sortOption);
 
   return (
@@ -44,6 +44,8 @@ export default function ProgramCardList({ selectFilter, sortOption }: ProgramPre
         ))}
       </div>
       <div className={styles.programCardList}>
+        {isLoading && <h4>로딩중...</h4>}
+        {isError && <h4>에러 발생</h4>}
         {ProgramList?.pages.map((group, i) => (
           <Fragment key={i}>
             {group.competitions.map((competition) => (

@@ -21,5 +21,13 @@
     box-sizing: border-box;
     -ms-overflow-style: none; /* 인터넷 익스플로러 */
     scrollbar-width: none; /* 파이어폭스 */
+
+    // 임시 스타일
+    h4 {
+      @include font-subtitle1-bold;
+      color: $--color-font-headline;
+      background-color: red;
+      margin-bottom: 16px;
+    }
   }
 }
