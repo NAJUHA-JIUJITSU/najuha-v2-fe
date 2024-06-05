@@ -5,9 +5,13 @@
 .container {
   display: flex;
   flex-direction: row;
-  padding: 0 16px 162px;
+  padding: 0 16px 81px;
   box-sizing: border-box;
   background-color: $--color-basic-white;
+  // 하단 네비게이션과 겹치지 않도록 패딩 조정
+  @media (min-width: 1024px) {
+    padding: 0 16px;
+  }
 }
 
 .content {
