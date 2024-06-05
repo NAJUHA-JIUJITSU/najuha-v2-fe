@@ -57,7 +57,9 @@ export default function Card({ type = 'normal', competition }: CardProps) {
           className={styles.posterImg}
           src={competition.posterImgUrlKey}
           alt={competition.title}
-          fill
+          width={100}
+          height={100}
+          priority={true}
         ></Image>
         <div className={styles.shadowInfo}>
           <p className={styles.viewCnt}>

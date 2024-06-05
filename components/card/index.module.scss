@@ -103,25 +103,25 @@
 
     .bottom {
       margin-top: auto;
-      margin-left: auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 100%;
 
       .applyDate {
+        margin-left: auto;
         @include font-body3-regular;
         color: $--color-font-body;
       }
 
-      .price {
-        @include font-subtitle1-bold;
-        color: $--color-font-headline;
+      // .price {
+      //   @include font-subtitle1-bold;
+      //   color: $--color-font-headline;
 
-        span {
-          @include font-body3-regular;
-        }
-      }
+      //   span {
+      //     @include font-body3-regular;
+      //   }
+      // }
     }
   }
 
