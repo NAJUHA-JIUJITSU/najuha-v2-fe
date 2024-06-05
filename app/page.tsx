@@ -4,7 +4,6 @@ import { IconLinkSearch, IconLinkAlarm, IconLinkLogo } from '@/components/common
 import NavigationLayout from '@/components/layout/navigationLayout';
 import Image from 'next/image';
 import ProgramPreviewList from '@/components/programPreviewList';
-
 import { Divider } from '@/components/divider';
 import {
   IconLinkThropy,
@@ -12,6 +11,7 @@ import {
   IconLinkOpenmat,
   IconLinkEvent,
 } from '@/components/common/icon/iconLink';
+import Footer from '@/components/common/footer';
 
 export default function Home() {
   return (
@@ -23,7 +23,13 @@ export default function Home() {
       />
       {/* 캐러셀 */}
       <div className={styles.carousel}>
-        <Image src="/images/sampleCarousel.png" alt="main-carousel" width={500} height={500} />
+        <Image
+          src="/images/sampleCarousel.png"
+          alt="main-carousel"
+          width={500}
+          height={500}
+          priority={true}
+        />
       </div>
       {/* 프로그램 버튼 */}
       <div className={styles.programBtnList}>
@@ -55,6 +61,8 @@ export default function Home() {
       </>
       {/* 배너 광고 */}
       {/* 검색어 순위 */}
+      {/* 풋터 */}
+      <Footer />
     </NavigationLayout>
   );
 }
