@@ -133,5 +133,6 @@
   &-gray,
   &-disabled {
     @include font-caption-regular;
+    background-color: transparent;
   }
 }
