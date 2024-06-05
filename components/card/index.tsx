@@ -6,6 +6,8 @@ import TagList from '@/components/tagList';
 import { formatDateYMD, formatDateMDWeekday } from '@/utils/dateUtils/dateFormat';
 import { areBothDatesPassed } from '@/utils/dateUtils/dateCheck';
 import { Competition } from '@/interfaces/CompetitionInfo';
+import Image from 'next/image';
+import IconEye from '@/public/svgs/eye.svg';
 
 type CardType = 'normal' | 'vertical';
 
@@ -24,7 +26,7 @@ export default function Card({ type = 'normal', competition }: CardProps) {
   }
 
   //타입이 normal이거나 가격이 없으면 가격 표시 안함
-  let isPrice = false;
+  // let isPrice = false;
   // if (type === 'normal' || !info.price) {
   //   isPrice = false;
   // }
@@ -51,9 +53,17 @@ export default function Card({ type = 'normal', competition }: CardProps) {
     >
       <div className={styles.posterSection}>
         {/* 포스터 이미지 및 기타 정보 표시 */}
-        <img className={styles.posterImg} src={competition.posterImgUrlKey}></img>
+        <Image
+          className={styles.posterImg}
+          src={competition.posterImgUrlKey}
+          alt={competition.title}
+          fill
+        ></Image>
         <div className={styles.shadowInfo}>
-          <p className={styles.viewCnt}>123</p>
+          <p className={styles.viewCnt}>
+            <IconEye />
+            {competition.viewCount}
+          </p>
           <p className={styles.competitionDate}>
             {formatDateMDWeekday(competition.competitionDate)}
           </p>
@@ -82,7 +92,8 @@ export default function Card({ type = 'normal', competition }: CardProps) {
         </div>
         <h1 className={styles.title}>{competition.title}</h1>
         <h2 className={styles.location}>{competition.address}</h2>
-        <div className={clsx(styles.bottom, { [styles.noPrice]: !isPrice })}>
+        <div className={styles.bottom}>
+          {/* 가격추가 clsx(styles.bottom, { [styles.noPrice]: !isPrice } */}
           <h3 className={styles.applyDate}>
             신청기간 ~{formatDateYMD(competition.registrationEndDate)}
           </h3>

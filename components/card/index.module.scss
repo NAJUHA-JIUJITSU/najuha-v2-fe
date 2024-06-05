@@ -43,6 +43,7 @@
         justify-content: center;
         align-items: center;
         display: inline-flex;
+        gap: 2px;
         height: 18px;
         width: fit-content;
         padding: 0 6px;
@@ -51,6 +52,10 @@
         margin-left: auto;
         @include font-caption-regular;
         color: $--color-basic-white;
+
+        svg {
+          height: 18px;
+        }
       }
 
       .competitionDate {
