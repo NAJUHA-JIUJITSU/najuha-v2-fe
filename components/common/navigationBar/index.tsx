@@ -24,7 +24,7 @@ const menuItems = [
   { href: '/profile', icon: <IconProfile />, label: '프로필' },
   { href: '/login', label: '로그인', isLogin: true },
 ];
-export default function navigationBar() {
+export default function NavigationBar() {
   const currentPath = usePathname();
   const { isLogin, logout } = useAuth();
 
