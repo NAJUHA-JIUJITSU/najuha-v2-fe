@@ -1,8 +1,8 @@
 import styles from './index.module.scss';
 import Header from '@/components/common/header/Header';
 import { IconLinkSearch, IconLinkAlarm, IconLinkLogo } from '@/components/common/icon/iconLink';
+import CarouselWrapper from '@/components/emblaCarousel/CarouselWrapper';
 import NavigationLayout from '@/components/layout/navigationLayout';
-import Image from 'next/image';
 import ProgramPreviewList from '@/components/programPreviewList';
 import { Divider } from '@/components/divider';
 import {
@@ -21,17 +21,7 @@ export default function Home() {
         rightIcon1={<IconLinkAlarm />}
         rightIcon2={<IconLinkSearch />}
       />
-      {/* 캐러셀 */}
-      <div className={styles.carousel}>
-        <Image
-          src="/images/sampleCarousel.png"
-          alt="main-carousel"
-          width={500}
-          height={500}
-          priority={true}
-        />
-      </div>
-      {/* 프로그램 버튼 */}
+      <CarouselWrapper />
       <div className={styles.programBtnList}>
         <IconLinkThropy />
         <IconLinkSeminar />
@@ -39,7 +29,6 @@ export default function Home() {
         <IconLinkEvent />
       </div>
       <Divider />
-      {/* 프로그램 미리보기 */}
       <>
         <ProgramPreviewList
           title="요즘 핫한 대회"
@@ -61,7 +50,6 @@ export default function Home() {
       </>
       {/* 배너 광고 */}
       {/* 검색어 순위 */}
-      {/* 풋터 */}
       <Footer />
     </NavigationLayout>
   );
