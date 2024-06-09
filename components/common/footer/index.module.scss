@@ -54,6 +54,7 @@
 }
 
 .noticeContent {
+  text-align: center;
   @include font-caption-regular;
   color: $--color-font-body;
 }

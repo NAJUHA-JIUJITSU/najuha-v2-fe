@@ -11,7 +11,6 @@ import {
   IconLinkOpenmat,
   IconLinkEvent,
 } from '@/components/common/icon/iconLink';
-import Footer from '@/components/common/footer';
 
 export default function Home() {
   return (
@@ -50,7 +49,6 @@ export default function Home() {
       </>
       {/* 배너 광고 */}
       {/* 검색어 순위 */}
-      <Footer />
     </NavigationLayout>
   );
 }
