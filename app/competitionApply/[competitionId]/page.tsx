@@ -54,8 +54,12 @@ export default function CompetitionApply({ params }: { params: { competitionId: 
     selectedDicisionId: [],
   });
   // 대회 조회
-  const { data: competition, isLoading, isError } = useGetCompetitionId(params.competitionId);
-  let divisions: Division[] = competition?.divisions;
+  const {
+    data: competition,
+    isLoading,
+    isError,
+    error,
+  } = useGetCompetitionId(params.competitionId);
   const { mutate } = useSubmitApplication();
   const [applicationId, setApplicationId] = useState<string | null>(null);
 
@@ -143,6 +147,15 @@ export default function CompetitionApply({ params }: { params: { competitionId: 
   // 5. 두번째로 선택하면, api post get 할떄 변환하는 함수 잘 만들어야함. => 그리고 변환함수를 따로 빼서 관리해야함
   // 6. 전체적인 변수명 점검 => 변수명 명확히하기
   //todo: 결제 api 호출
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) {
+    console.log('Error:', error);
+    return <div>Error...</div>;
+  }
+
+  let divisions: Division[] = competition?.divisions;
+  console.log(divisions);
 
   return (
     <div className={styles.wrapper}>
