@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './index.module.scss';
-import { useSnsLogin } from '@/hooks/auth';
+import { useSnsLogin } from '@/api/nestia/hooks/auth';
 
 interface SnsRedirectPageProps {
   params: { snsProvider: string };
