@@ -20,7 +20,8 @@ import {
 } from '@/interfaces/competitionApply';
 // import { useGetCompetitionId } from '@/hooks/competition';
 import { useGetCompetitionId } from '@/api/nestia/hooks/competition';
-import { useSubmitApplication } from '@/hooks/applications';
+// import { useSubmitApplication } from '@/hooks/applications';
+import { useSubmitApplication } from '@/api/nestia/hooks/applications';
 import { IDivision } from '@/node_modules/najuha-v2-api/lib/modules/competitions/domain/interface/division.interface';
 
 const steps = [
@@ -72,8 +73,8 @@ export default function CompetitionApply({ params }: { params: { competitionId: 
       {
         onSuccess: (data) => {
           console.log('Application submitted successfully:', data);
-          console.log('applicationId:', data.result.application.id);
-          setApplicationId(data.result.application.id);
+          console.log('applicationId:', data.application.id);
+          setApplicationId(data.application.id);
           gotoNextStep();
         },
         onError: (error) => {

@@ -38,7 +38,8 @@ export const getApplicationInfo = async (applicationId: string) => {
   const response = await withAuth((connection) =>
     api.functional.user.applications.getApplication(connection, applicationId),
   );
-  return response.result;
+
+  return response.result.application;
 };
 
 export const applicationsApi = {

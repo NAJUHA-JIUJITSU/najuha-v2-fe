@@ -36,7 +36,6 @@ export const getFilteredCompetitions = async (
   if (selectFilter.length > 0) {
     params.selectFilter = selectFilter;
   }
-
   console.log('대회 요청: ', { params });
 
   const response = await withAuth((connection) =>
