@@ -17,10 +17,11 @@ import {
   PlayerInfo,
   SelectedOptions,
   TeamInfo,
-  Division,
 } from '@/interfaces/competitionApply';
-import { useGetCompetitionId } from '@/hooks/competition';
+// import { useGetCompetitionId } from '@/hooks/competition';
+import { useGetCompetitionId } from '@/api/nestia/hooks/competition';
 import { useSubmitApplication } from '@/hooks/applications';
+import { IDivision } from '@/node_modules/najuha-v2-api/lib/modules/competitions/domain/interface/division.interface';
 
 const steps = [
   '선수정보 확인',
@@ -31,7 +32,7 @@ const steps = [
   '결제하기',
 ];
 
-export default function CompetitionApply({ params }: { params: { competitionId: number } }) {
+export default function CompetitionApply({ params }: { params: { competitionId: string } }) {
   const { gotoNextStep, gotoPreviousStep, Funnel, Step, currentStep } = useFunnel(steps);
   const [applyInfo, setApplyInfo] = useState<ApplyInfo>({
     playerInfo: {
@@ -55,7 +56,6 @@ export default function CompetitionApply({ params }: { params: { competitionId: 
   });
   // 대회 조회
   const { data: competition, isLoading, isError } = useGetCompetitionId(params.competitionId);
-  let divisions: Division[] = competition?.divisions;
   const { mutate } = useSubmitApplication();
   const [applicationId, setApplicationId] = useState<string | null>(null);
 
@@ -143,6 +143,10 @@ export default function CompetitionApply({ params }: { params: { competitionId: 
   // 5. 두번째로 선택하면, api post get 할떄 변환하는 함수 잘 만들어야함. => 그리고 변환함수를 따로 빼서 관리해야함
   // 6. 전체적인 변수명 점검 => 변수명 명확히하기
   //todo: 결제 api 호출
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError || !competition) return <div>대회정보가 없습니다.</div>;
+  const divisions: IDivision[] = competition.divisions;
 
   return (
     <div className={styles.wrapper}>

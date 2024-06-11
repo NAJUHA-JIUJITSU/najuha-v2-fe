@@ -43,7 +43,7 @@ export const getFilteredCompetitions = async (
     api.functional.user.competitions.findCompetitions(connection, params),
   );
 
-  return response.result.competitions;
+  return response.result;
 };
 
 // 특정 대회 조회

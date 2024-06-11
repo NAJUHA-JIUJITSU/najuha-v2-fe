@@ -5,13 +5,13 @@ import { useRouter } from 'next/navigation';
 import TagList from '@/components/tagList';
 import { formatDateYMD, formatDateMDWeekday } from '@/utils/dateUtils/dateFormat';
 import { areBothDatesPassed } from '@/utils/dateUtils/dateCheck';
-import { Competition } from '@/interfaces/CompetitionInfo';
+import { ICompetitionForFind } from '@/node_modules/najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 
 type CardType = 'normal' | 'vertical';
 
 interface CardProps {
   type: CardType;
-  competition: Competition;
+  competition: ICompetitionForFind;
 }
 
 //todo: image 최적화
@@ -24,7 +24,7 @@ export default function Card({ type = 'normal', competition }: CardProps) {
   }
 
   //타입이 normal이거나 가격이 없으면 가격 표시 안함
-  let isPrice = false;
+  const isPrice = false;
   // if (type === 'normal' || !info.price) {
   //   isPrice = false;
   // }

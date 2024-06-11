@@ -2,7 +2,7 @@
 import React, { Fragment, useRef, useEffect } from 'react';
 import styles from './index.module.scss';
 import Card from '@/components/card';
-import { useGetFilteredCompetitions } from '@/hooks/competition';
+import { useGetFilteredCompetitions } from '@/api/nestia/hooks/competition';
 
 interface CompetitionListProps {
   dateFilter: string;
