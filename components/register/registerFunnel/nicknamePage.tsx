@@ -7,7 +7,8 @@ import { nicknameState } from '@/recoil/atoms/registerState';
 import { useInput } from '@/hooks/useInput';
 import { validateNickname } from '@/utils/validations/userValidations';
 import { useState, useCallback } from 'react';
-import { useCheckNickname } from '@/hooks/register';
+// import { useCheckNickname } from '@/hooks/register';
+import { useCheckDuplicatedNickname } from '@/api/nestia/hooks/register';
 import InfoMessage from '@/components/register/infoMessage';
 
 const title = '확인해주세요';
@@ -29,7 +30,7 @@ export default function Nickname({ onNext, submitText = '다음' }: NicknameProp
     validateNickname,
   );
   const [isDuplicated, setIsDuplicated] = useState(true);
-  const { mutate, isPending } = useCheckNickname();
+  const { mutate, isPending } = useCheckDuplicatedNickname();
 
   const handleButtonClick = useCallback(() => {
     setNickname(value);
@@ -40,8 +41,8 @@ export default function Nickname({ onNext, submitText = '다음' }: NicknameProp
     // onSuccess에 따라서 isDuplicated를 변경
     mutate(value, {
       onSuccess: (res) => {
-        setIsDuplicated(res.data.result.isDuplicated);
-        if (res.data.result.isDuplicated) {
+        setIsDuplicated(res.isDuplicated);
+        if (res.isDuplicated) {
           setErrMsg('이미 사용중인 닉네임입니다.');
         } else {
           setSuccessMsg('사용 가능한 닉네임입니다.');

@@ -4,8 +4,6 @@ import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import { useRecoilState } from 'recoil';
 import { beltState } from '@/recoil/atoms/registerState';
-import { useRegister } from '@/hooks/register';
-import { use } from 'react';
 
 const options = ['화이트', '블루', '퍼플', '브라운', '블랙'];
 
