@@ -3,9 +3,9 @@ import React from 'react';
 import { EmblaOptionsType } from 'embla-carousel';
 import useEmblaCarousel from 'embla-carousel-react';
 import styles from './Carousel.module.scss';
-import { useDotButton } from './EmblaCarouselDotButton';
 import Autoplay from 'embla-carousel-autoplay';
 import Image from 'next/image';
+import { SelectedSnapDisplay, useSelectedSnapDisplay } from './EmblaCarouselSelectedSnapDisplay';
 
 type PropType = {
   options?: EmblaOptionsType;
@@ -21,8 +21,7 @@ const slides = [
 export const EmblaCarousel: React.FC<PropType> = (props) => {
   const { options } = props;
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [Autoplay({ delay: 3000 })]);
-  const { selectedIndex } = useDotButton(emblaApi);
-
+  const { selectedSnap, snapCount } = useSelectedSnapDisplay(emblaApi);
   return (
     <div className={styles.embla}>
       <div className={styles.embla__viewport} ref={emblaRef}>
@@ -41,9 +40,7 @@ export const EmblaCarousel: React.FC<PropType> = (props) => {
           ))}
         </div>
         <div className={styles.embla__controls}>
-          <div className={styles.slideIndex}>
-            <span>{selectedIndex + 1}</span> / {slides.length}
-          </div>
+          <SelectedSnapDisplay selectedSnap={selectedSnap} snapCount={snapCount} />
         </div>
       </div>
     </div>
