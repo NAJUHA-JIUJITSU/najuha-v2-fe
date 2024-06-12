@@ -13,7 +13,7 @@ export const userInfoSelector = selector({
   key: 'userInfoSelector',
   get: ({ get }) => {
     // get
-    const gender = get(genderState).toUpperCase();
+    const gender = get(genderState);
     const birth = get(birthDateState).replace(/\//g, '');
     const nickname = get(nicknameState);
     const belt = get(beltState);
@@ -36,7 +36,7 @@ export const userPatchSelector = selector({
   key: 'userPatchSelector',
   get: ({ get }) => {
     const nickname = get(nicknameState);
-    const gender = get(genderState)?.toUpperCase();
+    const gender = get(genderState);
     const birth = get(birthDateState).replace(/\//g, '');
     const belt = get(beltState);
     return {
