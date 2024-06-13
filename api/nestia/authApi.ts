@@ -2,6 +2,7 @@ import { withAuth, createConnection } from '@/api/nestia/common';
 import api from 'najuha-v2-api/lib/api';
 import Cookies from 'js-cookie';
 import { saveTokens, decodeToken } from '@/utils/tokenManagement';
+import { IUser } from 'najuha-v2-api/lib/modules/users/domain/interface/user.interface';
 
 // nestia sdk에서 사용하는 api
 // 기존이랑 달라진점이 try catch로 감싸서 에러처리를 해줘야함.
@@ -26,7 +27,10 @@ export const postRefreshToken = async (): Promise<string> => {
   return accessToken;
 };
 
-export const postSnsLogin = async (snsAuthProvider: string, snsAuthCode: string) => {
+export const postSnsLogin = async (
+  snsAuthProvider: IUser['snsAuthProvider'],
+  snsAuthCode: string,
+) => {
   const response = await withAuth((connection) =>
     api.functional.user.auth.sns_login.snsLogin(connection, {
       snsAuthProvider,
