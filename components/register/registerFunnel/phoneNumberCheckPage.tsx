@@ -5,7 +5,7 @@ import stlyes from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import { useInput } from '@/hooks/useInput';
 import { validateVerificationNumber } from '@/utils/validations/userValidations';
-import { useConfirmAuthCode, useSendAuthCode } from '@/api/nestia/hooks/register';
+import { useConfirmAuthCode, useSendAuthCode } from '@/hooks/register';
 import { useRecoilValue } from 'recoil';
 import { phoneNumberState } from '@/recoil/atoms/registerState';
 import { useTimer } from '@/hooks/useTimer';
@@ -16,7 +16,7 @@ interface VerifyProps {
 }
 
 export default function Verify({ onNext, submitText = '다음' }: VerifyProps) {
-  const { value, setValue, errMsg, validate, setErrMsg, setSuccessMsg, successMsg } = useInput(
+  const { value, setValue, errMsg, validate, setErrMsg, successMsg } = useInput(
     '',
     validateVerificationNumber,
   );

@@ -8,7 +8,7 @@ import { useInput } from '@/hooks/useInput';
 import { validateNickname } from '@/utils/validations/userValidations';
 import { useState, useCallback } from 'react';
 // import { useCheckNickname } from '@/hooks/register';
-import { useCheckDuplicatedNickname } from '@/api/nestia/hooks/register';
+import { useCheckDuplicatedNickname } from '@/hooks/register';
 import InfoMessage from '@/components/register/infoMessage';
 
 const title = '확인해주세요';

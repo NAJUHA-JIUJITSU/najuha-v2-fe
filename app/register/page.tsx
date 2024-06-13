@@ -11,7 +11,7 @@ import NicknamePage from '@/components/register/registerFunnel/nicknamePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import { useFunnel } from '@/hooks/useFunnel';
 import { useTemporaryUserInfo } from '@/hooks/register';
-import { useRegister } from '@/api/nestia/hooks/register';
+import { useRegister } from '@/hooks/register';
 
 const steps = ['약관동의', '성별', '생년월일', '전화번호', '닉네임', '벨트', '가입성공'];
 
