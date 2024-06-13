@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { applicationsApi } from '@/api/applicationsApi';
+import { applicationsApi } from '@/api/nestia/applicationsApi';
+import { IApplication } from '@/node_modules/najuha-v2-api/lib/modules/applications/domain/interface/application.interface';
 
 //대회 신청하기
 export const useSubmitApplication = () => {
@@ -15,17 +16,17 @@ export const useSubmitApplication = () => {
 };
 
 //대회 신청 정보 가져오기
-export const useGetApplicationInfo = (applicationId: string | null) => {
+export const useGetApplicationInfo = (applicationId: string) => {
   return useQuery({
     queryKey: ['applicationInfo', applicationId],
     queryFn: () => applicationsApi.getApplicationInfo(applicationId),
     enabled: !!applicationId,
-    select: (data) => parseApplicationData(data),
+    select: (data: IApplication) => parseApplicationData(data),
   });
 };
 
-export const parseApplicationData = (data) => {
-  const parsedData = data?.result.application;
+export const parseApplicationData = (data: IApplication) => {
+  const parsedData = data;
 
   // 정제되지 않은 데이터를 정제하는 부분
   const selectedDivisionTest = parsedData?.participationDivisionInfos.map((x) => {

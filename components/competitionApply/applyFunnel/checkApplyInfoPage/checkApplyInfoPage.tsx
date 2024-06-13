@@ -1,6 +1,5 @@
 import ApplyInfo from '@/components/applyInfo/applyInfo/applyInfo';
-// import { useGetApplicationInfo } from '@/hooks/applications';
-import { useGetApplicationInfo } from '@/api/nestia/hooks/applications';
+import { useGetApplicationInfo } from '@/hooks/applications';
 
 export default function CheckApplyInfoPage({ applicationId }: { applicationId: string | null }) {
   //대회 신청 정보 가져오기
@@ -15,7 +14,8 @@ export default function CheckApplyInfoPage({ applicationId }: { applicationId: s
     return <div>Error loading application information.</div>;
   }
 
-  const { playerInfo, selectedDivision } = data;
+  const playerInfo = data?.playerInfo;
+  const selectedDivision = data?.selectedDivision;
 
   return (
     <>
