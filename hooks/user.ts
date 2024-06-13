@@ -29,10 +29,10 @@ export const useUserInfo = () => {
       alertMsg: '회원정보를 가져오는데 실패했습니다.',
     },
   });
-  console.log('userInfo: ', data);
 
   useEffect(() => {
     if (data) {
+      console.log('userInfo: ', data);
       setName(data.name);
       setGender(data.gender);
       setBirthDate(data.birth);

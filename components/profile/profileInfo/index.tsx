@@ -1,8 +1,7 @@
 'use client';
 import styles from './index.module.scss';
 import ButtonLink from '@/components/common/button/buttonLink';
-// import { useUserInfo } from '@/hooks/users'
-import { useUserInfo } from '@/api/nestia/hooks/user';
+import { useUserInfo } from '@/hooks/user';
 import { useRecoilValue } from 'recoil';
 import { userInfoSelector } from '@/recoil/selectors/userSelector';
 

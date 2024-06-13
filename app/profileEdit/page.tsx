@@ -6,7 +6,7 @@ import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink
 import ButtonLists from '@/components/common/buttonList/buttonLists';
 import ProfileImgEdit from '@/components/profile/profileImgEdit';
 import { formatBirth, formatGender, formatPhoneNumber } from '@/utils/userFormats';
-import { useUserInfo } from '@/api/nestia/hooks/user';
+import { useUserInfo } from '@/hooks/user';
 import { useRecoilValue } from 'recoil';
 import { userInfoSelector } from '@/recoil/selectors/userSelector';
 
