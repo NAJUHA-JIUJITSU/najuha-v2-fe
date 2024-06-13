@@ -18,8 +18,7 @@ import {
   SelectedOptions,
   TeamInfo,
 } from '@/interfaces/competitionApply';
-// import { useGetCompetitionId } from '@/hooks/competition';
-import { useGetCompetitionId } from '@/api/nestia/hooks/competition';
+import { useGetCompetitionId } from '@/hooks/competition';
 // import { useSubmitApplication } from '@/hooks/applications';
 import { useSubmitApplication } from '@/api/nestia/hooks/applications';
 import { IDivision } from '@/node_modules/najuha-v2-api/lib/modules/competitions/domain/interface/division.interface';

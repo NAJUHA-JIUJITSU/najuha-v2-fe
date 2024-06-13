@@ -1,21 +1,6 @@
-import { useQuery, useInfiniteQuery, useMutation } from '@tanstack/react-query';
+import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import { queries } from '@/queries/index';
-import { competitionApi } from '@/api/competitionApi';
-import {
-  ApiCompetitionsResponse,
-  ApiCompetitionIdResponse,
-  ApiInfiniteCompetitionsResponse,
-} from '@/interfaces/CompetitionInfo';
-
-// competitions select 함수 정의
-const competitionsSelectFn = (response: ApiCompetitionsResponse) => {
-  return response.data.result.competitions;
-};
-
-// competition select 함수 정의
-const competitionIdSelectFn = (response: ApiCompetitionIdResponse) => {
-  return response.data.result.competition;
-};
+import { competitionApi } from '@/api/nestia/competitionApi';
 
 //Todo: 무한스크롤 구현
 //전체 대회 목록 조회
@@ -23,7 +8,7 @@ export const useGetCompetitions = () => {
   return useQuery({
     queryKey: queries.competition.all().queryKey,
     queryFn: () => competitionApi.getCompetitions(),
-    select: competitionsSelectFn,
+    // select: competitionsSelectFn,
   });
 };
 
@@ -36,7 +21,7 @@ export const useGetFilteredCompetitions = (
   limit: number = 10,
 ) => {
   const fetchCompetitions = async ({ pageParam }: { pageParam: number }) => {
-    const response: ApiInfiniteCompetitionsResponse = await competitionApi.getFilteredCompetitions(
+    const response = await competitionApi.getFilteredCompetitions(
       pageParam,
       limit,
       dateFilter,
@@ -44,7 +29,7 @@ export const useGetFilteredCompetitions = (
       selectFilter,
       sortOption,
     );
-    return response.data.result;
+    return response;
   };
 
   return useInfiniteQuery({
@@ -57,10 +42,9 @@ export const useGetFilteredCompetitions = (
 };
 
 //특정 대회 조회
-export const useGetCompetitionId = (competitionId: number) => {
+export const useGetCompetitionId = (competitionId: string) => {
   return useQuery({
     queryKey: queries.competition.id(competitionId).queryKey,
     queryFn: () => competitionApi.getCompetitionId(competitionId),
-    select: competitionIdSelectFn,
   });
 };

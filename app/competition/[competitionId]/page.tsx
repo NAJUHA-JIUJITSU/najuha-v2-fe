@@ -4,8 +4,7 @@ import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
 import CompetitionIdContent from '../../../components/competitionId/competitionIdContent/index';
-// import { useGetCompetitionId } from '@/hooks/competition';
-import { useGetCompetitionId } from '@/api/nestia/hooks/competition';
+import { useGetCompetitionId } from '@/hooks/competition';
 
 export default function CompetitionId({ params }: { params: { competitionId: string } }) {
   // 대회 조회
