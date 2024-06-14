@@ -18,23 +18,24 @@
   margin: 0px auto;
 }
 
-.programSection {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  .tagBtnOptionsWrapper {
-    display: flex;
-    gap: 8px;
-    padding: 0 2px;
-  }
+// .programSection {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 16px;
 
-  .programCardList {
-    width: 100%;
-    display: flex;
-    gap: 16px;
-    overflow: auto;
-    box-sizing: border-box;
-    -ms-overflow-style: none; /* 인터넷 익스플로러 */
-    scrollbar-width: none; /* 파이어폭스 */
-  }
-}
+//   .tagBtnOptionsWrapper {
+//     display: flex;
+//     gap: 8px;
+//     padding: 0 2px;
+//   }
+
+//   .programCardList {
+//     width: 100%;
+//     display: flex;
+//     gap: 16px;
+//     overflow: auto;
+//     box-sizing: border-box;
+//     -ms-overflow-style: none; /* 인터넷 익스플로러 */
+//     scrollbar-width: none; /* 파이어폭스 */
+//   }
+// }

@@ -8,25 +8,33 @@
   background-color: $--color-basic-white;
 }
 
-.filterWrapper {
-  display: flex;
-  gap: 8px;
-  padding: 16px 0;
-}
+.stickyWrapper {
+  background-color: $--color-basic-white;
+  position: sticky;
+  top: 48px;
+  left: 0;
+  z-index: 99;
 
-.selectWrapper {
-  display: flex;
-  gap: 8px;
-  padding-bottom: 12px;
-  overflow: auto;
-  -ms-overflow-style: none; /* 인터넷 익스플로러 */
-  scrollbar-width: none; /* 파이어폭스 */
-}
-.selectWrapper::-webkit-scrollbar {
-  display: none; /* 크롬, 사파리, 오페라, 엣지 */
-}
+  .filterWrapper {
+    display: flex;
+    gap: 8px;
+    padding: 16px 0;
+  }
 
-.sortWrapper {
-  margin-left: auto;
-  padding: 4px 0;
+  .selectWrapper {
+    display: flex;
+    gap: 8px;
+    padding-bottom: 12px;
+    overflow: auto;
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+  }
+  .selectWrapper::-webkit-scrollbar {
+    display: none; /* 크롬, 사파리, 오페라, 엣지 */
+  }
+
+  .sortWrapper {
+    margin-left: auto;
+    padding: 4px 0;
+  }
 }

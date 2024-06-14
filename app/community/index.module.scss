@@ -2,15 +2,25 @@
 @import '@/styles/_variable.scss';
 @import '@/styles/_zindex.scss';
 
-.selectWrapper {
+.stickyWrapper {
+  background-color: $--color-basic-white;
+  position: sticky;
+  top: 48px;
+  left: 0;
   display: flex;
-  gap: 8px;
-  padding: 16px 0;
-  overflow: auto;
-  -ms-overflow-style: none; /* 인터넷 익스플로러 */
-  scrollbar-width: none; /* 파이어폭스 */
-}
+  flex-direction: column;
 
-.sortWrapper {
-  margin: 4px 0 4px auto;
+  .selectWrapper {
+    display: flex;
+    gap: 8px;
+    padding: 16px 0;
+    overflow: auto;
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
+  }
+
+  .sortWrapper {
+    margin-left: auto;
+    padding: 4px 0;
+  }
 }

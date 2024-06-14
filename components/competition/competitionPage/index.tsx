@@ -90,43 +90,45 @@ export default function CompetitionPage() {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.filterWrapper}>
-        <Select
-          type="filled"
-          options={dateOptions}
-          setState={handleDateFilterChange}
-          value={dateFilterState}
-          placeholder={'날짜'}
-        />
-        <Select
-          type="filled"
-          options={locationOptions}
-          setState={handleLocationFilterChange}
-          value={locationFilterState}
-          placeholder={'지역'}
-        />
-      </div>
-      <div className={styles.selectWrapper}>
-        {selectOptions.map((option) => (
-          <ButtonOnToggle
-            key={option}
-            type="tag"
-            text={option}
-            isToggled={selectOptionsState.includes(option)}
-            onToggle={() => handleSelectnFilterChange(option)}
+      <div className={styles.stickyWrapper}>
+        <div className={styles.filterWrapper}>
+          <Select
+            type="filled"
+            options={dateOptions}
+            setState={handleDateFilterChange}
+            value={dateFilterState}
+            placeholder={'날짜'}
           />
-        ))}
-      </div>
-      <Divider />
-      <div className={styles.sortWrapper}>
-        <ButtonOnClick
-          type="text"
-          size="small"
-          color="gray"
-          text={sortOptionState}
-          iconLeft={<IconSort />}
-          onClick={() => handleSortOptionChange(sortOptionState)} //todo: useSortOption 적용
-        />
+          <Select
+            type="filled"
+            options={locationOptions}
+            setState={handleLocationFilterChange}
+            value={locationFilterState}
+            placeholder={'지역'}
+          />
+        </div>
+        <div className={styles.selectWrapper}>
+          {selectOptions.map((option) => (
+            <ButtonOnToggle
+              key={option}
+              type="tag"
+              text={option}
+              isToggled={selectOptionsState.includes(option)}
+              onToggle={() => handleSelectnFilterChange(option)}
+            />
+          ))}
+        </div>
+        <Divider />
+        <div className={styles.sortWrapper}>
+          <ButtonOnClick
+            type="text"
+            size="small"
+            color="gray"
+            text={sortOptionState}
+            iconLeft={<IconSort />}
+            onClick={() => handleSortOptionChange(sortOptionState)} //todo: useSortOption 적용
+          />
+        </div>
       </div>
       <CompetitionList
         dateFilter={dateFilterState}

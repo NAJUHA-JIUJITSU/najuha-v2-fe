@@ -107,7 +107,7 @@ const postList: PostInfo[] = [
 const sortOptions = ['일자순', '조회순', '마감임박순'];
 
 export default function CommunityPage() {
-  const { sortOption, setSortOption, handleSortOption } = useSortOption(sortOptions, '일자순');
+  const { sortOption, handleSortOption } = useSortOption(sortOptions, '일자순');
   const [selectedOption, setSelectedOption] = useState('all');
 
   function handleSelectOption(id: string) {
@@ -117,27 +117,29 @@ export default function CommunityPage() {
   return (
     <NavigationLayout>
       <Header title="커뮤니티" rightIcon1={<IconLinkAlarm />} rightIcon2={<IconLinkSearch />} />
-      <div className={styles.selectWrapper}>
-        {selectOptions.map((option) => (
-          <ButtonOnToggle
-            key={option.id}
-            type="tag"
-            text={option.msg}
-            isToggled={selectedOption === option.id}
-            onToggle={() => handleSelectOption(option.id)}
+      <div className={styles.stickyWrapper}>
+        <div className={styles.selectWrapper}>
+          {selectOptions.map((option) => (
+            <ButtonOnToggle
+              key={option.id}
+              type="tag"
+              text={option.msg}
+              isToggled={selectedOption === option.id}
+              onToggle={() => handleSelectOption(option.id)}
+            />
+          ))}
+        </div>
+        <Divider />
+        <div className={styles.sortWrapper}>
+          <ButtonOnClick
+            type="text"
+            size="small"
+            color="gray"
+            text={sortOption}
+            iconLeft={<IconSort />}
+            onClick={handleSortOption}
           />
-        ))}
-      </div>
-      <Divider />
-      <div className={styles.sortWrapper}>
-        <ButtonOnClick
-          type="text"
-          size="small"
-          color="gray"
-          text={sortOption}
-          iconLeft={<IconSort />}
-          onClick={handleSortOption}
-        />
+        </div>
       </div>
       <div>
         {postList.map((post) => (
