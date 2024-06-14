@@ -2,14 +2,7 @@
 @import '@/styles/_variable.scss';
 @import '@/styles/_zindex.scss';
 
-.wrapper {
-  padding: 0 16px 72px 16px;
-  display: flex;
-  flex-direction: column;
-  background-color: $--color-basic-white;
-
-  h3 {
-    @include font-body1-regular;
-    color: $--color-font-body;
-  }
+.tmp {
+  @include font-body1-regular;
+  color: $--color-font-body;
 }

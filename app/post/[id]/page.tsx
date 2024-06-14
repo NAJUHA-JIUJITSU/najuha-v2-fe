@@ -7,6 +7,7 @@ import styles from './index.module.scss';
 import { ThinDivider } from '@/components/divider';
 import { comment, replyComment } from '@/interfaces/comment';
 import { post } from '@/interfaces/post';
+import BaseLayout from '@/components/layout/baseLayout';
 
 async function getPost(id: number): Promise<post> {
   return new Promise((resolve) => {
@@ -108,11 +109,11 @@ export default async function post(props: any) {
   }
 
   return (
-    <div className={styles.wrapper}>
+    <BaseLayout>
       <Header leftIcon={<ButtonIconNavigateBefore />} title="글페이지" />
       <Post postInfo={data} />
       <ThinDivider />
       {renderComment(commentInfo)}
-    </div>
+    </BaseLayout>
   );
 }
