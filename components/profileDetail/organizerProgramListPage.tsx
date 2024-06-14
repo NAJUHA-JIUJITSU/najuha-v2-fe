@@ -21,7 +21,7 @@ const TabLabels: Record<TabKey, string> = {
 // tagBtnOptions 배열 상수 정의
 const tagBtnOptions = ['전체', '오픈 전', '신청 중', '마감'];
 
-export default function organizerProgramListPage() {
+export default function OrganizerProgramListPage() {
   const [selectedTab, setSelectedTab] = useState<TabKey>('competiton');
   const [selectOptionsState, setSelectOptionsState] = useState<string>('전체');
 

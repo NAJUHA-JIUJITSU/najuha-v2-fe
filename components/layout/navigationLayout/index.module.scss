@@ -5,19 +5,27 @@
 .container {
   display: flex;
   flex-direction: row;
-  padding: 0 16px 162px;
+  justify-content: center;
   box-sizing: border-box;
-  background-color: $--color-basic-white;
+  background-color: $--color-gray-1;
+  min-height: 100vh;
 }
 
 .content {
-  flex: 1;
-  transition: margin-left 0.3s;
   display: flex;
   flex-direction: column;
+  padding: 0 16px 81px;
+  flex: 1;
+  transition: margin-left 0.3s;
+  max-width: 1024px;
+  background-color: $--color-basic-white;
 
   // 데스크탑 사이드바와 겹치지 않도록 마진 조정
   @media (min-width: 1024px) {
     margin-left: 220px;
+    padding: 0 16px;
   }
+}
+.children {
+  min-height: 100vh;
 }

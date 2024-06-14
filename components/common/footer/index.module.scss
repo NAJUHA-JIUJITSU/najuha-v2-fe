@@ -1,0 +1,66 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.fullWidthBackground {
+  position: relative;
+  left: -16px;
+  width: calc(100% + 32px);
+  .wrapper {
+    //   background-color: $--color-basic-white;
+    background-color: $--color-gray-0;
+
+    display: flex;
+    flex-direction: column;
+    padding: 16px 32px;
+    gap: 32px;
+    justify-content: center;
+  }
+}
+
+.buttonLinkSection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.buisinessInfoSection {
+  .listTitle {
+    @include font-caption-medium;
+    color: $--color-font-subheadline;
+    margin-bottom: 8px;
+  }
+
+  .lists {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    dl {
+      display: flex;
+      align-items: center;
+
+      .title {
+        color: $--color-font-body;
+        min-width: 120px;
+        @include font-caption-regular;
+      }
+      .data {
+        color: $--color-font-disabled;
+        @include font-caption-regular;
+      }
+    }
+  }
+}
+
+.noticeContent {
+  text-align: center;
+  @include font-caption-regular;
+  color: $--color-font-body;
+}
+
+.copyRight {
+  @include font-caption-regular;
+  color: $--color-font-disabled;
+  text-align: center;
+}

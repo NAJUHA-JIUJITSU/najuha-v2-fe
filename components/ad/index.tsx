@@ -10,7 +10,7 @@ interface adProps {
   size: adSize;
 }
 
-export default function ad({ src, alt, size }: adProps) {
+export default function Ad({ src, alt, size }: adProps) {
   return (
     <div className={`${styles.wrapper} ${styles[size]}`}>
       <img className={styles.img} src={src} alt={alt} />

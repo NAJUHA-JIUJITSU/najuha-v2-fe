@@ -10,7 +10,7 @@ import { useUserInfo } from '@/hooks/users';
 import { useRecoilValue } from 'recoil';
 import { userInfoSelector } from '@/recoil/selectors/userSelector';
 
-export default function profileEdit() {
+export default function ProfileEdit() {
   useUserInfo();
   const userInfo = useRecoilValue(userInfoSelector);
 

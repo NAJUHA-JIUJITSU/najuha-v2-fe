@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 
 export function useAuth() {
   const [isLogin, setIsLogin] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const token = Cookies.get('accessToken');
@@ -10,6 +12,10 @@ export function useAuth() {
       setIsLogin(true);
     }
   }, []);
+
+  const login = () => {
+    router.push('/login');
+  };
 
   const logout = () => {
     const confirmLogout = confirm(
@@ -23,5 +29,5 @@ export function useAuth() {
     }
   };
 
-  return { isLogin, logout };
+  return { isLogin, logout, login };
 }

@@ -2,53 +2,55 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import styles from './index.module.scss';
 
-//todo: 옵셔널 최소한으로 사용하도록 수정
-interface navigationMenuProps {
-  href?: string;
+type MenuType = 'button' | 'link' | 'logo' | 'login';
+
+interface BaseNavigationMenuProps {
+  menuType: MenuType;
+  isActive: boolean;
   icon?: JSX.Element;
   label?: string;
-  isButton?: boolean;
-  isLogo?: boolean;
-  isLogin?: boolean;
-  isActive: boolean;
   onClick?: () => void;
+  href?: string;
 }
 
-export default function navigationMenu({
-  href,
+export default function NavigationMenu({
+  isActive,
+  menuType,
   icon,
   label,
-  isButton = false,
-  isLogo = false,
-  isLogin = false,
-  isActive,
   onClick,
-}: navigationMenuProps) {
+  href,
+}: BaseNavigationMenuProps) {
+  const wrapperClassName = clsx(
+    styles.wrapper,
+    { [styles.logoWrapper]: menuType === 'logo' },
+    { [styles.loginWrapper]: menuType === 'login' },
+  );
+
   const className = clsx(
     styles.menu,
     { [styles.active]: isActive },
-    { [styles.buttonMenu]: isButton },
+    { [styles.buttonMenu]: menuType === 'button' || menuType === 'login' },
+    { [styles.linkMenu]: menuType === 'link' || menuType === 'logo' },
   );
 
-  return (
-    <div
-      className={clsx(
-        styles.wrapper,
-        { [styles.logoWrapper]: isLogo },
-        { [styles.loginWrapper]: isLogin },
-      )}
-    >
-      {isButton ? (
+  if (menuType === 'button' || menuType === 'login') {
+    return (
+      <div className={wrapperClassName}>
         <button className={className} onClick={onClick}>
-          {icon && icon}
+          {icon}
           {label && <span>{label}</span>}
         </button>
-      ) : (
-        <Link href={href || ''} className={className}>
-          {icon && icon}
-          {label && <span>{label}</span>}
-        </Link>
-      )}
+      </div>
+    );
+  }
+
+  return (
+    <div className={wrapperClassName}>
+      <Link href={href || ''} className={className}>
+        {icon}
+        {label && <span>{label}</span>}
+      </Link>
     </div>
   );
 }

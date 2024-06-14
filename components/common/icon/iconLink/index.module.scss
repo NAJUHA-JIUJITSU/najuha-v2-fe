@@ -1,0 +1,25 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.programBtn {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  a {
+    background-color: $--color-gray-0;
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  p {
+    @include font-caption-regular;
+    color: $--color-font-headline;
+  }
+}

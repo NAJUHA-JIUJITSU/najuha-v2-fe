@@ -72,11 +72,11 @@
 
 // Caption styles
 @mixin font-caption-medium {
-  @include typography(12px, 12px, -1.25%, 500);
+  @include typography(13px, 15px, -1.25%, 500);
 }
 
 @mixin font-caption-regular {
-  @include typography(12px, 12px, -1.25%, 400);
+  @include typography(13px, 15px, -1.25%, 400);
 }
 
 // Button styles

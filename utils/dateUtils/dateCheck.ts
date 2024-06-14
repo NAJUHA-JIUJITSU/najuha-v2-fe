@@ -44,7 +44,7 @@ export const calculateDayDiff = (futureDate: string): number => {
   const futureDateObj = new Date(futureDate);
   const now = new Date();
   const timeDiff = futureDateObj.getTime() - now.getTime();
-  return Math.ceil(timeDiff / (1000 * 3600 * 24));
+  return Math.floor(timeDiff / (1000 * 3600 * 24));
 };
 
 // 날짜를 ~일 전, ~시간 전, ~분 전으로 표시하는 함수

@@ -43,6 +43,7 @@
         justify-content: center;
         align-items: center;
         display: inline-flex;
+        gap: 2px;
         height: 18px;
         width: fit-content;
         padding: 0 6px;
@@ -51,6 +52,10 @@
         margin-left: auto;
         @include font-caption-regular;
         color: $--color-basic-white;
+
+        svg {
+          height: 18px;
+        }
       }
 
       .competitionDate {
@@ -98,25 +103,25 @@
 
     .bottom {
       margin-top: auto;
-      margin-left: auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 100%;
 
       .applyDate {
+        margin-left: auto;
         @include font-body3-regular;
         color: $--color-font-body;
       }
 
-      .price {
-        @include font-subtitle1-bold;
-        color: $--color-font-headline;
+      // .price {
+      //   @include font-subtitle1-bold;
+      //   color: $--color-font-headline;
 
-        span {
-          @include font-body3-regular;
-        }
-      }
+      //   span {
+      //     @include font-body3-regular;
+      //   }
+      // }
     }
   }
 
@@ -126,7 +131,6 @@
     padding: 0;
     width: 141px;
     height: 283px;
-    margin-right: 16px;
     border-bottom: none;
 
     .posterSection {
