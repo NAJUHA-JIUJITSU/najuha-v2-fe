@@ -10,63 +10,55 @@ import { usePathname } from 'next/navigation';
 import NavigationMenu from './navigationMenu';
 import { useAuth } from '@/hooks/useAuth';
 
-const menuItems = [
-  { href: '/', icon: <IconLogo />, label: '로고', isLogo: true },
-  { href: '/', icon: <IconHome />, label: '홈' },
-  { href: '/community', icon: <IconBook />, label: '게시판' },
-  {
-    icon: <IconAddCircle />,
-    label: '게시글 등록',
-    isButton: true,
-    onClick: () => alert('등록 모달 창 생성'),
-  },
-  { href: '/applicationList', icon: <IconCard />, label: '신청내역' },
-  { href: '/profile', icon: <IconProfile />, label: '프로필' },
-  { href: '/login', label: '로그인', isLogin: true },
-];
+type MenuType = 'button' | 'link' | 'logo' | 'login';
+
+interface MenuItem {
+  menuType: MenuType;
+  href?: string;
+  icon?: JSX.Element;
+  label?: string;
+  onClick?: () => void;
+}
+
 export default function NavigationBar() {
   const currentPath = usePathname();
-  const { isLogin, logout } = useAuth();
+  const { isLogin, login, logout } = useAuth();
+
+  const menuItems: MenuItem[] = [
+    { menuType: 'logo', href: '/', icon: <IconLogo /> },
+    { menuType: 'link', href: '/', icon: <IconHome />, label: '홈' },
+    { menuType: 'link', href: '/community', icon: <IconBook />, label: '게시판' },
+    {
+      menuType: 'button',
+      icon: <IconAddCircle />,
+      label: '게시글 등록',
+      onClick: () => alert('등록 모달 창 생성'),
+    },
+    {
+      menuType: 'link',
+      href: '/applicationList',
+      icon: <IconCard />,
+      label: '신청내역',
+    },
+    { menuType: 'link', href: '/profile', icon: <IconProfile />, label: '프로필' },
+    isLogin
+      ? { menuType: 'login', label: '로그아웃', onClick: logout }
+      : { menuType: 'login', label: '로그인', onClick: login },
+  ];
 
   return (
     <div className={styles.wrapper}>
       {menuItems.map((item) => {
-        if (item.label === '로그인' && isLogin) {
-          return (
-            <NavigationMenu
-              key="logout"
-              label="로그아웃"
-              isButton={true}
-              isLogin={true}
-              onClick={logout}
-              isActive={false}
-            />
-          );
-        }
-
-        if (item.label === '로고') {
-          return (
-            <NavigationMenu
-              key={item.label}
-              href={item.href}
-              icon={item.icon}
-              isLogo={item.isLogo}
-              isActive={false}
-            />
-          );
-        }
-
+        const isActive = currentPath === item.href;
         return (
           <NavigationMenu
-            key={item.label}
+            key={`${item.menuType}-${item.href || item.label}`}
+            menuType={item.menuType}
             href={item.href}
             icon={item.icon}
             label={item.label}
-            isButton={item.isButton}
-            isLogo={item.isLogo}
-            isLogin={item.isLogin}
-            isActive={currentPath === item.href}
             onClick={item.onClick}
+            isActive={isActive}
           />
         );
       })}

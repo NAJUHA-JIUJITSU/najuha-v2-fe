@@ -70,6 +70,9 @@
           height: 28px;
           width: 85px;
         }
+        &.active {
+          background-color: $--color-basic-white;
+        }
       }
     }
 
