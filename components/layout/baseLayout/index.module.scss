@@ -1,0 +1,29 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  box-sizing: border-box;
+  background-color: $--color-gray-1;
+  min-height: 100vh;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px;
+  flex: 1;
+  transition: margin-left 0.3s;
+  max-width: 1024px;
+  width: calc(100% - 32px);
+  background-color: $--color-basic-white;
+
+  .children {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+}
