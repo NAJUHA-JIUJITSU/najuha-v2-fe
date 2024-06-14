@@ -6,13 +6,14 @@ import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink
 import CompetitionIdContent from '../../../components/competitionId/competitionIdContent/index';
 import { useGetCompetitionId } from '@/hooks/competition';
 import { Competition, ApiCompetitionIdResponse } from '@/interfaces/CompetitionInfo';
+import BaseLayout from '@/components/layout/baseLayout';
 
 export default function CompetitionId({ params }: { params: { competitionId: number } }) {
   // 대회 조회
   const { data: competition, isLoading, isError } = useGetCompetitionId(params.competitionId);
 
   return (
-    <div className={styles.wrapper}>
+    <BaseLayout>
       <Header
         leftIcon={<ButtonIconNavigateBefore />}
         title={competition?.title || '대회 상세페이지'}
@@ -20,12 +21,12 @@ export default function CompetitionId({ params }: { params: { competitionId: num
         rightIcon2={<IconLinkSearch />}
       />
       {isLoading ? (
-        <h3>Loading...</h3>
+        <h3 className={styles.tmp}>Loading...</h3>
       ) : isError || !competition ? (
-        <h3>대회정보가 없습니다.</h3>
+        <h3 className={styles.tmp}>대회정보가 없습니다.</h3>
       ) : (
         <CompetitionIdContent competition={competition}></CompetitionIdContent>
       )}
-    </div>
+    </BaseLayout>
   );
 }

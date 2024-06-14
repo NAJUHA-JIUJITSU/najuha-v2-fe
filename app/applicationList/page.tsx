@@ -1,4 +1,3 @@
-import styles from './index.module.scss';
 import Header from '@/components/common/header/Header';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
 import ApplicationListContent from '@/components/applicationList/applicationListContent';

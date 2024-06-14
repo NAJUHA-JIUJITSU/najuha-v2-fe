@@ -7,6 +7,12 @@
   background-color: $--color-basic-white;
 }
 
+.stickyWrapper {
+  background-color: $--color-basic-white;
+  position: sticky;
+  top: 48px;
+  left: 0;
+}
 .tagBtnOptionsWrapper {
   padding: 8px 0;
   display: flex;

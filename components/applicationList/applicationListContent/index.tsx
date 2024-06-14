@@ -27,22 +27,24 @@ export default function ApplicationListPage() {
 
   return (
     <div className={styles.wrapper}>
-      <TabList<TabKey>
-        tabs={Tabs}
-        tabLabels={TabLabels}
-        selectedTab={selectedTab}
-        onSelectTab={setSelectedTab}
-      />
-      <div className={styles.tagBtnOptionsWrapper}>
-        {tagBtnOptions.map((option) => (
-          <ButtonOnToggle
-            key={option}
-            type="tag"
-            text={option}
-            isToggled={selectOptionsState === option}
-            onToggle={() => setSelectOptionsState(option)}
-          />
-        ))}
+      <div className={styles.stickyWrapper}>
+        <TabList<TabKey>
+          tabs={Tabs}
+          tabLabels={TabLabels}
+          selectedTab={selectedTab}
+          onSelectTab={setSelectedTab}
+        />
+        <div className={styles.tagBtnOptionsWrapper}>
+          {tagBtnOptions.map((option) => (
+            <ButtonOnToggle
+              key={option}
+              type="tag"
+              text={option}
+              isToggled={selectOptionsState === option}
+              onToggle={() => setSelectOptionsState(option)}
+            />
+          ))}
+        </div>
       </div>
       <div className={styles.applicationCardList}>
         <p>

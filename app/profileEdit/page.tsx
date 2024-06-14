@@ -9,6 +9,7 @@ import { formatBirth, formatGender, formatPhoneNumber } from '@/utils/userFormat
 import { useUserInfo } from '@/hooks/users';
 import { useRecoilValue } from 'recoil';
 import { userInfoSelector } from '@/recoil/selectors/userSelector';
+import BaseLayout from '@/components/layout/baseLayout';
 
 export default function ProfileEdit() {
   useUserInfo();
@@ -33,7 +34,7 @@ export default function ProfileEdit() {
   ];
 
   return (
-    <div className={styles.wrapper}>
+    <BaseLayout>
       <Header
         title={'프로필 수정'}
         leftIcon={<ButtonIconNavigateBefore />}
@@ -46,6 +47,6 @@ export default function ProfileEdit() {
       <div className={styles.bottomSection}>
         <ButtonLists buttonLists={myProfileButtonLists} />
       </div>
-    </div>
+    </BaseLayout>
   );
 }
