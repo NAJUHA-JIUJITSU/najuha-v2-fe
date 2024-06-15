@@ -3,18 +3,12 @@ import React, { Fragment, useRef, useEffect } from 'react';
 import styles from './index.module.scss';
 import Card from '@/components/card';
 import { useGetFilteredCompetitions } from '@/hooks/competition';
-
-interface CompetitionListProps {
-  dateFilter: string;
-  locationFilter: string;
-  selectOption: string[];
-  sortOption: string;
-}
+import { CompetitionListProps } from '@/interfaces/competitionList';
 
 export default function CompetitionList({
   dateFilter,
   locationFilter,
-  selectOption,
+  selectFilter,
   sortOption,
 }: CompetitionListProps) {
   const {
@@ -24,7 +18,7 @@ export default function CompetitionList({
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useGetFilteredCompetitions(dateFilter, locationFilter, selectOption, sortOption);
+  } = useGetFilteredCompetitions({ dateFilter, locationFilter, selectFilter, sortOption });
 
   console.log('대회 리스트: ', competitionList);
 
@@ -62,7 +56,7 @@ export default function CompetitionList({
     <div className={styles.wrapper}>
       <h1>{dateFilter}</h1>
       <h1>{locationFilter}</h1>
-      <h1>{selectOption}</h1>
+      <h1>{selectFilter}</h1>
       <h1>{sortOption}</h1>
 
       {/* 대회 리스트 */}

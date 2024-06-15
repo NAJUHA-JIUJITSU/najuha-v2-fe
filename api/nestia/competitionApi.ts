@@ -1,5 +1,11 @@
 import { withAuth } from '@/api/nestia/common';
+import { CompetitionListProps } from '@/interfaces/competitionList';
 import api from 'najuha-v2-api/lib/api';
+import {
+  TCompetitionLocationFilter,
+  TCompetitionSelectFilter,
+  TCompetitionSortOption,
+} from 'najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 
 // 대회 목록 조회
 export const getCompetitions = async () => {
@@ -10,16 +16,29 @@ export const getCompetitions = async () => {
   return response.result.competitions;
 };
 
+interface fetchCompetitionsParams {
+  page: number;
+  limit: number;
+  dateFilter?: string;
+  locationFilter?: TCompetitionLocationFilter;
+  selectFilter?: TCompetitionSelectFilter[];
+  sortOption: TCompetitionSortOption;
+}
+
+interface getFilteredCompetitionsParams extends CompetitionListProps {
+  page: number;
+  limit: number;
+}
 // 대회 목록 조회 - 필터링
-export const getFilteredCompetitions = async (
-  page: number,
-  limit: number,
-  dateFilter: string,
-  locationFilter: string,
-  selectFilter: string[],
-  sortOption: string,
-) => {
-  const params: Record<string, any> = {
+export const getFilteredCompetitions = async ({
+  page,
+  limit,
+  dateFilter,
+  locationFilter,
+  selectFilter,
+  sortOption,
+}: getFilteredCompetitionsParams) => {
+  const params: fetchCompetitionsParams = {
     page: page,
     limit: limit,
     sortOption: sortOption,
