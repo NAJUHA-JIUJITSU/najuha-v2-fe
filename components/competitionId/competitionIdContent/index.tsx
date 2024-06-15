@@ -1,5 +1,4 @@
 import styles from './index.module.scss';
-import { Competition } from '@/interfaces/CompetitionInfo';
 import CompetitionBanner from '@/components/competitionId/CompetitionBanner';
 import CompetitionInfos from '@/components/competitionId/CompetitionInfos';
 import CompetitionInfoButtonList from '@/components/competitionId/CompetitionInfoButtonList';
@@ -9,7 +8,6 @@ import { ICompetition } from '@/node_modules/najuha-v2-api/lib/modules/competiti
 
 interface CompetitionIdContentProps {
   competition: ICompetition;
-  // competition: Competition;
 }
 
 //todo: 각 컴포넌트에서 직접 데이터를 받아와도 되는지 확인

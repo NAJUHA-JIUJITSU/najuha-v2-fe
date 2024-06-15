@@ -1,26 +1,51 @@
 import styles from './index.module.scss';
 import { formatDateYMDWeekday } from '@/utils/dateUtils/dateFormat';
 import CopyText from '@/components/copyText';
+import { ICompetition } from '@/node_modules/najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
+import { IEarlybirdDiscountSnapshot } from 'najuha-v2-api/lib/modules/competitions/domain/interface/earlybird-discount-snapshot.interface';
 
-interface CompetitionInfosProps {
-  title: string;
-  competitionDate: string;
-  address: string;
-  earlybirdEndDate: string;
-  registrationEndDate: string;
-  registrationListOpenDate: string;
-  bracketOpenDate: string;
-}
+type CompetitionInfosProps = Pick<
+  ICompetition,
+  | 'title'
+  | 'competitionDate'
+  | 'address'
+  | 'registrationEndDate'
+  | 'registrationListOpenDate'
+  | 'bracketOpenDate'
+> & {
+  earlybirdEndDate: Pick<IEarlybirdDiscountSnapshot, 'earlybirdEndDate'>['earlybirdEndDate'];
+};
 
 export default function CompetitionInfos(props: CompetitionInfosProps) {
   const infoItems = [
-    { label: '일정', value: formatDateYMDWeekday(props.competitionDate) },
+    {
+      label: '일정',
+      value: props.competitionDate ? formatDateYMDWeekday(props.competitionDate.toString()) : 'N/A',
+    },
     { label: '주소', value: props.address, isCopyable: true },
     { label: '참가비', value: '하단 부문표 참고' },
-    { label: '얼리버드 마감', value: formatDateYMDWeekday(props.earlybirdEndDate) },
-    { label: '참가신청 마감', value: formatDateYMDWeekday(props.registrationEndDate) },
-    { label: '참가자 공개', value: formatDateYMDWeekday(props.registrationListOpenDate) },
-    { label: '대진표 공개', value: formatDateYMDWeekday(props.bracketOpenDate) },
+    {
+      label: '얼리버드 마감',
+      value: props.earlybirdEndDate
+        ? formatDateYMDWeekday(props.earlybirdEndDate.toString())
+        : 'N/A',
+    },
+    {
+      label: '참가신청 마감',
+      value: props.registrationEndDate
+        ? formatDateYMDWeekday(props.registrationEndDate.toString())
+        : 'N/A',
+    },
+    {
+      label: '참가자 공개',
+      value: props.registrationListOpenDate
+        ? formatDateYMDWeekday(props.registrationListOpenDate.toString())
+        : 'N/A',
+    },
+    {
+      label: '대진표 공개',
+      value: props.bracketOpenDate ? formatDateYMDWeekday(props.bracketOpenDate.toString()) : 'N/A',
+    },
   ];
 
   return (
