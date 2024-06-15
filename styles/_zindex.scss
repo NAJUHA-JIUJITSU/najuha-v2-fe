@@ -13,9 +13,9 @@ $z-index-toast: 5000; // 토스트 메시지
 // 이 섹션은 특정 컴포넌트에 사용되는 z-index 값을 정의합니다.
 // 네비게이션 바, 사이드바, 푸터 등의 z-index 값을 별도로 설정하여, 다른 요소들과의 충돌을 방지합니다.
 $z-index-footer: 100; // 푸터
-$z-index-navSidebar: 150; // 네비게이션 바 & 사이드바
-$z-index-header: 150; // 헤더
-$z-index-fixed: 500; // 고정된 요소
+$z-index-fixed: 150; // 고정된 요소
+$z-index-navSidebar: 200; // 네비게이션 바 & 사이드바
+$z-index-header: 200; // 헤더
 
 // Layered Sections
 // 이 섹션은 레이어 순서를 기준으로 z-index 값을 설정합니다.
