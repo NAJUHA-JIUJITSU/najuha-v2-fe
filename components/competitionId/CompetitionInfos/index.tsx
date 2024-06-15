@@ -20,31 +20,25 @@ export default function CompetitionInfos(props: CompetitionInfosProps) {
   const infoItems = [
     {
       label: '일정',
-      value: props.competitionDate ? formatDateYMDWeekday(props.competitionDate.toString()) : 'N/A',
+      value: formatDateYMDWeekday(props.competitionDate),
     },
     { label: '주소', value: props.address, isCopyable: true },
     { label: '참가비', value: '하단 부문표 참고' },
     {
       label: '얼리버드 마감',
-      value: props.earlybirdEndDate
-        ? formatDateYMDWeekday(props.earlybirdEndDate.toString())
-        : 'N/A',
+      value: formatDateYMDWeekday(props.earlybirdEndDate),
     },
     {
       label: '참가신청 마감',
-      value: props.registrationEndDate
-        ? formatDateYMDWeekday(props.registrationEndDate.toString())
-        : 'N/A',
+      value: formatDateYMDWeekday(props.registrationEndDate),
     },
     {
       label: '참가자 공개',
-      value: props.registrationListOpenDate
-        ? formatDateYMDWeekday(props.registrationListOpenDate.toString())
-        : 'N/A',
+      value: formatDateYMDWeekday(props.registrationListOpenDate),
     },
     {
       label: '대진표 공개',
-      value: props.bracketOpenDate ? formatDateYMDWeekday(props.bracketOpenDate.toString()) : 'N/A',
+      value: formatDateYMDWeekday(props.bracketOpenDate),
     },
   ];
 

@@ -14,10 +14,8 @@ export default function CompetitionInfoButtonList({
   bracketOpenDate,
 }: CompetitionInfoButtonListProps) {
   //open날짜가 오늘보다 이후면(오지 않았으면) 버튼 비활성화 true
-  const isRegistrationListClosed = registrationListOpenDate
-    ? isDateFuture(registrationListOpenDate.toString())
-    : true;
-  const isBracketClosed = bracketOpenDate ? isDateFuture(bracketOpenDate.toString()) : true;
+  const isRegistrationListClosed = isDateFuture(registrationListOpenDate);
+  const isBracketClosed = isDateFuture(bracketOpenDate);
 
   const onClickRegistrationList = () => {
     //todo: 참가자 명단 페이지로 이동

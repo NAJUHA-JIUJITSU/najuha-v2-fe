@@ -1,3 +1,5 @@
+import { TDateOrStringDate } from 'najuha-v2-api/lib/common/common-types';
+
 // 년도.월.일 포맷
 export const formatDateYMD = (date: string) => {
   const dateObj = new Date(date);
@@ -26,7 +28,7 @@ export const formatDateMDWeekday = (date: string) => {
 };
 
 // 년도.월.일(요일) 포맷
-export const formatDateYMDWeekday = (date: string) => {
+export const formatDateYMDWeekday = (date: string | null | TDateOrStringDate) => {
   if (!date) return '해당없음';
   const dateObj = new Date(date);
   const year = dateObj.getFullYear().toString().slice(-2);
