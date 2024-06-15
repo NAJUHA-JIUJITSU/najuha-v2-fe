@@ -2,6 +2,13 @@
 @import '@/styles/_variable.scss';
 @import '@/styles/_zindex.scss';
 
+.stickyWrapper {
+  position: sticky;
+  top: 48px;
+  z-index: $z-index-fixed;
+  background-color: $--color-basic-white;
+}
+
 .wrapper {
   display: flex;
   overflow: auto;

@@ -11,7 +11,7 @@
   left: 0;
   padding: 12px 16px;
   width: calc(100% - 32px);
-  z-index: 100;
+  z-index: $z-index-footer;
 }
 
 // 버튼 공통 스타일

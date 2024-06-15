@@ -1,12 +1,33 @@
-// _zindex.scss
+// Global Z-Index Variables
+// 이 섹션은 프로젝트 전반에 걸쳐 공통적으로 사용되는 z-index 값을 정의합니다.
+// 기본 레이어 값과 주요 UI 요소들의 z-index 값을 설정하여, 다른 섹션에서 재사용할 수 있도록 합니다.
+$z-index-base: 0; // 기본 값
+$z-index-default: 1; // 일반 콘텐츠
+$z-index-dropdown: 1000; // 드롭다운 메뉴
+$z-index-overlay: 2000; // 오버레이, 블랙아웃 배경 등
+$z-index-modal: 3000; // 모달 창
+$z-index-tooltip: 4000; // 툴팁
+$z-index-toast: 5000; // 토스트 메시지
 
-$zindex-dropdown: 1000; // 드롭다운 메뉴 등과 같은 요소에 사용되는 z-index 값
-$zindex-sticky: 1020; // 스티키 포지션을 가진 요소(예: 스티키 헤더)에 사용되는 z-index 값
-$zindex-fixed: 1030; // 화면에 고정되어야 하는 요소(예: 고정된 사이드바)에 사용되는 z-index 값
-$zindex-modal-backdrop: 1040; // 모달 뒤에 위치하는 배경(오버레이)에 사용되는 z-index 값
-$zindex-modal: 1050; // 모달 윈도우에 사용되는 z-index 값, 배경보다 앞에 위치해야 함
-$zindex-popover: 1060; // 작은 정보 상자나 팝오버에 사용되는 z-index 값
-$zindex-tooltip: 1070; // 툴팁에 사용되는 z-index 값, 대부분의 요소 위에 위치해야 함
-$zindex-navbar: 1080; // 네비게이션 바에 사용되는 z-index 값, 페이지의 맨 위에 위치해야 함
-$zindex-header: 1090; // 페이지 헤더나 상단에 위치하는 컨텐츠에 사용되는 z-index 값
-$zindex-overlay: 1100; // 페이지 위에 표시되어야 하는 전체화면 오버레이에 사용되는 z-index 값
+// Component Specific Z-Index Variables
+// 이 섹션은 특정 컴포넌트에 사용되는 z-index 값을 정의합니다.
+// 네비게이션 바, 사이드바, 푸터 등의 z-index 값을 별도로 설정하여, 다른 요소들과의 충돌을 방지합니다.
+$z-index-footer: 100; // 푸터
+$z-index-navSidebar: 150; // 네비게이션 바 & 사이드바
+$z-index-header: 150; // 헤더
+$z-index-fixed: 500; // 고정된 요소
+
+// Layered Sections
+// 이 섹션은 레이어 순서를 기준으로 z-index 값을 설정합니다.
+// 콘텐츠 계층 구조를 고려하여, 배경 요소에서 최상위 레이어 요소까지 일관된 순서를 유지합니다.
+$z-index-background: -1; // 배경 요소
+$z-index-content: 10; // 일반 콘텐츠
+$z-index-popover: 1000; // 팝오버
+$z-index-dialog: 3000; // 다이얼로그
+$z-index-drawer: 4000; // 드로어
+
+// Special Cases
+// 이 섹션은 특수한 경우에 사용되는 z-index 값을 정의합니다.
+// 로딩 스피너나 알림창과 같이 예외적인 경우에 대해 별도의 z-index 값을 설정합니다.
+$z-index-loading-spinner: 6000; // 로딩 스피너
+$z-index-alert: 7000; // 경고 창, 알림 등

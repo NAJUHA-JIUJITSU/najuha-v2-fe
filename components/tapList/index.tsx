@@ -18,17 +18,19 @@ export default function TabList<T extends TabKey>({
   onSelectTab,
 }: TabListProps<T>) {
   return (
-    <div className={styles.wrapper}>
-      {tabs.map((tab) => (
-        <ButtonOnToggle
-          key={tab}
-          type="tap"
-          width="full"
-          text={tabLabels[tab]}
-          isToggled={selectedTab === tab}
-          onToggle={() => onSelectTab(tab)}
-        />
-      ))}
+    <div className={styles.stickyWrapper}>
+      <div className={styles.wrapper}>
+        {tabs.map((tab) => (
+          <ButtonOnToggle
+            key={tab}
+            type="tap"
+            width="full"
+            text={tabLabels[tab]}
+            isToggled={selectedTab === tab}
+            onToggle={() => onSelectTab(tab)}
+          />
+        ))}
+      </div>
     </div>
   );
 }

@@ -6,7 +6,7 @@
 .stickyWrapper {
   position: sticky;
   top: 0;
-  z-index: 99;
+  z-index: $z-index-header;
 }
 .wrapper {
   width: 100%;

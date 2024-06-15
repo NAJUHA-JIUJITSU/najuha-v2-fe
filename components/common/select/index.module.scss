@@ -1,5 +1,6 @@
 @import '@/styles/_typography.scss';
 @import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
 
 /* CSS 스타일링 */
 .wrapper {
@@ -49,7 +50,7 @@
   }
 
   .menu {
-    z-index: 111;
+    z-index: $z-index-dropdown;
     position: absolute;
     top: calc(54px + 7px);
 

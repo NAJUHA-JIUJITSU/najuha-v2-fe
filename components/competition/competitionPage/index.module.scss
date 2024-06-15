@@ -13,7 +13,7 @@
   position: sticky;
   top: 48px;
   left: 0;
-  z-index: 99;
+  z-index: $z-index-fixed;
 
   .filterWrapper {
     display: flex;
