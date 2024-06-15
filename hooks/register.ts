@@ -12,6 +12,8 @@ import {
   phoneNumberState,
 } from '@/recoil/atoms/registerState';
 import { useEffect } from 'react';
+import { IUser } from 'najuha-v2-api/lib/modules/users/domain/interface/user.interface';
+import { PhoneNumberAuthCode } from 'najuha-v2-api/lib/modules/register/domain/interface/phone-number-auth-code.type';
 
 export const useTemporaryUserInfo = () => {
   const setName = useSetRecoilState(nameState);
@@ -57,7 +59,7 @@ export const useCheckDuplicatedNickname = () => {
 
 export const useSendAuthCode = () => {
   return useMutation({
-    mutationFn: (phoneNumber: string) => {
+    mutationFn: (phoneNumber: IUser['phoneNumber']) => {
       const parsedPhoneNumber = phoneNumber.replace(/-/g, '');
       return registerApi.postSendAuthCode(parsedPhoneNumber);
     },
@@ -66,7 +68,7 @@ export const useSendAuthCode = () => {
 
 export const useConfirmAuthCode = () => {
   return useMutation({
-    mutationFn: (authCode: string) => {
+    mutationFn: (authCode: PhoneNumberAuthCode) => {
       return registerApi.postConfirmAuthCode(authCode);
     },
   });

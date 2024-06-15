@@ -7,7 +7,11 @@ export interface CheckboxItem {
 }
 
 export interface AgreementState {
-  [key: string]: CheckboxItem;
+  all: CheckboxItem;
+  TERMS_OF_SERVICE: CheckboxItem;
+  PRIVACY: CheckboxItem;
+  REFUND: CheckboxItem;
+  ADVERTISEMENT: CheckboxItem;
 }
 
 export const agreementState = atom<AgreementState>({
