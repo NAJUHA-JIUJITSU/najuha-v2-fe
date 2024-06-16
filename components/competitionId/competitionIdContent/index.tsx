@@ -1,13 +1,13 @@
 import styles from './index.module.scss';
-import { Competition } from '@/interfaces/CompetitionInfo';
 import CompetitionBanner from '@/components/competitionId/CompetitionBanner';
 import CompetitionInfos from '@/components/competitionId/CompetitionInfos';
 import CompetitionInfoButtonList from '@/components/competitionId/CompetitionInfoButtonList';
 import CompetitionDetails from '@/components/competitionId/CompetitionDetails';
 import ButtonLink from '@/components/common/button/buttonLink';
+import { ICompetition } from '@/node_modules/najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 
 interface CompetitionIdContentProps {
-  competition: Competition;
+  competition: ICompetition;
 }
 
 //todo: 각 컴포넌트에서 직접 데이터를 받아와도 되는지 확인

@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 
 // useTimer 커스텀 훅
-export function useTimer(initialTime = 5) {
+export function useTimer(initialTime = 30) {
   const [timer, setTimer] = useState(initialTime);
 
   useEffect(() => {

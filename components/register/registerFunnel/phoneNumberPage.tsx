@@ -24,7 +24,7 @@ export default function Phonenumber({ onNext }: PhoneNumberProps) {
   const handleButtonClick = useCallback(() => {
     sendAuthCode(value, {
       onSuccess: (res) => {
-        console.log(res);
+        console.log(res.phoneNumberAuthCode);
         setPhoneNumber(value);
         onNext();
       },

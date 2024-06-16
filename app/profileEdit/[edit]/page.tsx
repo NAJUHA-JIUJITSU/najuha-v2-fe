@@ -7,7 +7,7 @@ import GenderPage from '@/components/register/registerFunnel/genderPage';
 import BirthPage from '@/components/register/registerFunnel/birthPage';
 import BeltPage from '@/components/register/registerFunnel/beltPage';
 import PhoneNumberAllPage from '@/components/register/registerFunnel/phoneNumberAllPage';
-import { useUserPatch } from '@/hooks/users';
+import { useUserPatch } from '@/hooks/user';
 import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
 

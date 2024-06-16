@@ -5,10 +5,9 @@ import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
 import CompetitionIdContent from '../../../components/competitionId/competitionIdContent/index';
 import { useGetCompetitionId } from '@/hooks/competition';
-import { Competition, ApiCompetitionIdResponse } from '@/interfaces/CompetitionInfo';
 import BaseLayout from '@/components/layout/baseLayout';
 
-export default function CompetitionId({ params }: { params: { competitionId: number } }) {
+export default function CompetitionId({ params }: { params: { competitionId: string } }) {
   // 대회 조회
   const { data: competition, isLoading, isError } = useGetCompetitionId(params.competitionId);
 

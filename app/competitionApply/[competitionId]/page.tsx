@@ -17,10 +17,10 @@ import {
   PlayerInfo,
   SelectedOptions,
   TeamInfo,
-  Division,
 } from '@/interfaces/competitionApply';
 import { useGetCompetitionId } from '@/hooks/competition';
 import { useSubmitApplication } from '@/hooks/applications';
+import { IDivision } from '@/node_modules/najuha-v2-api/lib/modules/competitions/domain/interface/division.interface';
 
 const steps = [
   '선수정보 확인',
@@ -31,7 +31,7 @@ const steps = [
   '결제하기',
 ];
 
-export default function CompetitionApply({ params }: { params: { competitionId: number } }) {
+export default function CompetitionApply({ params }: { params: { competitionId: string } }) {
   const { gotoNextStep, gotoPreviousStep, Funnel, Step, currentStep } = useFunnel(steps);
   const [applyInfo, setApplyInfo] = useState<ApplyInfo>({
     playerInfo: {
@@ -54,12 +54,7 @@ export default function CompetitionApply({ params }: { params: { competitionId: 
     selectedDicisionId: [],
   });
   // 대회 조회
-  const {
-    data: competition,
-    isLoading,
-    isError,
-    error,
-  } = useGetCompetitionId(params.competitionId);
+  const { data: competition, isLoading, isError } = useGetCompetitionId(params.competitionId);
   const { mutate } = useSubmitApplication();
   const [applicationId, setApplicationId] = useState<string | null>(null);
 
@@ -76,8 +71,8 @@ export default function CompetitionApply({ params }: { params: { competitionId: 
       {
         onSuccess: (data) => {
           console.log('Application submitted successfully:', data);
-          console.log('applicationId:', data.result.application.id);
-          setApplicationId(data.result.application.id);
+          console.log('applicationId:', data.application.id);
+          setApplicationId(data.application.id);
           gotoNextStep();
         },
         onError: (error) => {
@@ -149,13 +144,8 @@ export default function CompetitionApply({ params }: { params: { competitionId: 
   //todo: 결제 api 호출
 
   if (isLoading) return <div>Loading...</div>;
-  if (isError) {
-    console.log('Error:', error);
-    return <div>Error...</div>;
-  }
-
-  let divisions: Division[] = competition?.divisions;
-  console.log(divisions);
+  if (isError || !competition) return <div>대회정보가 없습니다.</div>;
+  const divisions: IDivision[] = competition.divisions;
 
   return (
     <div className={styles.wrapper}>

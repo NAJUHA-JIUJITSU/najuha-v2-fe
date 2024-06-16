@@ -16,7 +16,7 @@ interface VerifyProps {
 }
 
 export default function Verify({ onNext, submitText = '다음' }: VerifyProps) {
-  const { value, setValue, errMsg, validate, setErrMsg, setSuccessMsg, successMsg } = useInput(
+  const { value, setValue, errMsg, validate, setErrMsg, successMsg } = useInput(
     '',
     validateVerificationNumber,
   );
@@ -28,7 +28,7 @@ export default function Verify({ onNext, submitText = '다음' }: VerifyProps) {
   const handleGetAuthCode = useCallback(() => {
     getAuthCode(phoneNumber, {
       onSuccess: (res) => {
-        console.log(res);
+        console.log(res.phoneNumberAuthCode);
         resetTimer();
       },
       onError: () => {
@@ -40,13 +40,13 @@ export default function Verify({ onNext, submitText = '다음' }: VerifyProps) {
   const handleButtonClick = () => {
     mutate(value, {
       onSuccess: (res) => {
-        if (res.data.result) {
+        if (res.isConfirmed) {
           onNext();
         } else {
           setErrMsg('인증번호가 올바르지 않습니다.');
         }
       },
-      onError: (error: any) => {
+      onError: (error) => {
         console.log(error);
         setErrMsg('인증번호 확인 중 오류가 발생했습니다.');
       },

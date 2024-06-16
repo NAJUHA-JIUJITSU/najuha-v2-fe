@@ -3,7 +3,7 @@ import { useGetApplicationInfo } from '@/hooks/applications';
 
 export default function CheckApplyInfoPage({ applicationId }: { applicationId: string | null }) {
   //대회 신청 정보 가져오기
-  const { data, error, isLoading, isError } = useGetApplicationInfo(applicationId);
+  const { data, isLoading, isError } = useGetApplicationInfo(applicationId);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -14,7 +14,8 @@ export default function CheckApplyInfoPage({ applicationId }: { applicationId: s
     return <div>Error loading application information.</div>;
   }
 
-  const { playerInfo, selectedDivision } = data;
+  const playerInfo = data?.playerInfo;
+  const selectedDivision = data?.selectedDivision;
 
   return (
     <>

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import TagList from '@/components/tagList';
 import { formatDateYMD, formatDateMDWeekday } from '@/utils/dateUtils/dateFormat';
 import { areBothDatesPassed } from '@/utils/dateUtils/dateCheck';
-import { Competition } from '@/interfaces/CompetitionInfo';
+import { ICompetitionForFind } from '@/node_modules/najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 import Image from 'next/image';
 import IconEye from '@/public/svgs/eye.svg';
 
@@ -13,7 +13,7 @@ type CardType = 'normal' | 'vertical';
 
 interface CardProps {
   type: CardType;
-  competition: Competition;
+  competition: ICompetitionForFind;
 }
 
 //todo: image 최적화

@@ -1,5 +1,6 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { registerApi } from '@/api/registerApi';
+// import { registerApi } from '@/api/registerApi';
+import { registerApi } from '@/api/nestia/registerApi';
 import { queries } from '@/queries/index';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { registrationInfoSelector } from '@/recoil/selectors/registerSelector';
@@ -8,15 +9,11 @@ import {
   nameState,
   birthDateState,
   genderState,
-  nicknameState,
   phoneNumberState,
 } from '@/recoil/atoms/registerState';
 import { useEffect } from 'react';
-
-// 전역 select 함수 정의
-const globalSelectFn = (response: any) => {
-  return response.data.result;
-};
+import { IUser } from 'najuha-v2-api/lib/modules/users/domain/interface/user.interface';
+import { PhoneNumberAuthCode } from 'najuha-v2-api/lib/modules/register/domain/interface/phone-number-auth-code.type';
 
 export const useTemporaryUserInfo = () => {
   const setName = useSetRecoilState(nameState);
@@ -27,7 +24,6 @@ export const useTemporaryUserInfo = () => {
   const query = useQuery({
     queryKey: queries.register.me().queryKey,
     queryFn: () => registerApi.getTemporaryUserInfo(),
-    select: globalSelectFn,
     //todo: 추가에러 처리 로직
     meta: {
       alertMsg: '회원정보를 가져오는데 실패했습니다.',
@@ -63,7 +59,7 @@ export const useCheckDuplicatedNickname = () => {
 
 export const useSendAuthCode = () => {
   return useMutation({
-    mutationFn: (phoneNumber: string) => {
+    mutationFn: (phoneNumber: IUser['phoneNumber']) => {
       const parsedPhoneNumber = phoneNumber.replace(/-/g, '');
       return registerApi.postSendAuthCode(parsedPhoneNumber);
     },
@@ -72,7 +68,7 @@ export const useSendAuthCode = () => {
 
 export const useConfirmAuthCode = () => {
   return useMutation({
-    mutationFn: (authCode: string) => {
+    mutationFn: (authCode: PhoneNumberAuthCode) => {
       return registerApi.postConfirmAuthCode(authCode);
     },
   });
@@ -85,24 +81,14 @@ export function useRegister() {
     mutationFn: () => {
       return registerApi.patchRegister(data);
     },
-    onError: (error: any) => {
+    onError: (error) => {
       console.log(error);
     },
     onSuccess: (res) => {
-      console.log(res);
-      if (res.status === 200) {
-        saveTokens(res.data.result.authTokens.accessToken, res.data.result.authTokens.refreshToken);
-        alert('회원가입이 완료되었습니다.');
-      }
+      console.log();
+      saveTokens(res.authTokens.accessToken, res.authTokens.refreshToken);
+      window.location.href = '/profile';
     },
   });
   return { mutate, isPending, isError };
 }
-
-export const useCheckNickname = () => {
-  return useMutation({
-    mutationFn: (nickname: string) => {
-      return registerApi.getCheckDuplicatedNickname(nickname);
-    },
-  });
-};

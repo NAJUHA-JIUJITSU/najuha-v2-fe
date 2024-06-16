@@ -1,5 +1,7 @@
+import { TDateOrStringDate } from 'najuha-v2-api/lib/common/common-types';
+
 // 날짜를 자정으로 초기화하는 함수
-export const resetTime = (date: string): Date => {
+export const resetTime = (date: string | TDateOrStringDate): Date => {
   const resetDate = new Date(date);
   resetDate.setHours(0, 0, 0, 0);
   return resetDate;
@@ -22,7 +24,10 @@ export const isDateToday = (date: string): boolean => {
 };
 
 // 날짜가 오늘보다 이후인지 확인하는 함수
-export const isDateFuture = (date: string): boolean => {
+export const isDateFuture = (date: string | null | TDateOrStringDate): boolean => {
+  if (!date) {
+    return true;
+  }
   const now = new Date();
   const resetNow = resetTime(now.toString());
   const resetDate = resetTime(date);

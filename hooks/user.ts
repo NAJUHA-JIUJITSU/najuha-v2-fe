@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { usersApi } from '@/api/usersApi';
+import { usersApi } from '@/api/nestia/usersApi';
 import { userPatchSelector } from '@/recoil/selectors/userSelector';
 import {
   nameState,
@@ -22,51 +22,44 @@ export const useUserInfo = () => {
   const setSnsProvider = useSetRecoilState(snsProviderState);
   const setBelt = useSetRecoilState(beltState);
 
-  const query = useQuery({
+  const { data } = useQuery({
     queryKey: ['userInfo'],
     queryFn: () => usersApi.getUserInfo(),
-    select: (response) => {
-      return response.data.result;
-    },
     meta: {
       alertMsg: '회원정보를 가져오는데 실패했습니다.',
     },
   });
-  console.log('userInfo: ', query.data);
-  useEffect(() => {
-    if (query.data) {
-      setName(query.data.user.name);
-      setGender(query.data.user.gender);
-      setBirthDate(query.data.user.birth);
-      setPhoneNumber(query.data.user.phoneNumber);
-      setNickname(query.data.user.nickname);
-      setBelt(query.data.user.belt);
-      setSnsProvider(query.data.user.snsAuthProvider);
-    }
-  }, [query.data]);
-};
 
-type editType = 'nickname' | 'gender' | 'birth' | 'belt';
+  useEffect(() => {
+    if (data) {
+      console.log('userInfo: ', data);
+      setName(data.name);
+      setGender(data.gender);
+      setBirthDate(data.birth);
+      setPhoneNumber(data.phoneNumber);
+      setNickname(data.nickname);
+      setBelt(data.belt);
+      setSnsProvider(data.snsAuthProvider);
+    }
+  }, [data]);
+};
 
 export const useUserPatch = () => {
   const userPatch = useRecoilValue(userPatchSelector);
   const queryClient = useQueryClient();
 
-  const { mutate, isPending, isError } = useMutation({
-    mutationFn: (edit: editType) => {
-      return usersApi.patchUser({ [edit]: userPatch[edit] });
+  return useMutation({
+    mutationFn: () => {
+      return usersApi.patchUser(userPatch);
     },
-    onError: (error: any) => {
+    onError: (error) => {
       console.log(error);
     },
     onSuccess: (res) => {
       console.log(res);
-      if (res.status === 200) {
-        queryClient.invalidateQueries({
-          queryKey: ['userInfo'],
-        });
-      }
+      queryClient.invalidateQueries({
+        queryKey: ['userInfo'],
+      });
     },
   });
-  return { mutate, isPending, isError };
 };

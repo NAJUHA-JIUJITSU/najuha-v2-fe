@@ -12,7 +12,7 @@ export const competition = createQueryKeys('competition', {
   ) => ({
     queryKey: [dateFilter, locationFilter, selectOption.join(','), sortOption],
   }),
-  id: (competitionId: number) => ({
+  id: (competitionId: string) => ({
     queryKey: [competitionId],
   }),
 });

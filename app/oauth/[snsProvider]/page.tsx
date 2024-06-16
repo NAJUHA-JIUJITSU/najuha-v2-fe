@@ -3,9 +3,10 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './index.module.scss';
 import { useSnsLogin } from '@/hooks/auth';
+import { IUser } from 'najuha-v2-api/lib/modules/users/domain/interface/user.interface';
 
 interface SnsRedirectPageProps {
-  params: { snsProvider: string };
+  params: { snsProvider: IUser['snsAuthProvider'] };
   searchParams: { code: string };
 }
 
