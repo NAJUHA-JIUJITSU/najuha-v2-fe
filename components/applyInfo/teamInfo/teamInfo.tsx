@@ -1,9 +1,10 @@
+import { IPlayerSnapshot } from 'najuha-v2-api/lib/modules/applications/domain/interface/player-snapshot.interface';
 import styles from './index.module.scss';
 
 interface TeamInfoProps {
-  network: string;
-  team: string;
-  masterName: string;
+  network: IPlayerSnapshot['network'];
+  team: IPlayerSnapshot['team'];
+  masterName: IPlayerSnapshot['masterName'];
 }
 
 export default function TeamInfo({ network, team, masterName }: TeamInfoProps) {

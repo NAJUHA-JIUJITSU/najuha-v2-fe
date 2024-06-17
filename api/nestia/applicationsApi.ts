@@ -1,11 +1,18 @@
 import { withAuth } from '@/api/nestia/common';
+import { ApplyInfo } from '@/interfaces/competitionApply';
 import api from 'najuha-v2-api/lib/api';
 
-export const submitApplication = async ({ applyInfo, params }) => {
+export const submitApplication = async ({
+  applyInfo,
+  competitionId,
+}: {
+  applyInfo: ApplyInfo;
+  competitionId: string;
+}) => {
   const formattedPlayerInfo = {
     ...applyInfo.playerInfo,
     phoneNumber: applyInfo.playerInfo.phoneNumber.replace(/[^0-9]/g, ''),
-    gender: applyInfo.playerInfo.gender === '여성' ? 'FEMALE' : 'MALE',
+    gender: applyInfo.playerInfo.gender,
     birth: applyInfo.playerInfo.birth.replace(/[^0-9]/g, ''),
   };
 
@@ -17,7 +24,7 @@ export const submitApplication = async ({ applyInfo, params }) => {
   const response = await withAuth((connection) =>
     api.functional.user.applications.createApplication(connection, {
       applicationType: 'PROXY',
-      competitionId: params.competitionId,
+      competitionId: competitionId,
       participationDivisionIds: applyInfo.selectedDicisionId,
       playerSnapshotCreateDto: {
         ...formattedPlayerInfo,

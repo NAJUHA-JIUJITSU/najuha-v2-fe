@@ -3,17 +3,16 @@ import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import Input from '@/components/common/input';
 import { useInput } from '@/hooks/useInput';
 import { validateSsnFront, validateSsnBack } from '@/utils/validations/userValidations';
-import { ExtraInfo } from '@/interfaces/competitionApply';
+import { ApplyInfo } from '@/interfaces/competitionApply';
 
-export default function ExtraInfoPage({
-  extraInfo,
-  onNext,
-  setExtraInfo,
-}: {
-  extraInfo: ExtraInfo;
+// make interface
+interface ExtraInfoPageProps {
+  extraInfo: ApplyInfo['extraInfo'];
   onNext: () => void;
-  setExtraInfo: (extraInfo: ExtraInfo) => void;
-}) {
+  setExtraInfo: (extraInfo: ApplyInfo['extraInfo']) => void;
+}
+
+export default function ExtraInfoPage({ extraInfo, onNext, setExtraInfo }: ExtraInfoPageProps) {
   const {
     value: ssnFront,
     setValue: setSsnFront,
@@ -29,7 +28,6 @@ export default function ExtraInfoPage({
   const {
     value: address,
     setValue: setAddress,
-    errMsg: addressErrMsg,
     validate: addressValidate,
   } = useInput(extraInfo.address, () => true);
 

@@ -39,9 +39,10 @@ export const parseApplicationData = (data: IApplication) => {
   const selectedDivision = selectedDivisionTest.map((x) => {
     return { belt: x.belt, category: x.category, uniform: x.uniform, weight: x.weight };
   });
+  const expectedPayment = parsedData.expectedPayment;
 
   // 생년월일에서 앞 두 글자 제거
   playerInfo.birth = playerInfo.birth.slice(2);
 
-  return { playerInfo, selectedDivision };
+  return { playerInfo, selectedDivision, expectedPayment };
 };

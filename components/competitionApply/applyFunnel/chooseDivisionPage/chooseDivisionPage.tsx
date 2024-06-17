@@ -1,6 +1,5 @@
 import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
-import { PlayerInfo, SelectedOptions, Division } from '@/interfaces/competitionApply';
 import { useSelectedOptions } from '@/hooks/useSelectedOptions';
 import { useDivisionFilter } from '@/hooks/useDivisionFilter';
 import { PlayerInfoDisplay } from '@/components/competitionApply/applyFunnel/chooseDivisionPage/playerInfoDisplay/playerInfoDisplay';
@@ -8,6 +7,18 @@ import { OptionsDisplay } from './optionsDisplay/optionsDisplay';
 import { NavigationControls } from './navigationControls/navigationControls';
 import { DivisionOptions } from './divisionOptions/divisionOptions';
 import { DivisionHeader } from './divisionHeader/divisionHeader';
+import { IDivision } from 'najuha-v2-api/lib/modules/competitions/domain/interface/division.interface';
+import { ApplyInfo } from '@/interfaces/competitionApply';
+
+// make interface for this
+interface ChooseDivisionPageProps {
+  onNext: () => void;
+  playerInfo: ApplyInfo['playerInfo'];
+  selectedDivision: ApplyInfo['selectedDivision'];
+  divisions: IDivision[];
+  setDivision: (selectedDivision: ApplyInfo['selectedDivision']) => void;
+  setDivisionId: (selectedDicisionId: ApplyInfo['selectedDicisionId']) => void;
+}
 
 export default function ChooseDivisionPage({
   onNext,
@@ -16,14 +27,7 @@ export default function ChooseDivisionPage({
   divisions,
   setDivision,
   setDivisionId,
-}: {
-  onNext: () => void;
-  playerInfo: PlayerInfo;
-  selectedDivision: SelectedOptions[];
-  divisions: Division[];
-  setDivision: (selectedDivision: SelectedOptions[]) => void;
-  setDivisionId: (selectedDicisionId: any) => void;
-}) {
+}: ChooseDivisionPageProps) {
   const {
     selectedOptions,
     handleOptionSelect,
@@ -67,7 +71,7 @@ export default function ChooseDivisionPage({
         );
         return match ? match.id : null;
       })
-      .filter((id) => id !== null); // null이 아닌 ID만 필터링
+      .filter((id): id is IDivision['id'] => id !== null); // null이 아닌 ID만 필터링
 
     console.log(completeSelectedOptions);
     console.log(selectedIds);

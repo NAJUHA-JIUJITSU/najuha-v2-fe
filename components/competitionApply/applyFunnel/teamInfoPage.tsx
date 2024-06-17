@@ -5,20 +5,16 @@ import { useInput } from '@/hooks/useInput';
 import { validateTrue } from '@/utils/validations/userValidations';
 import CheckBoxLabel from '@/components/common/checkBoxLabel';
 import { useState } from 'react';
-import { TeamInfo } from '@/interfaces/competitionApply';
+import { ApplyInfo } from '@/interfaces/competitionApply';
 
-export default function TeamInfoPage({
-  onNext,
-  teamInfo,
-  setTeamInfo,
-}: {
-  onNext: any;
-  teamInfo: TeamInfo;
-  setTeamInfo: (teamInfo: TeamInfo) => void;
-}) {
-  // network name input
-  // team input
-  // master name input
+// make interface
+interface TeamInfoPageProps {
+  onNext: (teamInfo: ApplyInfo['teamInfo']) => void;
+  teamInfo: ApplyInfo['teamInfo'];
+  setTeamInfo: (teamInfo: ApplyInfo['teamInfo']) => void;
+}
+
+export default function TeamInfoPage({ onNext, teamInfo, setTeamInfo }: TeamInfoPageProps) {
   const {
     value: network,
     setValue: setNetwork,

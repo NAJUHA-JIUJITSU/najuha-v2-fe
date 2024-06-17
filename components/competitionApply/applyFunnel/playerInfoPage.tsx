@@ -10,31 +10,32 @@ import {
   validateTrue,
 } from '@/utils/validations/userValidations';
 import { useState } from 'react';
-import { PlayerInfo } from '@/interfaces/competitionApply';
+import { ApplyInfo, PlayerInfo } from '@/interfaces/competitionApply';
 
-const options = ['화이트', '블루', '퍼플', '브라운', '블랙'];
-
-export default function PlayerInfoPage({
-  onNext,
-  playerInfo,
-  setPlayerInfo,
-}: {
+interface PlayerInfoPageProps {
   onNext: () => void;
   playerInfo: PlayerInfo;
   setPlayerInfo: (playerInfo: PlayerInfo) => void;
-}) {
+}
+
+const options = ['화이트', '블루', '퍼플', '브라운', '블랙'];
+
+export default function PlayerInfoPage({ onNext, playerInfo, setPlayerInfo }: PlayerInfoPageProps) {
   const {
     value: name,
     setValue: setName,
-    errMsg: nameErrMsg,
     validate: nameValidate,
   } = useInput(playerInfo.name, validateTrue);
+  // gender가 ''값이면 '' 'FEMALE'이면 여성 'MALE'이면 남성으로 초기화
   const {
     value: gender,
     setValue: setGender,
     errMsg: genderErrMsg,
     validate: genderValidate,
-  } = useInput(playerInfo.gender, validateGender);
+  } = useInput(
+    playerInfo.gender ? (playerInfo.gender === 'FEMALE' ? '여성' : '남성') : '',
+    validateGender,
+  );
   const {
     value: birth,
     setValue: setBirth,
@@ -47,7 +48,7 @@ export default function PlayerInfoPage({
     errMsg: phoneNumberErrMsg,
     validate: phoneNumberValidate,
   } = useInput(playerInfo.phoneNumber, validatePhonenumber);
-  const [belt, setBelt] = useState('화이트');
+  const [belt, setBelt] = useState<ApplyInfo['playerInfo']['belt']>('화이트');
 
   const validate = nameValidate && genderValidate && birthValidate && phoneNumberValidate;
 
@@ -55,7 +56,7 @@ export default function PlayerInfoPage({
     setPlayerInfo({
       ...playerInfo,
       name,
-      gender,
+      gender: gender === '여성' ? 'FEMALE' : 'MALE',
       birth,
       phoneNumber,
       belt,

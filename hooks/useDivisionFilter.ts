@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
-import { Division, SelectedOptions, PlayerInfo } from '@/interfaces/competitionApply';
+import { SelectedOptions, PlayerInfo } from '@/interfaces/competitionApply';
+import { IDivision } from 'najuha-v2-api/lib/modules/competitions/domain/interface/division.interface';
 
 export function useDivisionFilter(
-  divisions: Division[],
+  divisions: IDivision[],
   selectedOptions: SelectedOptions[],
   playerInfo: PlayerInfo,
 ) {
@@ -19,10 +20,9 @@ export function useDivisionFilter(
       const isWithinBirthYearRange =
         division.birthYearRangeStart <= playerInfo.birth.slice(0, 4) &&
         division.birthYearRangeEnd >= playerInfo.birth.slice(0, 4);
-      const isGenderMatch =
-        division.gender === 'MIXED' ||
-        division.gender === playerInfo.gender ||
-        division.gender === (playerInfo.gender === '남성' ? 'MALE' : 'FEMALE');
+      const isGenderMatch = division.gender === 'MIXED' || division.gender === playerInfo.gender;
+      // ||
+      // division.gender === (playerInfo.gender === '남성' ? 'MALE' : 'FEMALE');
       return (
         isWithinBirthYearRange &&
         isGenderMatch &&

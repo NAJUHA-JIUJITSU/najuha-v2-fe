@@ -1,7 +1,7 @@
 import ApplyInfo from '@/components/applyInfo/applyInfo/applyInfo';
 import { useGetApplicationInfo } from '@/hooks/applications';
 
-export default function CheckApplyInfoPage({ applicationId }: { applicationId: string | null }) {
+export default function CheckApplyInfoPage({ applicationId }: { applicationId: string }) {
   //대회 신청 정보 가져오기
   const { data, isLoading, isError } = useGetApplicationInfo(applicationId);
 
@@ -10,16 +10,19 @@ export default function CheckApplyInfoPage({ applicationId }: { applicationId: s
   }
 
   // 에러가 발생했을 때
-  if (isError) {
+  if (isError || !data) {
     return <div>Error loading application information.</div>;
   }
 
-  const playerInfo = data?.playerInfo;
-  const selectedDivision = data?.selectedDivision;
+  const { playerInfo, selectedDivision, expectedPayment } = data;
 
   return (
     <>
-      <ApplyInfo playerInfo={playerInfo} selectedDivision={selectedDivision} />
+      <ApplyInfo
+        playerInfo={playerInfo}
+        selectedDivision={selectedDivision}
+        expectedPayment={expectedPayment}
+      />
     </>
   );
 }
