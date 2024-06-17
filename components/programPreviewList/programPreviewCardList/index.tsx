@@ -28,7 +28,12 @@ export default function ProgramCardList({ selectFilter, sortOption }: ProgramPre
     data: ProgramList,
     isLoading, //todo: 로딩 및 에러 처리
     isError,
-  } = useGetFilteredCompetitions('전체', '전체', selectFilter, sortOption);
+  } = useGetFilteredCompetitions({
+    dateFilter: '전체',
+    locationFilter: '전체',
+    selectFilter,
+    sortOption,
+  });
 
   return (
     <div className={styles.wrapper}>
