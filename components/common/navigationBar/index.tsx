@@ -9,8 +9,7 @@ import IconProfile from '@/public/svgs/profile.svg';
 import { usePathname } from 'next/navigation';
 import NavigationMenu from './navigationMenu';
 import { useAuth } from '@/hooks/useAuth';
-
-type MenuType = 'button' | 'link' | 'logo' | 'login';
+type MenuType = 'button' | 'link' | 'logo' | 'login' | 'dropdown';
 
 interface MenuItem {
   menuType: MenuType;
@@ -29,10 +28,9 @@ export default function NavigationBar() {
     { menuType: 'link', href: '/', icon: <IconHome />, label: '홈' },
     { menuType: 'link', href: '/community', icon: <IconBook />, label: '게시판' },
     {
-      menuType: 'button',
+      menuType: 'dropdown',
       icon: <IconAddCircle />,
-      label: '게시글 등록',
-      onClick: () => alert('등록 모달 창 생성'),
+      label: '등록',
     },
     {
       menuType: 'link',

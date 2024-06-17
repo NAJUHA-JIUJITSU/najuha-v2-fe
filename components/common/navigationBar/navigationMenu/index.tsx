@@ -1,8 +1,10 @@
+'use client';
 import Link from 'next/link';
 import clsx from 'clsx';
 import styles from './index.module.scss';
+import DropdownMenu from './dropDownMenu';
 
-type MenuType = 'button' | 'link' | 'logo' | 'login';
+type MenuType = 'button' | 'link' | 'logo' | 'login' | 'dropdown';
 
 interface BaseNavigationMenuProps {
   menuType: MenuType;
@@ -30,7 +32,9 @@ export default function NavigationMenu({
   const className = clsx(
     styles.menu,
     { [styles.active]: isActive },
-    { [styles.buttonMenu]: menuType === 'button' || menuType === 'login' },
+    {
+      [styles.buttonMenu]: menuType === 'button' || menuType === 'login' || menuType === 'dropdown',
+    },
     { [styles.linkMenu]: menuType === 'link' || menuType === 'logo' },
   );
 
@@ -42,6 +46,17 @@ export default function NavigationMenu({
           {label && <span>{label}</span>}
         </button>
       </div>
+    );
+  }
+
+  if (menuType === 'dropdown' && icon && label) {
+    return (
+      <DropdownMenu
+        wrapperClassName={wrapperClassName}
+        className={className}
+        icon={icon}
+        label={label}
+      />
     );
   }
 
