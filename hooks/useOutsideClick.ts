@@ -9,9 +9,9 @@ function useOutsideClick<T extends HTMLElement>(ref: RefObject<T>, handler: () =
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
   }, [ref, handler]);
 }
