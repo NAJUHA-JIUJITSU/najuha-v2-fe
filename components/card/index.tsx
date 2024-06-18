@@ -5,25 +5,30 @@ import { useRouter } from 'next/navigation';
 import TagList from '@/components/tagList';
 import { formatDateYMD, formatDateMDWeekday } from '@/utils/dateUtils/dateFormat';
 import { areBothDatesPassed } from '@/utils/dateUtils/dateCheck';
-import { ICompetitionForFind } from '@/node_modules/najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 import Image from 'next/image';
 import IconEye from '@/public/svgs/eye.svg';
+import { ICompetitionSummary } from 'najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 
 type CardType = 'normal' | 'vertical';
 
 interface CardProps {
   type: CardType;
-  competition: ICompetitionForFind;
+  competition: ICompetitionSummary;
 }
 
 //todo: image 최적화
 export default function Card({ type = 'normal', competition }: CardProps) {
   const router = useRouter();
 
-  // imageURL이 없으면 기본 이미지로 대체
-  if (!competition.posterImgUrlKey) {
-    competition.posterImgUrlKey = '/images/samplePoster1.png';
-  }
+  let posterImgUrl = '';
+  // imageURL이 없으면 기본 이미지로 대체 나중에 밑에 주석처리된 코드로 변경
+  // if (!competition.competitionPosterImages[0].imageId) {
+  //   const latest = competition.competitionPosterImages.length - 1;
+  //   posterImgUrl = `${s3url}/${competition.competitionPosterImages[latest].imageId}`
+  // } else {
+  //   posterImgUrl = '/images/samplePoster1.png';
+  // }
+  posterImgUrl = '/images/samplePoster1.png';
 
   //타입이 normal이거나 가격이 없으면 가격 표시 안함
   // let isPrice = false;
@@ -55,7 +60,7 @@ export default function Card({ type = 'normal', competition }: CardProps) {
         {/* 포스터 이미지 및 기타 정보 표시 */}
         <Image
           className={styles.posterImg}
-          src={competition.posterImgUrlKey}
+          src={posterImgUrl}
           alt={competition.title}
           width={100}
           height={100}
