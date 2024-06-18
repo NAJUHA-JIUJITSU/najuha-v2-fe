@@ -26,7 +26,9 @@ const steps = [
 ];
 
 export default function CompetitionApply({ params }: { params: { competitionId: string } }) {
+  // 퍼널훅 시용
   const { gotoNextStep, gotoPreviousStep, Funnel, Step, currentStep } = useFunnel(steps);
+  // 신청정보 프론트상태
   const [applyInfo, setApplyInfo] = useState<ApplyInfo>({
     playerInfo: {
       name: '',
@@ -49,7 +51,9 @@ export default function CompetitionApply({ params }: { params: { competitionId: 
   });
   // 대회 조회
   const { data: competition, isLoading, isError } = useGetCompetitionId(params.competitionId);
+  // 신청정보 제출훅
   const { mutate } = useSubmitApplication();
+  // 신청정보 제출 후 리턴받은 applicationId상태 => 신청정보 확인페이지에서 사용
   const [applicationId, setApplicationId] = useState<string>('');
 
   const handleSubmit = (updatedTeamInfo: ApplyInfo['teamInfo']) => {
