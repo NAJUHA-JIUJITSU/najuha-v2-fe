@@ -3,13 +3,12 @@ import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import Post from '@/components/post';
 import Comment from '@/components/comment';
-import styles from './index.module.scss';
 import { ThinDivider } from '@/components/divider';
 import { comment, replyComment } from '@/interfaces/comment';
-import { post } from '@/interfaces/post';
+import { postType } from '@/interfaces/post';
 import BaseLayout from '@/components/layout/baseLayout';
 
-async function getPost(id: number): Promise<post> {
+async function getPost(id: number): Promise<postType> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
