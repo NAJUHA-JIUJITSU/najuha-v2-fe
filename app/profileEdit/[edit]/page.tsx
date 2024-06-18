@@ -35,7 +35,7 @@ export default function Edit({ params }: EditProps) {
       profileGoBack();
       return;
     }
-    mutate(params.edit, {
+    mutate(void 0, {
       onSuccess: () => {
         profileGoBack();
       },
