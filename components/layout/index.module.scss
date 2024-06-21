@@ -27,3 +27,12 @@
     flex-direction: column;
   }
 }
+
+// 데스크탑 사이드바와 겹치지 않도록 마진 조정
+.navigationContent {
+  @media (min-width: 1024px) {
+    margin-left: 220px;
+    padding: 0 16px;
+    width: calc(100% - 252px);
+  }
+}
