@@ -26,20 +26,18 @@ export const useGetApplicationInfo = (applicationId: string) => {
 };
 
 export const parseApplicationData = (data: IApplication) => {
-  const parsedData = data;
-
   // 정제되지 않은 데이터를 정제하는 부분
-  const selectedDivisionTest = parsedData?.participationDivisionInfos.map((x) => {
+  const selectedDivisionTest = data.participationDivisionInfos.map((x) => {
     return x.participationDivisionInfoSnapshots[x.participationDivisionInfoSnapshots.length - 1]
       .division;
   });
 
   // 프롭스로 넘겨줄 데이터 구성
-  const playerInfo = parsedData?.playerSnapshots[parsedData.playerSnapshots.length - 1];
+  const playerInfo = data.playerSnapshots[data.playerSnapshots.length - 1];
   const selectedDivision = selectedDivisionTest.map((x) => {
     return { belt: x.belt, category: x.category, uniform: x.uniform, weight: x.weight };
   });
-  const expectedPayment = parsedData.expectedPayment;
+  const expectedPayment = data.expectedPayment;
 
   // 생년월일에서 앞 두 글자 제거
   playerInfo.birth = playerInfo.birth.slice(2);
