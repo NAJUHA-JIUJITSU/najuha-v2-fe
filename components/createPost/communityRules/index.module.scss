@@ -1,0 +1,23 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.wrapper {
+  background-color: $--color-gray-0;
+  display: flex;
+  flex-direction: column;
+  margin: 16px 0;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.rulesWrapper {
+  padding: 8px 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  .rule {
+    @include font-body3-regular;
+    color: $--color-font-body;
+  }
+}
