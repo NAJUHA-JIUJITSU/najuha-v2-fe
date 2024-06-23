@@ -19,7 +19,7 @@ export default function DropdownMenu({
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLButtonElement | null>(null);
   const dropdownList = [
-    { label: '게시글 등록', href: '/community/create' },
+    { label: '게시글 등록', href: '/community/posts/create' },
     { label: '대회 등록', href: '/competition/create' },
     { label: '세미나 등록', href: '/seminar/create' },
     { label: '오픈매트 등록', href: '/openmat/create' },
