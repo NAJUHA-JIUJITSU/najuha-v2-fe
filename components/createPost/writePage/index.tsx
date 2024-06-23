@@ -1,9 +1,9 @@
 import React from 'react';
-import PostEditor from '@/components/createPost/postEditor';
-import PostImageUploader from '@/components/createPost/postImageUploader';
+import PostEditor from '@/components/createPost/writePage/postEditor';
+import PostImageUploader from '@/components/createPost/writePage/postImageUploader';
 import styles from './index.module.scss';
-import PreviewImageContainer from '@/components/createPost/previewImageContainer';
-import CommnuityRules from '@/components/createPost/communityRules';
+import PreviewImageContainer from '@/components/createPost/writePage/previewImageContainer';
+import CommnuityRules from '@/components/createPost/writePage/communityRules';
 
 interface WritePageProps {
   handleFormChange: (newData: { title: string; content: string }) => void;
