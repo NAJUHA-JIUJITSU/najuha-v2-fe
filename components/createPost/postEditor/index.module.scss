@@ -1,0 +1,26 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.textareaWrapper {
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  padding: 16px;
+  @include font-body1-regular;
+  color: $--color-font-headline;
+  resize: none;
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    color: $--color-font-body;
+  }
+}
