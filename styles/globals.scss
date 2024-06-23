@@ -1,4 +1,4 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
+/* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -146,4 +146,28 @@ button {
   cursor: pointer;
   line-height: 0;
   color: inherit;
+}
+
+#markdown-css {
+  * {
+    line-height: initial;
+  }
+  ol,
+  ul {
+    list-style: initial; /* 원래의 기본 스타일로 되돌리기 */
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    font-size: revert;
+  }
+
+  hr {
+    height: 1px;
+  }
 }
