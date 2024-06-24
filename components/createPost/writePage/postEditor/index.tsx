@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import Input from '@/components/common/input';
 import styles from './index.module.scss';
@@ -14,28 +14,21 @@ function PostEditor({ onChange, formData }: PostEditorProps) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
 
-  const adjustHeight = useCallback(() => {
-    if (textareaRef.current) {
-      textareaRef.current.style.height = 'auto';
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  }, []);
-
   const handleTitleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   }, []);
 
   const handleBodyChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setBody(e.target.value);
+    if (textareaRef.current) {
+      // 스크롤 높이에 맞춰 높이를 조절합니다.
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
   }, []);
 
   const handleFormChange = useCallback(() => {
     onChange({ title, body });
   }, [title, body, onChange]);
-
-  useEffect(() => {
-    adjustHeight(); // 컴포넌트가 마운트될 때 높이를 조절합니다.
-  }, [title, body, adjustHeight]); // title, body가 변경될 때마다 높이를 조절합니다.
 
   useOutsideClick(divRef, handleFormChange, 'mousedown');
 

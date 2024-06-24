@@ -22,18 +22,20 @@ const WritePage: React.FC<WritePageProps> = ({
 }: WritePageProps) => {
   return (
     <div className={styles.wrapper}>
-      <PostEditor onChange={handleFormChange} formData={formData} />
-      <div className={styles.preview}>
-        {previewUrls.map((url, index) => (
-          <PreviewImageContainer
-            key={index}
-            handleImageRemove={handleImageRemove}
-            index={index}
-            url={url}
-          />
-        ))}
+      <div>
+        <PostEditor onChange={handleFormChange} formData={formData} />
+        <div className={styles.preview}>
+          {previewUrls.map((url, index) => (
+            <PreviewImageContainer
+              key={index}
+              handleImageRemove={handleImageRemove}
+              index={index}
+              url={url}
+            />
+          ))}
+        </div>
+        <CommnuityRules />
       </div>
-      <CommnuityRules />
       <PostImageUploader handleImageChange={handleImageChange} />
     </div>
   );
