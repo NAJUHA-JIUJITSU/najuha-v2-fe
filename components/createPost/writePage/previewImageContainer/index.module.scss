@@ -1,0 +1,26 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.previewImageContainer {
+  position: relative;
+  margin: 20px 0;
+
+  .previewImage {
+    width: 70px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .removeButton {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: $--color-gray-1;
+    border-radius: 100px;
+    color: $--color-basic-black;
+    border: none;
+    cursor: pointer;
+  }
+}

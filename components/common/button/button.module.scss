@@ -101,6 +101,16 @@
   }
 }
 
+// text 버튼
+.text {
+  &-blue,
+  &-black,
+  &-gray,
+  &-disabled {
+    background-color: transparent;
+  }
+}
+
 // outlined 버튼
 .outlined {
   &-blue {

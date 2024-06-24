@@ -3,7 +3,7 @@ import styles from './index.module.scss';
 import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
-import CompetitionIdContent from '../../../components/competitionId/competitionIdContent/index';
+import CompetitionIdContent from '@/components/competitionId/competitionIdContent';
 import { useGetCompetitionId } from '@/hooks/competition';
 import BaseLayout from '@/components/layout/baseLayout';
 

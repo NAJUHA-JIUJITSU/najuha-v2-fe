@@ -35,6 +35,17 @@
   &:disabled {
     background-color: $--color-gray-0;
   }
+
+  // underline 스타일
+  &.underline {
+    @include font-title-medium;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid $--color-gray-1;
+    &:focus {
+      border-bottom: 1px solid $--color-gray-1;
+    }
+  }
 }
 
 .error {

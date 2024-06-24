@@ -1,0 +1,35 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.stickyWrapper {
+  position: sticky;
+  z-index: $z-index-footer;
+  bottom: 0;
+  background-color: $--color-basic-white;
+}
+
+.uploader {
+  box-sizing: border-box;
+  padding: 16px;
+  height: 56px;
+
+  .fileLabel {
+    display: inline-flex;
+    align-items: center;
+    color: $--color-font-subheadline;
+    gap: 4px;
+    cursor: pointer;
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+    span {
+      @include font-body3-regular;
+    }
+  }
+
+  .fileInput {
+    display: none;
+  }
+}

@@ -3,16 +3,18 @@ import styles from './index.module.scss';
 import clsx from 'clsx';
 
 interface Props {
-  label?: string;
   placeholder: string;
-  value?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  label?: string;
+  type?: 'text' | 'password';
+  value?: string;
   errMsg?: string | null;
   successMsg?: string | null;
   disabled?: boolean;
   autoFocus?: boolean;
   width?: 'full' | null;
-  type?: 'text' | 'password';
+  isUnderline?: boolean;
+  isMsg?: boolean;
 }
 
 const Input: React.FC<Props> = ({
@@ -26,10 +28,13 @@ const Input: React.FC<Props> = ({
   autoFocus = false,
   width = null,
   type = 'text',
+  isUnderline = false,
+  isMsg = true,
 }) => {
   const inputClassName = clsx(styles.input, {
     [styles.error]: !!errMsg && successMsg === '',
     [styles.success]: successMsg !== '',
+    [styles.underline]: isUnderline,
   });
 
   const fullWidthClassName = width === 'full' ? styles.fullWidth : '';
@@ -46,8 +51,9 @@ const Input: React.FC<Props> = ({
         disabled={disabled} //todo: isLoading중일때도 비활성화 되게 하기
         autoFocus={autoFocus}
       />
-      {successMsg === '' && <div className={styles.errorMsg}>{errMsg}</div>}
-      {successMsg !== '' && <div className={styles.successMsg}>{successMsg}</div>}
+
+      {isMsg && successMsg === '' && <div className={styles.errorMsg}>{errMsg}</div>}
+      {isMsg && successMsg !== '' && <div className={styles.successMsg}>{successMsg}</div>}
     </div>
   );
 };

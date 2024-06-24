@@ -1,6 +1,10 @@
 import { RefObject, useEffect } from 'react';
 
-function useOutsideClick<T extends HTMLElement>(ref: RefObject<T>, handler: () => void): void {
+function useOutsideClick<T extends HTMLElement>(
+  ref: RefObject<T>,
+  handler: () => void,
+  eventType: 'mousedown' | 'click' = 'click',
+): void {
   // 외부 클릭시 handler 실행
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -9,11 +13,11 @@ function useOutsideClick<T extends HTMLElement>(ref: RefObject<T>, handler: () =
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener(eventType, handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener(eventType, handleClickOutside);
     };
-  }, [ref, handler]);
+  }, [ref, handler, eventType]);
 }
 
 export default useOutsideClick;
