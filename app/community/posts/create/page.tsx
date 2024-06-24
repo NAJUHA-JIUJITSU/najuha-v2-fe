@@ -9,18 +9,20 @@ import WritePage from '@/components/createPost/writePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import SelectBoardPage from '@/components/createPost/selectBoardPage';
 
+type Category = 'FREE' | 'COMPETITION' | 'SEMINAR' | 'OPENMAT';
+
 const steps = ['게시글 작성', '게시판 선택'];
-const boards = ['자유', '대회', '세미나&오픈매트'];
+const categorys: Category[] = ['FREE', 'COMPETITION', 'SEMINAR', 'OPENMAT'];
 
 export default function CreatePost() {
-  const [formData, setFormData] = useState({ title: '', content: '' });
+  const [formData, setFormData] = useState({ title: '', body: '' });
   const [images, setImages] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
-  const [selectedBoard, setSelectedBoard] = useState(boards[0]);
+  const [selectedCategory, setSelectedCategory] = useState(categorys[0]);
   const { gotoNextStep, gotoPreviousStep, currentStep } = useFunnel(steps);
   // const { gotoNextStep, gotoPreviousStep, Funnel, Step, currentStep } = useFunnel(steps);
 
-  const handleFormChange = useCallback((newData: { title: string; content: string }) => {
+  const handleFormChange = useCallback((newData: { title: string; body: string }) => {
     setFormData(newData);
   }, []);
 
@@ -52,9 +54,18 @@ export default function CreatePost() {
   }, []);
 
   const handleSubmit = useCallback(() => {
-    console.log('Post submitted:', formData, images, selectedBoard);
-    // 서버로 formData와 image를 전송하는 로직을 추가합니다.
-  }, [formData, images, selectedBoard]);
+    // todo: 이미지 먼저 업로드하고, 이미지 id를 받아온 후에 게시글을 업로드하는 로직을 추가합니다.
+
+    // todo: 서버로 formData와 image를 전송하는 로직을 추가합니다.
+    const postData = {
+      title: formData.title,
+      body: formData.body,
+      category: selectedCategory,
+      imageIds: images,
+    };
+
+    console.log('Post submitted:', postData);
+  }, [formData, images, selectedCategory]);
 
   return (
     <BaseLayout isFooter={false}>
@@ -88,9 +99,9 @@ export default function CreatePost() {
       )}
       {currentStep === '게시판 선택' && (
         <SelectBoardPage
-          boards={boards}
-          selectedBoard={selectedBoard}
-          setSelectedBoard={setSelectedBoard}
+          categorys={categorys}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
         />
       )}
 

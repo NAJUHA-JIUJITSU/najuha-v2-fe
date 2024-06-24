@@ -1,26 +1,35 @@
 import styles from './index.module.scss';
 import RadioButtonLabel from '@/components/common/radioButtonLabel';
 
+type Category = 'FREE' | 'COMPETITION' | 'SEMINAR' | 'OPENMAT';
+
 interface selectBoardPageProps {
-  boards: string[];
-  selectedBoard: string;
-  setSelectedBoard: (board: string) => void;
+  categorys: Category[];
+  selectedCategory: Category;
+  setSelectedCategory: (category: Category) => void;
 }
 
+const categorysKr = {
+  FREE: '자유',
+  COMPETITION: '대회',
+  SEMINAR: '세미나',
+  OPENMAT: '오픈매트',
+};
+
 export default function SelectBoardPage({
-  boards,
-  setSelectedBoard,
-  selectedBoard,
+  categorys,
+  setSelectedCategory,
+  selectedCategory,
 }: selectBoardPageProps) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>어디에 게시할까요?</div>
-      {boards.map((board) => (
+      {categorys.map((category) => (
         <RadioButtonLabel
-          key={board}
-          msg={board}
-          isChecked={selectedBoard === board}
-          changeCheck={() => setSelectedBoard(board)}
+          key={category}
+          msg={categorysKr[category]}
+          isChecked={selectedCategory === category}
+          changeCheck={() => setSelectedCategory(category)}
           isUnderlined={true}
         />
       ))}

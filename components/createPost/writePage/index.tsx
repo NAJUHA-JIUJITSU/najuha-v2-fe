@@ -6,8 +6,8 @@ import PreviewImageContainer from '@/components/createPost/writePage/previewImag
 import CommnuityRules from '@/components/createPost/writePage/communityRules';
 
 interface WritePageProps {
-  handleFormChange: (newData: { title: string; content: string }) => void;
-  formData: { title: string; content: string };
+  handleFormChange: (newData: { title: string; body: string }) => void;
+  formData: { title: string; body: string };
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleImageRemove: (index: number) => void;
   previewUrls: string[];
