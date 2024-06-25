@@ -22,6 +22,7 @@ function PostEditor({ onChange, formData }: PostEditorProps) {
     setBody(e.target.value);
     if (textareaRef.current) {
       // 스크롤 높이에 맞춰 높이를 조절합니다.
+      textareaRef.current.style.height = '300px';
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
     }
   }, []);
