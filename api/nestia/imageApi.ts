@@ -48,7 +48,7 @@ const postUploadImage = async (
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to upload image. Status: ${response.status}`);
+      throw new Error(`Failed to upload image. Status: ${response.status}`); //todo: 에러 처리
     }
 
     return response;
