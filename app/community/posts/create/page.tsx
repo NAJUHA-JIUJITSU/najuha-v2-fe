@@ -10,15 +10,18 @@ import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import SelectBoardPage from '@/components/createPost/selectBoardPage';
 import { useCreatePostWithImages } from '@/hooks/post';
 import { IImageCreateDto } from 'najuha-v2-api/lib/modules/images/domain/interface/image.interface';
+import { useRouter } from 'next/navigation';
 
 type Category = 'FREE' | 'COMPETITION' | 'SEMINAR' | 'OPEN_MAT';
 const steps = ['게시글 작성', '게시판 선택'];
 const categorys: Category[] = ['FREE', 'COMPETITION', 'SEMINAR', 'OPEN_MAT'];
 
+// todo: 로그인 여부 체크 후 로그인 안되어 있으면 로그인 페이지로 이동
 export default function CreatePost() {
   const [formData, setFormData] = useState({ title: '', body: '' });
   const path: IImageCreateDto['path'] = 'post';
-  const { mutate: createPostWithImages, isPending } = useCreatePostWithImages(path);
+  const { mutate: createPostWithImages, isPending, isSuccess } = useCreatePostWithImages(path);
+  const router = useRouter();
 
   const [images, setImages] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
@@ -33,31 +36,39 @@ export default function CreatePost() {
   const handleImageChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       if (!e.target.files) return;
-      const newImages = Array.from(e.target.files);
+      const newFiles: File[] = Array.from(e.target.files);
 
-      // 기존 이미지와 중복되지 않는 이미지만 추가
-      const uniqueImages = newImages.filter((newImg) => {
-        // 이미지 포맷 체크
-        const isValidFormat = ['image/jpeg', 'image/png', 'image/webp'].includes(newImg.type);
+      // 1. 파일 형식 검증 (jpeg, png, webp)
+      // 2. 크기 검증 (5MB 이하)
+      const validFiles = newFiles.filter((file) => {
+        const isValidFormat = ['image/jpeg', 'image/png', 'image/webp'].includes(file.type);
+        const isValidSize = file.size <= 5 * 1024 * 1024; // 5MB 이하
         if (!isValidFormat) {
-          alert(`해당 이미지 파일 포맷을 지원하지 않습니다 : ${newImg.type}`);
-          return false;
+          alert(`해당 이미지 파일 포맷은 지원하지 않습니다: ${file.type}`);
         }
+        if (!isValidSize) {
+          alert('이미지 파일 크기는 5MB 이하로 업로드해주세요.');
+        }
+        return isValidFormat && isValidSize;
+      });
 
+      // 3. 중복 제거
+      const uniqueFiles = validFiles.filter((newFile) => {
         return images.every(
-          (existingImg) => existingImg.name !== newImg.name || existingImg.size !== newImg.size,
+          (existingFile) =>
+            existingFile.name !== newFile.name || existingFile.size !== newFile.size,
         );
       });
 
-      if (uniqueImages.length + images.length > 5) {
+      if (uniqueFiles.length + images.length > 5) {
         alert('이미지는 최대 5개까지 업로드할 수 있습니다.');
         return;
       }
 
-      if (uniqueImages.length > 0) {
-        const newPreviewUrls = uniqueImages.map((img) => URL.createObjectURL(img));
-
-        setImages((prevImages) => [...prevImages, ...uniqueImages]);
+      // 4. 이미지 미리보기 URL 생성 후 상태 업데이트
+      if (uniqueFiles.length > 0) {
+        const newPreviewUrls = uniqueFiles.map((file) => URL.createObjectURL(file));
+        setImages((prevImages) => [...prevImages, ...uniqueFiles]);
         setPreviewUrls((prevUrls) => [...prevUrls, ...newPreviewUrls]);
       }
     },
@@ -70,6 +81,11 @@ export default function CreatePost() {
   }, []);
 
   const handleSubmit = useCallback(() => {
+    if (!formData.title || !formData.body) {
+      alert('제목과 본문을 모두 입력해주세요.');
+      return;
+    }
+
     const postData = {
       title: formData.title,
       body: formData.body,
@@ -83,6 +99,7 @@ export default function CreatePost() {
         onSuccess: (res) => {
           console.log('게시글이 성공적으로 업로드되었습니다.', res);
           //todo: 게시글 업로드 성공 후 이전 페이지로 이동
+          router.push('/community');
         },
         onError: (error) => {
           console.error('게시글 업로드에 실패했습니다.', error);
@@ -92,9 +109,12 @@ export default function CreatePost() {
   }, [formData, selectedCategory, images, createPostWithImages]);
 
   if (isPending) {
-    return <div>게시글을 업로드 중입니다...</div>;
+    return <div style={{ lineHeight: 1 }}>게시글을 업로드 중입니다...</div>;
   }
 
+  if (isSuccess) {
+    return <div style={{ lineHeight: 1 }}>게시글이 성공적으로 업로드되었습니다.</div>;
+  }
   return (
     <BaseLayout isFooter={false}>
       <Header
@@ -113,6 +133,7 @@ export default function CreatePost() {
             color="blue"
             text={currentStep === '게시글 작성' ? '완료' : '게시'}
             onClick={currentStep === '게시글 작성' ? gotoNextStep : handleSubmit}
+            disabled={isPending}
           />
         }
       />
