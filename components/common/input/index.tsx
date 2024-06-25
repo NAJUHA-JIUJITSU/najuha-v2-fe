@@ -13,6 +13,7 @@ interface Props {
   autoFocus?: boolean;
   width?: 'full' | null;
   type?: 'text' | 'password';
+  name?: string;
 }
 
 const Input: React.FC<Props> = ({
@@ -26,6 +27,7 @@ const Input: React.FC<Props> = ({
   autoFocus = false,
   width = null,
   type = 'text',
+  name,
 }) => {
   const inputClassName = clsx(styles.input, {
     [styles.error]: !!errMsg && successMsg === '',
@@ -45,6 +47,7 @@ const Input: React.FC<Props> = ({
         onChange={onChange}
         disabled={disabled} //todo: isLoading중일때도 비활성화 되게 하기
         autoFocus={autoFocus}
+        name={name}
       />
       {successMsg === '' && <div className={styles.errorMsg}>{errMsg}</div>}
       {successMsg !== '' && <div className={styles.successMsg}>{successMsg}</div>}

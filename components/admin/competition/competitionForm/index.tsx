@@ -10,6 +10,7 @@ import CompetitionDivisionForm from './competitionDivisionForm';
 import CompetitionDiscountForm from './competitionDiscountForm';
 import { useState } from 'react';
 import { ICompetitionCreateDto } from 'najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
+import { IDivisionPack } from 'najuha-v2-api/lib/modules/competitions/domain/interface/division-pack.interface';
 
 const steps = ['주요정보', '상세정보', '부문등록', '할인률'];
 
@@ -37,17 +38,18 @@ export default function CompetitionForm({
   const [competitionInfo, setCompetitionInfo] = useState<ICompetitionCreateDto>({
     title: '',
     address: '',
-    competitionDate: null,
-    registrationStartDate: null,
-    registrationEndDate: null,
-    refundDeadlineDate: null,
-    soloRegistrationAdjustmentStartDate: null,
-    soloRegistrationAdjustmentEndDate: null,
-    registrationListOpenDate: null,
-    bracketOpenDate: null,
+    competitionDate: '',
+    registrationStartDate: '',
+    registrationEndDate: '',
+    refundDeadlineDate: '',
+    soloRegistrationAdjustmentStartDate: '',
+    soloRegistrationAdjustmentEndDate: '',
+    registrationListOpenDate: '',
+    bracketOpenDate: '',
     description: '',
     isPartnership: false,
   });
+  const [divisionPackInfo, setDivisionPackInfo] = useState<IDivisionPack[]>([]);
 
   return (
     <div className={styles.wrapper}>
@@ -71,7 +73,11 @@ export default function CompetitionForm({
           />
         </Step>
         <Step name="부문등록">
-          <CompetitionDivisionForm />
+          <CompetitionDivisionForm
+            divisionPackInfo={divisionPackInfo}
+            setDivisionPackInfo={setDivisionPackInfo}
+            onNext={gotoNextStep}
+          />
         </Step>
         <Step name="할인률">
           <CompetitionDiscountForm />
