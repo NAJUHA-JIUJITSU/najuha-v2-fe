@@ -8,14 +8,18 @@ import { useFunnel } from '@/hooks/useFunnel';
 import WritePage from '@/components/createPost/writePage';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import SelectBoardPage from '@/components/createPost/selectBoardPage';
+import { useCreatePostWithImages } from '@/hooks/post';
+import { IImageCreateDto } from 'najuha-v2-api/lib/modules/images/domain/interface/image.interface';
 
-type Category = 'FREE' | 'COMPETITION' | 'SEMINAR' | 'OPENMAT';
-
+type Category = 'FREE' | 'COMPETITION' | 'SEMINAR' | 'OPEN_MAT';
 const steps = ['게시글 작성', '게시판 선택'];
-const categorys: Category[] = ['FREE', 'COMPETITION', 'SEMINAR', 'OPENMAT'];
+const categorys: Category[] = ['FREE', 'COMPETITION', 'SEMINAR', 'OPEN_MAT'];
 
 export default function CreatePost() {
   const [formData, setFormData] = useState({ title: '', body: '' });
+  const path: IImageCreateDto['path'] = 'post';
+  const { mutate: createPostWithImages, isPending } = useCreatePostWithImages(path);
+
   const [images, setImages] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState(categorys[0]);
@@ -33,10 +37,22 @@ export default function CreatePost() {
 
       // 기존 이미지와 중복되지 않는 이미지만 추가
       const uniqueImages = newImages.filter((newImg) => {
+        // 이미지 포맷 체크
+        const isValidFormat = ['image/jpeg', 'image/png', 'image/webp'].includes(newImg.type);
+        if (!isValidFormat) {
+          alert(`해당 이미지 파일 포맷을 지원하지 않습니다 : ${newImg.type}`);
+          return false;
+        }
+
         return images.every(
           (existingImg) => existingImg.name !== newImg.name || existingImg.size !== newImg.size,
         );
       });
+
+      if (uniqueImages.length + images.length > 5) {
+        alert('이미지는 최대 5개까지 업로드할 수 있습니다.');
+        return;
+      }
 
       if (uniqueImages.length > 0) {
         const newPreviewUrls = uniqueImages.map((img) => URL.createObjectURL(img));
@@ -54,18 +70,30 @@ export default function CreatePost() {
   }, []);
 
   const handleSubmit = useCallback(() => {
-    // todo: 이미지 먼저 업로드하고, 이미지 id를 받아온 후에 게시글을 업로드하는 로직을 추가합니다.
-
-    // todo: 서버로 formData와 image를 전송하는 로직을 추가합니다.
     const postData = {
       title: formData.title,
       body: formData.body,
       category: selectedCategory,
-      imageIds: images,
+      imageIds: [], // 초기 빈 배열로 설정
     };
 
-    console.log('Post submitted:', postData);
-  }, [formData, images, selectedCategory]);
+    createPostWithImages(
+      { data: postData, files: images },
+      {
+        onSuccess: (res) => {
+          console.log('게시글이 성공적으로 업로드되었습니다.', res);
+          //todo: 게시글 업로드 성공 후 이전 페이지로 이동
+        },
+        onError: (error) => {
+          console.error('게시글 업로드에 실패했습니다.', error);
+        },
+      },
+    );
+  }, [formData, selectedCategory, images, createPostWithImages]);
+
+  if (isPending) {
+    return <div>게시글을 업로드 중입니다...</div>;
+  }
 
   return (
     <BaseLayout isFooter={false}>
