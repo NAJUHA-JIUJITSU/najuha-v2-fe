@@ -1,5 +1,5 @@
 import { IImageCreateDto } from 'najuha-v2-api/lib/modules/images/domain/interface/image.interface';
-import { useMutation, useInfiniteQuery } from '@tanstack/react-query';
+import { useMutation, useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { postApi } from '@/api/nestia/postApi';
 import { imageApi } from '@/api/nestia/imageApi';
 import {
@@ -47,4 +47,12 @@ const useFindPosts = (data: FindPostsReqQuery) => {
   });
 };
 
-export { useCreatePostWithImages, useFindPosts };
+// 특정 게시글을 조회하는 훅
+const useGetPost = (postId: string) => {
+  return useQuery({
+    queryKey: ['post', postId],
+    queryFn: () => postApi.postGetPost(postId),
+  });
+};
+
+export { useCreatePostWithImages, useFindPosts, useGetPost };

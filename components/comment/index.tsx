@@ -51,7 +51,6 @@ export default function Comment({ commentInfo, type, writer = false }: CommentPr
           <div className={styles.content}>{commentInfo.content}</div>
         </div>
         <Reaction
-          id={commentInfo.id}
           likeCnt={commentInfo.likeCnt}
           commentCnt={isCommentInfo(commentInfo) ? commentInfo.commentCnt : undefined}
         />

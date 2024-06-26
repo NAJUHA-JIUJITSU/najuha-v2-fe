@@ -1,5 +1,6 @@
 import { withAuth } from '@/api/nestia/common';
 import api from 'najuha-v2-api/lib/api';
+import { TId } from 'najuha-v2-api/lib/common/common-types';
 import {
   CreatePostReqBody,
   FindPostsReqQuery,
@@ -24,7 +25,17 @@ const postFindPosts = async (data: FindPostsReqQuery) => {
   return response.result;
 };
 
+//u-7-3 getPost.
+// 특정 게시글을 조회합니다.
+const postGetPost = async (postId: TId) => {
+  const response = await withAuth((connection) =>
+    api.functional.user.posts.getPost(connection, postId),
+  );
+  return response.result;
+};
+
 export const postApi = {
   postCreatePost,
   postFindPosts,
+  postGetPost,
 };

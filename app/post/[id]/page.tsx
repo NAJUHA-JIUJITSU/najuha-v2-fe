@@ -5,31 +5,23 @@ import Post from '@/components/post';
 import Comment from '@/components/comment';
 import { ThinDivider } from '@/components/divider';
 import { comment, replyComment } from '@/interfaces/comment';
-import { postType } from '@/interfaces/post';
 import BaseLayout from '@/components/layout/baseLayout';
 
-async function getPost(id: number): Promise<postType> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        id,
-        nickname: '바보',
-        title:
-          '제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데 ', // 따로 글자제한이 필요해보임
-        type: 'free',
-        date: new Date(2024, 2, 26, 12, 30, 0),
-        likeCnt: 1234,
-        viewCnt: 4558,
-        commentCnt: 27,
-        content:
-          '게시물 내용은 여기에 한 줄 미리보기로 표시할건데 여기선 전문을 다보여줍니다ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ게시물 내용은 여기에 한 줄 미리보기로 표시할건데 여기선 전문을 다보여줍니다ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ게시물 내용은 여기에 한 줄 미리보기로 표시할건데 여기선 전문을 다보여줍니다ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ',
-        hot: true,
-        profile: '/images/samplePoster1.png',
-      });
-    }, 1000);
-  });
-}
-
+const data = {
+  id: 1,
+  nickname: '바보',
+  title:
+    '제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데제목이다 이짜식아 제목이길어지면 어쩔껀데 ', // 따로 글자제한이 필요해보임
+  type: 'free',
+  date: new Date(2024, 2, 26, 12, 30, 0),
+  likeCnt: 1234,
+  viewCnt: 4558,
+  commentCnt: 27,
+  content:
+    '게시물 내용은 여기에 한 줄 미리보기로 표시할건데 여기선 전문을 다보여줍니다ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ게시물 내용은 여기에 한 줄 미리보기로 표시할건데 여기선 전문을 다보여줍니다ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ게시물 내용은 여기에 한 줄 미리보기로 표시할건데 여기선 전문을 다보여줍니다ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ',
+  hot: true,
+  profile: '/images/samplePoster1.png',
+};
 const commentInfo: comment[] = [
   {
     id: 5,
@@ -77,9 +69,7 @@ const commentInfo: comment[] = [
   },
 ];
 
-export default async function post(props: any) {
-  const data = await getPost(props.params.id);
-
+export default async function post({ params }: { params: { id: string } }) {
   // 댓글 렌더링 함수
   function renderComment(comment: comment[]) {
     return comment.map((comment) => {
@@ -110,7 +100,7 @@ export default async function post(props: any) {
   return (
     <BaseLayout>
       <Header leftIcon={<ButtonIconNavigateBefore />} title="글페이지" />
-      <Post postInfo={data} />
+      <Post postId={params.id} />
       <ThinDivider />
       {renderComment(commentInfo)}
     </BaseLayout>
