@@ -3,39 +3,33 @@ import Tag from '@/components/tag';
 import IconThumbUp from '@/public/svgs/thumbUp.svg';
 import IconChat from '@/public/svgs/chat.svg';
 import { getPastTime } from '@/utils/dateUtils/dateCheck';
-
-interface PostInfo {
-  id: number;
-  title: string;
-  type: 'seminar' | 'competition' | 'free';
-  date: Date;
-  likeCnt: number;
-  viewCnt: number;
-  commentCnt: number;
-  content: string;
-  hot: boolean;
-  image?: string;
-}
+import { IPostDetail } from 'najuha-v2-api/lib/modules/posts/domain/interface/post.interface';
 
 interface PostCardProps {
-  info: PostInfo;
+  post: IPostDetail;
 }
 
-export default function PostCard({ info }: PostCardProps) {
+export default function PostCard({ post }: PostCardProps) {
   // 태그 생성 함수
   function makeTag() {
     const tags = [];
 
-    if (info.hot) tags.push(<Tag key="hot" type="hot" content="인기" />);
+    if (post.likeCount && post.likeCount >= 10) {
+      //todo: likeCount 옵셔널 수정될 예정
+      tags.push(<Tag key="hot" type="hot" content="인기" />);
+    }
 
-    switch (info.type) {
-      case 'seminar':
+    switch (post.category) {
+      case 'SEMINAR':
         tags.push(<Tag key="seminar" type="seminar" content="세미나&오픈매트" />);
         break;
-      case 'competition':
+      case 'OPEN_MAT':
+        tags.push(<Tag key="seminar" type="seminar" content="세미나&오픈매트" />);
+        break;
+      case 'COMPETITION':
         tags.push(<Tag key="competition" type="competition" content="대회" />);
         break;
-      case 'free':
+      case 'FREE':
         tags.push(<Tag key="free" type="free" content="자유" />);
         break;
       default:
@@ -43,6 +37,7 @@ export default function PostCard({ info }: PostCardProps) {
     }
     return <>{tags}</>;
   }
+  const lastPostSnapshotsIndex = post.postSnapshots.length - 1; //todo : 마지막 게시글만 보여주기
 
   // top, middle, bottom으로 나누어서 구조화
   // top: 태그, 조회수
@@ -54,32 +49,36 @@ export default function PostCard({ info }: PostCardProps) {
       <div className={styles.top}>
         <div className={styles.left}>{makeTag()}</div>
         <div className={styles.right}>
-          <div className={styles.caption}>조회 {info.viewCnt}</div>
+          <div className={styles.caption}>조회 {post.viewCount}</div>
         </div>
       </div>
       <div className={styles.middle}>
         <div className={styles.left}>
-          <div className={styles.title}>{info.title}</div>
-          <div className={styles.content}>{info.content}</div>
+          <div className={styles.title}>{post.postSnapshots[lastPostSnapshotsIndex].title}</div>
+          <div className={styles.content}>{post.postSnapshots[lastPostSnapshotsIndex].body}</div>
         </div>
-        {info.image && (
+        {post.postSnapshots[0].postSnapshotImages[0] && (
           <div className={styles.right}>
-            <img className={styles.image} src={info.image} alt="이미지" />
+            <img
+              className={styles.image}
+              src={`http://localhost:9000/najuha-v2-bucket/${post.postSnapshots[lastPostSnapshotsIndex].postSnapshotImages[0].image.path}/${post.postSnapshots[lastPostSnapshotsIndex].postSnapshotImages[0].image.id}`}
+              alt="이미지"
+            />
           </div>
         )}
       </div>
       <div className={styles.bottom}>
         <div className={styles.left}>
-          <div className={styles.caption}>{getPastTime(info.date)}</div>
+          <div className={styles.caption}>{getPastTime(post.createdAt)}</div>
         </div>
         <div className={styles.right}>
           <div className={styles.thumup}>
             <IconThumbUp />
-            <span>{info.likeCnt}</span>
+            <span>{post.likeCount}</span>
           </div>
           <div className={styles.comment}>
             <IconChat />
-            <span>{info.commentCnt}</span>
+            <span>{post.commentCount}</span>
           </div>
         </div>
       </div>

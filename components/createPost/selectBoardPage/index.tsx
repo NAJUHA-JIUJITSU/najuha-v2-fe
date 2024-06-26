@@ -1,7 +1,7 @@
 import styles from './index.module.scss';
 import RadioButtonLabel from '@/components/common/radioButtonLabel';
 
-type Category = 'FREE' | 'COMPETITION' | 'SEMINAR' | 'OPENMAT';
+type Category = 'FREE' | 'COMPETITION' | 'SEMINAR' | 'OPEN_MAT';
 
 interface selectBoardPageProps {
   categorys: Category[];
@@ -13,7 +13,7 @@ const categorysKr = {
   FREE: '자유',
   COMPETITION: '대회',
   SEMINAR: '세미나',
-  OPENMAT: '오픈매트',
+  OPEN_MAT: '오픈매트',
 };
 
 export default function SelectBoardPage({

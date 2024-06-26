@@ -23,7 +23,7 @@ function PostImageUploader({ handleImageChange }: PostImageUploaderProps) {
           id="imageUpload"
           onChange={handleImageChange}
           multiple
-          accept="image/*"
+          accept="image/jpeg,image/png,image/webp"
         />
       </div>
     </div>

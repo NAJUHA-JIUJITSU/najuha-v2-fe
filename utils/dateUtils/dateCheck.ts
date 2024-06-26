@@ -53,9 +53,10 @@ export const calculateDayDiff = (futureDate: string): number => {
 };
 
 // 날짜를 ~일 전, ~시간 전, ~분 전으로 표시하는 함수
-export const getPastTime = (date: Date): string => {
+export const getPastTime = (date: Date | string): string => {
   const now = new Date();
-  const timeDiff = now.getTime() - date.getTime(); // 현재 시간과의 차이를 밀리초 단위로 계산
+  const dateData = new Date(date);
+  const timeDiff = now.getTime() - dateData.getTime(); // 현재 시간과의 차이를 밀리초 단위로 계산
 
   if (timeDiff < 0) {
     return ''; // 입력된 날짜가 미래인 경우
