@@ -1,0 +1,45 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+
+  gap: 20px;
+}
+
+.controller {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.title {
+  @include font-title-medium;
+}
+
+.discountForm {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $--color-gray-4;
+  border-radius: 4px;
+  padding: 8px;
+  gap: 8px;
+}
+
+.flexRow {
+  display: flex;
+  align-items: center;
+}
+
+.plus {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 30px;
+}
+
+.index {
+  @include font-body1-regular;
+}

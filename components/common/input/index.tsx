@@ -12,7 +12,7 @@ interface Props {
   disabled?: boolean;
   autoFocus?: boolean;
   width?: 'full' | null;
-  type?: 'text' | 'password';
+  type?: 'text' | 'password' | 'datetime-local';
   name?: string;
 }
 
