@@ -1,11 +1,33 @@
 'use client';
+import React, { useEffect } from 'react';
 import styles from './index.module.scss';
 import Reaction from '@/components/reaction';
-import { useGetPost } from '@/hooks/post';
+import { useGetPost, useIncrementPostViewCount } from '@/hooks/post';
 import { getPastTime } from '@/utils/dateUtils/dateCheck';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function Post({ postId }: { postId: string }) {
   const { data, isLoading, isError } = useGetPost(postId);
+  const { mutate: incrementViewCount } = useIncrementPostViewCount(postId);
+  const queryClient = useQueryClient();
+
+  // 게시글 조회수 증가
+  useEffect(() => {
+    if (postId) {
+      incrementViewCount(void 0, {
+        onSuccess: () => {
+          console.log('게시글 조회수 증가 성공');
+          queryClient.invalidateQueries({
+            queryKey: ['post', postId],
+          });
+        },
+        onError: () => {
+          console.log('게시글 조회수 증가 실패');
+        },
+      });
+    }
+  }, [postId, incrementViewCount, queryClient]);
+
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error</div>;
   if (!data) return null;
@@ -24,7 +46,7 @@ export default function Post({ postId }: { postId: string }) {
         <div className={styles.left}>
           <img
             className={styles.profile}
-            src={`http://localhost:9000/najuha-v2-bucket/${post.user?.profileImages[0].image.path}/${post.user?.profileImages[0].image.id}`}
+            src={`http://localhost:9000/najuha-v2-bucket/${post.user.profileImages[0].image.path}/${post.user.profileImages[0].image.id}`}
             alt="profile"
           />
           <div className={styles.info}>
@@ -55,6 +77,7 @@ export default function Post({ postId }: { postId: string }) {
         )}
       </div>
       <Reaction
+        postId={postId}
         userLiked={post.userLiked}
         likeCnt={post.likeCount}
         commentCnt={post.commentCount}

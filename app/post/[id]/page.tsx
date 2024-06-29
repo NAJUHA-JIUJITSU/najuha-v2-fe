@@ -69,7 +69,7 @@ const commentInfo: comment[] = [
   },
 ];
 
-export default async function post({ params }: { params: { id: string } }) {
+export default function post({ params }: { params: { id: string } }) {
   // 댓글 렌더링 함수
   function renderComment(comment: comment[]) {
     return comment.map((comment) => {

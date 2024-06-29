@@ -55,4 +55,32 @@ const useGetPost = (postId: string) => {
   });
 };
 
-export { useCreatePostWithImages, useFindPosts, useGetPost };
+// 게시글 좋아요를 추가하는 훅
+const useCreatePostLike = (postId: string) => {
+  return useMutation({
+    mutationFn: () => postApi.postCreatePostLike(postId),
+  });
+};
+
+// 게시글 좋아요를 삭제하는 훅
+const useDeletePostLike = (postId: string) => {
+  return useMutation({
+    mutationFn: () => postApi.postDeletePostLike(postId),
+  });
+};
+
+// 게시글 조회수를 증가시키는 훅
+const useIncrementPostViewCount = (postId: string) => {
+  return useMutation({
+    mutationFn: () => postApi.postIncrementPostViewCount(postId),
+  });
+};
+
+export {
+  useCreatePostWithImages,
+  useFindPosts,
+  useGetPost,
+  useCreatePostLike,
+  useDeletePostLike,
+  useIncrementPostViewCount,
+};

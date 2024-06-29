@@ -25,7 +25,7 @@ const postFindPosts = async (data: FindPostsReqQuery) => {
   return response.result;
 };
 
-//u-7-3 getPost.
+// u-7-3 getPost.
 // 특정 게시글을 조회합니다.
 const postGetPost = async (postId: TId) => {
   const response = await withAuth((connection) =>
@@ -34,8 +34,37 @@ const postGetPost = async (postId: TId) => {
   return response.result;
 };
 
+// u-7-6 createPostLike.
+// 게시글 좋아요를 추가합니다.
+const postCreatePostLike = async (postId: TId) => {
+  const response = await withAuth((connection) =>
+    api.functional.user.posts.like.createPostLike(connection, postId),
+  );
+  return response.result;
+};
+
+// u-7-7 deletePostLike.
+// 게시글 좋아요를 삭제합니다.
+const postDeletePostLike = async (postId: TId) => {
+  const response = await withAuth((connection) =>
+    api.functional.user.posts.like.deletePostLike(connection, postId),
+  );
+  return response.result;
+};
+
+// u-8-1 incrementPostViewCount.
+// 게시글 조회수를 증가시킵니다.
+const postIncrementPostViewCount = async (postId: TId) => {
+  await withAuth((connection) =>
+    api.functional.user.view_count.post.incrementPostViewCount(connection, postId),
+  );
+};
+
 export const postApi = {
   postCreatePost,
   postFindPosts,
   postGetPost,
+  postCreatePostLike,
+  postDeletePostLike,
+  postIncrementPostViewCount,
 };
