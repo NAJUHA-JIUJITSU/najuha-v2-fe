@@ -1,0 +1,44 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.dropdown {
+  z-index: $z-index-dropdown;
+  position: absolute;
+  top: 30px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: $--color-basic-white;
+  border-radius: 6px;
+  overflow: hidden;
+  width: 170px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
+
+  li {
+    @include font-button-medium;
+    color: $--color-font-subheadline;
+    height: 49px;
+    padding: 0 16px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $--color-brand-lightBlue;
+      color: $--color-brand-blue;
+    }
+  }
+}

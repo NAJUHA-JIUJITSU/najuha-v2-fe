@@ -1,4 +1,5 @@
-import React from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
 import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import Post from '@/components/post';
@@ -6,6 +7,9 @@ import Comment from '@/components/comment';
 import { ThinDivider } from '@/components/divider';
 import { comment, replyComment } from '@/interfaces/comment';
 import BaseLayout from '@/components/layout/baseLayout';
+import { ButtonIconMoreVert } from '@/components/common/icon/iconOnClick';
+import { useUserID } from '@/hooks/user';
+import { useGetPost } from '@/hooks/post';
 
 const data = {
   id: 1,
@@ -69,7 +73,17 @@ const commentInfo: comment[] = [
   },
 ];
 
-export default function post({ params }: { params: { id: string } }) {
+export default function PostId({ params }: { params: { id: string } }) {
+  const { data: post } = useGetPost(params.id);
+  const { data: userInfo } = useUserID();
+  const [isHost, setIsHost] = useState(false);
+
+  useEffect(() => {
+    if (post) {
+      setIsHost(post.post.user.id === userInfo?.id);
+    }
+  }, [post, userInfo]);
+
   // 댓글 렌더링 함수
   function renderComment(comment: comment[]) {
     return comment.map((comment) => {
@@ -99,7 +113,11 @@ export default function post({ params }: { params: { id: string } }) {
 
   return (
     <BaseLayout>
-      <Header leftIcon={<ButtonIconNavigateBefore />} title="글페이지" />
+      <Header
+        leftIcon={<ButtonIconNavigateBefore />}
+        title="글페이지"
+        rightIcon1={<ButtonIconMoreVert id={params.id} isHost={isHost} />}
+      />
       <Post postId={params.id} />
       <ThinDivider />
       {renderComment(commentInfo)}
