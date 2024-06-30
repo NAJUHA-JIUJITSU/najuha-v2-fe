@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import useOutsideClick from '@/hooks/useOutsideClick';
 import Input from '@/components/common/input';
 import styles from './index.module.scss';
@@ -13,6 +13,11 @@ function PostEditor({ onChange, formData }: PostEditorProps) {
   const [body, setBody] = useState(formData.body);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setTitle(formData.title);
+    setBody(formData.body);
+  }, [formData]);
 
   const handleTitleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
