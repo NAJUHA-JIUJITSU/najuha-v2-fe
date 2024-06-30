@@ -11,6 +11,8 @@ export default function Post({ postId }: { postId: string }) {
   const { mutate: incrementViewCount } = useIncrementPostViewCount(postId);
   const queryClient = useQueryClient();
 
+  console.log('data', data);
+
   // 게시글 조회수 증가
   useEffect(() => {
     if (postId) {
@@ -63,7 +65,7 @@ export default function Post({ postId }: { postId: string }) {
       </div>
       <div className={styles.middle}>
         <div className={styles.title}>{lastPostSnapshot.title}</div>
-        <div className={styles.content}>{lastPostSnapshot.body}</div>
+        <div className={styles.body}>{lastPostSnapshot.body}</div>
         {sortedImages.length > 0 && (
           <div className={styles.imageWrapper}>
             {sortedImages.map((image) => (
