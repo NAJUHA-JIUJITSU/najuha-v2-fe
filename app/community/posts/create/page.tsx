@@ -11,10 +11,10 @@ import SelectBoardPage from '@/components/createPost/selectBoardPage';
 import { useCreatePostWithImages } from '@/hooks/post';
 import { IImageCreateDto } from 'najuha-v2-api/lib/modules/images/domain/interface/image.interface';
 import { useRouter } from 'next/navigation';
+import { IPostDetail } from 'najuha-v2-api/lib/modules/posts/domain/interface/post.interface';
 
-type Category = 'FREE' | 'COMPETITION' | 'SEMINAR' | 'OPEN_MAT';
 const steps = ['게시글 작성', '게시판 선택'];
-const categorys: Category[] = ['FREE', 'COMPETITION', 'SEMINAR', 'OPEN_MAT'];
+const categories: IPostDetail['category'][] = ['FREE', 'COMPETITION', 'SEMINAR', 'OPEN_MAT'];
 
 // todo: 로그인 여부 체크 후 로그인 안되어 있으면 로그인 페이지로 이동
 export default function CreatePost() {
@@ -25,7 +25,7 @@ export default function CreatePost() {
 
   const [images, setImages] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState(categorys[0]);
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   const { gotoNextStep, gotoPreviousStep, currentStep } = useFunnel(steps);
   // const { gotoNextStep, gotoPreviousStep, Funnel, Step, currentStep } = useFunnel(steps);
 
@@ -148,7 +148,7 @@ export default function CreatePost() {
       )}
       {currentStep === '게시판 선택' && (
         <SelectBoardPage
-          categorys={categorys}
+          categories={categories}
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
         />
