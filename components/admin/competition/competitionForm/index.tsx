@@ -8,11 +8,12 @@ import CompetitionInfoForm from './competitionInfoForm';
 import CompetitionDetailForm from './competitionDetailForm';
 import CompetitionDivisionForm from './competitionDivisionForm';
 import CompetitionDiscountForm from './competitionDiscountForm';
+import CompetitionAdditionalInfoForm from './competitionAdditionalInfoForm';
 import { useState } from 'react';
 import { ICompetitionCreateDto } from 'najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 import { IDivisionPack } from 'najuha-v2-api/lib/modules/competitions/domain/interface/division-pack.interface';
 
-const steps = ['주요정보', '상세정보', '부문등록', '할인률'];
+const steps = ['주요정보', '상세정보', '부문등록', '할인률', '추가정보'];
 
 interface ICompetitionFormProps {
   // patch 인지 cretae인지 구별해주는 props
@@ -80,7 +81,10 @@ export default function CompetitionForm({
           />
         </Step>
         <Step name="할인률">
-          <CompetitionDiscountForm />
+          <CompetitionDiscountForm onNext={gotoNextStep} />
+        </Step>
+        <Step name="추가정보">
+          <CompetitionAdditionalInfoForm onNext={gotoNextStep} />
         </Step>
       </Funnel>
     </div>

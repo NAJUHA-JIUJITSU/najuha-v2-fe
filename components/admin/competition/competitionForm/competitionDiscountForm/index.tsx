@@ -4,7 +4,6 @@ import CombinationDiscountForm from '@/components/admin/competition/competitionF
 import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import { ICombinationDiscountRule } from 'najuha-v2-api/lib/modules/competitions/domain/interface/combination-discount-rule.interface';
-import { CreateEarlybirdDiscountSnapshotReqBody } from 'najuha-v2-api/lib/modules/competitions/presentation/competitions.controller.dto';
 
 const dummyCombinationDiscountRules: ICombinationDiscountRule[] = [
   // 2-item combinations
@@ -103,7 +102,7 @@ interface earlyBirdDiscount {
   discountAmount: number;
 }
 
-export default function CompetitionDiscountForm() {
+export default function CompetitionDiscountForm({ onNext }) {
   const [earlyBirdDiscount, setEarlyBirdDiscount] = useState<earlyBirdDiscount>({
     earlybirdStartDate: '',
     earlybirdEndDate: '',
@@ -113,7 +112,7 @@ export default function CompetitionDiscountForm() {
     dummyCombinationDiscountRules,
   );
   const [expandedGroups, setExpandedGroups] = useState({});
-
+  console.log('earlyBirdDiscount', earlyBirdDiscount);
   const handleToggleEarlyBird = (enable: boolean) => {
     setEarlyBirdDiscount(
       enable ? { earlybirdStartDate: '', earlybirdEndDate: '', discountAmount: 0 } : null,
@@ -211,7 +210,7 @@ export default function CompetitionDiscountForm() {
           color="blue"
           width="full"
           size="large"
-          onClick={() => {}}
+          onClick={onNext}
         />
       </div>
     </>

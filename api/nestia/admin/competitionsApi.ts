@@ -38,3 +38,15 @@ async function createCompetitionEarlyBirdDiscountSnapshotApi(
   );
   return response.result;
 }
+
+// a-5-9 createCompetitionRequiredAdditionalInfoApi
+async function createCompetitionRequiredAdditionalInfoApi(competitionId: string, data: any) {
+  const response = await withAuth((connection) =>
+    api.functional.admin.competitions.required_additional_infos.createCompetitionRequiredAdditionalInfo(
+      connection,
+      competitionId,
+      data,
+    ),
+  );
+  return response.result;
+}

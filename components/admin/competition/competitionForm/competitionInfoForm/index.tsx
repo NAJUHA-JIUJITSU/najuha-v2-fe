@@ -93,49 +93,57 @@ export default function CompetitionInfoForm({
         />
         <Input
           label="대회일"
-          placeholder="2022-01-01 00:00:00"
+          type="datetime-local"
+          placeholder="대회일을 선택해주세요."
           value={competitionDate}
           onChange={(e) => setCompetitionDate(e.target.value)}
         />
         <Input
-          label="등록 시작일"
-          placeholder="2022-01-01 00:00:00"
+          label="신청 시작일"
+          type="datetime-local"
+          placeholder="신청 시작일을 선택해주세요."
           value={registrationStartDate}
           onChange={(e) => setRegistrationStartDate(e.target.value)}
         />
         <Input
-          label="등록 마감일"
-          placeholder="2022-01-01 00:00:00"
+          label="신청 마감일"
+          type="datetime-local"
+          placeholder="신청 마감일을 선택해주세요."
           value={registrationEndDate}
           onChange={(e) => setRegistrationEndDate(e.target.value)}
         />
         <Input
           label="환불 마감일"
-          placeholder="2022-01-01 00:00:00"
+          type="datetime-local"
+          placeholder="환불 마감일을 선택해주세요."
           value={refundDeadlineDate}
           onChange={(e) => setRefundDeadlineDate(e.target.value)}
         />
         <Input
           label="단독출전 조정 시작일"
-          placeholder="2022-01-01 00:00:00"
+          type="datetime-local"
+          placeholder="단독출전 조정 시작일을 선택해주세요."
           value={soloRegistrationAdjustmentStartDate}
           onChange={(e) => setSoloRegistrationAdjustmentStartDate(e.target.value)}
         />
         <Input
           label="단독출전 조정 마감일"
-          placeholder="2022-01-01 00:00:00"
+          type="datetime-local"
+          placeholder="단독출전 조정 마감일을 선택해주세요."
           value={soloRegistrationAdjustmentEndDate}
           onChange={(e) => setSoloRegistrationAdjustmentEndDate(e.target.value)}
         />
         <Input
           label="참가자 공개일"
-          placeholder="2022-01-01 00:00:00"
+          type="datetime-local"
+          placeholder="참가자 공개일을 선택해주세요."
           value={registrationListOpenDate}
           onChange={(e) => setRegistrationListOpenDate(e.target.value)}
         />
         <Input
           label="대진표 공개일"
-          placeholder="2022-01-01 00:00:00"
+          type="datetime-local"
+          placeholder="대진표 공개일을 선택해주세요."
           value={bracketOpenDate}
           onChange={(e) => setBracketOpenDate(e.target.value)}
         />
