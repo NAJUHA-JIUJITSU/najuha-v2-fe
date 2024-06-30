@@ -57,6 +57,18 @@ export const withAuth = async <T>(apiCall: (connection: IConnection) => Promise<
   }
 };
 
+// todo: 로그인페이지로 이동하지 않기 위한 함수인데, 적절한지 확인 필요
+export const withoutAuth = async <T>(
+  apiCall: (connection: IConnection) => Promise<T>,
+): Promise<T> => {
+  const connection: IConnection = createConnection();
+  try {
+    return await apiCall(connection);
+  } catch (error) {
+    throw error;
+  }
+};
+
 function isAllErrorTypes(error: any): error is AllErrorTypes {
   return (
     typeof error === 'object' &&

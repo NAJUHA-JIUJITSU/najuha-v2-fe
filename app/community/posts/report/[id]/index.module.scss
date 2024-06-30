@@ -1,0 +1,16 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.title {
+  padding-top: 12px;
+  padding-bottom: 8px;
+  @include font-subtitle1-bold;
+  color: $--color-font-headline;
+}
+
+.submit {
+  display: flex;
+  margin-top: auto;
+  padding: 12px 0px;
+}

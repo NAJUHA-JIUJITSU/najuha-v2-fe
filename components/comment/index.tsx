@@ -1,6 +1,6 @@
 import styles from './index.module.scss';
-import Reaction from '@/components/reaction';
-import IconMoreVert from '@/public/svgs/more_vert.svg';
+// import Reaction from '@/components/reaction';
+import IconMoreVert from '@/public/svgs/moreVert.svg';
 import IconReply from '@/public/svgs/reply.svg';
 import { getPastTime } from '@/utils/dateUtils/dateCheck';
 import { comment, replyComment } from '@/interfaces/comment';
@@ -50,10 +50,11 @@ export default function Comment({ commentInfo, type, writer = false }: CommentPr
           )}
           <div className={styles.content}>{commentInfo.content}</div>
         </div>
-        <Reaction
+        {/* todo: Reaction 컴포넌트에 함수전달해서 좋아요기능하게 ㄱㄱ */}
+        {/* <Reaction
           likeCnt={commentInfo.likeCnt}
           commentCnt={isCommentInfo(commentInfo) ? commentInfo.commentCnt : undefined}
-        />
+        /> */}
       </div>
     </div>
   );
