@@ -12,6 +12,7 @@ import CompetitionAdditionalInfoForm from './competitionAdditionalInfoForm';
 import { useState } from 'react';
 import { ICompetitionCreateDto } from 'najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 import { IDivisionPack } from 'najuha-v2-api/lib/modules/competitions/domain/interface/division-pack.interface';
+import { useCompetitionCreate } from '@/hooks/admin';
 
 const steps = ['주요정보', '상세정보', '부문등록', '할인률', '추가정보'];
 
@@ -28,13 +29,7 @@ interface ICompetitionFormProps {
   requiredAdditionalInfoFunction: (data: any) => void;
 }
 
-export default function CompetitionForm({
-  isCreate,
-  competitionId,
-  competitionFunction,
-  divisionFunction,
-  requiredAdditionalInfoFunction,
-}: ICompetitionFormProps) {
+export default function CompetitionForm() {
   const { gotoNextStep, gotoPreviousStep, Funnel, Step, currentStep } = useFunnel(steps);
   const [competitionInfo, setCompetitionInfo] = useState<ICompetitionCreateDto>({
     title: '',
@@ -51,6 +46,9 @@ export default function CompetitionForm({
     isPartnership: false,
   });
   const [divisionPackInfo, setDivisionPackInfo] = useState<IDivisionPack[]>([]);
+  const [competitionId, setCompetitionId] = useState<string | null>(null);
+  const { mutate: createCompetition } = useCompetitionCreate();
+  // const { mutate: createDivision } = useCompetitionCreate();
 
   return (
     <div className={styles.wrapper}>
@@ -71,12 +69,15 @@ export default function CompetitionForm({
             competitionInfo={competitionInfo}
             setCompetitionInfo={setCompetitionInfo}
             onNext={gotoNextStep}
+            createCompetition={createCompetition}
+            setCompetitionId={setCompetitionId}
           />
         </Step>
         <Step name="부문등록">
           <CompetitionDivisionForm
             divisionPackInfo={divisionPackInfo}
             setDivisionPackInfo={setDivisionPackInfo}
+            competitionId={competitionId}
             onNext={gotoNextStep}
           />
         </Step>

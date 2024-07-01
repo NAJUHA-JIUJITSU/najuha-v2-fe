@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useInput } from '@/hooks/useInput';
 import { validateTrue } from '@/utils/validations/userValidations';
 import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import Input from '@/components/common/input';
 import { ICompetitionCreateDto } from 'najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
+import RadioButtonLabel from '@/components/common/radioButtonLabel';
 
 interface CompetitionInfoFormProps {
   competitionInfo: ICompetitionCreateDto;
@@ -51,10 +52,7 @@ export default function CompetitionInfoForm({
     competitionInfo.bracketOpenDate,
     validateTrue,
   );
-  const { value: isPartnership, setValue: setIsPartnership } = useInput(
-    competitionInfo.isPartnership,
-    validateTrue,
-  );
+  const [isPartnership, setIsPartnership] = useState(competitionInfo.isPartnership);
 
   const handleNext = () => {
     // 함수형 업데이트
@@ -147,11 +145,17 @@ export default function CompetitionInfoForm({
           value={bracketOpenDate}
           onChange={(e) => setBracketOpenDate(e.target.value)}
         />
-        <Input
-          label="파트너십 여부"
-          placeholder="파트너십 여부를 선택해주세요."
-          value={isPartnership}
-          onChange={(e) => setIsPartnership(e.target.value)}
+        <RadioButtonLabel
+          msg={'협약대회'}
+          isChecked={isPartnership}
+          changeCheck={() => setIsPartnership(true)}
+          isUnderlined={true}
+        />
+        <RadioButtonLabel
+          msg={'비협약대회'}
+          isChecked={!isPartnership}
+          changeCheck={() => setIsPartnership(false)}
+          isUnderlined={true}
         />
       </div>
       <div className={styles.submit}>

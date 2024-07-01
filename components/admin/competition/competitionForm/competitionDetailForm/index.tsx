@@ -7,24 +7,38 @@ import MDEditor from '@uiw/react-md-editor';
 interface CompetitionDetailFormProps {
   competitionInfo: ICompetitionCreateDto;
   setCompetitionInfo: (data: ICompetitionCreateDto) => void;
+  createCompetition: any;
+  setCompetitionId: (id: string) => void;
   onNext: () => void;
 }
 
 export default function CompetitionDetailForm({
   competitionInfo,
   setCompetitionInfo,
+  createCompetition,
+  setCompetitionId,
   onNext,
 }: CompetitionDetailFormProps) {
   const [value, setValue] = useState(competitionInfo.description);
 
   const handleNext = () => {
-    setCompetitionInfo({
+    const updatedCompetitionInfo = {
       ...competitionInfo,
       description: value,
+    };
+    setCompetitionInfo(updatedCompetitionInfo);
+    createCompetition(updatedCompetitionInfo, {
+      onSuccess: (res) => {
+        console.log(res);
+        alert('대회가 등록되었습니다.');
+        setCompetitionId(res.competition.id);
+        onNext();
+      },
+      onError: () => {
+        alert('대회 등록에 실패했습니다.');
+      },
     });
-    onNext();
   };
-
   return (
     <>
       <div className={styles.wrapper} id="markdown-css">
@@ -33,7 +47,7 @@ export default function CompetitionDetailForm({
       <div className={styles.submit}>
         <ButtonOnClick
           type="filled"
-          text="다음"
+          text="대회등록하기"
           color={'blue'}
           disabled={false}
           width="full"

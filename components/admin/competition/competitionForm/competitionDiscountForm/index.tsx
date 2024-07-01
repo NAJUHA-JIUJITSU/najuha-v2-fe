@@ -102,7 +102,7 @@ interface earlyBirdDiscount {
   discountAmount: number;
 }
 
-export default function CompetitionDiscountForm({ onNext }) {
+export default function CompetitionDiscountForm({ onNext }: { onNext: () => void }) {
   const [earlyBirdDiscount, setEarlyBirdDiscount] = useState<earlyBirdDiscount>({
     earlybirdStartDate: '',
     earlybirdEndDate: '',
