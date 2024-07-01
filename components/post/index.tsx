@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
 import styles from './index.module.scss';
-import Reaction from '@/components/reaction';
+import PostReaction from '@/components/reactions/postReaction';
 import { useGetPost, useIncrementPostViewCount } from '@/hooks/post';
 import { getPastTime } from '@/utils/dateUtils/dateCheck';
 import { useQueryClient } from '@tanstack/react-query';
@@ -78,7 +78,7 @@ export default function Post({ postId }: { postId: string }) {
           </div>
         )}
       </div>
-      <Reaction
+      <PostReaction
         postId={postId}
         userLiked={post.userLiked}
         likeCnt={post.likeCount}

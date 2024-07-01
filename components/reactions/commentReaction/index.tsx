@@ -1,27 +1,31 @@
 'use client';
 import React, { useState } from 'react';
-import styles from './index.module.scss';
+import styles from '../index.module.scss';
 import ButtonOnToggle from '@/components/common/button/buttonOnToggle';
 import IconThumbUp from '@/public/svgs/thumbUp.svg';
 import IconChat from '@/public/svgs/chat.svg';
-import { useCreatePostLike, useDeletePostLike } from '@/hooks/post';
+import { useCreateCommentLike, useDeleteCommentLike } from '@/hooks/post';
 import { useQueryClient } from '@tanstack/react-query';
 
 interface ReactionProps {
   postId: string;
+  commentId: string;
   userLiked?: boolean;
   likeCnt?: number;
-  commentCnt?: number;
+  replyCnt?: number;
+  isReply?: boolean;
 }
 
-export default function Reaction({
+export default function CommentReaction({
   postId,
+  commentId,
   userLiked = false,
   likeCnt = 0,
-  commentCnt = 0,
+  replyCnt = 0,
+  isReply = false,
 }: ReactionProps) {
-  const { mutate: createPostLike } = useCreatePostLike(postId);
-  const { mutate: deletePostLike } = useDeletePostLike(postId);
+  const { mutate: createPostLike } = useCreateCommentLike(commentId);
+  const { mutate: deletePostLike } = useDeleteCommentLike(commentId);
   const [userLikedState, setUserLikedState] = useState<boolean>(userLiked);
   const [likeCntState, setLikeCntState] = useState<number>(likeCnt);
   const queryClient = useQueryClient();
@@ -30,7 +34,7 @@ export default function Reaction({
     setUserLikedState(true);
     setLikeCntState((prev) => prev + 1);
     queryClient.invalidateQueries({
-      queryKey: ['post', postId],
+      queryKey: ['comments', postId],
     });
     console.log('좋아요 성공');
   };
@@ -39,7 +43,7 @@ export default function Reaction({
     setUserLikedState(false);
     setLikeCntState((prev) => prev - 1);
     queryClient.invalidateQueries({
-      queryKey: ['post', postId],
+      queryKey: ['comments', postId],
     });
     console.log('좋아요 삭제 성공');
   };
@@ -72,17 +76,17 @@ export default function Reaction({
         isToggled={userLikedState}
         onToggle={handleLike}
       />
-      {
+      {!isReply && (
         <ButtonOnToggle
           type="reaction"
           color="infoBlue"
           iconLeft={<IconChat />}
-          text={commentCnt.toString()}
+          text={replyCnt.toString()}
           onToggle={() => {
             console.log('comment button clicked');
           }}
         />
-      }
+      )}
     </div>
   );
 }

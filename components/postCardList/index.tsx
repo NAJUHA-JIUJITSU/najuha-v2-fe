@@ -20,7 +20,6 @@ export default function PostCardList({ categoryFilter, sortOption }: postCardLis
 
   const {
     data: postList,
-    isLoading,
     isError,
     fetchNextPage,
     hasNextPage,
@@ -53,7 +52,7 @@ export default function PostCardList({ categoryFilter, sortOption }: postCardLis
     return () => observerRef.current?.disconnect();
   }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
-  if (isLoading)
+  if (isFetchingNextPage)
     return (
       <div style={{ textAlign: 'center', padding: '100px', backgroundColor: 'red' }}>
         Loading...

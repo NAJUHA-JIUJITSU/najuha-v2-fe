@@ -8,6 +8,7 @@ import {
   FindPostsReqQuery,
   UpdatePostReqBody,
 } from 'najuha-v2-api/lib/modules/posts/presentation/posts.controller.dto';
+import { TId } from 'najuha-v2-api/lib/common/common-types';
 
 // 이미지와 함께 게시글을 작성하는 훅
 const useCreatePostWithImages = (path: IImageCreateDto['path']) => {
@@ -71,7 +72,7 @@ const useDeletePost = (postId: string) => {
   });
 };
 
-// 필터 및 정렬된 게시글 목록을 조회하는 훅
+// 필터 및 정렬된 게시글 목록을 조회하는 훅 - 무한 스크롤
 const useFindPosts = (data: FindPostsReqQuery) => {
   return useInfiniteQuery({
     queryKey: ['posts', data],
@@ -120,6 +121,53 @@ const useCreatePostReport = (postId: string) => {
   });
 };
 
+// 게시글의 댓글을 조회하는 훅 - 무한 스크롤
+const useFindComments = (postId: TId) => {
+  return useInfiniteQuery({
+    queryKey: ['comments', postId],
+    queryFn: async ({ pageParam }: { pageParam: number }) => {
+      const response = await postApi.postFindComments(postId, { page: pageParam });
+      return response;
+    },
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => lastPage.nextPage,
+  });
+};
+
+// 게시글의 댓글의 답글을 조회하는 훅 - 무한 스크롤
+const useFindReplies = (postId: TId, commentId: TId) => {
+  return useInfiniteQuery({
+    queryKey: ['replies', commentId],
+    queryFn: async ({ pageParam }: { pageParam: number }) => {
+      const response = await postApi.postFindCommentReplies(postId, commentId, { page: pageParam });
+      return response;
+    },
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => lastPage.nextPage,
+  });
+};
+
+// 게시글의 댓글을 삭제하는 훅
+const useDeleteComment = (commentId: TId) => {
+  return useMutation({
+    mutationFn: () => postApi.postDeleteComment(commentId),
+  });
+};
+
+// 게시글의 댓글에 좋아요를 추가하는 훅
+const useCreateCommentLike = (commentId: TId) => {
+  return useMutation({
+    mutationFn: () => postApi.postCreateCommentLike(commentId),
+  });
+};
+
+// 게시글의 댓글에 좋아요를 삭제하는 훅
+const useDeleteCommentLike = (commentId: TId) => {
+  return useMutation({
+    mutationFn: () => postApi.postDeleteCommentLike(commentId),
+  });
+};
+
 export {
   useCreatePostWithImages,
   useUpdatePostWithImages,
@@ -130,4 +178,9 @@ export {
   useDeletePostLike,
   useIncrementPostViewCount,
   useCreatePostReport,
+  useFindComments,
+  useFindReplies,
+  useDeleteComment,
+  useCreateCommentLike,
+  useDeleteCommentLike,
 };

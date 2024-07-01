@@ -4,6 +4,7 @@ import { TId } from 'najuha-v2-api/lib/common/common-types';
 import {
   CreatePostReportReqBody,
   CreatePostReqBody,
+  FindCommentsReqQuery,
   FindPostsReqQuery,
   UpdatePostReqBody,
 } from 'najuha-v2-api/lib/modules/posts/presentation/posts.controller.dto';
@@ -80,6 +81,53 @@ const postCreatePostReport = async (postId: TId, body: CreatePostReportReqBody) 
   );
 };
 
+// u-7-12 findComments.
+// 게시글의 댓글 목록을 조회합니다.
+const postFindComments = async (postId: TId, query: FindCommentsReqQuery) => {
+  const response = await withAuth((connection) =>
+    api.functional.user.posts.comments.findComments(connection, postId, query),
+  );
+  return response.result;
+};
+
+// u-7-13 findCommentReplies.
+// 게시글의 댓글의 답글 목록을 조회합니다.
+const postFindCommentReplies = async (postId: TId, commentId: TId, query: FindCommentsReqQuery) => {
+  const response = await withAuth((connection) =>
+    api.functional.user.posts.comments.replies.findCommentReplies(
+      connection,
+      postId,
+      commentId,
+      query,
+    ),
+  );
+  return response.result;
+};
+
+// u-7-15 deleteComment.
+// 게시글의 댓글을 삭제합니다.
+const postDeleteComment = async (commentId: TId) => {
+  await withAuth((connection) =>
+    api.functional.user.posts.comments.deletePostComment(connection, commentId),
+  );
+};
+
+// u-7-16 createCommentLike.
+// 게시글의 댓글에 좋아요를 추가합니다.
+const postCreateCommentLike = async (commentId: TId) => {
+  await withAuth((connection) =>
+    api.functional.user.posts.comments.like.createPostCommentLike(connection, commentId),
+  );
+};
+
+// u-7-17 deleteCommentLike.
+// 게시글의 댓글에 좋아요를 삭제합니다.
+const postDeleteCommentLike = async (commentId: TId) => {
+  await withAuth((connection) =>
+    api.functional.user.posts.comments.like.deletePostCommentLike(connection, commentId),
+  );
+};
+
 // u-8-1 incrementPostViewCount.
 // 게시글 조회수를 증가시킵니다.
 const postIncrementPostViewCount = async (postId: TId) => {
@@ -97,5 +145,10 @@ export const postApi = {
   postCreatePostLike,
   postDeletePostLike,
   postCreatePostReport,
+  postFindComments,
+  postFindCommentReplies,
+  postDeleteComment,
+  postCreateCommentLike,
+  postDeleteCommentLike,
   postIncrementPostViewCount,
 };
