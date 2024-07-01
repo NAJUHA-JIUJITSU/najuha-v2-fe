@@ -23,7 +23,7 @@ const DivisionTable = ({ divisionPacks, onEdit, onRemove, onDuplicate }: Divisio
       <div className={`${styles.cell} ${styles['cell--medium']}`}>가격</div>
     </div>
     {divisionPacks.map((pack, index) => (
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <div key={index} style={{ display: 'flex', flexDirection: 'column' }}>
         <div className={styles.column}>
           <div className={`${styles.cell} ${styles['cell--narrow']}`}>{index + 1}</div>
           <div className={`${styles.cell} ${styles['cell--narrow']}`}>

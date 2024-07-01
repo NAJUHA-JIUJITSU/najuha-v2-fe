@@ -3,6 +3,9 @@ import api from 'najuha-v2-api/lib/api';
 import { ICompetitionCreateDto } from 'najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 import { IEarlybirdDiscountSnapshotCreateDto } from 'najuha-v2-api/lib/modules/competitions/domain/interface/earlybird-discount-snapshot.interface';
 import { Primitive } from '@nestia/fetcher';
+import { IDivision } from 'najuha-v2-api/lib/modules/competitions/domain/interface/division.interface';
+import { IDivisionPack } from 'najuha-v2-api/lib/modules/competitions/domain/interface/division-pack.interface';
+import { CreateDivisionsReqBody } from 'najuha-v2-api/lib/modules/competitions/presentation/competitions.controller.dto';
 // a-5-1 createCompetitionApi
 async function createCompetitionApi(data: Primitive<ICompetitionCreateDto>) {
   const response = await withAuth((connection) =>
@@ -48,7 +51,13 @@ async function updateCompetitionStatusApi(competitionId: string, data: any) {
 }
 
 // a-5-6 createCompetitionDivisionApi
-async function createCompetitionDivisionApi(competitionId: string, data: any) {
+async function createCompetitionDivisionApi({
+  competitionId,
+  data,
+}: {
+  competitionId: string;
+  data: CreateDivisionsReqBody;
+}) {
   const response = await withAuth((connection) =>
     api.functional.admin.competitions.divisions.createCompetitionDivisions(
       connection,

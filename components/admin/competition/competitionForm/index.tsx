@@ -12,7 +12,7 @@ import CompetitionAdditionalInfoForm from './competitionAdditionalInfoForm';
 import { useState } from 'react';
 import { ICompetitionCreateDto } from 'najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 import { IDivisionPack } from 'najuha-v2-api/lib/modules/competitions/domain/interface/division-pack.interface';
-import { useCompetitionCreate } from '@/hooks/admin';
+import { useCreateCompetition, useCreateDivision } from '@/hooks/admin';
 
 const steps = ['주요정보', '상세정보', '부문등록', '할인률', '추가정보'];
 
@@ -47,8 +47,8 @@ export default function CompetitionForm() {
   });
   const [divisionPackInfo, setDivisionPackInfo] = useState<IDivisionPack[]>([]);
   const [competitionId, setCompetitionId] = useState<string | null>(null);
-  const { mutate: createCompetition } = useCompetitionCreate();
-  // const { mutate: createDivision } = useCompetitionCreate();
+  const { mutate: createCompetition } = useCreateCompetition();
+  const { mutate: createDivision } = useCreateDivision();
 
   return (
     <div className={styles.wrapper}>
@@ -78,6 +78,7 @@ export default function CompetitionForm() {
             divisionPackInfo={divisionPackInfo}
             setDivisionPackInfo={setDivisionPackInfo}
             competitionId={competitionId}
+            createDivision={createDivision}
             onNext={gotoNextStep}
           />
         </Step>
