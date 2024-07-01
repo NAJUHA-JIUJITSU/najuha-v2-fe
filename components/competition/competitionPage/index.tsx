@@ -56,7 +56,6 @@ const sortOptions: TCompetitionSortOption[] = ['일자순', '조회순', '마감
 
 export default function CompetitionPage() {
   const { params, updateParams } = useURLParams();
-
   const [dateFilterState, setDateFilterState] = useState<string>(params.date as string);
   const [locationFilterState, setLocationFilterState] = useState<TCompetitionLocationFilter>(
     (params.location as TCompetitionLocationFilter) || '전체',

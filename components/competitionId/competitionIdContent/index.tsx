@@ -10,21 +10,23 @@ interface CompetitionIdContentProps {
   competition: ICompetition;
 }
 
-//todo: 각 컴포넌트에서 직접 데이터를 받아와도 되는지 확인
-//리액트 쿼리를 이용하면 각 컴포넌트에서 여러번 api를 호출해도 최초 호출시에만 api를 호출하고 그 이후에는 캐시된 데이터를 사용하니까 괜찮을 것 같습니다.??
+const getPosterImageUrl = (competition: ICompetition): string => {
+  if (competition.competitionPosterImages.length > 0) {
+    const latest = competition.competitionPosterImages.length - 1;
+    return `http://localhost:9000/najuha-v2-bucket/${competition.competitionPosterImages[latest].image.path}/${competition.competitionPosterImages[latest].image.id}`;
+  }
+  return '/images/samplePoster1.png';
+};
 
 export default function CompetitionIdContent({ competition }: CompetitionIdContentProps) {
-  // imageURL이 없으면 기본 이미지로 대체
-  if (!competition.posterImgUrlKey) {
-    competition.posterImgUrlKey = '/images/samplePoster1.png';
-  }
+  const posterImgUrl = getPosterImageUrl(competition);
   return (
     <div className={styles.wrapper}>
       {/* 대회 상세페이지 상단 */}
       <div className={styles.topContent}>
         {/* 대회 배너 */}
         <CompetitionBanner
-          posterImg={competition.posterImgUrlKey}
+          posterImg={posterImgUrl}
           viewCnt={competition.viewCount}
         ></CompetitionBanner>
 

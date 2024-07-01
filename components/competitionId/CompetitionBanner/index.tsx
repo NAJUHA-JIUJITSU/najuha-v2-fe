@@ -1,8 +1,9 @@
+import { ICompetition } from 'najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 import styles from './index.module.scss';
 
 interface CompetitionBannerProps {
   posterImg: string;
-  viewCnt: number;
+  viewCnt: ICompetition['viewCount'];
 }
 
 export default function CompetitionBanner(props: CompetitionBannerProps) {

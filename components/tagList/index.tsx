@@ -7,16 +7,17 @@ import {
   areBothDatesPassed,
 } from '@/utils/dateUtils/dateCheck';
 import { TagType } from '@/components/tag';
+import { TDateOrStringDate } from 'najuha-v2-api/lib/common/common-types';
 
 interface TagListProps {
   competiton: {
-    registrationStartDate: string;
-    registrationEndDate: string;
+    registrationStartDate: TDateOrStringDate | null;
+    registrationEndDate: TDateOrStringDate | null;
     isPartnership: boolean;
-    soloRegistrationAdjustmentStartDate: string;
-    soloRegistrationAdjustmentEndDate: string;
-    ealryBirdStartDate: string | undefined;
-    ealryBirdEndDate: string | undefined;
+    soloRegistrationAdjustmentStartDate: TDateOrStringDate | null;
+    soloRegistrationAdjustmentEndDate: TDateOrStringDate | null;
+    ealryBirdStartDate: TDateOrStringDate | undefined;
+    ealryBirdEndDate: TDateOrStringDate | undefined;
   };
 }
 
@@ -30,8 +31,8 @@ export default function TagList({ competiton }: TagListProps) {
 
   // D-Day 계산에 따른 태그 추가를 위한 함수
   const addDdayTagIfNeeded = (
-    startDate: string,
-    endDate: string,
+    startDate: TDateOrStringDate | null,
+    endDate: TDateOrStringDate | null,
     tagType: TagType,
     tagName: string,
   ) => {

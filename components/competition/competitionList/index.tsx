@@ -54,11 +54,6 @@ export default function CompetitionList({
 
   return (
     <div className={styles.wrapper}>
-      <h1>{dateFilter}</h1>
-      <h1>{locationFilter}</h1>
-      <h1>{selectFilter}</h1>
-      <h1>{sortOption}</h1>
-
       {/* 대회 리스트 */}
       {competitionList?.pages.map((group, i) => (
         <Fragment key={i}>

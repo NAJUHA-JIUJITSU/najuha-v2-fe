@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import TagList from '@/components/tagList';
 import { formatDateYMD, formatDateMDWeekday } from '@/utils/dateUtils/dateFormat';
 import { areBothDatesPassed } from '@/utils/dateUtils/dateCheck';
-import Image from 'next/image';
 import IconEye from '@/public/svgs/eye.svg';
 import { ICompetitionSummary } from 'najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 
@@ -16,56 +15,44 @@ interface CardProps {
   competition: ICompetitionSummary;
 }
 
-//todo: image 최적화
+const getPosterImageUrl = (competition: ICompetitionSummary): string => {
+  if (competition.competitionPosterImages.length > 0) {
+    const latest = competition.competitionPosterImages.length - 1;
+    return `http://localhost:9000/najuha-v2-bucket/${competition.competitionPosterImages[latest].image.path}/${competition.competitionPosterImages[latest].image.id}`;
+  }
+  return '/images/samplePoster1.png';
+};
+
 export default function Card({ type = 'normal', competition }: CardProps) {
   const router = useRouter();
-
-  let posterImgUrl = '';
-  // imageURL이 없으면 기본 이미지로 대체 나중에 밑에 주석처리된 코드로 변경
-  // if (!competition.competitionPosterImages[0].imageId) {
-  //   const latest = competition.competitionPosterImages.length - 1;
-  //   posterImgUrl = `${s3url}/${competition.competitionPosterImages[latest].imageId}`
-  // } else {
-  //   posterImgUrl = '/images/samplePoster1.png';
-  // }
-  posterImgUrl = '/images/samplePoster1.png';
-
-  //타입이 normal이거나 가격이 없으면 가격 표시 안함
-  // let isPrice = false;
-  // if (type === 'normal' || !info.price) {
-  //   isPrice = false;
-  // }
-
-  //신청날짜와 단독출전조정기간 모두 이미 지났으면 disabled
-  const disabled = areBothDatesPassed(
+  const posterImgUrl = getPosterImageUrl(competition);
+  const isCompetitionDisabled = areBothDatesPassed(
     competition.registrationEndDate,
     competition.soloRegistrationAdjustmentEndDate,
   );
-
   // 클릭 시 대회 상세페이지로 이동
   const handleClick = () => {
     router.push(`/competition/${competition.id}`);
   };
+
+  // 세미나, 오픈매트 추가하면 isPrice 추가
+  // let isPrice = false;
+  // if (type === 'normal' || !info.price) {
+  //   isPrice = false;
+  // }
 
   return (
     <div
       className={clsx(
         styles.card,
         { [styles.vertical]: type === 'vertical' },
-        { [styles.disabled]: disabled },
+        { [styles.disabled]: isCompetitionDisabled },
       )}
       onClick={handleClick}
     >
       <div className={styles.posterSection}>
         {/* 포스터 이미지 및 기타 정보 표시 */}
-        <Image
-          className={styles.posterImg}
-          src={posterImgUrl}
-          alt={competition.title}
-          width={100}
-          height={100}
-          priority={true}
-        ></Image>
+        <img className={styles.posterImg} src={posterImgUrl} alt={competition.title}></img>
         <div className={styles.shadowInfo}>
           <p className={styles.viewCnt}>
             <IconEye />
