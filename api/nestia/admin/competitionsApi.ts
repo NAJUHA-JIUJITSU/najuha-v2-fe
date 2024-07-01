@@ -5,7 +5,10 @@ import { IEarlybirdDiscountSnapshotCreateDto } from 'najuha-v2-api/lib/modules/c
 import { Primitive } from '@nestia/fetcher';
 import { IDivision } from 'najuha-v2-api/lib/modules/competitions/domain/interface/division.interface';
 import { IDivisionPack } from 'najuha-v2-api/lib/modules/competitions/domain/interface/division-pack.interface';
-import { CreateDivisionsReqBody } from 'najuha-v2-api/lib/modules/competitions/presentation/competitions.controller.dto';
+import {
+  CreateCombinationDiscountSnapshotReqBody,
+  CreateDivisionsReqBody,
+} from 'najuha-v2-api/lib/modules/competitions/presentation/competitions.controller.dto';
 // a-5-1 createCompetitionApi
 async function createCompetitionApi(data: Primitive<ICompetitionCreateDto>) {
   const response = await withAuth((connection) =>
@@ -68,10 +71,13 @@ async function createCompetitionDivisionApi({
   return response.result;
 }
 // a-5-7 createCompetitionEarlyBirdDiscountSnapshotApi
-async function createCompetitionEarlyBirdDiscountSnapshotApi(
-  competitionId: string,
-  data: Primitive<Omit<IEarlybirdDiscountSnapshotCreateDto, 'competitionId'>>,
-) {
+async function createCompetitionEarlyBirdDiscountSnapshotApi({
+  competitionId,
+  data,
+}: {
+  competitionId: string;
+  data: Primitive<Omit<IEarlybirdDiscountSnapshotCreateDto, 'competitionId'>>;
+}) {
   const response = await withAuth((connection) =>
     api.functional.admin.competitions.earlybird_discount_snapshots.createCompetitionEarlybirdDiscountSnapshot(
       connection,
@@ -83,7 +89,13 @@ async function createCompetitionEarlyBirdDiscountSnapshotApi(
 }
 
 // a-5-8 createCompetitionCombinationDiscountSnapshotApi
-async function createCompetitionCombinationDiscountSnapshotApi(competitionId: string, data: any) {
+async function createCompetitionCombinationDiscountSnapshotApi({
+  competitionId,
+  data,
+}: {
+  competitionId: string;
+  data: CreateCombinationDiscountSnapshotReqBody;
+}) {
   const response = await withAuth((connection) =>
     api.functional.admin.competitions.combination_discount_snapshots.createCombinationDiscountSnapshot(
       connection,

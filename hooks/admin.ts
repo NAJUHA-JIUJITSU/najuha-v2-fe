@@ -18,3 +18,21 @@ export const useCreateDivision = () => {
     },
   });
 };
+
+export const useCreateEarlyBirdDiscount = () => {
+  return useMutation({
+    mutationFn: adminCompetitionsApi.createCompetitionEarlyBirdDiscountSnapshotApi,
+    onError: (error) => {
+      console.error('Error creating early bird discount:', error);
+    },
+  });
+};
+
+export const useCreateCombinationDiscount = () => {
+  return useMutation({
+    mutationFn: adminCompetitionsApi.createCompetitionCombinationDiscountSnapshotApi,
+    onError: (error) => {
+      console.error('Error creating combination discount:', error);
+    },
+  });
+};

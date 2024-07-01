@@ -83,7 +83,7 @@ export default function CompetitionForm() {
           />
         </Step>
         <Step name="할인률">
-          <CompetitionDiscountForm onNext={gotoNextStep} />
+          <CompetitionDiscountForm onNext={gotoNextStep} competitionId={competitionId} />
         </Step>
         <Step name="추가정보">
           <CompetitionAdditionalInfoForm onNext={gotoNextStep} />

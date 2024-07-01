@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import EarlyBirdDiscountForm from '@/components/admin/competition/competitionForm/competitionDiscountForm/earlyBirdDiscountForm';
 import CombinationDiscountForm from '@/components/admin/competition/competitionForm/competitionDiscountForm/combinationDiscountForm';
 import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import { ICombinationDiscountRule } from 'najuha-v2-api/lib/modules/competitions/domain/interface/combination-discount-rule.interface';
+import { useCreateCombinationDiscount, useCreateEarlyBirdDiscount } from '@/hooks/admin';
 
 const dummyCombinationDiscountRules: ICombinationDiscountRule[] = [
   // 2-item combinations
@@ -102,7 +103,13 @@ interface earlyBirdDiscount {
   discountAmount: number;
 }
 
-export default function CompetitionDiscountForm({ onNext }: { onNext: () => void }) {
+export default function CompetitionDiscountForm({
+  onNext,
+  competitionId,
+}: {
+  onNext: () => void;
+  competitionId: string | null;
+}) {
   const [earlyBirdDiscount, setEarlyBirdDiscount] = useState<earlyBirdDiscount>({
     earlybirdStartDate: '',
     earlybirdEndDate: '',
@@ -112,7 +119,9 @@ export default function CompetitionDiscountForm({ onNext }: { onNext: () => void
     dummyCombinationDiscountRules,
   );
   const [expandedGroups, setExpandedGroups] = useState({});
-  console.log('earlyBirdDiscount', earlyBirdDiscount);
+  const { mutate: createCombinationDiscount } = useCreateCombinationDiscount();
+  const { mutate: createEarlyBirdDiscount } = useCreateEarlyBirdDiscount();
+
   const handleToggleEarlyBird = (enable: boolean) => {
     setEarlyBirdDiscount(
       enable ? { earlybirdStartDate: '', earlybirdEndDate: '', discountAmount: 0 } : null,
@@ -175,6 +184,48 @@ export default function CompetitionDiscountForm({ onNext }: { onNext: () => void
     setCombinationDiscountRules((prev) => [newCombination, ...prev]);
   };
 
+  const handleCreateEarlyBirdDiscount = () => {
+    if (!competitionId) return;
+    createEarlyBirdDiscount(
+      {
+        competitionId: competitionId,
+        data: {
+          ...earlyBirdDiscount,
+        },
+      },
+      {
+        onSuccess: (res) => {
+          alert('얼리버드 할인이 등록되었습니다.');
+          console.log(res);
+        },
+        onError: () => {
+          alert('얼리버드 할인 등록에 실패했습니다.');
+        },
+      },
+    );
+  };
+
+  const handleCreateCombinationDiscount = () => {
+    if (!competitionId) return;
+    createCombinationDiscount(
+      {
+        competitionId: competitionId,
+        data: {
+          combinationDiscountRules,
+        },
+      },
+      {
+        onSuccess: (res) => {
+          alert('조합할인이 등록되었습니다.');
+          console.log(res);
+        },
+        onError: () => {
+          alert('조합할인 등록에 실패했습니다.');
+        },
+      },
+    );
+  };
+
   return (
     <>
       <div className={styles.wrapper}>
@@ -206,7 +257,23 @@ export default function CompetitionDiscountForm({ onNext }: { onNext: () => void
       <div className={styles.submit}>
         <ButtonOnClick
           type="filled"
-          text="Next"
+          text="얼리버드 할인등록"
+          color="blue"
+          width="full"
+          size="large"
+          onClick={handleCreateEarlyBirdDiscount}
+        />
+        <ButtonOnClick
+          type="filled"
+          text="조합할인 등록"
+          color="blue"
+          width="full"
+          size="large"
+          onClick={handleCreateCombinationDiscount}
+        />
+        <ButtonOnClick
+          type="filled"
+          text="다음"
           color="blue"
           width="full"
           size="large"
