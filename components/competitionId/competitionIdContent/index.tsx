@@ -1,3 +1,5 @@
+'use client';
+import React, { useEffect } from 'react';
 import styles from './index.module.scss';
 import CompetitionBanner from '@/components/competitionId/CompetitionBanner';
 import CompetitionInfos from '@/components/competitionId/CompetitionInfos';
@@ -5,6 +7,9 @@ import CompetitionInfoButtonList from '@/components/competitionId/CompetitionInf
 import CompetitionDetails from '@/components/competitionId/CompetitionDetails';
 import ButtonLink from '@/components/common/button/buttonLink';
 import { ICompetition } from '@/node_modules/najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
+import { useIncrementCompetitionViewCount } from '@/hooks/competition';
+import { useQueryClient } from '@tanstack/react-query';
+import { queries } from '@/queries/index';
 
 interface CompetitionIdContentProps {
   competition: ICompetition;
@@ -19,7 +24,25 @@ const getPosterImageUrl = (competition: ICompetition): string => {
 };
 
 export default function CompetitionIdContent({ competition }: CompetitionIdContentProps) {
+  const { mutate: incrementViewCount } = useIncrementCompetitionViewCount(competition.id);
   const posterImgUrl = getPosterImageUrl(competition);
+  const queryClient = useQueryClient();
+
+  // 대회 조회수 증가
+  useEffect(() => {
+    incrementViewCount(void 0, {
+      onSuccess: () => {
+        console.log('대회 조회수 증가 성공');
+        queryClient.invalidateQueries({
+          queryKey: queries.competition.id(competition.id).queryKey,
+        });
+      },
+      onError: () => {
+        console.log('대회 조회수 증가 실패');
+      },
+    });
+  }, [incrementViewCount, queryClient, competition.id]);
+
   return (
     <div className={styles.wrapper}>
       {/* 대회 상세페이지 상단 */}

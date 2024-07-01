@@ -1,10 +1,9 @@
-import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
+import { useQuery, useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import { queries } from '@/queries/index';
 import { competitionApi } from '@/api/nestia/competitionApi';
 import { CompetitionListProps } from '@/interfaces/competitionList';
 
-//Todo: 무한스크롤 구현
-//전체 대회 목록 조회
+// 전체 대회 목록 조회 - 노 필터링
 export const useGetCompetitions = () => {
   return useQuery({
     queryKey: queries.competition.all().queryKey,
@@ -13,8 +12,7 @@ export const useGetCompetitions = () => {
   });
 };
 
-//필터 및 정렬된 대회 목록 조회
-
+// 전체 대회 목록 조회 - 필터 및 정렬, 무한 스크롤
 export const useGetFilteredCompetitions = ({
   dateFilter,
   locationFilter,
@@ -42,10 +40,17 @@ export const useGetFilteredCompetitions = ({
   });
 };
 
-//특정 대회 조회
+// 특정 대회 조회
 export const useGetCompetitionId = (competitionId: string) => {
   return useQuery({
     queryKey: queries.competition.id(competitionId).queryKey,
     queryFn: () => competitionApi.getCompetitionId(competitionId),
+  });
+};
+
+// 대회 조회수를 증가시키는 훅
+export const useIncrementCompetitionViewCount = (competitionId: string) => {
+  return useMutation({
+    mutationFn: () => competitionApi.incrementCompetitionViewCount(competitionId),
   });
 };
