@@ -7,6 +7,7 @@ import { IDivision } from 'najuha-v2-api/lib/modules/competitions/domain/interfa
 import { IDivisionPack } from 'najuha-v2-api/lib/modules/competitions/domain/interface/division-pack.interface';
 import {
   CreateCombinationDiscountSnapshotReqBody,
+  CreateCompetitionRequiredAdditionalInfoReqBody,
   CreateDivisionsReqBody,
 } from 'najuha-v2-api/lib/modules/competitions/presentation/competitions.controller.dto';
 // a-5-1 createCompetitionApi
@@ -107,7 +108,13 @@ async function createCompetitionCombinationDiscountSnapshotApi({
 }
 
 // a-5-9 createCompetitionRequiredAdditionalInfoApi
-async function createCompetitionRequiredAdditionalInfoApi(competitionId: string, data: any) {
+async function createCompetitionRequiredAdditionalInfoApi({
+  competitionId,
+  data,
+}: {
+  competitionId: string;
+  data: CreateCompetitionRequiredAdditionalInfoReqBody;
+}) {
   const response = await withAuth((connection) =>
     api.functional.admin.competitions.required_additional_infos.createCompetitionRequiredAdditionalInfo(
       connection,

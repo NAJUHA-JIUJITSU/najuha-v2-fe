@@ -36,3 +36,12 @@ export const useCreateCombinationDiscount = () => {
     },
   });
 };
+
+export const useCreateRequiredAdditionalInfo = () => {
+  return useMutation({
+    mutationFn: adminCompetitionsApi.createCompetitionRequiredAdditionalInfoApi,
+    onError: (error) => {
+      console.error('Error creating required additional info:', error);
+    },
+  });
+};

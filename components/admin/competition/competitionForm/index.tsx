@@ -86,7 +86,7 @@ export default function CompetitionForm() {
           <CompetitionDiscountForm onNext={gotoNextStep} competitionId={competitionId} />
         </Step>
         <Step name="추가정보">
-          <CompetitionAdditionalInfoForm onNext={gotoNextStep} />
+          <CompetitionAdditionalInfoForm onNext={gotoNextStep} competitionId={competitionId} />
         </Step>
       </Funnel>
     </div>
