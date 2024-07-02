@@ -11,8 +11,6 @@ interface ICompetitionDivisionFormProps {
   divisionPackInfo: IDivisionPack[];
   setDivisionPackInfo: React.Dispatch<React.SetStateAction<IDivisionPack[]>>;
   competitionId: string | null;
-  // createDivision: (data: { competitionId: string; data: CreateDivisionsReqBody }) => void;
-  // createDivision is UseMutationFunction
   createDivision: UseMutateFunction<
     any,
     unknown,
@@ -43,19 +41,21 @@ export default function CompetitionDivisionForm({
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(divisionPackInfo);
     const { name, value } = e.target;
     const splitValues = value.split(',');
     setCurrentDivisionPack((prev) => ({
       ...prev,
-      [name]: name === 'price' ? parseInt(value, 10) : splitValues,
+      [name]: splitValues,
     }));
   };
 
   const handleSingleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(divisionPackInfo);
     const { name, value } = e.target;
     setCurrentDivisionPack((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: name === 'price' ? parseInt(value, 10) : value,
     }));
   };
 
@@ -72,11 +72,6 @@ export default function CompetitionDivisionForm({
     const duplicatePack = { ...divisionPackInfo[index] };
     setDivisionPackInfo((prev) => [...prev, duplicatePack]);
   };
-
-  const handleNext = () => {
-    onNext();
-  };
-  //adddivision
 
   const handleAddDivisionPack = () => {
     if (editingIndex !== null) {
@@ -100,11 +95,7 @@ export default function CompetitionDivisionForm({
   };
 
   const RegisterDivisionPack = () => {
-    if (competitionId === null) return;
-    // need to change each division pack price to number
-    divisionPackInfo.forEach((divisionPack) => {
-      divisionPack.price = Number(divisionPack.price);
-    });
+    if (competitionId === null) return; // competitionId null일때 예외처리
     createDivision(
       {
         competitionId: competitionId,
@@ -122,6 +113,10 @@ export default function CompetitionDivisionForm({
         },
       },
     );
+  };
+
+  const handleNext = () => {
+    onNext();
   };
 
   return (
