@@ -14,10 +14,11 @@ type CardType = 'normal' | 'vertical';
 interface CardProps {
   type: CardType;
   competition: ICompetitionSummary;
+  admin?: boolean;
 }
 
 //todo: image 최적화
-export default function Card({ type = 'normal', competition }: CardProps) {
+export default function Card({ type = 'normal', competition, admin = false }: CardProps) {
   const router = useRouter();
 
   let posterImgUrl = '';
@@ -44,6 +45,10 @@ export default function Card({ type = 'normal', competition }: CardProps) {
 
   // 클릭 시 대회 상세페이지로 이동
   const handleClick = () => {
+    if (admin) {
+      router.push(`/admin/competition/${competition.id}`);
+      return;
+    }
     router.push(`/competition/${competition.id}`);
   };
 

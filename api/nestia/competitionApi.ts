@@ -16,7 +16,7 @@ export const getCompetitions = async () => {
   return response.result.competitions;
 };
 
-interface fetchCompetitionsParams {
+export interface fetchCompetitionsParams {
   page: number;
   limit: number;
   dateFilter?: string;
@@ -25,7 +25,7 @@ interface fetchCompetitionsParams {
   sortOption: TCompetitionSortOption;
 }
 
-interface getFilteredCompetitionsParams extends CompetitionListProps {
+export interface getFilteredCompetitionsParams extends CompetitionListProps {
   page: number;
   limit: number;
 }
@@ -37,6 +37,7 @@ export const getFilteredCompetitions = async ({
   locationFilter,
   selectFilter,
   sortOption,
+  admin = false,
 }: getFilteredCompetitionsParams) => {
   const params: fetchCompetitionsParams = {
     page: page,
@@ -56,10 +57,10 @@ export const getFilteredCompetitions = async ({
     params.selectFilter = selectFilter;
   }
   console.log('대회 요청: ', { params });
+  // admin이 true면 admin api로, 아니면 user api로 요청
+  const tmp = admin ? api.functional.admin.competitions : api.functional.user.competitions;
 
-  const response = await withAuth((connection) =>
-    api.functional.user.competitions.findCompetitions(connection, params),
-  );
+  const response = await withAuth((connection) => tmp.findCompetitions(connection, params));
 
   return response.result;
 };

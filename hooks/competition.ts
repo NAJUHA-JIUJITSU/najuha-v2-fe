@@ -20,6 +20,7 @@ export const useGetFilteredCompetitions = ({
   locationFilter,
   selectFilter,
   sortOption,
+  admin = false,
 }: CompetitionListProps) => {
   const fetchCompetitions = async ({ pageParam }: { pageParam: number }) => {
     const response = await competitionApi.getFilteredCompetitions({
@@ -29,6 +30,7 @@ export const useGetFilteredCompetitions = ({
       locationFilter,
       selectFilter,
       sortOption,
+      admin,
     });
     return response;
   };

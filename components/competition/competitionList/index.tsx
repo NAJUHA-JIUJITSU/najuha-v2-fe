@@ -10,6 +10,7 @@ export default function CompetitionList({
   locationFilter,
   selectFilter,
   sortOption,
+  admin = false,
 }: CompetitionListProps) {
   const {
     data: competitionList,
@@ -18,7 +19,7 @@ export default function CompetitionList({
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useGetFilteredCompetitions({ dateFilter, locationFilter, selectFilter, sortOption });
+  } = useGetFilteredCompetitions({ dateFilter, locationFilter, selectFilter, sortOption, admin });
 
   console.log('대회 리스트: ', competitionList);
 
@@ -63,7 +64,7 @@ export default function CompetitionList({
       {competitionList?.pages.map((group, i) => (
         <Fragment key={i}>
           {group.competitions.map((competition) => (
-            <Card key={competition.id} type="normal" competition={competition} />
+            <Card key={competition.id} type="normal" competition={competition} admin={admin} />
           ))}
         </Fragment>
       ))}
