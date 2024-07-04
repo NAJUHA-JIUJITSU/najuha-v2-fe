@@ -7,10 +7,11 @@ import ButtonOnClick from '@/components/common/button/buttonOnClick';
 
 interface ReplyCommentListProps {
   postId: TId;
+  postUserId: TId;
   commentId: TId;
 }
 
-export default function ReplyCommentList({ postId, commentId }: ReplyCommentListProps) {
+export default function ReplyCommentList({ postId, postUserId, commentId }: ReplyCommentListProps) {
   const {
     data: replies,
     isError,
@@ -19,7 +20,6 @@ export default function ReplyCommentList({ postId, commentId }: ReplyCommentList
     isFetchingNextPage,
   } = useFindReplies(postId, commentId);
   const { data: userInfo } = useUserID();
-  console.log('replies', replies);
 
   if (!replies) return null;
 
@@ -27,7 +27,14 @@ export default function ReplyCommentList({ postId, commentId }: ReplyCommentList
     <div>
       {replies.pages.map((page) =>
         page.comments.map((reply) => (
-          <ReplyComment key={reply.id} comment={reply} writer={reply.userId === userInfo?.id} />
+          <ReplyComment
+            parentId={commentId}
+            key={reply.id}
+            comment={reply}
+            postId={postId}
+            isWriter={reply.userId === postUserId}
+            isHost={reply.userId === userInfo?.id}
+          />
         )),
       )}
       {isFetchingNextPage && <div>더 많은 답글을 불러오는 중...</div>}

@@ -1,29 +1,30 @@
 import { useState } from 'react';
 import styles from '../index.module.scss';
 import CommentReaction from '@/components/reactions/commentReaction';
-import IconMoreVert from '@/public/svgs/moreVert.svg';
 import IconReply from '@/public/svgs/reply.svg';
 import { getPastTime } from '@/utils/dateUtils/dateCheck';
 import { ICommentDetail } from 'najuha-v2-api/lib/modules/posts/domain/interface/comment.interface';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import { TId } from 'najuha-v2-api/lib/common/common-types';
 import ReplyCommentList from '@/components/comments/replyCommentList';
-// import ReplyComment from '../replyComment';
+import { ButtonIconMoreVertForComment } from '@/components/common/icon/iconOnClick';
 
 interface CommentProps {
   postId: TId;
+  postUserId: TId;
   comment: ICommentDetail;
-  type: 'comment' | 'reply';
-  writer?: boolean;
+  isWriter: boolean;
+  isHost?: boolean;
   isBest?: boolean;
   isPreview?: boolean;
 }
 
 export default function Comment({
   postId,
+  postUserId,
   comment,
-  type,
-  writer = false,
+  isWriter,
+  isHost = false,
   isBest = false,
   isPreview = false,
 }: CommentProps) {
@@ -33,11 +34,6 @@ export default function Comment({
 
   return (
     <div className={styles.wrapper}>
-      {type === 'reply' && (
-        <div className={styles.extraIcon}>
-          <IconReply />
-        </div>
-      )}
       <div className={styles.commentWrapper}>
         <div className={styles.top}>
           <div className={styles.left}>
@@ -47,7 +43,7 @@ export default function Comment({
               alt="profileImage"
             />
             <div className={styles.name}>
-              {writer ? (
+              {isWriter ? (
                 <div className={styles.writer}>{comment.user.nickname}(글쓴이)</div>
               ) : (
                 comment.user.nickname
@@ -58,7 +54,15 @@ export default function Comment({
               {comment.commentSnapshots.length > 1 ? '(수정됨)' : ''}
             </div>
           </div>
-          <div className={styles.right}>{!isPreview && <IconMoreVert />}</div>
+          <div className={styles.right}>
+            {!isPreview && (
+              <ButtonIconMoreVertForComment
+                commentId={comment.id}
+                postId={postId}
+                isHost={isHost}
+              />
+            )}
+          </div>
         </div>
         <div className={styles.middle}>
           {/**  BEST 댓글일 경우에만 노출 */}
@@ -88,7 +92,9 @@ export default function Comment({
             />
           </div>
         )}
-        {isReplyOpen && <ReplyCommentList postId={postId} commentId={comment.id} />}
+        {isReplyOpen && (
+          <ReplyCommentList postId={postId} postUserId={postUserId} commentId={comment.id} />
+        )}
       </div>
     </div>
   );
