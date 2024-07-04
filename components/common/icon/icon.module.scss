@@ -11,6 +11,16 @@
     width: 24px;
     height: 24px;
   }
+  &.commentWrapper {
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .dropdown {
+      top: 22px;
+    }
+  }
 }
 
 .dropdown {
