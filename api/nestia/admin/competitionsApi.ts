@@ -3,13 +3,12 @@ import api from 'najuha-v2-api/lib/api';
 import { ICompetitionCreateDto } from 'najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 import { IEarlybirdDiscountSnapshotCreateDto } from 'najuha-v2-api/lib/modules/competitions/domain/interface/earlybird-discount-snapshot.interface';
 import { Primitive } from '@nestia/fetcher';
-import { IDivision } from 'najuha-v2-api/lib/modules/competitions/domain/interface/division.interface';
-import { IDivisionPack } from 'najuha-v2-api/lib/modules/competitions/domain/interface/division-pack.interface';
 import {
   CreateCombinationDiscountSnapshotReqBody,
   CreateCompetitionRequiredAdditionalInfoReqBody,
   CreateDivisionsReqBody,
 } from 'najuha-v2-api/lib/modules/competitions/presentation/competitions.controller.dto';
+import { fetchCompetitionsParams } from '../competitionApi';
 // a-5-1 createCompetitionApi
 async function createCompetitionApi(data: Primitive<ICompetitionCreateDto>) {
   const response = await withAuth((connection) =>
@@ -19,7 +18,7 @@ async function createCompetitionApi(data: Primitive<ICompetitionCreateDto>) {
 }
 
 // a-5-2 findCompetitionApi
-async function findCompetitionApi(data: any) {
+async function findCompetitionApi(data: fetchCompetitionsParams) {
   const response = await withAuth((connection) =>
     api.functional.admin.competitions.findCompetitions(connection, data),
   );
@@ -31,7 +30,7 @@ async function getCompetitionApi(competitionId: string) {
   const response = await withAuth((connection) =>
     api.functional.admin.competitions.getCompetition(connection, competitionId),
   );
-  return response.result;
+  return response.result.competition;
 }
 
 // a-5-4 updateCompetitionApi

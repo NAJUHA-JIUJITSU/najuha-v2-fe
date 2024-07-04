@@ -1,8 +1,8 @@
 import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
 import { queries } from '@/queries/index';
-import { competitionApi } from '@/api/nestia/competitionApi';
+import { competitionApi, fetchCompetitionsParams } from '@/api/nestia/competitionApi';
 import { CompetitionListProps } from '@/interfaces/competitionList';
-
+import { adminCompetitionsApi } from '@/api/nestia/admin/competitionsApi';
 //Todo: 무한스크롤 구현
 //전체 대회 목록 조회
 export const useGetCompetitions = () => {
@@ -23,15 +23,19 @@ export const useGetFilteredCompetitions = ({
   admin = false,
 }: CompetitionListProps) => {
   const fetchCompetitions = async ({ pageParam }: { pageParam: number }) => {
-    const response = await competitionApi.getFilteredCompetitions({
+    const params: fetchCompetitionsParams = {
       page: pageParam,
       limit: 10, // limit
-      dateFilter,
-      locationFilter,
-      selectFilter,
+      dateFilter: dateFilter !== '전체' ? dateFilter : undefined,
+      locationFilter: locationFilter !== '전체' ? locationFilter : undefined,
+      selectFilter: selectFilter.length > 0 ? selectFilter : undefined,
       sortOption,
-      admin,
-    });
+    };
+
+    const api = admin
+      ? adminCompetitionsApi.findCompetitionApi(params)
+      : competitionApi.getFilteredCompetitions(params);
+    const response = await api;
     return response;
   };
 
@@ -45,9 +49,19 @@ export const useGetFilteredCompetitions = ({
 };
 
 //특정 대회 조회
-export const useGetCompetitionId = (competitionId: string) => {
+export const useGetCompetitionId = ({
+  competitionId,
+  admin = false,
+}: {
+  competitionId: string;
+  admin?: boolean;
+}) => {
+  const getCompetition = admin
+    ? adminCompetitionsApi.getCompetitionApi(competitionId)
+    : competitionApi.getCompetitionId(competitionId);
+
   return useQuery({
     queryKey: queries.competition.id(competitionId).queryKey,
-    queryFn: () => competitionApi.getCompetitionId(competitionId),
+    queryFn: () => getCompetition,
   });
 };

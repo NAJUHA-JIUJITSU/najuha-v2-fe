@@ -9,7 +9,11 @@ import BaseLayout from '@/components/layout/baseLayout';
 
 export default function CompetitionId({ params }: { params: { competitionId: string } }) {
   // 대회 조회
-  const { data: competition, isLoading, isError } = useGetCompetitionId(params.competitionId);
+  const {
+    data: competition,
+    isLoading,
+    isError,
+  } = useGetCompetitionId({ competitionId: params.competitionId });
 
   return (
     <BaseLayout>
