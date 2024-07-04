@@ -1,0 +1,28 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.box {
+  display: flex;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: $--color-gray-4;
+  width: 100%;
+  padding: 16px;
+  gap: 16px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.item {
+  width: 200px;
+  @include font-body2-medium;
+}
