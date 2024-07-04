@@ -1,0 +1,8 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.tmp {
+  @include font-body1-regular;
+  color: $--color-font-body;
+}
