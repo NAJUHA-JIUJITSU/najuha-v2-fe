@@ -61,6 +61,8 @@ export const useGetCompetitionId = ({
     : competitionApi.getCompetitionId(competitionId);
 
   return useQuery({
+    // queryKey: ['hi', competitionId],
+    // queryKey: ['competition', competitionId],
     queryKey: queries.competition.id(competitionId).queryKey,
     queryFn: () => getCompetition,
   });

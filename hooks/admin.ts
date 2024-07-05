@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { adminCompetitionsApi } from '@/api/nestia/admin/competitionsApi';
 
 export const useCreateCompetition = () => {
@@ -6,6 +6,15 @@ export const useCreateCompetition = () => {
     mutationFn: adminCompetitionsApi.createCompetitionApi,
     onError: (error) => {
       console.error('Error creating competition:', error);
+    },
+  });
+};
+
+export const useUpdateCompetition = () => {
+  return useMutation({
+    mutationFn: adminCompetitionsApi.updateCompetitionApi,
+    onError: (error) => {
+      console.error('Error updating competition:', error);
     },
   });
 };
@@ -42,6 +51,16 @@ export const useCreateRequiredAdditionalInfo = () => {
     mutationFn: adminCompetitionsApi.createCompetitionRequiredAdditionalInfoApi,
     onError: (error) => {
       console.error('Error creating required additional info:', error);
+    },
+  });
+};
+
+// patch competition status
+export const useUpdateCompetitionStatus = () => {
+  return useMutation({
+    mutationFn: adminCompetitionsApi.updateCompetitionStatusApi,
+    onError: (error) => {
+      console.error('Error updating competition status:', error);
     },
   });
 };
