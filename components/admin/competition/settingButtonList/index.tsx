@@ -28,7 +28,7 @@ export default function SettingButtonList({ competitionId, competition }: Settin
           alert(`대회 ${competition.status === 'ACTIVE' ? '비활성화' : '활성화'}에 성공했습니다.`);
           // competitionInfo refetch
           queryClient.invalidateQueries({
-            queryKey: queries.competition.id(competitionId).queryKey,
+            queryKey: ['competition', competitionId],
           });
           // queryClient.invalidateQueries({
           //   queryKey: ['hi', competitionId],

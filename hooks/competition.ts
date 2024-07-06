@@ -57,13 +57,13 @@ export const useGetCompetitionId = ({
   admin?: boolean;
 }) => {
   const getCompetition = admin
-    ? adminCompetitionsApi.getCompetitionApi(competitionId)
-    : competitionApi.getCompetitionId(competitionId);
+    ? () => adminCompetitionsApi.getCompetitionApi(competitionId)
+    : () => competitionApi.getCompetitionId(competitionId);
 
   return useQuery({
     // queryKey: ['hi', competitionId],
-    // queryKey: ['competition', competitionId],
-    queryKey: queries.competition.id(competitionId).queryKey,
-    queryFn: () => getCompetition,
+    queryKey: ['competition', competitionId],
+    // queryKey: queries.competition.id(competitionId).queryKey,
+    queryFn: getCompetition,
   });
 };
