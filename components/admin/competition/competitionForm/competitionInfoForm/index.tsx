@@ -6,10 +6,11 @@ import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import Input from '@/components/common/input';
 import { ICompetitionCreateDto } from 'najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 import RadioButtonLabel from '@/components/common/radioButtonLabel';
+import { Primitive } from '@nestia/fetcher';
 
 interface CompetitionInfoFormProps {
-  competitionInfo: ICompetitionCreateDto;
-  setCompetitionInfo: (data: ICompetitionCreateDto) => void;
+  competitionInfo: Primitive<ICompetitionCreateDto>;
+  setCompetitionInfo: (data: Primitive<ICompetitionCreateDto>) => void;
   onNext: () => void;
 }
 
