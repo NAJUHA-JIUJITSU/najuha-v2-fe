@@ -2,7 +2,6 @@ import { ICompetition } from 'najuha-v2-api/lib/modules/competitions/domain/inte
 import stlyes from './index.module.scss';
 
 export default function ApplicationStatus({ competition }: { competition: ICompetition }) {
-  console.log(competition);
   return (
     <div className={stlyes.box}>
       <div className={stlyes.wrapper}>

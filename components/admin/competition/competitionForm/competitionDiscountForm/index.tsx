@@ -1,10 +1,11 @@
-import React, { use, useState } from 'react';
+import React, { useState } from 'react';
 import EarlyBirdDiscountForm from '@/components/admin/competition/competitionForm/competitionDiscountForm/earlyBirdDiscountForm';
 import CombinationDiscountForm from '@/components/admin/competition/competitionForm/competitionDiscountForm/combinationDiscountForm';
 import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import { ICombinationDiscountRule } from 'najuha-v2-api/lib/modules/competitions/domain/interface/combination-discount-rule.interface';
 import { useCreateCombinationDiscount, useCreateEarlyBirdDiscount } from '@/hooks/admin';
+import { useQueryClient } from '@tanstack/react-query';
 
 const dummyCombinationDiscountRules: ICombinationDiscountRule[] = [
   // 2-item combinations
@@ -110,6 +111,7 @@ export default function CompetitionDiscountForm({
   onNext: () => void;
   competitionId: string | null;
 }) {
+  const queryClient = useQueryClient();
   const [earlyBirdDiscount, setEarlyBirdDiscount] = useState<earlyBirdDiscount>({
     earlybirdStartDate: '',
     earlybirdEndDate: '',
@@ -196,6 +198,9 @@ export default function CompetitionDiscountForm({
       {
         onSuccess: (res) => {
           alert('얼리버드 할인이 등록되었습니다.');
+          queryClient.invalidateQueries({
+            queryKey: ['competition', competitionId],
+          });
           console.log(res);
         },
         onError: () => {
@@ -217,6 +222,9 @@ export default function CompetitionDiscountForm({
       {
         onSuccess: (res) => {
           alert('조합할인이 등록되었습니다.');
+          queryClient.invalidateQueries({
+            queryKey: ['competition', competitionId],
+          });
           console.log(res);
         },
         onError: () => {
