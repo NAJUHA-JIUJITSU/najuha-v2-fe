@@ -42,18 +42,18 @@ function ButtonIconNavigateClear() {
 }
 
 // 게시글 메뉴 아이콘
-function ButtonIconMoreVertForPost({ id, isHost }: { id: string; isHost: boolean }) {
+function ButtonIconMoreVertForPost({ postId, isHost }: { postId: string; isHost: boolean }) {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { mutate: deletePost } = useDeletePost(id);
+  const { mutate: deletePost } = useDeletePost(postId);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const hostDropdownList = [
-    { label: '수정', onClick: () => router.push(`/community/posts/edit/${id}`) },
+    { label: '수정', onClick: () => router.push(`/community/posts/edit/${postId}`) },
     { label: '삭제', onClick: () => handleDeletePost() },
   ];
   const normalDropdownList = [
-    { label: '신고', onClick: () => router.push(`/community/posts/report/${id}`) },
+    { label: '신고', onClick: () => router.push(`/community/posts/report/post/${postId}`) },
   ];
 
   const handleDeletePost = () => {
@@ -110,6 +110,7 @@ function ButtonIconMoreVertForComment({
   postId: TId;
   isHost: boolean;
 }) {
+  const router = useRouter();
   const queryClient = useQueryClient();
   const { mutate: deleteComment } = useDeleteComment(commentId);
   const [isOpen, setIsOpen] = useState(false);
@@ -118,7 +119,9 @@ function ButtonIconMoreVertForComment({
     { label: '수정', onClick: () => console.log('수정') },
     { label: '삭제', onClick: () => handleDeletePost() },
   ];
-  const normalDropdownList = [{ label: '신고', onClick: () => console.log('신고') }];
+  const normalDropdownList = [
+    { label: '신고', onClick: () => router.push(`/community/posts/report/comment/${commentId}`) },
+  ];
 
   const handleDeletePost = () => {
     deleteComment(undefined, {

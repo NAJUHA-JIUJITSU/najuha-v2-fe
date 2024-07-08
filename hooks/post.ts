@@ -3,6 +3,7 @@ import { useMutation, useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { postApi } from '@/api/nestia/postApi';
 import { imageApi } from '@/api/nestia/imageApi';
 import {
+  CreateCommentReportReqBody,
   CreatePostReportReqBody,
   CreatePostReqBody,
   FindPostsReqQuery,
@@ -168,6 +169,14 @@ const useDeleteCommentLike = (commentId: TId) => {
   });
 };
 
+// 게시글의 댓글을 신고하는 훅
+const useCreateCommentReport = (commentId: TId) => {
+  return useMutation({
+    mutationFn: (body: CreateCommentReportReqBody) =>
+      postApi.postCreateCommentReport(commentId, body),
+  });
+};
+
 export {
   useCreatePostWithImages,
   useUpdatePostWithImages,
@@ -183,4 +192,5 @@ export {
   useDeleteComment,
   useCreateCommentLike,
   useDeleteCommentLike,
+  useCreateCommentReport,
 };

@@ -23,7 +23,10 @@ export default function PostId({ params }: { params: { id: TId } }) {
         leftIcon={<ButtonIconNavigateBefore />}
         title="글페이지"
         rightIcon1={
-          <ButtonIconMoreVertForPost id={params.id} isHost={post.post.user.id === userInfo?.id} />
+          <ButtonIconMoreVertForPost
+            postId={params.id}
+            isHost={post.post.user.id === userInfo?.id}
+          />
         }
       />
       <Post postId={params.id} />

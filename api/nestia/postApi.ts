@@ -2,6 +2,7 @@ import { withAuth } from '@/api/nestia/common';
 import api from 'najuha-v2-api/lib/api';
 import { TId } from 'najuha-v2-api/lib/common/common-types';
 import {
+  CreateCommentReportReqBody,
   CreatePostReportReqBody,
   CreatePostReqBody,
   FindCommentsReqQuery,
@@ -128,6 +129,14 @@ const postDeleteCommentLike = async (commentId: TId) => {
   );
 };
 
+// u-7-18 createCommentReport.
+// 게시글의 댓글을 신고합니다.
+const postCreateCommentReport = async (commentId: TId, body: CreateCommentReportReqBody) => {
+  await withAuth((connection) =>
+    api.functional.user.posts.comments.report.createPostCommentReport(connection, commentId, body),
+  );
+};
+
 // u-8-1 incrementPostViewCount.
 // 게시글 조회수를 증가시킵니다.
 const postIncrementPostViewCount = async (postId: TId) => {
@@ -150,5 +159,6 @@ export const postApi = {
   postDeleteComment,
   postCreateCommentLike,
   postDeleteCommentLike,
+  postCreateCommentReport,
   postIncrementPostViewCount,
 };
