@@ -2,12 +2,13 @@ import { ICompetition } from 'najuha-v2-api/lib/modules/competitions/domain/inte
 import stlyes from './index.module.scss';
 
 export default function ApplicationStatus({ competition }: { competition: ICompetition }) {
+  console.log(competition);
   return (
     <div className={stlyes.box}>
       <div className={stlyes.wrapper}>
         <div className={stlyes.container}>
           <div className={stlyes.item}>파트너쉽 여부</div>
-          <div className={stlyes.item}>{competition.isPartnership}</div>
+          <div className={stlyes.item}>{`${competition.isPartnership}`}</div>
         </div>
         <div className={stlyes.container}>
           <div className={stlyes.item}>활성화 여부</div>

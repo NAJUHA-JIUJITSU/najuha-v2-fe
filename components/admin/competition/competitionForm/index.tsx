@@ -99,17 +99,22 @@ import Header from '@/components/common/header/Header';
 import { ButtonIcon } from '@/components/common/icon/iconOnClick';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import { useFunnel } from '@/hooks/useFunnel'; // 가정된 훅
-import { ICompetitionCreateDto } from 'najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
+import {
+  ICompetition,
+  ICompetitionCreateDto,
+} from 'najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 import CompetitionInfoForm from './competitionInfoForm';
 import CompetitionDetailForm from './competitionDetailForm';
 import styles from './index.module.scss';
 import { Primitive } from '@nestia/fetcher';
+import { TDateOrStringDate } from 'najuha-v2-api/lib/common/common-types';
+import { UpdateCompetitionReqBody } from 'najuha-v2-api/lib/modules/competitions/presentation/competitions.controller.dto';
 
 interface CompetitionFormProps {
   competitionId?: string;
-  initialData?: Primitive<ICompetitionCreateDto>;
+  initialData?: ICompetition;
   onCreate?: (competitionInfo: Primitive<ICompetitionCreateDto>) => void;
-  onUpdate?: (competitionId: string, competitionInfo: ICompetitionCreateDto) => void;
+  onUpdate?: (competitionId: string, competitionInfo: Primitive<UpdateCompetitionReqBody>) => void;
 }
 const steps = ['주요정보', '상세정보'];
 export default function CompetitionForm({
@@ -134,13 +139,36 @@ export default function CompetitionForm({
     isPartnership: false,
   });
 
+  const formatInitialData = (data: ICompetition): Primitive<ICompetitionCreateDto> => {
+    const formatDate = (date: TDateOrStringDate | null | undefined) => {
+      if (!date) return '';
+      const d = new Date(date);
+      return d.toISOString().slice(0, 16);
+    };
+
+    return {
+      title: data.title,
+      address: data.address,
+      competitionDate: formatDate(data.competitionDate),
+      registrationStartDate: formatDate(data.registrationStartDate),
+      registrationEndDate: formatDate(data.registrationEndDate),
+      refundDeadlineDate: formatDate(data.refundDeadlineDate),
+      soloRegistrationAdjustmentStartDate: formatDate(data.soloRegistrationAdjustmentStartDate),
+      soloRegistrationAdjustmentEndDate: formatDate(data.soloRegistrationAdjustmentEndDate),
+      registrationListOpenDate: formatDate(data.registrationListOpenDate),
+      bracketOpenDate: formatDate(data.bracketOpenDate),
+      description: data.description,
+      isPartnership: data.isPartnership,
+    };
+  };
+
   useEffect(() => {
     if (initialData) {
-      setCompetitionInfo(initialData);
+      setCompetitionInfo(formatInitialData(initialData));
     }
   }, [initialData]);
 
-  const handleSaveCompetition = () => {
+  const handleSaveCompetition = (competitionInfo: Primitive<ICompetitionCreateDto>) => {
     if (competitionId && onUpdate) {
       onUpdate(competitionId, competitionInfo);
     } else if (onCreate) {

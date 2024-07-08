@@ -9,6 +9,8 @@ import {
   CreateDivisionsReqBody,
 } from 'najuha-v2-api/lib/modules/competitions/presentation/competitions.controller.dto';
 import { fetchCompetitionsParams } from '../competitionApi';
+import { UpdateCompetitionStatusReqBody } from 'najuha-v2-api/lib/modules/competitions/presentation/competitions.controller.dto';
+import { UpdateCompetitionReqBody } from 'najuha-v2-api/lib/modules/competitions/presentation/competitions.controller.dto';
 // a-5-1 createCompetitionApi
 async function createCompetitionApi(data: Primitive<ICompetitionCreateDto>) {
   const response = await withAuth((connection) =>
@@ -34,7 +36,13 @@ async function getCompetitionApi(competitionId: string) {
 }
 
 // a-5-4 updateCompetitionApi
-async function updateCompetitionApi(competitionId: string, data: any) {
+async function updateCompetitionApi({
+  competitionId,
+  data,
+}: {
+  competitionId: string;
+  data: Primitive<UpdateCompetitionReqBody>;
+}) {
   const response = await withAuth((connection) =>
     api.functional.admin.competitions.updateCompetition(connection, competitionId, data),
   );
@@ -42,7 +50,13 @@ async function updateCompetitionApi(competitionId: string, data: any) {
 }
 
 // a-5-5 updateCompetitionStatusApi
-async function updateCompetitionStatusApi(competitionId: string, data: any) {
+async function updateCompetitionStatusApi({
+  competitionId,
+  data,
+}: {
+  competitionId: string;
+  data: Primitive<UpdateCompetitionStatusReqBody>;
+}) {
   const response = await withAuth((connection) =>
     api.functional.admin.competitions.status.updateCompetitionStatus(
       connection,

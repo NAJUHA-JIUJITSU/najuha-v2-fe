@@ -8,7 +8,7 @@ import { Primitive } from '@nestia/fetcher';
 interface CompetitionDetailFormProps {
   competitionInfo: Primitive<ICompetitionCreateDto>;
   setCompetitionInfo: (data: Primitive<ICompetitionCreateDto>) => void;
-  onSave: () => void;
+  onSave: (competitionInfo: Primitive<ICompetitionCreateDto>) => void;
 }
 
 export default function CompetitionDetailForm({
@@ -24,7 +24,7 @@ export default function CompetitionDetailForm({
       description: value,
     };
     setCompetitionInfo(updatedCompetitionInfo);
-    onSave();
+    onSave(updatedCompetitionInfo);
   };
 
   return (

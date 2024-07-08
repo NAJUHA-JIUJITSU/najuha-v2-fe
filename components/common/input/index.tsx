@@ -5,7 +5,7 @@ import clsx from 'clsx';
 interface Props {
   label?: string;
   placeholder: string;
-  value?: string;
+  value?: string | null;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   errMsg?: string | null;
   successMsg?: string | null;
@@ -35,7 +35,7 @@ const Input: React.FC<Props> = ({
   });
 
   const fullWidthClassName = width === 'full' ? styles.fullWidth : '';
-
+  const safeValue = value === null ? undefined : value;
   return (
     <div className={clsx(styles.wrapper, fullWidthClassName)}>
       <label className={styles.label}>{label}</label>
@@ -43,7 +43,7 @@ const Input: React.FC<Props> = ({
         className={inputClassName}
         type={type}
         placeholder={placeholder}
-        value={value}
+        value={safeValue}
         onChange={onChange}
         disabled={disabled} //todo: isLoading중일때도 비활성화 되게 하기
         autoFocus={autoFocus}

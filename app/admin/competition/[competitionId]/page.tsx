@@ -5,6 +5,7 @@ import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink
 import { useGetCompetitionId } from '@/hooks/competition';
 import BaseLayout from '@/components/layout/baseLayout';
 import ApplicatnionStatus from '@/components/admin/competition/applicationStatus';
+import SettingButtonList from '@/components/admin/competition/settingButtonList';
 
 export default function AdminCompetitionId({ params }: { params: { competitionId: string } }) {
   // 대회 조회
@@ -29,7 +30,7 @@ export default function AdminCompetitionId({ params }: { params: { competitionId
         rightIcon2={<IconLinkSearch />}
       />
       <ApplicatnionStatus competition={competition} />
-      {/* <SettingButtonList /> */}
+      <SettingButtonList competitionId={params.competitionId} competition={competition} />
       {/* <EventInformation /> */}
     </BaseLayout>
   );

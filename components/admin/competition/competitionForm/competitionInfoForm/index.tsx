@@ -1,6 +1,5 @@
+'use client';
 import React, { useState } from 'react';
-import { useInput } from '@/hooks/useInput';
-import { validateTrue } from '@/utils/validations/userValidations';
 import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import Input from '@/components/common/input';
@@ -19,44 +18,29 @@ export default function CompetitionInfoForm({
   setCompetitionInfo,
   onNext,
 }: CompetitionInfoFormProps) {
-  const { value: title, setValue: setTitle } = useInput(competitionInfo.title, validateTrue);
-  const { value: address, setValue: setAddress } = useInput(competitionInfo.address, validateTrue);
-  const { value: competitionDate, setValue: setCompetitionDate } = useInput(
-    competitionInfo.competitionDate,
-    validateTrue,
-  );
-  const { value: registrationStartDate, setValue: setRegistrationStartDate } = useInput(
+  const [title, setTitle] = useState(competitionInfo.title);
+  const [address, setAddress] = useState(competitionInfo.address);
+  const [competitionDate, setCompetitionDate] = useState(competitionInfo.competitionDate);
+  const [registrationStartDate, setRegistrationStartDate] = useState(
     competitionInfo.registrationStartDate,
-    validateTrue,
   );
-  const { value: registrationEndDate, setValue: setRegistrationEndDate } = useInput(
+  const [registrationEndDate, setRegistrationEndDate] = useState(
     competitionInfo.registrationEndDate,
-    validateTrue,
   );
-  const { value: refundDeadlineDate, setValue: setRefundDeadlineDate } = useInput(
-    competitionInfo.refundDeadlineDate,
-    validateTrue,
+  const [refundDeadlineDate, setRefundDeadlineDate] = useState(competitionInfo.refundDeadlineDate);
+  const [soloRegistrationAdjustmentStartDate, setSoloRegistrationAdjustmentStartDate] = useState(
+    competitionInfo.soloRegistrationAdjustmentStartDate,
   );
-  const {
-    value: soloRegistrationAdjustmentStartDate,
-    setValue: setSoloRegistrationAdjustmentStartDate,
-  } = useInput(competitionInfo.soloRegistrationAdjustmentStartDate, validateTrue);
-  const {
-    value: soloRegistrationAdjustmentEndDate,
-    setValue: setSoloRegistrationAdjustmentEndDate,
-  } = useInput(competitionInfo.soloRegistrationAdjustmentEndDate, validateTrue);
-  const { value: registrationListOpenDate, setValue: setRegistrationListOpenDate } = useInput(
+  const [soloRegistrationAdjustmentEndDate, setSoloRegistrationAdjustmentEndDate] = useState(
+    competitionInfo.soloRegistrationAdjustmentEndDate,
+  );
+  const [registrationListOpenDate, setRegistrationListOpenDate] = useState(
     competitionInfo.registrationListOpenDate,
-    validateTrue,
   );
-  const { value: bracketOpenDate, setValue: setBracketOpenDate } = useInput(
-    competitionInfo.bracketOpenDate,
-    validateTrue,
-  );
+  const [bracketOpenDate, setBracketOpenDate] = useState(competitionInfo.bracketOpenDate);
   const [isPartnership, setIsPartnership] = useState(competitionInfo.isPartnership);
 
   const handleNext = () => {
-    // 함수형 업데이트
     setCompetitionInfo({
       ...competitionInfo,
       title,

@@ -52,18 +52,19 @@ export const useGetFilteredCompetitions = ({
 export const useGetCompetitionId = ({
   competitionId,
   admin = false,
+  enabled = true,
 }: {
   competitionId: string;
   admin?: boolean;
+  enabled?: boolean;
 }) => {
   const getCompetition = admin
     ? () => adminCompetitionsApi.getCompetitionApi(competitionId)
     : () => competitionApi.getCompetitionId(competitionId);
 
   return useQuery({
-    // queryKey: ['hi', competitionId],
     queryKey: ['competition', competitionId],
-    // queryKey: queries.competition.id(competitionId).queryKey,
     queryFn: getCompetition,
+    enabled,
   });
 };
