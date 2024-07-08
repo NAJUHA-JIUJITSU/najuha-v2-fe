@@ -29,7 +29,7 @@ export default function Comment({
   isPreview = false,
 }: CommentProps) {
   const [isReplyOpen, setIsReplyOpen] = useState(false);
-  // todo: 댓글수 받아오기
+  // bug: 댓글수 받아왔지만, 댓글 수 0개여도 더 불러와짐.
   const replyCnt = 2;
 
   return (
@@ -77,14 +77,14 @@ export default function Comment({
             commentId={comment.id}
             likeCnt={comment.likeCount}
             userLiked={comment.userLiked}
-            replyCnt={replyCnt} // todo: 댓글수 받아오기
+            replyCnt={comment.replyCount}
           />
         )}
         {replyCnt > 0 && !isPreview && !isReplyOpen && (
           <div className={styles.replyBtn}>
             <ButtonOnClick
               iconLeft={<IconReply />}
-              text={`답글 ${replyCnt}개 더보기`}
+              text={`답글 ${comment.replyCount}개 더보기`}
               type="text"
               size="small"
               color="gray"
