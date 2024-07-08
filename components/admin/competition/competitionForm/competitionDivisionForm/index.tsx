@@ -4,19 +4,12 @@ import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import { IDivisionPack } from 'najuha-v2-api/lib/modules/competitions/domain/interface/division-pack.interface';
 import DivisionTable from './divisionTable';
 import DivisionController from './divisionController';
-import { CreateDivisionsReqBody } from 'najuha-v2-api/lib/modules/competitions/presentation/competitions.controller.dto';
-import { UseMutateFunction } from '@tanstack/react-query';
 
 interface ICompetitionDivisionFormProps {
   divisionPackInfo: IDivisionPack[];
   setDivisionPackInfo: React.Dispatch<React.SetStateAction<IDivisionPack[]>>;
   competitionId: string | null;
-  createDivision: UseMutateFunction<
-    any,
-    unknown,
-    { competitionId: string; data: CreateDivisionsReqBody },
-    unknown
-  >;
+  createDivision: (competitionId: string, data: IDivisionPack[]) => void;
   onNext: () => void;
 }
 
@@ -95,28 +88,8 @@ export default function CompetitionDivisionForm({
   };
 
   const RegisterDivisionPack = () => {
-    if (competitionId === null) return; // competitionId null일때 예외처리
-    createDivision(
-      {
-        competitionId: competitionId,
-        data: {
-          divisionPacks: divisionPackInfo,
-        },
-      },
-      {
-        onSuccess: (res) => {
-          alert('부문이 등록되었습니다.');
-          console.log(res);
-        },
-        onError: () => {
-          alert('부문 등록에 실패했습니다.');
-        },
-      },
-    );
-  };
-
-  const handleNext = () => {
-    onNext();
+    if (competitionId === null) return;
+    createDivision(competitionId, divisionPackInfo);
   };
 
   return (
@@ -153,7 +126,7 @@ export default function CompetitionDivisionForm({
           disabled={false}
           width="full"
           size="large"
-          onClick={handleNext}
+          onClick={onNext}
         />
       </div>
     </>
