@@ -22,7 +22,7 @@ export default function CreateDiscount() {
             }}
           />
         }
-        title="부문추가"
+        title="할인률추가"
       />
       <CompetitionDiscountForm
         competitionId={competitionId}

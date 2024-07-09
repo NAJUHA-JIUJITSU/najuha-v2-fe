@@ -3,43 +3,24 @@ import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import Input from '@/components/common/input';
 import { useState } from 'react';
-import { useCreateRequiredAdditionalInfo } from '@/hooks/admin';
 
 export default function CompetitionInfoAdditionalInfoForm({
   onNext,
-  competitionId,
+  onCreate,
 }: {
   onNext: () => void;
-  competitionId: string | null;
+  onCreate: (type: string, des: string) => void;
 }) {
   const [type, setType] = useState('ADDRESS');
   const [des, setDes] = useState('string');
-  const { mutate: createCompetitionRequiredAdditionalInfo } = useCreateRequiredAdditionalInfo();
 
   const handleNext = () => {
     onNext();
   };
 
   const handleCreate = () => {
-    if (!competitionId) return;
-    if (type !== 'ADDRESS' && type !== 'SOCIAL_SECURITY_NUMBER') return;
-    createCompetitionRequiredAdditionalInfo(
-      {
-        competitionId: competitionId as string,
-        data: {
-          type: type,
-          description: des,
-        },
-      },
-      {
-        onSuccess: (res) => {
-          console.log(res);
-          alert('추가정보가 등록되었습니다.');
-        },
-      },
-    );
+    onCreate(type, des);
   };
-
   return (
     <>
       <div className={styles.wrapper}>

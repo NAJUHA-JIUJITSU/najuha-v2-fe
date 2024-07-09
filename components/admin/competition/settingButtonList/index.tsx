@@ -4,7 +4,6 @@ import styles from './index.module.scss';
 import { useUpdateCompetitionStatus } from '@/hooks/admin';
 import { ICompetition } from 'najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 import { useQueryClient } from '@tanstack/react-query';
-import { queries } from '@/queries/index';
 
 interface SettingButtonListProps {
   competitionId: string;
@@ -26,13 +25,9 @@ export default function SettingButtonList({ competitionId, competition }: Settin
       {
         onSuccess: () => {
           alert(`대회 ${competition.status === 'ACTIVE' ? '비활성화' : '활성화'}에 성공했습니다.`);
-          // competitionInfo refetch
           queryClient.invalidateQueries({
             queryKey: ['competition', competitionId],
           });
-          // queryClient.invalidateQueries({
-          //   queryKey: ['hi', competitionId],
-          // });
         },
         onError: (error) => {
           alert(`대회 ${competition.status === 'ACTIVE' ? '비활성' : '활성화'}에 실패했습니다.`);
@@ -61,27 +56,6 @@ export default function SettingButtonList({ competitionId, competition }: Settin
         color="blue"
       />
       <ButtonLink
-        text="할인 등록하기"
-        href={`/admin/competition/${competitionId}/discount`}
-        type="filled"
-        size="medium"
-        color="blue"
-      />
-      <ButtonLink
-        text="필수 추가정보 등록하기"
-        href={`/admin/competition/${competitionId}/additional`}
-        type="filled"
-        size="medium"
-        color="blue"
-      />
-      <ButtonLink
-        text="포스터 등록하기"
-        href={`/admin/competition/${competitionId}/poster`}
-        type="filled"
-        size="medium"
-        color="blue"
-      />
-      <ButtonLink
         text="부문 추가하기"
         href={`/admin/competition/${competitionId}/division`}
         type="filled"
@@ -91,6 +65,27 @@ export default function SettingButtonList({ competitionId, competition }: Settin
       <ButtonLink
         text="부문 수정하기"
         href={`/admin/competition/${competitionId}/edit-division`}
+        type="filled"
+        size="medium"
+        color="blue"
+      />
+      <ButtonLink
+        text="할인 등록하기"
+        href={`/admin/competition/${competitionId}/discount`}
+        type="filled"
+        size="medium"
+        color="blue"
+      />
+      <ButtonLink
+        text="추가정보 등록하기"
+        href={`/admin/competition/${competitionId}/additional`}
+        type="filled"
+        size="medium"
+        color="blue"
+      />
+      <ButtonLink
+        text="포스터 등록하기"
+        href={`/admin/competition/${competitionId}/poster`}
         type="filled"
         size="medium"
         color="blue"
