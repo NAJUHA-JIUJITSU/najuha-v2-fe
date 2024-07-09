@@ -104,11 +104,13 @@ function ButtonIconMoreVertForComment({
   commentId,
   isHost,
   postId,
+  handleEditComment,
 }: {
   parentId?: TId;
   commentId: TId;
   postId: TId;
   isHost: boolean;
+  handleEditComment: () => void;
 }) {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -116,7 +118,13 @@ function ButtonIconMoreVertForComment({
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   const hostDropdownList = [
-    { label: '수정', onClick: () => console.log('수정') },
+    {
+      label: '수정',
+      onClick: () => {
+        handleEditComment();
+        setIsOpen(false);
+      },
+    },
     { label: '삭제', onClick: () => handleDeletePost() },
   ];
   const normalDropdownList = [

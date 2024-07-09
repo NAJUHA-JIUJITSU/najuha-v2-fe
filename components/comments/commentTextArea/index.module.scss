@@ -1,0 +1,60 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.stickyWrapper {
+  position: sticky;
+  bottom: 0;
+  z-index: $z-index-fixed;
+}
+.wrapper {
+  background-color: $--color-basic-white;
+  position: relative;
+  border-top: 1px solid $--color-gray-1;
+  box-sizing: border-box;
+  width: calc(100% + 32px);
+  left: -16px;
+
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 8px;
+
+  .textareaWrapper {
+    background-color: $--color-gray-1;
+    padding: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 10px;
+    min-height: 80px;
+    max-height: 124px;
+
+    .textArea {
+      width: 100%;
+      background-color: $--color-gray-1;
+      border: none;
+      min-height: 48px;
+      max-height: 92px;
+      @include font-body3-regular;
+      color: $--color-font-headline;
+      resize: none;
+      overflow: hidden;
+
+      &:focus {
+        outline: none;
+      }
+      &::placeholder {
+        color: $--color-font-body;
+      }
+    }
+  }
+
+  .buttonWrapper {
+    display: flex;
+    gap: 8px;
+    button {
+      width: fit-content;
+    }
+  }
+}

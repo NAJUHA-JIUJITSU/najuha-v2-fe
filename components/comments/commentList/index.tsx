@@ -4,14 +4,16 @@ import { useFindComments } from '@/hooks/post';
 import { TId } from 'najuha-v2-api/lib/common/common-types';
 import Comment from '@/components/comments//comment';
 import { ThinDivider, Divider } from '@/components/divider';
+import { ICommentDetail } from 'najuha-v2-api/lib/modules/posts/domain/interface/comment.interface';
 
 interface commentListProps {
   postId: TId;
   postUserId: TId;
   userId: TId | undefined;
+  onEdit: (comment: ICommentDetail) => void;
 }
 
-export default function CommentList({ postId, postUserId, userId }: commentListProps) {
+export default function CommentList({ postId, postUserId, userId, onEdit }: commentListProps) {
   const {
     data: comments,
     isError,
@@ -81,6 +83,7 @@ export default function CommentList({ postId, postUserId, userId }: commentListP
               comment={comment}
               isHost={comment.userId === userId}
               isBest={comment.id === bestComment.id && isBestComment}
+              onEdit={onEdit}
             />
             <ThinDivider key={`divider-${comment.id}`} />
           </>

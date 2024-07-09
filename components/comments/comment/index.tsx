@@ -17,6 +17,7 @@ interface CommentProps {
   isHost?: boolean;
   isBest?: boolean;
   isPreview?: boolean;
+  onEdit?: (comment: ICommentDetail) => void;
 }
 
 export default function Comment({
@@ -27,10 +28,15 @@ export default function Comment({
   isHost = false,
   isBest = false,
   isPreview = false,
+  onEdit,
 }: CommentProps) {
   const [isReplyOpen, setIsReplyOpen] = useState(false);
   // bug: 댓글수 받아왔지만, 댓글 수 0개여도 더 불러와짐.
   const replyCnt = 2;
+
+  const handleEdit = () => {
+    if (onEdit) onEdit(comment);
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -60,6 +66,7 @@ export default function Comment({
                 commentId={comment.id}
                 postId={postId}
                 isHost={isHost}
+                handleEditComment={handleEdit}
               />
             )}
           </div>

@@ -71,7 +71,7 @@ export default function PostCardList({ categoryFilter, sortOption }: postCardLis
       {postList?.pages.map((group, i) => (
         <Fragment key={i}>
           {group.posts.map((post) => (
-            <Link href={`/post/${post.id}`} key={post.id}>
+            <Link href={`community/posts/${post.id}`} key={post.id}>
               <PostCard key={post.id} post={post} />
             </Link>
           ))}
