@@ -50,7 +50,11 @@ export default function CompetitionApply({ params }: { params: { competitionId: 
     selectedDicisionId: [],
   });
   // 대회 조회
-  const { data: competition, isLoading, isError } = useGetCompetitionId(params.competitionId);
+  const {
+    data: competition,
+    isLoading,
+    isError,
+  } = useGetCompetitionId({ competitionId: params.competitionId });
   // 신청정보 제출훅
   const { mutate } = useSubmitApplication();
   // 신청정보 제출 후 리턴받은 applicationId상태 => 신청정보 확인페이지에서 사용

@@ -1,0 +1,9 @@
+@import '@/styles/_variable.scss';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background-color: $--color-gray-3;
+}

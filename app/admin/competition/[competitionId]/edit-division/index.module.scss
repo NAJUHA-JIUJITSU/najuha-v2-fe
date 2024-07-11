@@ -1,0 +1,47 @@
+.wrapper {
+  padding: 20px;
+}
+
+.uniformHeader,
+.categoryHeader,
+.beltHeader {
+  cursor: pointer;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+}
+
+.categoryWrapper,
+.beltWrapper {
+  margin-left: 20px;
+}
+
+.divisionTable {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+}
+
+.divisionRow {
+  display: flex;
+  border: 1px solid #ddd;
+  margin: 5px 0;
+}
+
+.divisionHeader,
+.divisionCell {
+  flex: 1;
+  padding: 8px;
+  text-align: left;
+  border-right: 1px solid #ddd;
+}
+
+.divisionHeader {
+  background-color: #f2f2f2;
+}
+
+.divisionCell:last-child,
+.divisionHeader:last-child {
+  border-right: none;
+}

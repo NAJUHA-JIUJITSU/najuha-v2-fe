@@ -1,0 +1,57 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.table {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 520px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  white-space: nowrap;
+  border: 2px solid $--color-state-info;
+  .column {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    box-sizing: border-box;
+    .cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include font-body1-regular;
+      border: 0.5px solid black;
+      height: 50px;
+      padding: 0 8px;
+      box-sizing: border-box;
+      overflow-x: auto;
+      overflow-y: hidden;
+      white-space: nowrap;
+    }
+
+    .cell--narrow {
+      min-width: 100px;
+    }
+
+    .cell--medium {
+      min-width: 150px;
+    }
+
+    .cell--wide {
+      width: 100%;
+      min-width: 200px;
+    }
+
+    .buttonList {
+      position: absolute;
+      right: -148px;
+      display: flex;
+      width: 140px;
+      gap: 8px;
+    }
+  }
+}

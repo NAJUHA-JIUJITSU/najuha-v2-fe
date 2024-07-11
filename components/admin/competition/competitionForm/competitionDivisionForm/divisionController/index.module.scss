@@ -1,0 +1,20 @@
+@import '@/styles/_typography.scss';
+@import '@/styles/_variable.scss';
+@import '@/styles/_zindex.scss';
+
+.controller {
+  border: 2px solid $--color-state-info;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 8px;
+  .title {
+    @include font-title-medium;
+    margin-bottom: 8px;
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}

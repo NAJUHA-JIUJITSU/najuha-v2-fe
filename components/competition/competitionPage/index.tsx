@@ -54,7 +54,11 @@ const selectOptions: TCompetitionSelectFilter[] = [
 ];
 const sortOptions: TCompetitionSortOption[] = ['일자순', '조회순', '마감임박순'];
 
-export default function CompetitionPage() {
+interface CompetitionPageProps {
+  admin?: boolean;
+}
+
+export default function CompetitionPage({ admin = false }: CompetitionPageProps) {
   const { params, updateParams } = useURLParams();
 
   const [dateFilterState, setDateFilterState] = useState<string>(params.date as string);
@@ -147,6 +151,7 @@ export default function CompetitionPage() {
         locationFilter={locationFilterState}
         selectFilter={selectOptionsState}
         sortOption={sortOptionState}
+        admin={admin}
       />
     </div>
   );

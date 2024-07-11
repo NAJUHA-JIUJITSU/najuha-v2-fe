@@ -9,4 +9,5 @@ export interface CompetitionListProps {
   locationFilter: TCompetitionLocationFilter | '전체';
   selectFilter: TCompetitionSelectFilter[];
   sortOption: TCompetitionSortOption;
+  admin?: boolean;
 }
