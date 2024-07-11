@@ -6,14 +6,13 @@ import IconThumbUp from '@/public/svgs/thumbUp.svg';
 import IconChat from '@/public/svgs/chat.svg';
 import { useCreatePostLike, useDeletePostLike } from '@/hooks/post';
 import { useQueryClient } from '@tanstack/react-query';
-import { ICommentSnapshot } from 'najuha-v2-api/lib/modules/posts/domain/interface/comment-snapshot.interface';
 
 interface ReactionProps {
   postId: string;
   userLiked?: boolean;
   likeCnt?: number;
   commentCnt?: number;
-  handleEditComment: (comment: ICommentSnapshot['body']) => void;
+  handleCommentButtonClick: () => void;
 }
 
 export default function PostReaction({
@@ -21,7 +20,7 @@ export default function PostReaction({
   userLiked = false,
   likeCnt = 0,
   commentCnt = 0,
-  handleEditComment,
+  handleCommentButtonClick,
 }: ReactionProps) {
   const { mutate: createPostLike } = useCreatePostLike(postId);
   const { mutate: deletePostLike } = useDeletePostLike(postId);
@@ -81,9 +80,7 @@ export default function PostReaction({
           color="infoBlue"
           iconLeft={<IconChat />}
           text={commentCnt.toString()}
-          onToggle={() => {
-            handleEditComment(' ');
-          }}
+          onToggle={handleCommentButtonClick}
         />
       }
     </div>

@@ -8,6 +8,8 @@ interface commentTextAreaProps {
   initialText?: string;
   onSubmit: (text: string) => void;
   onCancel?: () => void;
+  isFocused: boolean; // 외부에서 포커스 제어
+  setFocus: (focused: boolean) => void; // 포커스 상태 변경 함수
 }
 
 function CommentTextArea({
@@ -15,13 +17,14 @@ function CommentTextArea({
   initialText = '',
   onSubmit,
   onCancel,
+  isFocused,
+  setFocus,
 }: commentTextAreaProps) {
   const [text, setText] = useState(initialText);
-  const [isFocused, setIsFocused] = useState(false);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  const handleFocus = () => setIsFocused(true);
+  const handleFocus = () => setFocus(true);
   const handleBlur = () => {
-    if (!text) setIsFocused(false);
+    if (!text) setFocus(false);
   };
 
   const handleBodyChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -35,20 +38,20 @@ function CommentTextArea({
   const handleSubmit = () => {
     onSubmit(text);
     setText('');
-    setIsFocused(false);
+    setFocus(false);
   };
   const handleCancel = () => {
     setText('');
-    setIsFocused(false);
+    setFocus(false);
     if (onCancel) onCancel();
   };
 
   useEffect(() => {
     setText(initialText);
-    if (isEditing && textAreaRef.current) {
+    if ((isEditing || isFocused) && textAreaRef.current) {
       textAreaRef.current.focus();
     }
-  }, [initialText, isEditing]);
+  }, [initialText, isEditing, isFocused]);
 
   return (
     <div className={styles.stickyWrapper}>

@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import Post from '@/components/post';
@@ -19,6 +19,13 @@ export default function PostId({ params }: { params: { id: TId } }) {
   const { editingComment, handleEditComment, handleCancelEdit, handleSubmitComment } =
     useCommentEditing();
   console.log('PostIdPage 렌더');
+
+  const [isCommentAreaFocused, setCommentAreaFocus] = useState(false);
+
+  const handleCommentButtonClick = () => {
+    setCommentAreaFocus(true);
+  };
+
   if (!post) return null;
 
   return (
@@ -33,7 +40,7 @@ export default function PostId({ params }: { params: { id: TId } }) {
           />
         }
       />
-      <Post postId={params.id} handleEditComment={handleEditComment} />
+      <Post postId={params.id} handleCommentButtonClick={handleCommentButtonClick} />
       <ThinDivider />
       <CommentList
         postId={params.id}
@@ -42,13 +49,13 @@ export default function PostId({ params }: { params: { id: TId } }) {
         handleEditComment={handleEditComment}
       />
       <CommentTextArea
+        isFocused={isCommentAreaFocused}
+        setFocus={setCommentAreaFocus}
         isEditing={!!editingComment}
-        initialText={editingComment ? editingComment : ''}
+        initialText={editingComment?.body ? editingComment.body : ''}
         onSubmit={handleSubmitComment}
         onCancel={handleCancelEdit}
       />
     </BaseLayout>
   );
 }
-
-//editingComment.commentSnapshots[editingComment.commentSnapshots.length - 1].body
