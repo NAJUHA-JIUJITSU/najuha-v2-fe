@@ -21,6 +21,7 @@ export default function AdminCompetitionId({ params }: { params: { competitionId
   if (isLoading) return <div>로딩중...</div>;
   if (isError) return <div>에러가 발생했습니다.</div>;
   if (!competition) return <div>대회가 없습니다.</div>;
+  console.log('competition', competition);
   return (
     <BaseLayout>
       <Header
