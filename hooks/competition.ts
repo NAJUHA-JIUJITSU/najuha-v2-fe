@@ -1,4 +1,4 @@
-import { useQuery, useInfiniteQuery } from '@tanstack/react-query';
+import { useQuery, useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import { queries } from '@/queries/index';
 import { competitionApi, fetchCompetitionsParams } from '@/api/nestia/competitionApi';
 import { CompetitionListProps } from '@/interfaces/competitionList';
@@ -13,8 +13,7 @@ export const useGetCompetitions = () => {
   });
 };
 
-//필터 및 정렬된 대회 목록 조회
-
+// 전체 대회 목록 조회 - 필터 및 정렬, 무한 스크롤
 export const useGetFilteredCompetitions = ({
   dateFilter,
   locationFilter,
@@ -66,5 +65,12 @@ export const useGetCompetitionId = ({
     queryKey: ['competition', competitionId],
     queryFn: getCompetition,
     enabled,
+  });
+};
+
+// 대회 조회수를 증가시키는 훅
+export const useIncrementCompetitionViewCount = (competitionId: string) => {
+  return useMutation({
+    mutationFn: () => competitionApi.incrementCompetitionViewCount(competitionId),
   });
 };

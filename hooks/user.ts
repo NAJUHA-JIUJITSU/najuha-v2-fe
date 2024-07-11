@@ -63,3 +63,10 @@ export const useUserPatch = () => {
     },
   });
 };
+
+export const useUserID = () => {
+  return useQuery({
+    queryKey: ['userID'],
+    queryFn: () => usersApi.getUserInfoIfExists(),
+  });
+};

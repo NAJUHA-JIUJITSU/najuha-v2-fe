@@ -1,8 +1,11 @@
 'use client';
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import IconClear from '@/public/svgs/clear.svg';
+import IconMoreVert from '@/public/svgs/moreVert.svg';
 import useGoBack from '@/hooks/useGoBack';
+import useOutsideClick from '@/hooks/useOutsideClick';
+import styles from '../icon.module.scss';
 
 interface Props {
   icon: React.ReactNode;
@@ -19,6 +22,7 @@ function ButtonIconNavigateBefore() {
   return <ButtonIcon icon={<IconNavigateBefore />} onClick={goBack}></ButtonIcon>;
 }
 
+// 페이지 벗어나기 전 확인
 function ButtonIconNavigateClear() {
   const goBack = useGoBack();
   const handleButtonClick = () => {
@@ -33,4 +37,57 @@ function ButtonIconNavigateClear() {
   return <ButtonIcon icon={<IconClear />} onClick={handleButtonClick}></ButtonIcon>;
 }
 
-export { ButtonIcon, ButtonIconNavigateBefore, ButtonIconNavigateClear };
+// 드롭다운 메뉴 아이콘
+interface DropdownItem {
+  label: string;
+  onClick: () => void;
+}
+
+interface ButtonIconMoreVertProps {
+  isHost: boolean;
+  hostDropdownList: DropdownItem[];
+  normalDropdownList: DropdownItem[];
+}
+
+function ButtonIconMoreVert({
+  isHost,
+  hostDropdownList,
+  normalDropdownList,
+}: ButtonIconMoreVertProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  const handleButtonClick = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const handleItemClick = (itemOnClick: () => void) => {
+    itemOnClick();
+    setIsOpen(false);
+  };
+
+  useOutsideClick(dropdownRef, () => setIsOpen(false));
+
+  return (
+    <div ref={dropdownRef} className={styles.wrapper}>
+      <ButtonIcon icon={<IconMoreVert />} onClick={handleButtonClick}></ButtonIcon>
+      {isOpen && (
+        <ul className={styles.dropdown}>
+          {isHost
+            ? hostDropdownList.map((item, index) => (
+                <li key={index} onClick={() => handleItemClick(item.onClick)}>
+                  {item.label}
+                </li>
+              ))
+            : normalDropdownList.map((item, index) => (
+                <li key={index} onClick={() => handleItemClick(item.onClick)}>
+                  {item.label}
+                </li>
+              ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+export { ButtonIcon, ButtonIconNavigateBefore, ButtonIconNavigateClear, ButtonIconMoreVert };

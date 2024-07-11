@@ -1,15 +1,14 @@
 import styles from './index.module.scss';
 import RadioButtonLabel from '@/components/common/radioButtonLabel';
-
-type Category = 'FREE' | 'COMPETITION' | 'SEMINAR' | 'OPEN_MAT';
+import { IPostDetail } from 'najuha-v2-api/lib/modules/posts/domain/interface/post.interface';
 
 interface selectBoardPageProps {
-  categorys: Category[];
-  selectedCategory: Category;
-  setSelectedCategory: (category: Category) => void;
+  categories: IPostDetail['category'][];
+  selectedCategory: IPostDetail['category'];
+  setSelectedCategory: (category: IPostDetail['category']) => void;
 }
 
-const categorysKr = {
+const categoriesKr = {
   FREE: '자유',
   COMPETITION: '대회',
   SEMINAR: '세미나',
@@ -17,19 +16,19 @@ const categorysKr = {
 };
 
 export default function SelectBoardPage({
-  categorys,
+  categories,
   setSelectedCategory,
   selectedCategory,
 }: selectBoardPageProps) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>어디에 게시할까요?</div>
-      {categorys.map((category) => (
+      {categories.map((categories) => (
         <RadioButtonLabel
-          key={category}
-          msg={categorysKr[category]}
-          isChecked={selectedCategory === category}
-          changeCheck={() => setSelectedCategory(category)}
+          key={categories}
+          msg={categoriesKr[categories]}
+          isChecked={selectedCategory === categories}
+          changeCheck={() => setSelectedCategory(categories)}
           isUnderlined={true}
         />
       ))}

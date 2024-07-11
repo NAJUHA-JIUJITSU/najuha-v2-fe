@@ -1,7 +1,8 @@
 import { TDateOrStringDate } from 'najuha-v2-api/lib/common/common-types';
 
 // 년도.월.일 포맷
-export const formatDateYMD = (date: string) => {
+export const formatDateYMD = (date: TDateOrStringDate | null): string => {
+  if (!date) return '해당없음';
   const dateObj = new Date(date);
   const year = dateObj.getFullYear().toString().slice(-2);
   const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
@@ -10,7 +11,8 @@ export const formatDateYMD = (date: string) => {
 };
 
 // 월.일 포맷
-export const formatDateMD = (date: string) => {
+export const formatDateMD = (date: TDateOrStringDate | null): string => {
+  if (!date) return '해당없음';
   const dateObj = new Date(date);
   const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
   const day = dateObj.getDate().toString().padStart(2, '0');
@@ -18,7 +20,8 @@ export const formatDateMD = (date: string) => {
 };
 
 // 월.일(요일) 포맷
-export const formatDateMDWeekday = (date: string) => {
+export const formatDateMDWeekday = (date: TDateOrStringDate | null): string => {
+  if (!date) return '해당없음';
   const dateObj = new Date(date);
   const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
   const day = dateObj.getDate().toString().padStart(2, '0');
@@ -28,7 +31,7 @@ export const formatDateMDWeekday = (date: string) => {
 };
 
 // 년도.월.일(요일) 포맷
-export const formatDateYMDWeekday = (date: string | null | TDateOrStringDate) => {
+export const formatDateYMDWeekday = (date: TDateOrStringDate | null): string => {
   if (!date) return '해당없음';
   const dateObj = new Date(date);
   const year = dateObj.getFullYear().toString().slice(-2);

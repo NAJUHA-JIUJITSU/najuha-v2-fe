@@ -46,9 +46,24 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
-  .content {
+  .body {
     @include font-body3-regular;
     color: $--color-font-headline;
+    margin-bottom: 12px;
+    white-space: pre-wrap;
+  }
+
+  .imageWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    //todo: 비율 유지하며 크기 조절
+    img {
+      width: 50%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
   }
 }
 

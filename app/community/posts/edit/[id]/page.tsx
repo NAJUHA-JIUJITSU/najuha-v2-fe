@@ -1,33 +1,44 @@
 'use client';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Header from '@/components/common/header/Header';
-import { ButtonIconNavigateClear, ButtonIcon } from '@/components/common/icon/iconOnClick';
+import { ButtonIconNavigateClear } from '@/components/common/icon/iconOnClick';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import BaseLayout from '@/components/layout/baseLayout';
-import { useFunnel } from '@/hooks/useFunnel';
 import WritePage from '@/components/createPost/writePage';
-import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
-import SelectBoardPage from '@/components/createPost/selectBoardPage';
-import { useCreatePostWithImages } from '@/hooks/post';
+import { useGetPost, useUpdatePostWithImages } from '@/hooks/post';
 import { IImageCreateDto } from 'najuha-v2-api/lib/modules/images/domain/interface/image.interface';
 import { useRouter } from 'next/navigation';
-import { IPostDetail } from 'najuha-v2-api/lib/modules/posts/domain/interface/post.interface';
 
-const steps = ['게시글 작성', '게시판 선택'];
-const categories: IPostDetail['category'][] = ['FREE', 'COMPETITION', 'SEMINAR', 'OPEN_MAT'];
-
-// todo: 로그인 여부 체크 후 로그인 안되어 있으면 로그인 페이지로 이동
-export default function CreatePost() {
-  const [formData, setFormData] = useState({ title: '', body: '' });
-  const path: IImageCreateDto['path'] = 'post';
-  const { mutate: createPostWithImages, isPending, isSuccess } = useCreatePostWithImages(path);
+export default function EditPost({ params }: { params: { id: string } }) {
+  const postId = params.id;
   const router = useRouter();
-
+  const { data, isLoading, isError } = useGetPost(postId);
+  const [formData, setFormData] = useState({ title: '', body: '' });
   const [images, setImages] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
-  const { gotoNextStep, gotoPreviousStep, currentStep } = useFunnel(steps);
-  // const { gotoNextStep, gotoPreviousStep, Funnel, Step, currentStep } = useFunnel(steps);
+  const path: IImageCreateDto['path'] = 'post';
+  const {
+    mutate: updatePostWithImages,
+    isPending,
+    isSuccess,
+  } = useUpdatePostWithImages(path, postId);
+
+  useEffect(() => {
+    if (data) {
+      const postSnapshots = data.post.postSnapshots[data.post.postSnapshots.length - 1];
+
+      setFormData({
+        title: postSnapshots.title,
+        body: postSnapshots.body,
+      });
+      // 기존 이미지 URLs 설정
+      const existingPreviewUrls = postSnapshots.postSnapshotImages.map(
+        (img) => `http://localhost:9000/najuha-v2-bucket/${img.image.path}/${img.image.id}`,
+      );
+      setPreviewUrls(existingPreviewUrls);
+      // 추가적인 로직으로 기존 이미지를 로드하고, 업데이트를 위해 사용
+    }
+  }, [data]);
 
   const handleFormChange = useCallback((newData: { title: string; body: string }) => {
     setFormData(newData);
@@ -89,85 +100,63 @@ export default function CreatePost() {
     const postData = {
       title: formData.title,
       body: formData.body,
-      category: selectedCategory,
       imageIds: [], // 초기 빈 배열로 설정
     };
 
-    createPostWithImages(
+    updatePostWithImages(
       { data: postData, files: images },
       {
         onSuccess: (res) => {
-          console.log('게시글이 성공적으로 업로드되었습니다.', res);
-          //todo: 게시글 업로드 성공 후 이전 페이지로 이동
-          router.push('/community');
+          console.log('게시글이 성공적으로 수정되었습니다.', res);
+          // 수정 성공 후 이전 페이지로 이동
+          router.push(`/post/${postId}`);
         },
         onError: (error) => {
-          console.error('게시글 업로드에 실패했습니다.', error);
+          console.error('게시글 수정에 실패했습니다.', error);
         },
       },
     );
-  }, [formData, selectedCategory, images, createPostWithImages]);
+  }, [formData, , images, updatePostWithImages, postId, router]);
+
+  if (isLoading) {
+    return <div style={{ lineHeight: 1 }}>게시글을 불러오는 중입니다...</div>;
+  }
+
+  if (isError) {
+    return <div style={{ lineHeight: 1 }}>게시글을 불러오는 데 실패했습니다.</div>;
+  }
 
   if (isPending) {
-    return <div style={{ lineHeight: 1 }}>게시글을 업로드 중입니다...</div>;
+    return <div style={{ lineHeight: 1 }}>게시글을 수정 중입니다...</div>;
   }
 
   if (isSuccess) {
-    return <div style={{ lineHeight: 1 }}>게시글이 성공적으로 업로드되었습니다.</div>;
+    return <div style={{ lineHeight: 1 }}>게시글이 성공적으로 수정되었습니다.</div>;
   }
+
   return (
     <BaseLayout isFooter={false}>
       <Header
-        leftIcon={
-          currentStep === '게시글 작성' ? (
-            <ButtonIconNavigateClear />
-          ) : (
-            <ButtonIcon icon={<IconNavigateBefore />} onClick={gotoPreviousStep} />
-          )
-        }
-        subtitle={currentStep}
+        leftIcon={<ButtonIconNavigateClear />}
+        subtitle="게시글 수정"
         rightIcon1={
           <ButtonOnClick
             type="text"
             size="small"
             color="blue"
-            text={currentStep === '게시글 작성' ? '완료' : '게시'}
-            onClick={currentStep === '게시글 작성' ? gotoNextStep : handleSubmit}
+            text={'수정 완료'}
+            onClick={handleSubmit}
             disabled={isPending}
           />
         }
       />
-      {currentStep === '게시글 작성' && (
-        <WritePage
-          handleFormChange={handleFormChange}
-          formData={formData}
-          handleImageChange={handleImageChange}
-          handleImageRemove={handleImageRemove}
-          previewUrls={previewUrls}
-        />
-      )}
-      {currentStep === '게시판 선택' && (
-        <SelectBoardPage
-          categories={categories}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-        />
-      )}
-
-      {/* <Funnel>
-        <Step name="게시글 작성">
-          <WritePage
-            handleFormChange={handleFormChange}
-            formData={formData}
-            handleImageChange={handleImageChange}
-            handleImageRemove={handleImageRemove}
-            previewUrls={previewUrls}
-          />
-        </Step>
-        <Step name="게시판 선택">
-          <div style={{ lineHeight: '1' }}>게시판 선택 페이지</div>
-        </Step>
-      </Funnel> */}
+      <WritePage
+        handleFormChange={handleFormChange}
+        formData={formData}
+        handleImageChange={handleImageChange}
+        handleImageRemove={handleImageRemove}
+        previewUrls={previewUrls}
+      />
     </BaseLayout>
   );
 }

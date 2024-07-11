@@ -57,7 +57,7 @@ export default function PostCard({ post }: PostCardProps) {
           <div className={styles.title}>{post.postSnapshots[lastPostSnapshotsIndex].title}</div>
           <div className={styles.content}>{post.postSnapshots[lastPostSnapshotsIndex].body}</div>
         </div>
-        {post.postSnapshots[0].postSnapshotImages[0] && (
+        {post.postSnapshots[lastPostSnapshotsIndex].postSnapshotImages[0] && (
           <div className={styles.right}>
             <img
               className={styles.image}

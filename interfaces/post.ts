@@ -1,5 +1,5 @@
 export interface postType {
-  id: number;
+  id: string;
   nickname: string;
   title: string;
   type: 'free' | 'seminar' | 'competition';

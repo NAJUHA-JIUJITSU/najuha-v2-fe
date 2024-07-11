@@ -7,7 +7,8 @@ import {
   TCompetitionSortOption,
 } from 'najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 
-// 대회 목록 조회
+// u-5-1 findCompetitions.
+// 대회 목록을 조회합니다 - 노필터링
 export const getCompetitions = async () => {
   const response = await withAuth((connection) =>
     api.functional.user.competitions.findCompetitions(connection, { page: 0 }),
@@ -41,7 +42,8 @@ export const getFilteredCompetitions = async (params: fetchCompetitionsParams) =
   return response.result;
 };
 
-// 특정 대회 조회
+// u-5-2 getCompetition.
+// 특정 대회를 조회합니다.
 export const getCompetitionId = async (competitionId: string) => {
   const response = await withAuth((connection) =>
     api.functional.user.competitions.getCompetition(connection, competitionId),
@@ -50,8 +52,20 @@ export const getCompetitionId = async (competitionId: string) => {
   return response.result.competition;
 };
 
+// u-8-2 incrementCompetitionViewCount
+// 대회 조회수를 증가시킵니다.
+export const incrementCompetitionViewCount = async (competitionId: string) => {
+  await withAuth((connection) =>
+    api.functional.user.view_count.competition.incrementCompetitionViewCount(
+      connection,
+      competitionId,
+    ),
+  );
+};
+
 export const competitionApi = {
   getCompetitions,
   getFilteredCompetitions,
   getCompetitionId,
+  incrementCompetitionViewCount,
 };

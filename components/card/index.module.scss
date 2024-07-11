@@ -21,8 +21,12 @@
     display: flex;
     position: relative;
     overflow: hidden;
+    width: 108px;
+    height: 144px;
     min-width: 108px;
+    max-width: 108px;
     min-height: 144px;
+    max-width: 144px;
 
     .posterImg {
       width: 100%;
@@ -136,6 +140,10 @@
     .posterSection {
       width: 141px;
       height: 188px;
+      min-width: 141px;
+      max-width: 141px;
+      min-height: 188px;
+      max-width: 188px;
       margin-bottom: 8px;
       margin-right: 0;
     }
