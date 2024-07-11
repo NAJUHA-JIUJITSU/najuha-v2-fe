@@ -5,13 +5,17 @@ import PostReaction from '@/components/reactions/postReaction';
 import { useGetPost, useIncrementPostViewCount } from '@/hooks/post';
 import { getPastTime } from '@/utils/dateUtils/dateCheck';
 import { useQueryClient } from '@tanstack/react-query';
+import { ICommentSnapshot } from 'najuha-v2-api/lib/modules/posts/domain/interface/comment-snapshot.interface';
 
-export default function Post({ postId }: { postId: string }) {
+interface postProps {
+  postId: string;
+  handleEditComment: (comment: ICommentSnapshot['body']) => void;
+}
+
+export default function Post({ postId, handleEditComment }: postProps) {
   const { data, isLoading, isError } = useGetPost(postId);
   const { mutate: incrementViewCount } = useIncrementPostViewCount(postId);
   const queryClient = useQueryClient();
-
-  console.log('data', data);
 
   // 게시글 조회수 증가
   useEffect(() => {
@@ -83,6 +87,7 @@ export default function Post({ postId }: { postId: string }) {
         userLiked={post.userLiked}
         likeCnt={post.likeCount}
         commentCnt={post.commentCount}
+        handleEditComment={handleEditComment}
       />
     </div>
   );

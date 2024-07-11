@@ -1,19 +1,25 @@
 'use client';
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import { useFindComments } from '@/hooks/post';
 import { TId } from 'najuha-v2-api/lib/common/common-types';
 import Comment from '@/components/comments//comment';
 import { ThinDivider, Divider } from '@/components/divider';
-import { ICommentDetail } from 'najuha-v2-api/lib/modules/posts/domain/interface/comment.interface';
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
+import { ICommentSnapshot } from 'najuha-v2-api/lib/modules/posts/domain/interface/comment-snapshot.interface';
 
 interface commentListProps {
   postId: TId;
   postUserId: TId;
   userId: TId | undefined;
-  onEdit: (comment: ICommentDetail) => void;
+  handleEditComment: (comment: ICommentSnapshot['body']) => void;
 }
 
-export default function CommentList({ postId, postUserId, userId, onEdit }: commentListProps) {
+export default function CommentList({
+  postId,
+  postUserId,
+  userId,
+  handleEditComment,
+}: commentListProps) {
   const {
     data: comments,
     isError,
@@ -21,35 +27,11 @@ export default function CommentList({ postId, postUserId, userId, onEdit }: comm
     hasNextPage,
     isFetchingNextPage,
   } = useFindComments(postId);
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const lastElementRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    // 다음 페이지 요청 중이거나 다음 페이지가 없으면 return
-    if (isFetchingNextPage || !hasNextPage) return;
-
-    // IntersectionObserver 생성
-    if (observerRef.current) observerRef.current.disconnect();
-
-    observerRef.current = new IntersectionObserver((entries) => {
-      // 마지막 리스트 요소가 화면에 보이면 다음 페이지 요청
-      if (entries[0].isIntersecting) {
-        console.log('다음 페이지 요청');
-        fetchNextPage();
-      }
-    });
-
-    // observer에 관찰 대상 등록
-    if (lastElementRef.current) {
-      observerRef.current.observe(lastElementRef.current);
-    }
-
-    return () => observerRef.current?.disconnect();
-  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+  const lastElementRef = useInfiniteScroll(fetchNextPage, hasNextPage, isFetchingNextPage);
 
   if (!comments) return null;
 
-  // 가장 좋아요가 많은 댓글 찾기
+  // 가장 좋아요가 많은 댓글 찾기 //todo: api로 변경
   const bestComment = comments.pages[0].comments.reduce((prev, current) => {
     return prev.likeCount > current.likeCount ? prev : current;
   }, comments.pages[0].comments[0] || null);
@@ -68,6 +50,7 @@ export default function CommentList({ postId, postUserId, userId, onEdit }: comm
             isHost={bestComment.userId === userId}
             isBest={true}
             isPreview={true}
+            handleEditComment={handleEditComment}
           />
           <Divider />
         </>
@@ -83,7 +66,7 @@ export default function CommentList({ postId, postUserId, userId, onEdit }: comm
               comment={comment}
               isHost={comment.userId === userId}
               isBest={comment.id === bestComment.id && isBestComment}
-              onEdit={onEdit}
+              handleEditComment={handleEditComment}
             />
             <ThinDivider key={`divider-${comment.id}`} />
           </>

@@ -13,7 +13,6 @@ function PostEditor({ onChange, formData }: PostEditorProps) {
   const [body, setBody] = useState(formData.body);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     setTitle(formData.title);
     setBody(formData.body);

@@ -27,15 +27,16 @@
     width: 100%;
     box-sizing: border-box;
     border-radius: 10px;
-    min-height: 80px;
-    max-height: 124px;
+    height: auto;
+    max-height: 114px;
 
     .textArea {
       width: 100%;
       background-color: $--color-gray-1;
       border: none;
-      min-height: 48px;
-      max-height: 92px;
+      box-sizing: border-box;
+      height: 23px;
+      max-height: 82px;
       @include font-body3-regular;
       color: $--color-font-headline;
       resize: none;

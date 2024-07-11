@@ -7,7 +7,8 @@ import { ICommentDetail } from 'najuha-v2-api/lib/modules/posts/domain/interface
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import { TId } from 'najuha-v2-api/lib/common/common-types';
 import ReplyCommentList from '@/components/comments/replyCommentList';
-import { ButtonIconMoreVertForComment } from '@/components/common/icon/iconOnClick';
+import ButtonIconMoreVertForComment from '@/components/buttonIconMoreVerts/buttonIconMoreVertForComment';
+import { ICommentSnapshot } from 'najuha-v2-api/lib/modules/posts/domain/interface/comment-snapshot.interface';
 
 interface CommentProps {
   postId: TId;
@@ -17,7 +18,7 @@ interface CommentProps {
   isHost?: boolean;
   isBest?: boolean;
   isPreview?: boolean;
-  onEdit?: (comment: ICommentDetail) => void;
+  handleEditComment: (comment: ICommentSnapshot['body']) => void;
 }
 
 export default function Comment({
@@ -28,14 +29,15 @@ export default function Comment({
   isHost = false,
   isBest = false,
   isPreview = false,
-  onEdit,
+  handleEditComment,
 }: CommentProps) {
   const [isReplyOpen, setIsReplyOpen] = useState(false);
   // bug: 댓글수 받아왔지만, 댓글 수 0개여도 더 불러와짐.
   const replyCnt = 2;
 
   const handleEdit = () => {
-    if (onEdit) onEdit(comment);
+    if (handleEditComment)
+      handleEditComment(comment.commentSnapshots[comment.commentSnapshots.length - 1].body);
   };
 
   return (
@@ -100,7 +102,12 @@ export default function Comment({
           </div>
         )}
         {isReplyOpen && (
-          <ReplyCommentList postId={postId} postUserId={postUserId} commentId={comment.id} />
+          <ReplyCommentList
+            postId={postId}
+            postUserId={postUserId}
+            commentId={comment.id}
+            handleEditComment={handleEditComment}
+          />
         )}
       </div>
     </div>

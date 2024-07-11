@@ -4,14 +4,21 @@ import { TId } from 'najuha-v2-api/lib/common/common-types';
 import ReplyComment from '@/components/comments/replyComment';
 import { useUserID } from '@/hooks/user';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
+import { ICommentSnapshot } from 'najuha-v2-api/lib/modules/posts/domain/interface/comment-snapshot.interface';
 
 interface ReplyCommentListProps {
   postId: TId;
   postUserId: TId;
   commentId: TId;
+  handleEditComment: (comment: ICommentSnapshot['body']) => void;
 }
 
-export default function ReplyCommentList({ postId, postUserId, commentId }: ReplyCommentListProps) {
+export default function ReplyCommentList({
+  postId,
+  postUserId,
+  commentId,
+  handleEditComment,
+}: ReplyCommentListProps) {
   const {
     data: replies,
     isError,
@@ -34,6 +41,7 @@ export default function ReplyCommentList({ postId, postUserId, commentId }: Repl
             postId={postId}
             isWriter={reply.userId === postUserId}
             isHost={reply.userId === userInfo?.id}
+            handleEditComment={handleEditComment}
           />
         )),
       )}

@@ -3,8 +3,9 @@ import CommentReaction from '@/components/reactions/commentReaction';
 import IconReply from '@/public/svgs/reply.svg';
 import { getPastTime } from '@/utils/dateUtils/dateCheck';
 import { ICommentDetail } from 'najuha-v2-api/lib/modules/posts/domain/interface/comment.interface';
-import { ButtonIconMoreVertForComment } from '@/components/common/icon/iconOnClick';
+import ButtonIconMoreVertForComment from '@/components/buttonIconMoreVerts/buttonIconMoreVertForComment';
 import { TId } from 'najuha-v2-api/lib/common/common-types';
+import { ICommentSnapshot } from 'najuha-v2-api/lib/modules/posts/domain/interface/comment-snapshot.interface';
 
 interface CommentProps {
   parentId: TId;
@@ -12,6 +13,7 @@ interface CommentProps {
   postId: TId;
   isWriter: boolean;
   isHost?: boolean;
+  handleEditComment: (comment: ICommentSnapshot['body']) => void;
 }
 
 export default function ReplyComment({
@@ -20,9 +22,15 @@ export default function ReplyComment({
   postId,
   isWriter,
   isHost = false,
+  handleEditComment,
 }: CommentProps) {
   // todo: 댓글수 받아오기
   const replyCnt = 2;
+  const handleEdit = () => {
+    if (handleEditComment)
+      handleEditComment(comment.commentSnapshots[comment.commentSnapshots.length - 1].body);
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.extraIcon}>
@@ -54,6 +62,7 @@ export default function ReplyComment({
               commentId={comment.id}
               postId={postId}
               isHost={isHost}
+              handleEditComment={handleEdit}
             />
           </div>
         </div>

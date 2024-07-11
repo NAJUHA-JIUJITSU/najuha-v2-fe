@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import styles from './index.module.scss';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 
@@ -10,7 +10,7 @@ interface commentTextAreaProps {
   onCancel?: () => void;
 }
 
-export default function CommentTextArea({
+function CommentTextArea({
   isEditing = false,
   initialText = '',
   onSubmit,
@@ -19,12 +19,19 @@ export default function CommentTextArea({
   const [text, setText] = useState(initialText);
   const [isFocused, setIsFocused] = useState(false);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
   const handleFocus = () => setIsFocused(true);
   const handleBlur = () => {
     if (!text) setIsFocused(false);
   };
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value);
+
+  const handleBodyChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value);
+    if (textAreaRef.current) {
+      // 스크롤 높이에 맞춰 높이를 조절합니다.
+      textAreaRef.current.style.height = '23px';
+      textAreaRef.current.style.height = `${Math.min(textAreaRef.current.scrollHeight, 92)}px`;
+    }
+  }, []);
   const handleSubmit = () => {
     onSubmit(text);
     setText('');
@@ -35,13 +42,6 @@ export default function CommentTextArea({
     setIsFocused(false);
     if (onCancel) onCancel();
   };
-
-  useEffect(() => {
-    if (textAreaRef.current) {
-      textAreaRef.current.style.height = 'auto';
-      textAreaRef.current.style.height = `${Math.min(textAreaRef.current.scrollHeight, 92)}px`;
-    }
-  }, [text]);
 
   useEffect(() => {
     setText(initialText);
@@ -61,20 +61,18 @@ export default function CommentTextArea({
             value={text}
             onFocus={handleFocus}
             onBlur={handleBlur}
-            onChange={handleChange}
+            onChange={handleBodyChange}
           />
         </div>
         {isFocused && (
           <div className={styles.buttonWrapper}>
-            {isEditing && (
-              <ButtonOnClick
-                text="취소"
-                size="small"
-                color="lightblue"
-                type="filled"
-                onClick={handleCancel}
-              />
-            )}
+            <ButtonOnClick
+              text="취소"
+              size="small"
+              color="lightblue"
+              type="filled"
+              onClick={handleCancel}
+            />
             <ButtonOnClick
               text={isEditing ? '수정' : '등록'}
               size="small"
@@ -88,3 +86,5 @@ export default function CommentTextArea({
     </div>
   );
 }
+
+export default React.memo(CommentTextArea);
