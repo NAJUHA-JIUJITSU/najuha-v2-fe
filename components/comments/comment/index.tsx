@@ -9,6 +9,7 @@ import { TId } from 'najuha-v2-api/lib/common/common-types';
 import ReplyCommentList from '@/components/comments/replyCommentList';
 import ButtonIconMoreVertForComment from '@/components/buttonIconMoreVerts/buttonIconMoreVertForComment';
 import { ICommentSnapshot } from 'najuha-v2-api/lib/modules/posts/domain/interface/comment-snapshot.interface';
+import clsx from 'clsx';
 
 interface CommentProps {
   postId: TId;
@@ -18,7 +19,10 @@ interface CommentProps {
   isHost?: boolean;
   isBest?: boolean;
   isPreview?: boolean;
-  handleEditComment: (comment: ICommentSnapshot['body']) => void;
+  handleEditComment: (id: TId, body: ICommentSnapshot['body'], parentId?: TId) => void;
+  handleReplyComment: (parentId: TId) => void;
+  isReplying?: boolean;
+  isEditing?: boolean;
 }
 
 export default function Comment({
@@ -30,14 +34,21 @@ export default function Comment({
   isBest = false,
   isPreview = false,
   handleEditComment,
+  handleReplyComment,
+  isReplying = false,
+  isEditing = false,
 }: CommentProps) {
   const [isReplyOpen, setIsReplyOpen] = useState(false);
-  // bug: 댓글수 받아왔지만, 댓글 수 0개여도 더 불러와짐.
-  const replyCnt = 2;
 
   const handleEdit = () => {
-    if (handleEditComment)
-      handleEditComment(comment.commentSnapshots[comment.commentSnapshots.length - 1].body);
+    handleEditComment(
+      comment.id,
+      comment.commentSnapshots[comment.commentSnapshots.length - 1].body,
+    );
+  };
+
+  const handleReplyClick = () => {
+    handleReplyComment(comment.id);
   };
 
   return (
@@ -76,7 +87,7 @@ export default function Comment({
         <div className={styles.middle}>
           {/**  BEST 댓글일 경우에만 노출 */}
           {isBest && <div className={styles.best}>BEST</div>}
-          <div className={styles.content}>
+          <div className={clsx(styles.content, { [styles.editingContent]: isEditing })}>
             {comment.commentSnapshots[comment.commentSnapshots.length - 1].body}
           </div>
         </div>
@@ -87,9 +98,11 @@ export default function Comment({
             likeCnt={comment.likeCount}
             userLiked={comment.userLiked}
             replyCnt={comment.replyCount}
+            onReplyButtonClick={handleReplyClick}
+            isReplying={isReplying}
           />
         )}
-        {replyCnt > 0 && !isPreview && !isReplyOpen && (
+        {comment.replyCount > 0 && !isPreview && !isReplyOpen && (
           <div className={styles.replyBtn}>
             <ButtonOnClick
               iconLeft={<IconReply />}

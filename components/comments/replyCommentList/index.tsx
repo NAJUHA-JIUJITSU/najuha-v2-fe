@@ -10,7 +10,7 @@ interface ReplyCommentListProps {
   postId: TId;
   postUserId: TId;
   commentId: TId;
-  handleEditComment: (comment: ICommentSnapshot['body']) => void;
+  handleEditComment: (id: TId, body: ICommentSnapshot['body']) => void;
 }
 
 export default function ReplyCommentList({

@@ -14,6 +14,8 @@ interface ReactionProps {
   likeCnt?: number;
   replyCnt?: number;
   isReply?: boolean;
+  isReplying?: boolean; // 답글 작성 중 상태 추가
+  onReplyButtonClick?: () => void;
 }
 
 export default function CommentReaction({
@@ -23,6 +25,8 @@ export default function CommentReaction({
   likeCnt = 0,
   replyCnt = 0,
   isReply = false,
+  isReplying = false,
+  onReplyButtonClick,
 }: ReactionProps) {
   const { mutate: createPostLike } = useCreateCommentLike(commentId);
   const { mutate: deletePostLike } = useDeleteCommentLike(commentId);
@@ -82,9 +86,8 @@ export default function CommentReaction({
           color="infoBlue"
           iconLeft={<IconChat />}
           text={replyCnt.toString()}
-          onToggle={() => {
-            console.log('comment button clicked');
-          }}
+          isToggled={isReplying}
+          onToggle={onReplyButtonClick}
         />
       )}
     </div>

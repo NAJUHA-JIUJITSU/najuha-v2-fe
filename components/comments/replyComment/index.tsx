@@ -13,7 +13,7 @@ interface CommentProps {
   postId: TId;
   isWriter: boolean;
   isHost?: boolean;
-  handleEditComment: (comment: ICommentSnapshot['body']) => void;
+  handleEditComment: (id: TId, body: ICommentSnapshot['body']) => void;
 }
 
 export default function ReplyComment({
@@ -25,10 +25,12 @@ export default function ReplyComment({
   handleEditComment,
 }: CommentProps) {
   // todo: 댓글수 받아오기
-  const replyCnt = 2;
   const handleEdit = () => {
     if (handleEditComment)
-      handleEditComment(comment.commentSnapshots[comment.commentSnapshots.length - 1].body);
+      handleEditComment(
+        comment.id,
+        comment.commentSnapshots[comment.commentSnapshots.length - 1].body,
+      );
   };
 
   return (
@@ -76,7 +78,6 @@ export default function ReplyComment({
           commentId={comment.id}
           likeCnt={comment.likeCount}
           userLiked={comment.userLiked}
-          replyCnt={replyCnt} // todo: 댓글수 받아오기
           isReply={true}
         />
       </div>

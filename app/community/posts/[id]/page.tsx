@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import Post from '@/components/post';
@@ -16,15 +16,20 @@ import { useCommentEditing } from '@/hooks/useCommentEditing';
 export default function PostId({ params }: { params: { id: TId } }) {
   const { data: post } = useGetPost(params.id);
   const { data: userInfo } = useUserID();
-  const { editingComment, handleEditComment, handleCancelEdit, handleSubmitComment } =
-    useCommentEditing();
+  const {
+    editingComment,
+    isCommentingOnPost,
+    isFocused: isCommentAreaFocused,
+    replyingCommentId,
+    handleComment,
+    handleEditComment,
+    handleReplyComment,
+    handleCancelEdit,
+    handleSubmitComment,
+    setIsFocused: setCommentAreaFocus,
+  } = useCommentEditing(params.id);
+
   console.log('PostIdPage 렌더');
-
-  const [isCommentAreaFocused, setCommentAreaFocus] = useState(false);
-
-  const handleCommentButtonClick = () => {
-    setCommentAreaFocus(true);
-  };
 
   if (!post) return null;
 
@@ -40,13 +45,20 @@ export default function PostId({ params }: { params: { id: TId } }) {
           />
         }
       />
-      <Post postId={params.id} handleCommentButtonClick={handleCommentButtonClick} />
+      <Post
+        postId={params.id}
+        handleCommentButtonClick={handleComment}
+        isCommentingOnPost={isCommentingOnPost}
+      />
       <ThinDivider />
       <CommentList
         postId={params.id}
         postUserId={post.post.user.id}
         userId={userInfo?.id}
+        editingComment={editingComment?.id || null}
         handleEditComment={handleEditComment}
+        handleReplyComment={handleReplyComment}
+        replyingCommentId={replyingCommentId}
       />
       <CommentTextArea
         isFocused={isCommentAreaFocused}

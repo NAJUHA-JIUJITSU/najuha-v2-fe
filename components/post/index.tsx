@@ -5,13 +5,15 @@ import PostReaction from '@/components/reactions/postReaction';
 import { useGetPost, useIncrementPostViewCount } from '@/hooks/post';
 import { getPastTime } from '@/utils/dateUtils/dateCheck';
 import { useQueryClient } from '@tanstack/react-query';
+import { TId } from 'najuha-v2-api/lib/common/common-types';
 
 interface postProps {
-  postId: string;
+  postId: TId;
   handleCommentButtonClick: () => void;
+  isCommentingOnPost: boolean;
 }
 
-export default function Post({ postId, handleCommentButtonClick }: postProps) {
+export default function Post({ postId, handleCommentButtonClick, isCommentingOnPost }: postProps) {
   const { data, isLoading, isError } = useGetPost(postId);
   const { mutate: incrementViewCount } = useIncrementPostViewCount(postId);
   const queryClient = useQueryClient();
@@ -87,6 +89,7 @@ export default function Post({ postId, handleCommentButtonClick }: postProps) {
         likeCnt={post.likeCount}
         commentCnt={post.commentCount}
         handleCommentButtonClick={handleCommentButtonClick}
+        isCommentingOnPost={isCommentingOnPost}
       />
     </div>
   );

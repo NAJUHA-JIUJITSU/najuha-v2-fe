@@ -11,14 +11,20 @@ interface commentListProps {
   postId: TId;
   postUserId: TId;
   userId: TId | undefined;
-  handleEditComment: (comment: ICommentSnapshot['body']) => void;
+  editingComment: TId | null;
+  handleEditComment: (id: TId, body: ICommentSnapshot['body']) => void;
+  handleReplyComment: (parentId: TId) => void;
+  replyingCommentId: TId | null;
 }
 
 export default function CommentList({
   postId,
   postUserId,
   userId,
+  editingComment,
   handleEditComment,
+  handleReplyComment,
+  replyingCommentId,
 }: commentListProps) {
   const {
     data: comments,
@@ -51,6 +57,7 @@ export default function CommentList({
             isBest={true}
             isPreview={true}
             handleEditComment={handleEditComment}
+            handleReplyComment={handleReplyComment}
           />
           <Divider />
         </>
@@ -67,6 +74,9 @@ export default function CommentList({
               isHost={comment.userId === userId}
               isBest={comment.id === bestComment.id && isBestComment}
               handleEditComment={handleEditComment}
+              handleReplyComment={handleReplyComment}
+              isReplying={replyingCommentId === comment.id}
+              isEditing={editingComment === comment.id}
             />
             <ThinDivider key={`divider-${comment.id}`} />
           </>

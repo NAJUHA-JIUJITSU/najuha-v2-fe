@@ -12,6 +12,7 @@ interface ReactionProps {
   userLiked?: boolean;
   likeCnt?: number;
   commentCnt?: number;
+  isCommentingOnPost: boolean;
   handleCommentButtonClick: () => void;
 }
 
@@ -20,6 +21,7 @@ export default function PostReaction({
   userLiked = false,
   likeCnt = 0,
   commentCnt = 0,
+  isCommentingOnPost,
   handleCommentButtonClick,
 }: ReactionProps) {
   const { mutate: createPostLike } = useCreatePostLike(postId);
@@ -27,7 +29,6 @@ export default function PostReaction({
   const [userLikedState, setUserLikedState] = useState<boolean>(userLiked);
   const [likeCntState, setLikeCntState] = useState<number>(likeCnt);
   const queryClient = useQueryClient();
-
   const handleLikeSuccess = () => {
     setUserLikedState(true);
     setLikeCntState((prev) => prev + 1);
@@ -80,6 +81,7 @@ export default function PostReaction({
           color="infoBlue"
           iconLeft={<IconChat />}
           text={commentCnt.toString()}
+          isToggled={isCommentingOnPost}
           onToggle={handleCommentButtonClick}
         />
       }

@@ -58,6 +58,9 @@
     .content {
       @include font-body3-regular;
       color: $--color-font-headline;
+      &.editingContent {
+        color: $--color-brand-blue;
+      }
     }
   }
 

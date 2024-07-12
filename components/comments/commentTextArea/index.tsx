@@ -7,7 +7,7 @@ interface commentTextAreaProps {
   isEditing?: boolean;
   initialText?: string;
   onSubmit: (text: string) => void;
-  onCancel?: () => void;
+  onCancel: () => void;
   isFocused: boolean; // 외부에서 포커스 제어
   setFocus: (focused: boolean) => void; // 포커스 상태 변경 함수
 }
@@ -23,9 +23,6 @@ function CommentTextArea({
   const [text, setText] = useState(initialText);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const handleFocus = () => setFocus(true);
-  const handleBlur = () => {
-    if (!text) setFocus(false);
-  };
 
   const handleBodyChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
@@ -41,17 +38,20 @@ function CommentTextArea({
     setFocus(false);
   };
   const handleCancel = () => {
+    console.log('handleCancel---------');
+    onCancel();
     setText('');
-    setFocus(false);
-    if (onCancel) onCancel();
   };
 
   useEffect(() => {
     setText(initialText);
-    if ((isEditing || isFocused) && textAreaRef.current) {
+  }, [initialText]);
+
+  useEffect(() => {
+    if (isFocused && textAreaRef.current) {
       textAreaRef.current.focus();
     }
-  }, [initialText, isEditing, isFocused]);
+  }, [isFocused]);
 
   return (
     <div className={styles.stickyWrapper}>
@@ -63,11 +63,10 @@ function CommentTextArea({
             placeholder="댓글을 입력해주세요"
             value={text}
             onFocus={handleFocus}
-            onBlur={handleBlur}
             onChange={handleBodyChange}
           />
         </div>
-        {isFocused && (
+        {(isEditing || isFocused) && (
           <div className={styles.buttonWrapper}>
             <ButtonOnClick
               text="취소"
