@@ -18,7 +18,7 @@ const postCreateImage = async (data: CreateImageReqBody, file: File) => {
     const uploadResponse = await postUploadImage(url, fields, file);
     console.log('uploadResponse: ', uploadResponse);
 
-    // 3. 업로드된 이미지의 id를 반환
+    // 3. 업로드된 이미지의 정보를 반환
     return createResponse;
   } catch (error) {
     console.error('Error uploading image:', error);
