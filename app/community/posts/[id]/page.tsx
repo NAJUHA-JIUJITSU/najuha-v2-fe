@@ -55,7 +55,7 @@ export default function PostId({ params }: { params: { id: TId } }) {
         postId={params.id}
         postUserId={post.post.user.id}
         userId={userInfo?.id}
-        editingComment={editingComment?.id || null}
+        editingComment={editingComment || null}
         handleEditComment={handleEditComment}
         handleReplyComment={handleReplyComment}
         replyingCommentId={replyingCommentId}

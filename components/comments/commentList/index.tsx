@@ -11,7 +11,11 @@ interface commentListProps {
   postId: TId;
   postUserId: TId;
   userId: TId | undefined;
-  editingComment: TId | null;
+  editingComment: {
+    id: TId;
+    body: ICommentSnapshot['body'];
+    parentId?: TId;
+  } | null;
   handleEditComment: (id: TId, body: ICommentSnapshot['body']) => void;
   handleReplyComment: (parentId: TId) => void;
   replyingCommentId: TId | null;
@@ -76,7 +80,9 @@ export default function CommentList({
               handleEditComment={handleEditComment}
               handleReplyComment={handleReplyComment}
               isReplying={replyingCommentId === comment.id}
-              isEditing={editingComment === comment.id}
+              isEditing={
+                editingComment?.id === comment.id && editingComment?.parentId === undefined
+              }
             />
             <ThinDivider key={`divider-${comment.id}`} />
           </>
