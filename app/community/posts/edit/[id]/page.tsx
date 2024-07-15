@@ -125,7 +125,7 @@ export default function EditPost({ params }: { params: { id: string } }) {
         onSuccess: (res) => {
           console.log('게시글이 성공적으로 수정되었습니다.', res);
           // 수정 성공 후 이전 페이지로 이동
-          router.push(`/community/posts/${postId}`);
+          router.replace(`/community/posts/${postId}`);
         },
         onError: (error) => {
           console.error('게시글 수정에 실패했습니다.', error);
