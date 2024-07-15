@@ -9,6 +9,12 @@ import { useGetPost, useUpdatePostWithImages } from '@/hooks/post';
 import { IImageCreateDto } from 'najuha-v2-api/lib/modules/images/domain/interface/image.interface';
 import { useRouter } from 'next/navigation';
 
+const urlToFile = async (url: string, filename: string, mimeType: string): Promise<File> => {
+  const response = await fetch(url);
+  const blob = await response.blob();
+  return new File([blob], filename, { type: mimeType });
+};
+
 export default function EditPost({ params }: { params: { id: string } }) {
   const postId = params.id;
   const router = useRouter();
@@ -31,12 +37,22 @@ export default function EditPost({ params }: { params: { id: string } }) {
         title: postSnapshots.title,
         body: postSnapshots.body,
       });
+
+      const sortedImages = postSnapshots.postSnapshotImages
+        .slice()
+        .sort((a, b) => a.sequence - b.sequence);
       // 기존 이미지 URLs 설정
-      const existingPreviewUrls = postSnapshots.postSnapshotImages.map(
+      const existingPreviewUrls = sortedImages.map(
         (img) => `http://localhost:9000/najuha-v2-bucket/${img.image.path}/${img.image.id}`,
       );
       setPreviewUrls(existingPreviewUrls);
-      // 추가적인 로직으로 기존 이미지를 로드하고, 업데이트를 위해 사용
+      Promise.all(
+        sortedImages.map(
+          (img, index) => urlToFile(existingPreviewUrls[index], img.image.id, 'image/jpeg'), // MIME 타입을 적절히 수정
+        ),
+      ).then((files) => {
+        setImages(files);
+      });
     }
   }, [data]);
 
@@ -109,7 +125,7 @@ export default function EditPost({ params }: { params: { id: string } }) {
         onSuccess: (res) => {
           console.log('게시글이 성공적으로 수정되었습니다.', res);
           // 수정 성공 후 이전 페이지로 이동
-          router.push(`/post/${postId}`);
+          router.push(`/community/posts/${postId}`);
         },
         onError: (error) => {
           console.error('게시글 수정에 실패했습니다.', error);
