@@ -7,6 +7,7 @@ import {
   nameState,
   phoneNumberState,
   snsProviderState,
+  profileImageState,
 } from '../atoms/registerState';
 
 export const userInfoSelector = selector({
@@ -20,6 +21,7 @@ export const userInfoSelector = selector({
     const name = get(nameState);
     const phoneNumber = get(phoneNumberState);
     const snsProvider = get(snsProviderState);
+    const profileImage = get(profileImageState);
     return {
       name,
       gender,
@@ -28,6 +30,7 @@ export const userInfoSelector = selector({
       belt,
       phoneNumber,
       snsProvider,
+      profileImage,
     };
   },
 });

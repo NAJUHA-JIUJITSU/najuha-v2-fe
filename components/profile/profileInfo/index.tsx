@@ -9,10 +9,14 @@ export default function ProfileInfo() {
   useUserInfo();
   const userInfo = useRecoilValue(userInfoSelector);
 
+  const imageUrl = userInfo.profileImage
+    ? `http://localhost:9000/najuha-v2-bucket/${userInfo.profileImage.path}/${userInfo.profileImage.id}`
+    : '/images/sampleProfile.jpg';
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.profile}>
-        <img className={styles.profileImg} src="/images/sampleProfile.jpg" alt="profile" />
+        <img className={styles.profileImg} src={imageUrl} alt="profile" />
         <div className={styles.nickname}>{userInfo.nickname}</div>
       </div>
       <ButtonLink

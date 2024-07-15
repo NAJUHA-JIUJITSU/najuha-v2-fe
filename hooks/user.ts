@@ -10,9 +10,13 @@ import {
   phoneNumberState,
   beltState,
   snsProviderState,
+  profileImageState,
 } from '@/recoil/atoms/registerState';
 import { useEffect } from 'react';
+import { imageApi } from '@/api/nestia/imageApi';
+import { IImageCreateDto } from 'najuha-v2-api/lib/modules/images/domain/interface/image.interface';
 
+// 사용자 정보 가져오기 + recoil에 저장
 export const useUserInfo = () => {
   const setName = useSetRecoilState(nameState);
   const setGender = useSetRecoilState(genderState);
@@ -21,6 +25,7 @@ export const useUserInfo = () => {
   const setNickname = useSetRecoilState(nicknameState);
   const setSnsProvider = useSetRecoilState(snsProviderState);
   const setBelt = useSetRecoilState(beltState);
+  const setImage = useSetRecoilState(profileImageState);
 
   const { data } = useQuery({
     queryKey: ['userInfo'],
@@ -40,10 +45,12 @@ export const useUserInfo = () => {
       setNickname(data.nickname);
       setBelt(data.belt);
       setSnsProvider(data.snsAuthProvider);
+      setImage(data.profileImages[0]?.image);
     }
   }, [data]);
 };
 
+// 사용자 정보 수정
 export const useUserPatch = () => {
   const userPatch = useRecoilValue(userPatchSelector);
   const queryClient = useQueryClient();
@@ -61,6 +68,27 @@ export const useUserPatch = () => {
         queryKey: ['userInfo'],
       });
     },
+  });
+};
+
+// 사용자 프로필 이미지 등록
+export const useCreateUserProfileImage = (path: IImageCreateDto['path']) => {
+  return useMutation({
+    mutationFn: async (file: File) => {
+      const imageResponse = await imageApi.postCreateImage(
+        { path, format: file.type as IImageCreateDto['format'] },
+        file,
+      );
+
+      return usersApi.postCreateUserProfileImage({ imageId: imageResponse.result.image.id });
+    },
+  });
+};
+
+// 사용자 프로필 이미지 삭제
+export const useDeleteUserProfileImage = () => {
+  return useMutation({
+    mutationFn: () => usersApi.deleteUserProfileImage(),
   });
 };
 

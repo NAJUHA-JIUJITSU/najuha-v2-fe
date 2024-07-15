@@ -1,5 +1,6 @@
 import { atom } from 'recoil';
 import { IUser } from '@/node_modules/najuha-v2-api/lib/modules/users/domain/interface/user.interface';
+import { IImage } from 'najuha-v2-api/lib/modules/images/domain/interface/image.interface';
 
 export interface CheckboxItem {
   checked: boolean;
@@ -67,4 +68,10 @@ export const beltState = atom<IUser['belt']>({
 export const snsProviderState = atom<string>({
   key: 'snsProviderState',
   default: '',
+});
+
+//
+export const profileImageState = atom<IImage>({
+  key: 'profileImageState',
+  default: {} as IImage,
 });
