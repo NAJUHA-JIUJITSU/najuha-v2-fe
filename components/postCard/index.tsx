@@ -38,7 +38,9 @@ export default function PostCard({ post }: PostCardProps) {
     return <>{tags}</>;
   }
   const lastPostSnapshotsIndex = post.postSnapshots.length - 1; //todo : 마지막 게시글만 보여주기
-
+  const firstSequenceSnapshotImage = post.postSnapshots[lastPostSnapshotsIndex].postSnapshotImages
+    .slice()
+    .sort((a, b) => a.sequence - b.sequence)[0];
   // top, middle, bottom으로 나누어서 구조화
   // top: 태그, 조회수
   // middle: 제목, 내용, 이미지
@@ -61,7 +63,7 @@ export default function PostCard({ post }: PostCardProps) {
           <div className={styles.right}>
             <img
               className={styles.image}
-              src={`http://localhost:9000/najuha-v2-bucket/${post.postSnapshots[lastPostSnapshotsIndex].postSnapshotImages[0].image.path}/${post.postSnapshots[lastPostSnapshotsIndex].postSnapshotImages[0].image.id}`}
+              src={`http://localhost:9000/najuha-v2-bucket/${firstSequenceSnapshotImage.image.path}/${firstSequenceSnapshotImage.image.id}`}
               alt="이미지"
             />
           </div>
