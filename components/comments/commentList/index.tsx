@@ -80,9 +80,7 @@ export default function CommentList({
               handleEditComment={handleEditComment}
               handleReplyComment={handleReplyComment}
               isReplying={replyingCommentId === comment.id}
-              isEditing={
-                editingComment?.id === comment.id && editingComment?.parentId === undefined
-              }
+              editingComment={editingComment}
             />
             <ThinDivider key={`divider-${comment.id}`} />
           </>

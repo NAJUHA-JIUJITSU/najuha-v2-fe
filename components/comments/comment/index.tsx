@@ -22,7 +22,11 @@ interface CommentProps {
   handleEditComment: (id: TId, body: ICommentSnapshot['body'], parentId?: TId) => void;
   handleReplyComment: (parentId: TId) => void;
   isReplying?: boolean;
-  isEditing?: boolean;
+  editingComment?: {
+    id: TId;
+    body: ICommentSnapshot['body'];
+    parentId?: TId;
+  } | null;
 }
 
 export default function Comment({
@@ -36,9 +40,10 @@ export default function Comment({
   handleEditComment,
   handleReplyComment,
   isReplying = false,
-  isEditing = false,
+  editingComment,
 }: CommentProps) {
   const [isReplyOpen, setIsReplyOpen] = useState(false);
+  const isEditing = editingComment?.id === comment.id && editingComment.parentId === undefined;
 
   const handleEdit = () => {
     handleEditComment(
@@ -120,6 +125,7 @@ export default function Comment({
             postUserId={postUserId}
             commentId={comment.id}
             handleEditComment={handleEditComment}
+            editingComment={editingComment}
           />
         )}
       </div>

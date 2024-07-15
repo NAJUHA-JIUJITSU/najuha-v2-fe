@@ -11,6 +11,11 @@ interface ReplyCommentListProps {
   postUserId: TId;
   commentId: TId;
   handleEditComment: (id: TId, body: ICommentSnapshot['body']) => void;
+  editingComment?: {
+    id: TId;
+    body: ICommentSnapshot['body'];
+    parentId?: TId;
+  } | null;
 }
 
 export default function ReplyCommentList({
@@ -18,6 +23,7 @@ export default function ReplyCommentList({
   postUserId,
   commentId,
   handleEditComment,
+  editingComment,
 }: ReplyCommentListProps) {
   const {
     data: replies,
@@ -42,6 +48,7 @@ export default function ReplyCommentList({
             isWriter={reply.userId === postUserId}
             isHost={reply.userId === userInfo?.id}
             handleEditComment={handleEditComment}
+            isEditing={editingComment?.id === reply.id && editingComment.parentId === undefined}
           />
         )),
       )}

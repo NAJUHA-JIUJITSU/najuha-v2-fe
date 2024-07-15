@@ -29,7 +29,7 @@ export default function PostId({ params }: { params: { id: TId } }) {
     setIsFocused: setCommentAreaFocus,
   } = useCommentEditing(params.id);
 
-  console.log('PostIdPage 렌더');
+  console.log('PostIdPage 렌더', post);
 
   if (!post) return null;
 
@@ -63,7 +63,7 @@ export default function PostId({ params }: { params: { id: TId } }) {
       <CommentTextArea
         isFocused={isCommentAreaFocused}
         setFocus={setCommentAreaFocus}
-        isEditing={!!editingComment}
+        isEditing={!!editingComment && editingComment.parentId === undefined}
         initialText={editingComment?.body ? editingComment.body : ''}
         onSubmit={handleSubmitComment}
         onCancel={handleCancelEdit}

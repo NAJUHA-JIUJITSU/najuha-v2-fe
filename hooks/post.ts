@@ -10,6 +10,7 @@ import {
   UpdatePostReqBody,
 } from 'najuha-v2-api/lib/modules/posts/presentation/posts.controller.dto';
 import { TId } from 'najuha-v2-api/lib/common/common-types';
+import { ICommentSnapshot } from 'najuha-v2-api/lib/modules/posts/domain/interface/comment-snapshot.interface';
 
 // 이미지와 함께 게시글을 작성하는 훅
 const useCreatePostWithImages = (path: IImageCreateDto['path']) => {
@@ -75,6 +76,7 @@ const useDeletePost = (postId: string) => {
 
 // 필터 및 정렬된 게시글 목록을 조회하는 훅 - 무한 스크롤
 const useFindPosts = (data: FindPostsReqQuery) => {
+  if (data.categoryFilters === undefined) delete data.categoryFilters;
   return useInfiniteQuery({
     queryKey: ['posts', data],
     queryFn: async ({ pageParam }: { pageParam: number }) => {
@@ -177,6 +179,29 @@ const useCreateCommentReport = (commentId: TId) => {
   });
 };
 
+// 게시글에 댓글을 작성하는 훅
+const useCreateComment = (postId: TId) => {
+  return useMutation({
+    mutationFn: (body: ICommentSnapshot['body']) => postApi.postCreateComment({ postId, body }),
+  });
+};
+
+// 게시글의 댓글에 답글을 작성하는 훅
+const useCreateCommentReply = (postId: TId) => {
+  return useMutation({
+    mutationFn: ({ commentId, body }: { commentId: TId; body: ICommentSnapshot['body'] }) =>
+      postApi.postCreateCommentReply(postId, commentId, body),
+  });
+};
+
+// 게시글의 댓글 및 답글을 수정하는 훅
+const useUpdateComment = () => {
+  return useMutation({
+    mutationFn: ({ commentId, body }: { commentId: TId; body: ICommentSnapshot['body'] }) =>
+      postApi.postUpdateComment(commentId, body),
+  });
+};
+
 export {
   useCreatePostWithImages,
   useUpdatePostWithImages,
@@ -193,4 +218,7 @@ export {
   useCreateCommentLike,
   useDeleteCommentLike,
   useCreateCommentReport,
+  useCreateComment,
+  useCreateCommentReply,
+  useUpdateComment,
 };

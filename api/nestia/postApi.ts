@@ -1,6 +1,7 @@
 import { withAuth } from '@/api/nestia/common';
 import api from 'najuha-v2-api/lib/api';
 import { TId } from 'najuha-v2-api/lib/common/common-types';
+import { ICommentSnapshot } from 'najuha-v2-api/lib/modules/posts/domain/interface/comment-snapshot.interface';
 import {
   CreateCommentReportReqBody,
   CreatePostReportReqBody,
@@ -22,10 +23,12 @@ const postCreatePost = async (data: CreatePostReqBody) => {
 // u-7-2 findPosts.
 // 게시글 목록을 조회합니다.
 const postFindPosts = async (data: FindPostsReqQuery) => {
+  console.log('요청: ', data);
+
   const response = await withAuth((connection) =>
     api.functional.user.posts.findPosts(connection, data),
   );
-
+  console.log('응답: ', response.result);
   return response.result;
 };
 
@@ -82,6 +85,38 @@ const postCreatePostReport = async (postId: TId, body: CreatePostReportReqBody) 
   );
 };
 
+// u-7-10 createComment.
+// 게시글에 댓글을 작성합니다.
+const postCreateComment = async ({
+  postId,
+  body,
+}: {
+  postId: TId;
+  body: ICommentSnapshot['body'];
+}) => {
+  const response = await withAuth((connection) =>
+    api.functional.user.posts.comments.createComment(connection, postId, { body }),
+  );
+
+  return response.result;
+};
+
+// u-7-11 createCommentReply.
+// 게시글의 댓글에 답글을 작성합니다.
+const postCreateCommentReply = async (
+  postId: TId,
+  commentId: TId,
+  body: ICommentSnapshot['body'],
+) => {
+  const response = await withAuth((connection) =>
+    api.functional.user.posts.comments.replies.createCommentReply(connection, postId, commentId, {
+      body,
+    }),
+  );
+
+  return response.result;
+};
+
 // u-7-12 findComments.
 // 게시글의 댓글 목록을 조회합니다.
 const postFindComments = async (postId: TId, query: FindCommentsReqQuery) => {
@@ -102,6 +137,16 @@ const postFindCommentReplies = async (postId: TId, commentId: TId, query: FindCo
       query,
     ),
   );
+  return response.result;
+};
+
+// u-7-14 updateComment.
+// 게시글의 댓글 및 답글을 수정합니다.
+const postUpdateComment = async (commentId: TId, body: ICommentSnapshot['body']) => {
+  const response = await withAuth((connection) =>
+    api.functional.user.posts.comments.updatePostComment(connection, commentId, { body }),
+  );
+
   return response.result;
 };
 
@@ -154,8 +199,11 @@ export const postApi = {
   postCreatePostLike,
   postDeletePostLike,
   postCreatePostReport,
+  postCreateComment,
+  postCreateCommentReply,
   postFindComments,
   postFindCommentReplies,
+  postUpdateComment,
   postDeleteComment,
   postCreateCommentLike,
   postDeleteCommentLike,

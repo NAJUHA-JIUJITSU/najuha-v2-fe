@@ -6,6 +6,7 @@ import { ICommentDetail } from 'najuha-v2-api/lib/modules/posts/domain/interface
 import ButtonIconMoreVertForComment from '@/components/buttonIconMoreVerts/buttonIconMoreVertForComment';
 import { TId } from 'najuha-v2-api/lib/common/common-types';
 import { ICommentSnapshot } from 'najuha-v2-api/lib/modules/posts/domain/interface/comment-snapshot.interface';
+import clsx from 'clsx';
 
 interface CommentProps {
   parentId: TId;
@@ -14,6 +15,7 @@ interface CommentProps {
   isWriter: boolean;
   isHost?: boolean;
   handleEditComment: (id: TId, body: ICommentSnapshot['body']) => void;
+  isEditing?: boolean;
 }
 
 export default function ReplyComment({
@@ -22,6 +24,7 @@ export default function ReplyComment({
   postId,
   isWriter,
   isHost = false,
+  isEditing = false,
   handleEditComment,
 }: CommentProps) {
   // todo: 댓글수 받아오기
@@ -69,7 +72,7 @@ export default function ReplyComment({
           </div>
         </div>
         <div className={styles.middle}>
-          <div className={styles.content}>
+          <div className={clsx(styles.content, { [styles.editingContent]: isEditing })}>
             {comment.commentSnapshots[comment.commentSnapshots.length - 1].body}
           </div>
         </div>
