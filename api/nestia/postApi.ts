@@ -182,6 +182,15 @@ const postCreateCommentReport = async (commentId: TId, body: CreateCommentReport
   );
 };
 
+// u-7-20 findBestComments.
+// 게시글의 베스트 댓글을 조회합니다.
+const postFindBestComments = async (postId: TId) => {
+  const response = await withAuth((connection) =>
+    api.functional.user.posts.best_comments.findBestComments(connection, postId),
+  );
+  return response.result;
+};
+
 // u-8-1 incrementPostViewCount.
 // 게시글 조회수를 증가시킵니다.
 const postIncrementPostViewCount = async (postId: TId) => {
@@ -208,5 +217,6 @@ export const postApi = {
   postCreateCommentLike,
   postDeleteCommentLike,
   postCreateCommentReport,
+  postFindBestComments,
   postIncrementPostViewCount,
 };

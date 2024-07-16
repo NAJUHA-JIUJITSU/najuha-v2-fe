@@ -14,7 +14,7 @@ import clsx from 'clsx';
 interface CommentProps {
   postId: TId;
   postUserId: TId;
-  comment: ICommentDetail;
+  comment: ICommentDetail | null;
   isWriter: boolean;
   isHost?: boolean;
   isBest?: boolean;
@@ -43,6 +43,8 @@ export default function Comment({
   editingComment,
 }: CommentProps) {
   const [isReplyOpen, setIsReplyOpen] = useState(false);
+  if (!comment) return null;
+
   const isEditing = editingComment?.id === comment.id && editingComment.parentId === undefined;
 
   const handleEdit = () => {

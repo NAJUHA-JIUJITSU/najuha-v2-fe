@@ -6,6 +6,7 @@ import Comment from '@/components/comments//comment';
 import { ThinDivider, Divider } from '@/components/divider';
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import { ICommentSnapshot } from 'najuha-v2-api/lib/modules/posts/domain/interface/comment-snapshot.interface';
+import { useFindBestComments } from '@/hooks/post';
 
 interface commentListProps {
   postId: TId;
@@ -38,26 +39,21 @@ export default function CommentList({
     isFetchingNextPage,
   } = useFindComments(postId);
   const lastElementRef = useInfiniteScroll(fetchNextPage, hasNextPage, isFetchingNextPage);
+  const { data: bestComment } = useFindBestComments(postId);
 
   if (!comments) return null;
-
-  // 가장 좋아요가 많은 댓글 찾기 //todo: api로 변경
-  const bestComment = comments.pages[0].comments.reduce((prev, current) => {
-    return prev.likeCount > current.likeCount ? prev : current;
-  }, comments.pages[0].comments[0] || null);
-  const isBestComment = bestComment?.likeCount > 10;
+  if (!bestComment) return null;
 
   return (
     <>
-      {/* BEST 댓글이 존재하고 좋아요가 10개 이상일 때만 노출 */}
-      {isBestComment && (
+      {bestComment && (
         <>
           <Comment
             postId={postId}
             postUserId={postUserId}
-            comment={bestComment}
+            comment={bestComment.comment}
             isWriter={postUserId === userId}
-            isHost={bestComment.userId === userId}
+            isHost={bestComment.comment?.userId === userId}
             isBest={true}
             isPreview={true}
             handleEditComment={handleEditComment}
@@ -76,7 +72,7 @@ export default function CommentList({
               isWriter={comment.userId === postUserId}
               comment={comment}
               isHost={comment.userId === userId}
-              isBest={comment.id === bestComment.id && isBestComment}
+              isBest={comment.id === bestComment.comment?.id}
               handleEditComment={handleEditComment}
               handleReplyComment={handleReplyComment}
               isReplying={replyingCommentId === comment.id}

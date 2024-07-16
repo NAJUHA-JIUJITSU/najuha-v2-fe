@@ -202,6 +202,13 @@ const useUpdateComment = () => {
   });
 };
 
+// 게시글의 베스트 댓글을 가져오는 훅
+const useFindBestComments = (postId: TId) => {
+  return useQuery({
+    queryKey: ['bestComments', postId],
+    queryFn: () => postApi.postFindBestComments(postId),
+  });
+};
 export {
   useCreatePostWithImages,
   useUpdatePostWithImages,
@@ -221,4 +228,5 @@ export {
   useCreateComment,
   useCreateCommentReply,
   useUpdateComment,
+  useFindBestComments,
 };
