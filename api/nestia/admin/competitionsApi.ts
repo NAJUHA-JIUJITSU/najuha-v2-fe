@@ -5,6 +5,7 @@ import { IEarlybirdDiscountSnapshotCreateDto } from 'najuha-v2-api/lib/modules/c
 import { Primitive } from '@nestia/fetcher';
 import {
   CreateCombinationDiscountSnapshotReqBody,
+  CreateCompetitionPosterImageReqBody,
   CreateCompetitionRequiredAdditionalInfoReqBody,
   CreateDivisionsReqBody,
 } from 'najuha-v2-api/lib/modules/competitions/presentation/competitions.controller.dto';
@@ -139,7 +140,13 @@ async function createCompetitionRequiredAdditionalInfoApi({
 }
 
 // a-5-12 createCompetitionPosterImageApi
-async function createCompetitionPosterImageApi(competitionId: string, data: any) {
+async function createCompetitionPosterImageApi({
+  competitionId,
+  data,
+}: {
+  competitionId: string;
+  data: Primitive<CreateCompetitionPosterImageReqBody>;
+}) {
   const response = await withAuth((connection) =>
     api.functional.admin.competitions.poster_image.createCompetitionPosterImage(
       connection,
