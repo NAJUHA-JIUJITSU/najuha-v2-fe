@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import styles from './index.module.scss';
-import BaseLayout from '@/components/layout/baseLayout';
+import BaseLayout from '@/layout/baseLayout';
 import RadioButtonLabel from '@/components/common/radioButtonLabel';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';

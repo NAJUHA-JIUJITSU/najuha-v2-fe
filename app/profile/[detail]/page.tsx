@@ -1,8 +1,8 @@
 import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import MyCommunityPage from '@/components/profileDetail/myCommunityPage';
-import OrganizerProgramListPage from '@/components/profileDetail/organizerProgramListPage';
-import NavigationLayout from '@/components/layout/navigationLayout';
+import HostedProgramListPage from '@/components/profileDetail/hostedProgramListPage';
+import NavigationLayout from '@/layout/navigationLayout';
 
 type detailType = 'myCommunity' | 'organizerProgramList';
 
@@ -18,7 +18,7 @@ export default function detail({ params }: DetailProps) {
     },
     organizerProgramList: {
       title: '주최 목록',
-      Page: <OrganizerProgramListPage />,
+      Page: <HostedProgramListPage />,
     },
   };
 

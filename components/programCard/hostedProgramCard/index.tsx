@@ -1,48 +1,34 @@
 import styles from '../index.module.scss';
 import Tag from '@/components/common/tagList/tag';
 import ButtonLink from '@/components/common/button/buttonLink';
-import { ButtonIcon } from '../../common/icon/iconOnClick';
-import IconClose from '@/public/svgs/close.svg';
 
-export default function ApplicantProgramCard() {
+export default function HostedProgramCard() {
   // imageURL이 없으면 기본 이미지로 대체
   //   if (!competition.posterImgUrlKey) {
   //     competition.posterImgUrlKey = '/images/samplePoster1.png';
   //   }
 
   const buttonLinks = [
-    { text: '신청내역', href: '/' },
-    { text: '게시판 보기', href: '/' },
+    { text: '참가자 명단', href: '/' },
+    { text: '대진표', href: '/' },
     { text: '문의하기', href: '/' },
   ];
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.top}>
-        <h1>
-          <span>결제일</span>2023.04.04 (토)
-        </h1>
-        <ButtonIcon
-          icon={<IconClose />}
-          onClick={() => {
-            alert('삭제하기');
-          }}
-        />
-      </div>
       <div
         className={styles.middle}
         onClick={() => {
-          alert('신청내역 가기');
+          alert('주최내역 가기');
         }}
       >
         <img src="/images/samplePoster1.png"></img>
         <div className={styles.info}>
           <h1>제 2회 서브미션 리그</h1>
           <h2>09.28(토)</h2>
-          <h3>참가자 : 유연아</h3>
+          <h3>경기 김포시 사우체육관</h3>
           <div className={styles.price}>
-            <Tag type="apply" content="미결제" />
-            <p>50,000원</p>
+            <Tag type="apply" content="신청마감 D-13" />
           </div>
         </div>
       </div>

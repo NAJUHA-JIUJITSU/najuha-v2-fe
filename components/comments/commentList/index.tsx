@@ -3,7 +3,7 @@ import React from 'react';
 import { useFindComments } from '@/hooks/post';
 import { TId } from 'najuha-v2-api/lib/common/common-types';
 import Comment from '@/components/comments//comment';
-import { ThinDivider, Divider } from '@/components/divider';
+import { ThinDivider, Divider } from '@/components/common/divider';
 import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import { ICommentSnapshot } from 'najuha-v2-api/lib/modules/posts/domain/interface/comment-snapshot.interface';
 import { useFindBestComments } from '@/hooks/post';

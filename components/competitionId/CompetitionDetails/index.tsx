@@ -1,8 +1,8 @@
 'use client';
 import styles from './index.module.scss';
 import { useState } from 'react';
-import CompetitionDescriptionContent from '../CompetitionDescriptionContent';
-import TabList from '@/components/tapList';
+import CompetitionDescriptionContent from '../competitionDescriptionContent';
+import TabList from '@/components/common/tapList';
 
 type TabKey = 'DetailedInfo' | 'DivisionTable' | 'Timetable';
 

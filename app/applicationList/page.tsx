@@ -1,7 +1,7 @@
 import Header from '@/components/common/header/Header';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
 import ApplicationListContent from '@/components/applicationList/applicationListContent';
-import NavigationLayout from '@/components/layout/navigationLayout';
+import NavigationLayout from '@/layout/navigationLayout';
 
 export default function applicationList() {
   return (

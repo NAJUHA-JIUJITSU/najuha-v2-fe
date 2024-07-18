@@ -1,4 +1,4 @@
-import ApplyInfo from '@/components/applyInfo/applyInfo/applyInfo';
+import CompetitionParticiPantInfo from '@/components/competitionParticipantInfo';
 import { useGetApplicationInfo } from '@/hooks/applications';
 
 export default function CheckApplyInfoPage({ applicationId }: { applicationId: string }) {
@@ -18,7 +18,7 @@ export default function CheckApplyInfoPage({ applicationId }: { applicationId: s
 
   return (
     <>
-      <ApplyInfo
+      <CompetitionParticiPantInfo
         playerInfo={playerInfo}
         selectedDivision={selectedDivision}
         expectedPayment={expectedPayment}

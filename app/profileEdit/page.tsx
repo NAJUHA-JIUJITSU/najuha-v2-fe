@@ -4,12 +4,12 @@ import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
 import ButtonLists from '@/components/common/buttonList/buttonLists';
-import ProfileImgEdit from '@/components/profile/profileImgEdit';
+import ProfileImgEdit from '@/components/profileImgEdit';
 import { formatBirth, formatGender, formatPhoneNumber } from '@/utils/userFormats';
 import { useUserInfo } from '@/hooks/user';
 import { useRecoilValue } from 'recoil';
 import { userInfoSelector } from '@/recoil/selectors/userSelector';
-import BaseLayout from '@/components/layout/baseLayout';
+import BaseLayout from '@/layout/baseLayout';
 
 export default function ProfileEdit() {
   useUserInfo();

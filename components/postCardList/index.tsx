@@ -1,6 +1,6 @@
 'use client';
 import React, { Fragment } from 'react';
-import PostCard from '@/components/postCard';
+import PostCard from '@/components/postCardList/postCard';
 import Link from 'next/link';
 import { useFindPosts } from '@/hooks/post';
 import { IFindPostsQueryOptions } from 'najuha-v2-api/lib/modules/posts/domain/interface/post.interface';

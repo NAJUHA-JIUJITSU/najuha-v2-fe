@@ -1,7 +1,7 @@
 'use client';
 import styles from './index.module.scss';
 import { useState } from 'react';
-import TabList from '@/components/tapList';
+import TabList from '@/components/common/tapList';
 import ButtonOnToggle from '@/components/common/button/buttonOnToggle';
 import ApplicantProgramCard from '@/components/programCard/applicantProgramCard';
 

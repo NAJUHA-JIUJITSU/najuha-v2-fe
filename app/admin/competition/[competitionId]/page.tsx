@@ -3,9 +3,9 @@ import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
 import { useGetCompetitionId } from '@/hooks/competition';
-import BaseLayout from '@/components/layout/baseLayout';
-import ApplicatnionStatus from '@/components/admin/competition/applicationStatus';
-import SettingButtonList from '@/components/admin/competition/settingButtonList';
+import BaseLayout from '@/layout/baseLayout';
+import CompetitionInfoBoard from '@/components/admin/competition/competitionInfoBoard';
+import CompetitionControlPannel from '@/components/admin/competition/competitionControlPannel';
 
 export default function AdminCompetitionId({ params }: { params: { competitionId: string } }) {
   // 대회 조회
@@ -30,8 +30,8 @@ export default function AdminCompetitionId({ params }: { params: { competitionId
         rightIcon1={<IconLinkAlarm />}
         rightIcon2={<IconLinkSearch />}
       />
-      <ApplicatnionStatus competition={competition} />
-      <SettingButtonList competitionId={params.competitionId} competition={competition} />
+      <CompetitionInfoBoard competition={competition} />
+      <CompetitionControlPannel competitionId={params.competitionId} competition={competition} />
       {/* <EventInformation /> */}
     </BaseLayout>
   );

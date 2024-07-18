@@ -1,10 +1,10 @@
 'use client';
 import React, { useEffect } from 'react';
 import styles from './index.module.scss';
-import CompetitionBanner from '@/components/competitionId/CompetitionBanner';
-import CompetitionInfos from '@/components/competitionId/CompetitionInfos';
-import CompetitionInfoButtonList from '@/components/competitionId/CompetitionInfoButtonList';
-import CompetitionDetails from '@/components/competitionId/CompetitionDetails';
+import CompetitionBanner from '@/components/competitionId/competitionBanner';
+import CompetitionInfos from '@/components/competitionId/competitionInfos';
+import CompetitionInfoButtonList from '@/components/competitionId/competitionInfoButtonList';
+import CompetitionDetails from '@/components/competitionId/competitionDetails';
 import ButtonLink from '@/components/common/button/buttonLink';
 import { ICompetition } from '@/node_modules/najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 import { useIncrementCompetitionViewCount } from '@/hooks/competition';

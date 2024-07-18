@@ -1,7 +1,7 @@
 'use client';
 import styles from './index.module.scss';
 import { useParams, useRouter } from 'next/navigation';
-import CompetitionAdditionalInfoForm from '@/components/admin/competition/competitionForm/competitionAdditionalInfoForm';
+import CompetitionAdditionalInfoForm from '@/components/admin/competition/competitionCreateForm/competitionAdditionalInfoForm';
 import { useCreateRequiredAdditionalInfo } from '@/hooks/admin';
 import { useQueryClient } from '@tanstack/react-query';
 import Header from '@/components/common/header/Header';

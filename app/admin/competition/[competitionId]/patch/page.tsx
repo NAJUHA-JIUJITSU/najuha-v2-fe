@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import CompetitionForm from '@/components/admin/competition/competitionForm';
+import CompetitionForm from '@/components/admin/competition/competitionCreateForm';
 import { useGetCompetitionId } from '@/hooks/competition';
 import { useUpdateCompetition } from '@/hooks/admin';
 import { useRouter, useParams } from 'next/navigation';

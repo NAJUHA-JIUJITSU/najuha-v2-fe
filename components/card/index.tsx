@@ -2,7 +2,7 @@
 import styles from './index.module.scss';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
-import TagList from '@/components/tagList';
+import TagList from '@/components/common/tagList';
 import { formatDateYMD, formatDateMDWeekday } from '@/utils/dateUtils/dateFormat';
 import { areBothDatesPassed } from '@/utils/dateUtils/dateCheck';
 import IconEye from '@/public/svgs/eye.svg';

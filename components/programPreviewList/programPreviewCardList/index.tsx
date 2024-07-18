@@ -6,10 +6,14 @@ import ButtonOnToggle from '@/components/common/button/buttonOnToggle';
 import ButtonLink from '@/components/common/button/buttonLink';
 import { useGetFilteredCompetitions } from '@/hooks/competition';
 import { Fragment } from 'react';
+import {
+  TCompetitionSelectFilter,
+  TCompetitionSortOption,
+} from 'najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 
 interface ProgramPreviewListProps {
-  selectFilter: string[];
-  sortOption: string;
+  selectFilter: TCompetitionSelectFilter[];
+  sortOption: TCompetitionSortOption;
 }
 
 type TagBtnOption = '대회' | '세미나' | '오픈매트';

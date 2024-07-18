@@ -5,7 +5,7 @@ import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
 import CompetitionIdContent from '@/components/competitionId/competitionIdContent';
 import { useGetCompetitionId } from '@/hooks/competition';
-import BaseLayout from '@/components/layout/baseLayout';
+import BaseLayout from '@/layout/baseLayout';
 
 export default function CompetitionId({ params }: { params: { competitionId: string } }) {
   // 대회 조회

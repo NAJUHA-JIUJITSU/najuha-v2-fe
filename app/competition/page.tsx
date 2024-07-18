@@ -2,7 +2,7 @@ import CompetitionPage from '../../components/competition/competitionPage/index'
 import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
-import NavigationLayout from '@/components/layout/navigationLayout';
+import NavigationLayout from '@/layout/navigationLayout';
 
 export default function Competition() {
   return (

@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
 import styles from './index.module.scss';
-import PostReaction from '@/components/reactions/postReaction';
+import PostReaction from '@/components/common/reactionButton/postReaction';
 import { useGetPost, useIncrementPostViewCount } from '@/hooks/post';
 import { getPastTime } from '@/utils/dateUtils/dateCheck';
 import { useQueryClient } from '@tanstack/react-query';

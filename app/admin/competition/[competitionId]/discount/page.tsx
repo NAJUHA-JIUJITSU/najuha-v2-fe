@@ -1,5 +1,5 @@
 'use client';
-import CompetitionDiscountForm from '@/components/admin/competition/competitionForm/competitionDiscountForm';
+import CompetitionDiscountForm from '@/components/admin/competition/competitionCreateForm/competitionDiscountForm';
 import Header from '@/components/common/header/Header';
 import IconNavigateBefore from '@/public/svgs/navigateBefore.svg';
 import { ButtonIcon } from '@/components/common/icon/iconOnClick';

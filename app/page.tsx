@@ -1,10 +1,10 @@
 import styles from './index.module.scss';
 import Header from '@/components/common/header/Header';
 import { IconLinkSearch, IconLinkAlarm, IconLinkLogo } from '@/components/common/icon/iconLink';
-import CarouselWrapper from '@/components/emblaCarousel/CarouselWrapper';
-import NavigationLayout from '@/components/layout/navigationLayout';
+import CarouselWrapper from '@/components/common/emblaCarousel/CarouselWrapper';
+import NavigationLayout from '@/layout/navigationLayout';
 import ProgramPreviewList from '@/components/programPreviewList';
-import { Divider } from '@/components/divider';
+import { Divider } from '@/components/common/divider';
 import {
   IconLinkThropy,
   IconLinkSeminar,

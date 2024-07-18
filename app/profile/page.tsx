@@ -2,8 +2,8 @@ import styles from './index.module.scss';
 import Header from '@/components/common/header/Header';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
 import ButtonLists from '@/components/common/buttonList/buttonLists';
-import ProfileInfo from '@/components/profile/profileInfo';
-import NavigationLayout from '@/components/layout/navigationLayout';
+import ProfileInfo from '@/components/profileInfo';
+import NavigationLayout from '@/layout/navigationLayout';
 
 export default function profile() {
   const profileButtonLists = [

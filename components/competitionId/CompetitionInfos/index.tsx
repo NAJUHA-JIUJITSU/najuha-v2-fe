@@ -1,6 +1,6 @@
 import styles from './index.module.scss';
 import { formatDateYMDWeekday } from '@/utils/dateUtils/dateFormat';
-import CopyText from '@/components/copyText';
+import CopyText from '@/components/common/copyText';
 import { ICompetition } from '@/node_modules/najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
 import { IEarlybirdDiscountSnapshot } from 'najuha-v2-api/lib/modules/competitions/domain/interface/earlybird-discount-snapshot.interface';
 

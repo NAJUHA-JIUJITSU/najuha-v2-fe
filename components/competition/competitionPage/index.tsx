@@ -4,7 +4,7 @@ import { useState } from 'react';
 import ButtonOnClick from '@/components/common/button/buttonOnClick';
 import ButtonOnToggle from '@/components/common/button/buttonOnToggle';
 import IconSort from '@/public/svgs/sort.svg';
-import { Divider } from '@/components/divider';
+import { Divider } from '@/components/common/divider';
 import { useURLParams } from '@/hooks/useURLParams';
 import Select from '@/components/common/select';
 import CompetitionList from '@/components/competition/competitionList';

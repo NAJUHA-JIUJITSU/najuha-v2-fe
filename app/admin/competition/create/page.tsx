@@ -1,5 +1,5 @@
 'use client';
-import CompetitionForm from '@/components/admin/competition/competitionForm';
+import CompetitionCreateForm from '@/components/admin/competition/competitionCreateForm';
 import { useCreateCompetition } from '@/hooks/admin';
 import { useRouter } from 'next/navigation';
 import { ICompetitionCreateDto } from 'najuha-v2-api/lib/modules/competitions/domain/interface/competition.interface';
@@ -22,5 +22,5 @@ export default function CreateCompetition() {
     });
   };
 
-  return <CompetitionForm onCreate={handleCreateCompetition} />;
+  return <CompetitionCreateForm onCreate={handleCreateCompetition} />;
 }

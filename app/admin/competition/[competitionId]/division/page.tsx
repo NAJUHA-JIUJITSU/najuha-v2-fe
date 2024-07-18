@@ -1,5 +1,5 @@
 'use client';
-import CompetitionDivisionForm from '@/components/admin/competition/competitionForm/competitionDivisionForm';
+import CompetitionDivisionForm from '@/components/admin/competition/competitionCreateForm/competitionDivisionForm';
 import { IDivisionPack } from 'najuha-v2-api/lib/modules/competitions/domain/interface/division-pack.interface';
 import { useState } from 'react';
 import { useCreateDivision } from '@/hooks/admin';

@@ -1,6 +1,6 @@
 'use client';
 import styles from './index.module.scss';
-import RegisterInfo from '@/components/register/registerInfo';
+import RegisterInfo from '@/components/register/registerWelcomeMessage';
 import CheckBoxLabel from '@/components/common/checkBoxLabel';
 import { IconLink } from '@/components/common/icon/iconLink';
 import useCheckboxState from '@/hooks/useCheckbox';
@@ -41,7 +41,7 @@ const checkList = [
   },
 ];
 
-export default function agreePage({ onNext }: AgreePageProps) {
+export default function AgreePage({ onNext }: AgreePageProps) {
   const [agreement, setAgreement] = useRecoilState(agreementState);
   const {
     state: checkedStates,
