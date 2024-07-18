@@ -64,3 +64,9 @@ export const useUpdateCompetitionStatus = () => {
     },
   });
 };
+
+export const useCreateCompetitionPosterImage = () => {
+  return useMutation({
+    mutationFn: adminCompetitionsApi.createCompetitionPosterImageApi,
+  });
+};

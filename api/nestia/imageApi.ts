@@ -4,26 +4,21 @@ import { TPresignedPost } from 'najuha-v2-api/lib/infrastructure/bucket/bucket.i
 import { CreateImageReqBody } from 'najuha-v2-api/lib/modules/images/presentation/images.controller.dto';
 
 // u-9-1 createImage.
-const postCreateImage = async (data: CreateImageReqBody, file: File) => {
-  try {
-    // 1. imageEntity를 생성하고, presignedPost를 반환
-    const createResponse = await withAuth((connection) =>
-      api.functional.user.images.createImage(connection, data),
-    );
-    console.log('createResponse: ', createResponse);
+const postCreateImage = async ({ data, file }: { data: CreateImageReqBody; file: File }) => {
+  // 1. imageEntity를 생성하고, presignedPost를 반환
+  const createResponse = await withAuth((connection) =>
+    api.functional.user.images.createImage(connection, data),
+  );
+  console.log('createResponse: ', createResponse);
 
-    const { url, fields } = createResponse.result.presignedPost;
+  const { url, fields } = createResponse.result.presignedPost;
 
-    // 2. 응답받은 presignedPost의 url로 이미지를 업로드
-    const uploadResponse = await postUploadImage(url, fields, file);
-    console.log('uploadResponse: ', uploadResponse);
+  // 2. 응답받은 presignedPost의 url로 이미지를 업로드
+  const uploadResponse = await postUploadImage(url, fields, file);
+  console.log('uploadResponse: ', uploadResponse);
 
-    // 3. 업로드된 이미지의 정보를 반환
-    return createResponse;
-  } catch (error) {
-    console.error('Error uploading image:', error);
-    throw error;
-  }
+  // 3. 업로드된 이미지의 id를 반환
+  return createResponse.result;
 };
 
 // 2. presigned URL로 이미지 업로드
