@@ -75,12 +75,12 @@ export const useUserPatch = () => {
 export const useCreateUserProfileImage = (path: IImageCreateDto['path']) => {
   return useMutation({
     mutationFn: async (file: File) => {
-      const imageResponse = await imageApi.postCreateImage(
-        { path, format: file.type as IImageCreateDto['format'] },
+      const imageResponse = await imageApi.postCreateImage({
+        data: { path, format: file.type as IImageCreateDto['format'] },
         file,
-      );
+      });
 
-      return usersApi.postCreateUserProfileImage({ imageId: imageResponse.result.image.id });
+      return usersApi.postCreateUserProfileImage({ imageId: imageResponse.image.id });
     },
   });
 };

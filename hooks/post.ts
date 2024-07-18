@@ -26,8 +26,8 @@ const useCreatePostWithImages = (path: IImageCreateDto['path']) => {
             format,
             path,
           };
-          const response = await imageApi.postCreateImage(imageData, file);
-          return response.result.image.id;
+          const response = await imageApi.postCreateImage({ data: imageData, file });
+          return response.image.id;
         }),
       );
       const postData = {
@@ -54,8 +54,8 @@ const useUpdatePostWithImages = (path: IImageCreateDto['path'], postId: string) 
             format,
             path,
           };
-          const response = await imageApi.postCreateImage(imageData, file);
-          return response.result.image.id;
+          const response = await imageApi.postCreateImage({ data: imageData, file });
+          return response.image.id;
         }),
       );
       const postData = {
