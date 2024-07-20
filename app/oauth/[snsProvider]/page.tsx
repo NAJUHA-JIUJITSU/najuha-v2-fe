@@ -18,12 +18,14 @@ export default function SnsRedirectPage({ params, searchParams }: SnsRedirectPag
   useEffect(() => {
     if (error) {
       console.error('SNS 로그인 에러:', error);
+      alert('로그인에 실패했습니다. 다시 시도해주세요.');
       router.push('/login');
       return;
     }
     if (payload) {
       const { userRole } = payload;
       if (userRole === 'TEMPORARY_USER') {
+        alert('회원가입을 진행해주세요.');
         router.push(`/register`);
       } else {
         // todo: 이전페이지로 리다이렉트해야함

@@ -19,6 +19,7 @@ export const handleRefreshToken = async () => {
       return newAccessToken;
     }
   } catch (error) {
+    alert('로그인이 필요합니다.');
     window.location.href = '/login';
   }
   return null;
