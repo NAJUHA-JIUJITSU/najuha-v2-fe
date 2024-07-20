@@ -79,7 +79,13 @@ const postDeletePostLike = async (postId: TId) => {
 
 // u-7-8 createPostReport.
 // 게시글을 신고합니다.
-const postCreatePostReport = async (postId: TId, body: CreatePostReportReqBody) => {
+const postCreatePostReport = async ({
+  postId,
+  body,
+}: {
+  postId: TId;
+  body: CreatePostReportReqBody;
+}) => {
   await withAuth((connection) =>
     api.functional.user.posts.report.createPostReport(connection, postId, body),
   );
@@ -103,11 +109,15 @@ const postCreateComment = async ({
 
 // u-7-11 createCommentReply.
 // 게시글의 댓글에 답글을 작성합니다.
-const postCreateCommentReply = async (
-  postId: TId,
-  commentId: TId,
-  body: ICommentSnapshot['body'],
-) => {
+const postCreateCommentReply = async ({
+  postId,
+  commentId,
+  body,
+}: {
+  postId: TId;
+  commentId: TId;
+  body: ICommentSnapshot['body'];
+}) => {
   const response = await withAuth((connection) =>
     api.functional.user.posts.comments.replies.createCommentReply(connection, postId, commentId, {
       body,
@@ -142,7 +152,13 @@ const postFindCommentReplies = async (postId: TId, commentId: TId, query: FindCo
 
 // u-7-14 updateComment.
 // 게시글의 댓글 및 답글을 수정합니다.
-const postUpdateComment = async (commentId: TId, body: ICommentSnapshot['body']) => {
+const postUpdateComment = async ({
+  commentId,
+  body,
+}: {
+  commentId: TId;
+  body: ICommentSnapshot['body'];
+}) => {
   const response = await withAuth((connection) =>
     api.functional.user.posts.comments.updatePostComment(connection, commentId, { body }),
   );
@@ -176,7 +192,13 @@ const postDeleteCommentLike = async (commentId: TId) => {
 
 // u-7-18 createCommentReport.
 // 게시글의 댓글을 신고합니다.
-const postCreateCommentReport = async (commentId: TId, body: CreateCommentReportReqBody) => {
+const postCreateCommentReport = async ({
+  commentId,
+  body,
+}: {
+  commentId: TId;
+  body: CreateCommentReportReqBody;
+}) => {
   await withAuth((connection) =>
     api.functional.user.posts.comments.report.createPostCommentReport(connection, commentId, body),
   );

@@ -28,8 +28,8 @@ export default function CommentReaction({
   isReplying = false,
   onReplyButtonClick,
 }: ReactionProps) {
-  const { mutate: createPostLike } = useCreateCommentLike(commentId);
-  const { mutate: deletePostLike } = useDeleteCommentLike(commentId);
+  const { mutate: createPostLike } = useCreateCommentLike();
+  const { mutate: deletePostLike } = useDeleteCommentLike();
   const [userLikedState, setUserLikedState] = useState<boolean>(userLiked);
   const [likeCntState, setLikeCntState] = useState<number>(likeCnt);
   const queryClient = useQueryClient();
@@ -58,12 +58,12 @@ export default function CommentReaction({
 
   const handleLike = () => {
     if (userLikedState) {
-      deletePostLike(undefined, {
+      deletePostLike(commentId, {
         onSuccess: handleDeleteLikeSuccess,
         onError: handleError,
       });
     } else {
-      createPostLike(undefined, {
+      createPostLike(commentId, {
         onSuccess: handleLikeSuccess,
         onError: handleError,
       });

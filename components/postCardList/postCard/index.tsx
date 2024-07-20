@@ -1,5 +1,5 @@
 import styles from './index.module.scss';
-import Tag from '@/components/tagList/programTag';
+import Tag from '@/components/common/tagList/tag';
 import IconThumbUp from '@/public/svgs/thumbUp.svg';
 import IconChat from '@/public/svgs/chat.svg';
 import { getPastTime } from '@/utils/dateUtils/dateCheck';

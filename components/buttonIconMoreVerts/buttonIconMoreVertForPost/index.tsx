@@ -15,7 +15,7 @@ export default function ButtonIconMoreVertForPost({
 }) {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { mutate: deletePost } = useDeletePost(postId);
+  const { mutate: deletePost } = useDeletePost();
 
   const hostDropdownList = [
     { label: '수정', onClick: () => router.push(`/community/posts/edit/${postId}`) },
@@ -27,7 +27,7 @@ export default function ButtonIconMoreVertForPost({
   ];
 
   const handleDeletePost = () => {
-    deletePost(undefined, {
+    deletePost(postId, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['posts'] });
         router.push('/community');

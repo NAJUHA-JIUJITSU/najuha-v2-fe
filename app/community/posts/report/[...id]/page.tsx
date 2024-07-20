@@ -21,12 +21,12 @@ export default function ReportPost({ params }: { params: { id: string[] } }) {
     mutate: reportPost,
     isPending: isPendingPost,
     isError: isErrorPost,
-  } = useCreatePostReport(reportId);
+  } = useCreatePostReport();
   const {
     mutate: reportComment,
     isPending: isPendingComment,
     isError: isErrorComment,
-  } = useCreateCommentReport(reportId);
+  } = useCreateCommentReport();
 
   const [reportType, setReportType] = useState<CreatePostReportReqBody>({ type: 'SPAM_CLICKBAIT' });
 
@@ -44,25 +44,31 @@ export default function ReportPost({ params }: { params: { id: string[] } }) {
 
   const handleReport = useCallback(() => {
     if (report === 'post') {
-      reportPost(reportType, {
-        onSuccess: () => {
-          alert('게시글 신고가 접수되었습니다.');
-          router.back();
+      reportPost(
+        { postId: reportId, body: reportType },
+        {
+          onSuccess: () => {
+            alert('게시글 신고가 접수되었습니다.');
+            router.back();
+          },
+          onError: () => {
+            console.error('게시글 신고 접수에 실패했습니다.');
+          },
         },
-        onError: () => {
-          console.error('게시글 신고 접수에 실패했습니다.');
-        },
-      });
+      );
     } else if (report === 'comment') {
-      reportComment(reportType, {
-        onSuccess: () => {
-          alert('댓글 신고가 접수되었습니다.');
-          router.back();
+      reportComment(
+        { commentId: reportId, body: reportType },
+        {
+          onSuccess: () => {
+            alert('댓글 신고가 접수되었습니다.');
+            router.back();
+          },
+          onError: () => {
+            console.error('댓글 신고 접수에 실패했습니다.');
+          },
         },
-        onError: () => {
-          console.error('댓글 신고 접수에 실패했습니다.');
-        },
-      });
+      );
     }
   }, [report, reportType, reportPost, reportComment, router]);
 

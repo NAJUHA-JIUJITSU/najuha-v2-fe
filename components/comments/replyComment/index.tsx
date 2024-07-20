@@ -1,5 +1,5 @@
 import styles from '../index.module.scss';
-import CommentReaction from '@/components/reactionButton/commentReaction';
+import CommentReaction from '@/components/common/reactionButton/commentReaction';
 import IconReply from '@/public/svgs/reply.svg';
 import { getPastTime } from '@/utils/dateUtils/dateCheck';
 import { ICommentDetail } from 'najuha-v2-api/lib/modules/posts/domain/interface/comment.interface';

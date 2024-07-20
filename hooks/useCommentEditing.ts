@@ -13,8 +13,8 @@ export function useCommentEditing(postId: TId) {
   const [isFocused, setIsFocused] = useState(false);
   const [replyingCommentId, setReplyingCommentId] = useState<TId | null>(null);
   const [isCommentingOnPost, setIsCommentingOnPost] = useState(false);
-  const { mutate: createComment } = useCreateComment(postId);
-  const { mutate: createCommentReply } = useCreateCommentReply(postId);
+  const { mutate: createComment } = useCreateComment();
+  const { mutate: createCommentReply } = useCreateCommentReply();
   const { mutate: updateComment } = useUpdateComment();
   const queryClient = useQueryClient();
 
@@ -46,16 +46,22 @@ export function useCommentEditing(postId: TId) {
 
   const handleSubmitNewComment = (body: ICommentSnapshot['body']) => {
     console.log('새로운 댓글 작성:', postId, body);
-    createComment(body, {
-      onSuccess: (res) => {
-        queryClient.invalidateQueries({
-          queryKey: ['comments', res.comment.postId],
-        });
+    createComment(
+      {
+        postId,
+        body,
       },
-      onError: () => {
-        console.error('댓글 등록에 실패했습니다.');
+      {
+        onSuccess: (res) => {
+          queryClient.invalidateQueries({
+            queryKey: ['comments', res.comment.postId],
+          });
+        },
+        onError: () => {
+          console.error('댓글 등록에 실패했습니다.');
+        },
       },
-    });
+    );
   };
 
   const handleSubmitEditComment = (commentId: TId, body: ICommentSnapshot['body']) => {
@@ -81,7 +87,7 @@ export function useCommentEditing(postId: TId) {
   const handleSubmitReplyComment = (parentId: TId, body: ICommentSnapshot['body']) => {
     console.log('답글 작성:', postId, parentId, body);
     createCommentReply(
-      { commentId: parentId, body },
+      { postId, commentId: parentId, body },
       {
         onSuccess: (res) => {
           console.log('답글 등록 성공:', res);

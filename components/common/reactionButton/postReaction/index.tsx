@@ -24,8 +24,8 @@ export default function PostReaction({
   isCommentingOnPost,
   handleCommentButtonClick,
 }: ReactionProps) {
-  const { mutate: createPostLike } = useCreatePostLike(postId);
-  const { mutate: deletePostLike } = useDeletePostLike(postId);
+  const { mutate: createPostLike } = useCreatePostLike();
+  const { mutate: deletePostLike } = useDeletePostLike();
   const [userLikedState, setUserLikedState] = useState<boolean>(userLiked);
   const [likeCntState, setLikeCntState] = useState<number>(likeCnt);
   const queryClient = useQueryClient();
@@ -53,12 +53,12 @@ export default function PostReaction({
 
   const handleLike = () => {
     if (userLikedState) {
-      deletePostLike(undefined, {
+      deletePostLike(postId, {
         onSuccess: handleDeleteLikeSuccess,
         onError: handleError,
       });
     } else {
-      createPostLike(undefined, {
+      createPostLike(postId, {
         onSuccess: handleLikeSuccess,
         onError: handleError,
       });

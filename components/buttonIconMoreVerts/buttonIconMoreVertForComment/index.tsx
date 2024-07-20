@@ -24,7 +24,7 @@ export default function ButtonIconMoreVertForComment({
 }: ButtonIconMoreVertForCommentProps) {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { mutate: deleteComment } = useDeleteComment(commentId);
+  const { mutate: deleteComment } = useDeleteComment();
 
   const hostDropdownList = [
     {
@@ -41,7 +41,7 @@ export default function ButtonIconMoreVertForComment({
   ];
 
   const handleDeletePost = () => {
-    deleteComment(undefined, {
+    deleteComment(commentId, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ['comments', postId] });
         queryClient.invalidateQueries({ queryKey: ['replies', parentId] });

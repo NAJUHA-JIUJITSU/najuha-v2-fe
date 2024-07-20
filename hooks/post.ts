@@ -3,36 +3,38 @@ import { useMutation, useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { postApi } from '@/api/nestia/postApi';
 import { imageApi } from '@/api/nestia/imageApi';
 import {
-  CreateCommentReportReqBody,
-  CreatePostReportReqBody,
   CreatePostReqBody,
   FindPostsReqQuery,
   UpdatePostReqBody,
 } from 'najuha-v2-api/lib/modules/posts/presentation/posts.controller.dto';
 import { TId } from 'najuha-v2-api/lib/common/common-types';
-import { ICommentSnapshot } from 'najuha-v2-api/lib/modules/posts/domain/interface/comment-snapshot.interface';
+
+// 공통 이미지 업로드 함수
+const uploadImages = async (files: File[], path: IImageCreateDto['path']) => {
+  return await Promise.all(
+    files.map(async (file) => {
+      const format = file.type as IImageCreateDto['format'];
+      if (!['image/jpeg', 'image/png', 'image/webp'].includes(format)) {
+        throw new Error(`Unsupported file format: ${format}`);
+      }
+      const imageData = {
+        format,
+        path,
+      };
+      const response = await imageApi.postCreateImage({ data: imageData, file });
+      return response.image.id;
+    }),
+  );
+};
 
 // 이미지와 함께 게시글을 작성하는 훅
 const useCreatePostWithImages = (path: IImageCreateDto['path']) => {
   return useMutation({
     mutationFn: async ({ data, files }: { data: CreatePostReqBody; files: File[] }) => {
-      const uploadResults = await Promise.all(
-        files.map(async (file) => {
-          const format = file.type as IImageCreateDto['format'];
-          if (!['image/jpeg', 'image/png', 'image/webp'].includes(format)) {
-            throw new Error(`Unsupported file format: ${format}`);
-          }
-          const imageData = {
-            format,
-            path,
-          };
-          const response = await imageApi.postCreateImage({ data: imageData, file });
-          return response.image.id;
-        }),
-      );
+      const imageIds = await uploadImages(files, path);
       const postData = {
         ...data,
-        imageIds: uploadResults,
+        imageIds,
       };
       return postApi.postCreatePost(postData);
     },
@@ -43,24 +45,10 @@ const useCreatePostWithImages = (path: IImageCreateDto['path']) => {
 const useUpdatePostWithImages = (path: IImageCreateDto['path'], postId: string) => {
   return useMutation({
     mutationFn: async ({ data, files }: { data: UpdatePostReqBody; files: File[] }) => {
-      console.log('files', files);
-      const uploadResults = await Promise.all(
-        files.map(async (file) => {
-          const format = file.type as IImageCreateDto['format'];
-          if (!['image/jpeg', 'image/png', 'image/webp'].includes(format)) {
-            throw new Error(`Unsupported file format: ${format}`);
-          }
-          const imageData = {
-            format,
-            path,
-          };
-          const response = await imageApi.postCreateImage({ data: imageData, file });
-          return response.image.id;
-        }),
-      );
+      const imageIds = await uploadImages(files, path);
       const postData = {
         ...data,
-        imageIds: uploadResults,
+        imageIds,
       };
       return postApi.postUpdatePost(postId, postData);
     },
@@ -68,9 +56,9 @@ const useUpdatePostWithImages = (path: IImageCreateDto['path'], postId: string) 
 };
 
 // 게시글을 삭제하는 훅
-const useDeletePost = (postId: string) => {
+const useDeletePost = () => {
   return useMutation({
-    mutationFn: () => postApi.postDeletePost(postId),
+    mutationFn: postApi.postDeletePost,
   });
 };
 
@@ -97,30 +85,30 @@ const useGetPost = (postId: string) => {
 };
 
 // 게시글 좋아요를 추가하는 훅
-const useCreatePostLike = (postId: string) => {
+const useCreatePostLike = () => {
   return useMutation({
-    mutationFn: () => postApi.postCreatePostLike(postId),
+    mutationFn: postApi.postCreatePostLike,
   });
 };
 
 // 게시글 좋아요를 삭제하는 훅
-const useDeletePostLike = (postId: string) => {
+const useDeletePostLike = () => {
   return useMutation({
-    mutationFn: () => postApi.postDeletePostLike(postId),
+    mutationFn: postApi.postDeletePostLike,
   });
 };
 
 // 게시글 조회수를 증가시키는 훅
-const useIncrementPostViewCount = (postId: string) => {
+const useIncrementPostViewCount = () => {
   return useMutation({
-    mutationFn: () => postApi.postIncrementPostViewCount(postId),
+    mutationFn: postApi.postIncrementPostViewCount,
   });
 };
 
 // 게시글을 신고하는 훅
-const useCreatePostReport = (postId: string) => {
+const useCreatePostReport = () => {
   return useMutation({
-    mutationFn: (body: CreatePostReportReqBody) => postApi.postCreatePostReport(postId, body),
+    mutationFn: postApi.postCreatePostReport,
   });
 };
 
@@ -151,54 +139,51 @@ const useFindReplies = (postId: TId, commentId: TId) => {
 };
 
 // 게시글의 댓글을 삭제하는 훅
-const useDeleteComment = (commentId: TId) => {
+const useDeleteComment = () => {
   return useMutation({
-    mutationFn: () => postApi.postDeleteComment(commentId),
+    mutationFn: postApi.postDeleteComment,
   });
 };
 
 // 게시글의 댓글에 좋아요를 추가하는 훅
-const useCreateCommentLike = (commentId: TId) => {
+const useCreateCommentLike = () => {
   return useMutation({
-    mutationFn: () => postApi.postCreateCommentLike(commentId),
+    mutationFn: postApi.postCreateCommentLike,
   });
 };
 
 // 게시글의 댓글에 좋아요를 삭제하는 훅
-const useDeleteCommentLike = (commentId: TId) => {
+const useDeleteCommentLike = () => {
   return useMutation({
-    mutationFn: () => postApi.postDeleteCommentLike(commentId),
+    mutationFn: postApi.postDeleteCommentLike,
   });
 };
 
 // 게시글의 댓글을 신고하는 훅
-const useCreateCommentReport = (commentId: TId) => {
+const useCreateCommentReport = () => {
   return useMutation({
-    mutationFn: (body: CreateCommentReportReqBody) =>
-      postApi.postCreateCommentReport(commentId, body),
+    mutationFn: postApi.postCreateCommentReport,
   });
 };
 
 // 게시글에 댓글을 작성하는 훅
-const useCreateComment = (postId: TId) => {
+const useCreateComment = () => {
   return useMutation({
-    mutationFn: (body: ICommentSnapshot['body']) => postApi.postCreateComment({ postId, body }),
+    mutationFn: postApi.postCreateComment,
   });
 };
 
 // 게시글의 댓글에 답글을 작성하는 훅
-const useCreateCommentReply = (postId: TId) => {
+const useCreateCommentReply = () => {
   return useMutation({
-    mutationFn: ({ commentId, body }: { commentId: TId; body: ICommentSnapshot['body'] }) =>
-      postApi.postCreateCommentReply(postId, commentId, body),
+    mutationFn: postApi.postCreateCommentReply,
   });
 };
 
 // 게시글의 댓글 및 답글을 수정하는 훅
 const useUpdateComment = () => {
   return useMutation({
-    mutationFn: ({ commentId, body }: { commentId: TId; body: ICommentSnapshot['body'] }) =>
-      postApi.postUpdateComment(commentId, body),
+    mutationFn: postApi.postUpdateComment,
   });
 };
 

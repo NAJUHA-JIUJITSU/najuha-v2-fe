@@ -15,13 +15,13 @@ interface postProps {
 
 export default function Post({ postId, handleCommentButtonClick, isCommentingOnPost }: postProps) {
   const { data, isLoading, isError } = useGetPost(postId);
-  const { mutate: incrementViewCount } = useIncrementPostViewCount(postId);
+  const { mutate: incrementViewCount } = useIncrementPostViewCount();
   const queryClient = useQueryClient();
 
   // 게시글 조회수 증가
   useEffect(() => {
     if (postId) {
-      incrementViewCount(void 0, {
+      incrementViewCount(postId, {
         onSuccess: () => {
           console.log('게시글 조회수 증가 성공');
           queryClient.invalidateQueries({
