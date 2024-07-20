@@ -1,19 +1,63 @@
-'use client';
-import styles from './index.module.scss';
 import Header from '@/components/common/header/Header';
 import { ButtonIconNavigateBefore } from '@/components/common/icon/iconOnClick';
 import { IconLinkSearch, IconLinkAlarm } from '@/components/common/icon/iconLink';
 import CompetitionIdContent from '@/components/competitionId/competitionIdContent';
-import { useGetCompetitionId } from '@/hooks/competition';
 import BaseLayout from '@/layout/baseLayout';
+import api from 'najuha-v2-api/lib/api';
+import { Metadata } from 'next';
+import { createConnectionWithoutToken } from '@/api/nestia/common';
 
-export default function CompetitionId({ params }: { params: { competitionId: string } }) {
-  // 대회 조회
-  const {
-    data: competition,
-    isLoading,
-    isError,
-  } = useGetCompetitionId({ competitionId: params.competitionId });
+export async function generateMetadata({
+  params,
+}: {
+  params: { competitionId: string };
+}): Promise<Metadata> {
+  const res = await api.functional.user.competitions.getCompetition(
+    {
+      host: 'http://localhost:3001',
+    },
+    params.competitionId,
+  );
+
+  const competition = res.result.competition;
+
+  const metadataBase = new URL('http://localhost:3000'); // production 환경에서는 실제 도메인으로 변경
+
+  // 이미지 URL 구성
+  const imageBaseURL = 'http://localhost:9000/najuha-v2-bucket';
+  const latestPosterImage =
+    competition.competitionPosterImages[competition.competitionPosterImages.length - 1];
+  const imageUrl = latestPosterImage
+    ? `${imageBaseURL}/${latestPosterImage.image.path}/${latestPosterImage.image.id}`
+    : '';
+
+  return {
+    title: competition.title,
+    description: competition.description,
+    metadataBase,
+    openGraph: {
+      title: competition.title,
+      description: competition.description,
+      images: [
+        {
+          url: imageUrl,
+          width: 800,
+          height: 600,
+          alt: competition.title,
+        },
+      ],
+      type: 'article',
+    },
+  };
+}
+
+export default async function CompetitionId({ params }: { params: { competitionId: string } }) {
+  const res = await api.functional.user.competitions.getCompetition(
+    createConnectionWithoutToken(),
+    params.competitionId,
+  );
+
+  const competition = res.result.competition;
 
   return (
     <BaseLayout>
@@ -23,13 +67,7 @@ export default function CompetitionId({ params }: { params: { competitionId: str
         rightIcon1={<IconLinkAlarm />}
         rightIcon2={<IconLinkSearch />}
       />
-      {isLoading ? (
-        <h3 className={styles.tmp}>Loading...</h3>
-      ) : isError || !competition ? (
-        <h3 className={styles.tmp}>대회정보가 없습니다.</h3>
-      ) : (
-        <CompetitionIdContent competition={competition}></CompetitionIdContent>
-      )}
+      <CompetitionIdContent competition={competition}></CompetitionIdContent>
     </BaseLayout>
   );
 }

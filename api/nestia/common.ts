@@ -11,6 +11,13 @@ export const createConnection = (): IConnection => {
   };
 };
 
+export const createConnectionWithoutToken = (): IConnection => {
+  return {
+    host: 'http://localhost:3001',
+    headers: {},
+  };
+};
+
 export const handleRefreshToken = async () => {
   try {
     const newAccessToken = await postRefreshToken();
@@ -62,7 +69,7 @@ export const withAuth = async <T>(apiCall: (connection: IConnection) => Promise<
 export const withoutAuth = async <T>(
   apiCall: (connection: IConnection) => Promise<T>,
 ): Promise<T> => {
-  const connection: IConnection = createConnection();
+  const connection: IConnection = createConnectionWithoutToken();
   try {
     return await apiCall(connection);
   } catch (error) {
